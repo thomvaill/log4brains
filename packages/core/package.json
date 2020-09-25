@@ -1,0 +1,20 @@
+{
+  "name": "@log4brains/core",
+  "version": "0.0.0",
+  "description": "Log4brains core API",
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.d.ts",
+  "repository": "git@github.com:log4brains/log4brains.git",
+  "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "dev": "microbundle --format es,cjs watch",
+    "build": "microbundle --format es,cjs",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "test": "jest"
+  }
+}

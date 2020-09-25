@@ -1,0 +1,25 @@
+{
+  "name": "@log4brains/web",
+  "version": "0.0.0",
+  "description": "Log4brains web UI to edit and publish your Architecture Decision Records (ADR)",
+  "main": "./dist/index.ts",
+  "repository": "git@github.com:log4brains/log4brains.git",
+  "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typescript": "tsc"
+  },
+  "dependencies": {
+    "@log4brains/core": "0.0.0",
+    "next": "9.5.3",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.49"
+  }
+}
