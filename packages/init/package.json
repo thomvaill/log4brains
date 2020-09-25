@@ -1,0 +1,67 @@
+{
+  "name": "init-log4brains",
+  "version": "1.0.0-beta.0",
+  "description": "Install and configure the Log4brains architecture knowledge base in your project",
+  "keywords": [
+    "log4brains",
+    "architecture decision records",
+    "architecture",
+    "knowledge base",
+    "documentation",
+    "docs-as-code",
+    "markdown",
+    "static site generator",
+    "documentation generator",
+    "tooling"
+  ],
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/init"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "assets",
+    "dist"
+  ],
+  "bin": "./dist/log4brains-init",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc --build tsconfig.build.json && copyfiles -u 1 src/log4brains-init dist",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "lint": "eslint . --max-warnings=0",
+    "prepublishOnly": "yarn build",
+    "link": "npm link @log4brains/cli-common && npm link && rm -f ./package-lock.json"
+  },
+  "dependencies": {
+    "@log4brains/cli-common": "^1.0.0-beta.0",
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "edit-json-file": "^1.5.0",
+    "esm": "^3.2.25",
+    "execa": "^4.1.0",
+    "has-yarn": "^2.1.0",
+    "mkdirp": "^1.0.4",
+    "moment-timezone": "^0.5.32",
+    "terminal-link": "^2.1.1",
+    "yaml": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/edit-json-file": "^1.4.0",
+    "copyfiles": "^2.4.0",
+    "esm": "^3.2.25",
+    "ts-node": "^9.0.0"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "name": "@log4brains/web",
+  "version": "1.0.0-beta.0",
+  "description": "Log4brains architecture knowledge base web UI and static site generator",
+  "keywords": [
+    "log4brains"
+  ],
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/web"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "log4brains-web": "./dist/bin/log4brains-web"
+  },
+  "scripts": {
+    "dev": "yarn build && nodemon",
+    "dev-old": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
+    "next": "cross-env LOG4BRAINS_CWD=../.. next",
+    "build:ts": "tsc --noEmit false",
+    "build": "yarn clean && yarn build:ts && copyfiles --all next.config.js .babelrc 'public/**/*' dist && copyfiles --all --up 1 src/bin/log4brains-web 'src/lib/core-api/noop/**/*' src/components/Markdown/hljs.css dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
+    "clean": "rimraf ./dist",
+    "serve": "serve .log4brains/out",
+    "typescript": "tsc",
+    "test": "jest",
+    "lint": "eslint . --max-warnings=0",
+    "storybook": "start-storybook -p 6006",
+    "prepublishOnly": "yarn build",
+    "link": "yarn link"
+  },
+  "dependencies": {
+    "@log4brains/cli-common": "^1.0.0-beta.0",
+    "@log4brains/core": "^1.0.0-beta.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@next/bundle-analyzer": "^10.0.1",
+    "babel-plugin-import": "^1.13.1",
+    "bufferutil": "^4.0.2",
+    "chalk": "^4.1.0",
+    "clsx": "^1.1.1",
+    "commander": "^6.1.0",
+    "copy-text-to-clipboard": "^2.2.0",
+    "esm": "^3.2.25",
+    "highlight.js": "^10.4.0",
+    "lunr": "^2.3.9",
+    "markdown-to-jsx": "^7.0.1",
+    "mkdirp": "^1.0.4",
+    "moment": "^2.29.1",
+    "next": "10.0.1",
+    "open": "^7.3.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-icons": "^3.11.0",
+    "slugify": "^1.4.5",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1",
+    "utf-8-validate": "^5.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/react": "^6.1.9",
+    "@types/lunr": "^2.3.3",
+    "@types/mkdirp": "^1.0.1",
+    "@types/react": "^16.9.49",
+    "@types/react-test-renderer": "^16.9.3",
+    "@types/signale": "^1.4.1",
+    "@types/socket.io": "^2.1.11",
+    "@types/socket.io-client": "^1.4.34",
+    "@types/url-parse": "^1.4.3",
+    "babel-jest": "^26.6.0",
+    "babel-loader": "^8.1.0",
+    "copyfiles": "^2.4.0",
+    "react-is": "^16.13.1",
+    "react-test-renderer": "^17.0.1",
+    "ts-node": "^9.0.0"
+  }
+}

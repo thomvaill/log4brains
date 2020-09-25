@@ -1,0 +1,82 @@
+{
+  "name": "root",
+  "private": true,
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "workspaces": [
+    "packages/**"
+  ],
+  "scripts": {
+    "dev": "lerna run --parallel dev",
+    "build": "lerna run build",
+    "clean": "lerna run clean",
+    "typescript": "lerna run typescript",
+    "test": "lerna run --stream test",
+    "test:changed": "lerna run --stream --since HEAD test",
+    "lint": "lerna run --stream lint",
+    "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --list-different",
+    "format:fix": "yarn format --write",
+    "typedoc": "lerna run typedoc",
+    "adr": "./packages/cli/dist/log4brains adr",
+    "log4brains-preview": "./packages/web/dist/bin/log4brains-web preview",
+    "log4brains-preview:dev": "cross-env NODE_ENV=development yarn log4brains-preview",
+    "log4brains-build": "./packages/web/dist/bin/log4brains-web build",
+    "serve": "serve .log4brains/out",
+    "links": "lerna run --stream link",
+    "e2e": "node e2e-tests/e2e-launcher.js",
+    "lerna": "lerna"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.2",
+    "@types/rimraf": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.2.0",
+    "@typescript-eslint/parser": "^4.2.0",
+    "chai": "^4.2.0",
+    "chalk": "^4.1.0",
+    "cross-env": "^7.0.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-typescript": "^10.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^24.0.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "execa": "^4.1.0",
+    "husky": "^4.3.5",
+    "jest": "^26.4.2",
+    "jest-mock-extended": "^1.0.10",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.3",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.1.2",
+    "prettier-eslint-cli": "^5.0.0",
+    "rimraf": "^3.0.2",
+    "serve": "^11.3.2",
+    "ts-jest": "^26.4.0",
+    "typedoc": "0.17.0-3",
+    "typescript": "^4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --max-warnings=0",
+    "*.{js,jsx,ts,tsx,json,md}": "prettier-eslint --list-different"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}

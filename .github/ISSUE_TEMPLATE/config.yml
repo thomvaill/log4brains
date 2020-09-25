@@ -1,0 +1,7 @@
+contact_links:
+  - name: Give your feedback 📣
+    url: https://github.com/thomvaill/log4brains/discussions/new?category=Feedback
+    about: Give your feedback (positive or negative!) on the BETA version
+  - name: Ask a question
+    url: https://github.com/thomvaill/log4brains/discussions
+    about: Ask questions and discuss with other community members

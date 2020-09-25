@@ -1,0 +1,13 @@
+---
+project:
+  name: log4brains-tests-rw
+  tz: Europe/Paris
+  adrFolder: ./docs/adr
+
+  packages:
+    - name: package1
+      path: ./packages/package1
+      adrFolder: ./packages/package1/adr
+    - name: package2
+      path: ./packages/package2
+      adrFolder: ./packages/package2/adr
