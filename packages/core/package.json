@@ -15,6 +15,15 @@
     "build": "microbundle --format es,cjs",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "markdown-it": "^11.0.1"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.22",
+    "@types/markdown-it": "^10.0.2"
   }
 }
