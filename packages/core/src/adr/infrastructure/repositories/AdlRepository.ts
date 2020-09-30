@@ -1,9 +1,20 @@
+import { RESOLVER } from "awilix";
 import { promises as fsP } from "fs";
 import path from "path";
 import { Adl } from "../../domain/Adl";
 
+type ConstructorOpts = {
+  adrDir: string;
+};
+
 export class AdlRepository {
-  constructor(private readonly path: string) {}
+  static [RESOLVER] = {}; // tells Awilix to automatically register this class
+
+  private readonly path: string;
+
+  constructor({ adrDir }: ConstructorOpts) {
+    this.path = adrDir;
+  }
 
   async load(): Promise<Adl> {
     const adl = new Adl();

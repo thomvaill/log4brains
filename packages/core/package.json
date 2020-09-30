@@ -19,6 +19,7 @@
     "test-watch": "jest --watch"
   },
   "dependencies": {
+    "awilix": "^4.2.6",
     "cheerio": "^1.0.0-rc.3",
     "markdown-it": "^11.0.1"
   },

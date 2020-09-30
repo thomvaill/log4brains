@@ -1,3 +1,1 @@
-export function helloWorld(): string {
-  return "test";
-}
+export * from "./adr/infrastructure/api";
