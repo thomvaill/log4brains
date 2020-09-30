@@ -12,10 +12,10 @@
     "clean": "lerna run clean",
     "typescript": "lerna run typescript",
     "test": "lerna run --stream test",
-    "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0 --fix",
-    "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"$PWD/out/**\" --list-different",
-    "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"$PWD/out/**\"  /out --write"
+    "lint": "lerna run --stream lint",
+    "lint-fix": "lerna run --stream lint-fix",
+    "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --list-different",
+    "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --write"
   },
   "workspaces": [
     "packages/**"

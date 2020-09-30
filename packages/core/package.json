@@ -16,7 +16,9 @@
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "lint": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0",
+    "lint-fix": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0 --fix"
   },
   "dependencies": {
     "awilix": "^4.2.6",
