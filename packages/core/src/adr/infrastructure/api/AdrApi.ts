@@ -3,10 +3,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-/* eslint-disable class-methods-use-this */
 import { FindAllAdrs } from "adr/application/use-cases/FindAllAdrs";
-import { container } from "infrastructure/di";
+import { AwilixContainer } from "awilix";
+import { buildContainer, ICradle } from "infrastructure/di";
+import { Log4brainsConfig } from "types";
 import { Adr } from "./types";
 
 export interface AdrApi {
@@ -14,8 +14,14 @@ export interface AdrApi {
 }
 
 class AdrApiImpl implements AdrApi {
+  container: AwilixContainer<ICradle>;
+
+  constructor(config: Log4brainsConfig) {
+    this.container = buildContainer(config);
+  }
+
   async findAll(): Promise<Adr[]> {
-    const useCase = container.resolve<FindAllAdrs>("findAllAdrs");
+    const useCase = this.container.resolve<FindAllAdrs>("findAllAdrs");
     const adrs = await useCase.execute();
 
     return adrs.map(
@@ -31,6 +37,6 @@ class AdrApiImpl implements AdrApi {
   }
 }
 
-export function buildAdrApi(): AdrApi {
-  return new AdrApiImpl();
+export function buildAdrApi(config: Log4brainsConfig): AdrApi {
+  return new AdrApiImpl(config);
 }
