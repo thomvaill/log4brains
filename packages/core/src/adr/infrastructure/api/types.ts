@@ -1,4 +1,4 @@
-export type Adr = {
+export type AdrDto = {
   slug: string;
   number: number;
   // creationDate: Date;

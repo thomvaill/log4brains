@@ -2,10 +2,10 @@ import { FindAllAdrs } from "adr/application/use-cases/FindAllAdrs";
 import { AwilixContainer } from "awilix";
 import { buildContainer, ICradle } from "infrastructure/di";
 import { Log4brainsConfig } from "types";
-import { Adr } from "./types";
+import { AdrDto } from "./types";
 
 export interface AdrApi {
-  findAll(): Promise<Adr[]>;
+  findAll(): Promise<AdrDto[]>;
 }
 
 class AdrApiImpl implements AdrApi {
@@ -15,12 +15,12 @@ class AdrApiImpl implements AdrApi {
     this.container = buildContainer(config);
   }
 
-  async findAll(): Promise<Adr[]> {
+  async findAll(): Promise<AdrDto[]> {
     const useCase = this.container.resolve<FindAllAdrs>("findAllAdrs");
     const adrs = await useCase.execute();
 
     return adrs.map(
-      (adr): Adr => {
+      (adr): AdrDto => {
         return {
           slug: adr.slug,
           number: adr.number,
