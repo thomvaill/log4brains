@@ -3,21 +3,46 @@ import {
   asValue,
   InjectionMode,
   asClass,
-  AwilixContainer
+  AwilixContainer,
+  asFunction
 } from "awilix";
-import { AdlRepository as AdlRepositoryImpl } from "adr/infrastructure/repositories";
-import { FindAllAdrs } from "adr/application/use-cases";
-import { AdlRepository } from "adr/application/repositories";
-import { Log4brainsConfig } from "../../types";
+import {
+  FolderRepository as FolderRepositoryImpl,
+  ProjectRepository
+} from "adr/infrastructure/repositories";
+import { FolderRepository, FindAllAdrsUseCase } from "adr/application";
+import { Log4brainsConfig } from "infrastructure/config";
+import { Project } from "adr/domain";
+
+type BuildProjectProps = {
+  projectRepository: ProjectRepository;
+  config: Log4brainsConfig;
+  workdir: string;
+};
+function buildProject({
+  projectRepository,
+  config,
+  workdir
+}: BuildProjectProps) {
+  const projectRes = projectRepository.load(config, workdir);
+  if (projectRes.isErr()) {
+    throw projectRes.error;
+  }
+  return projectRes.value;
+}
 
 export interface ICradle {
-  adrDir: string;
-  adlRepository: AdlRepository;
-  findAllAdrs: FindAllAdrs;
+  workdir: string;
+  config: Log4brainsConfig;
+  projectRepository: ProjectRepository;
+  folderRepository: FolderRepository;
+  adrProject: Project;
+  findAllAdrsUseCase: FindAllAdrsUseCase;
 }
 
 export function buildContainer(
-  config: Log4brainsConfig
+  config: Log4brainsConfig,
+  workdir = "?"
 ): AwilixContainer<ICradle> {
   const container: AwilixContainer<ICradle> = createContainer<ICradle>({
     injectionMode: InjectionMode.PROXY
@@ -25,17 +50,20 @@ export function buildContainer(
 
   // Configuration
   container.register({
-    adrDir: asValue(config.adrDir || "./docs/adr")
+    workdir: asValue(workdir),
+    config: asValue(config),
+    adrProject: asFunction(buildProject).singleton()
   });
 
   // Repositories
   container.register({
-    adlRepository: asClass(AdlRepositoryImpl).singleton()
+    projectRepository: asClass(ProjectRepository).singleton(),
+    folderRepository: asClass(FolderRepositoryImpl).singleton()
   });
 
   // Use cases
   container.register({
-    findAllAdrs: asClass(FindAllAdrs).singleton()
+    findAllAdrsUseCase: asClass(FindAllAdrsUseCase).singleton()
   });
 
   return container;

@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import { AdrDto } from "@log4brains/core";
 import Head from "next/head";
 import Link from "next/link";
-import { adrApi } from "../lib";
+import { l4bInstance } from "src/lib";
 import styles from "../styles/Home.module.css";
 
 type Props = {
@@ -20,7 +20,12 @@ export default function Home({ adrs }: Props) {
       <ul>
         {adrs.map((adr) => (
           <li key={adr.slug}>
-            <Link href={`/adr/${adr.slug}`}>{adr.title}</Link>
+            <Link href={`/adr/${adr.slug}`}>
+              <a>
+                {adr.folder ? `${adr.folder}/` : ""}
+                {adr.number} - {adr.title || "Untitled"}
+              </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -29,7 +34,11 @@ export default function Home({ adrs }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const adrs = await adrApi.findAll();
+  const adrsRes = await l4bInstance.findAllAdrs();
+  if (adrsRes.isErr()) {
+    throw adrsRes.error;
+  }
+  const adrs = adrsRes.value;
   return {
     props: {
       adrs

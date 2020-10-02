@@ -22,11 +22,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
+    "Diagnosticable",
     "Transpiled",
     "adrs",
     "awilix",
     "diagnotics",
     "esnext",
-    "microbundle"
+    "microbundle",
+    "neverthrow",
+    "workdir"
   ]
 }

@@ -1,1 +1,1 @@
-export * from "./adrApi";
+export * from "./core-api";

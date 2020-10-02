@@ -1,6 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import { AdrDto } from "@log4brains/core";
-import { adrApi } from "../../lib";
+import { l4bInstance } from "src/lib";
 
 type Props = {
   adr: AdrDto;
@@ -11,7 +11,11 @@ export default function Adr({ adr }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const adrs = await adrApi.findAll();
+  const adrsRes = await l4bInstance.findAllAdrs();
+  if (adrsRes.isErr()) {
+    throw adrsRes.error;
+  }
+  const adrs = adrsRes.value;
   const paths = adrs.map((adr) => {
     return { params: { slug: adr.slug } };
   });
@@ -26,7 +30,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { props: {} };
   }
 
-  const adrs = await adrApi.findAll();
+  const adrsRes = await l4bInstance.findAllAdrs();
+  if (adrsRes.isErr()) {
+    throw adrsRes.error;
+  }
+  const adrs = adrsRes.value;
+
   const currentAdr = adrs
     .filter((adr) => {
       return adr.slug === params.slug;

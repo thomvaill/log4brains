@@ -7,5 +7,8 @@ module.exports = {
   parserOptions: {
     project: path.join(__dirname, "tsconfig.dev.json")
   },
-  extends: ["../../.eslintrc"]
+  extends: ["../../.eslintrc"],
+  rules: {
+    "react/static-property-placement": "off" // we don't use React here
+  }
 };

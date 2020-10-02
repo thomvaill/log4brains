@@ -23,10 +23,16 @@
   "dependencies": {
     "awilix": "^4.2.6",
     "cheerio": "^1.0.0-rc.3",
-    "markdown-it": "^11.0.1"
+    "joi": "^17.2.1",
+    "lodash": "^4.17.20",
+    "markdown-it": "^11.0.1",
+    "neverthrow": "^2.7.1",
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.22",
+    "@types/joi": "^14.3.4",
+    "@types/lodash": "^4.14.161",
     "@types/markdown-it": "^10.0.2"
   }
 }

@@ -1,13 +1,19 @@
-import { extractAdrNumberFromFilename } from "./extractAdrNumberFromFilename";
+import { MarkdownAdrFilename } from "./MarkdownAdrFilename";
 
-describe("extractAdrNumberFromFilename()", () => {
+describe("MarkdownAdrFilename", () => {
   describe("allowed formats", () => {
     const checkFormatWorks = (format: string) => {
       const checkNumber = (number: number) => {
         const filename = format
           .replace("%NNNN", number.toString().padStart(4, "0"))
           .replace("%N", number.toString());
-        expect(extractAdrNumberFromFilename(filename)).toEqual(number);
+        const adrNumberRes = MarkdownAdrFilename.create(
+          filename
+        ).andThen((adrFilename) => adrFilename.extractAdrNumber());
+        expect(adrNumberRes.isOk()).toBeTruthy();
+        if (adrNumberRes.isOk()) {
+          expect(adrNumberRes.value.value).toEqual(number);
+        }
       };
 
       checkNumber(0);
@@ -61,21 +67,27 @@ describe("extractAdrNumberFromFilename()", () => {
 
     formatsThatShouldWork.forEach((format) => {
       // eslint-disable-next-line jest/expect-expect
-      it(`works with this format: ${format}`, () => {
+      it(`can extract the ADR number from this format: ${format}`, () => {
         checkFormatWorks(format);
       });
     });
   });
 
   describe("unknown formats", () => {
-    it("returns undefined for unknown formats", () => {
+    it("returns an error for unknown formats", () => {
       expect(
-        extractAdrNumberFromFilename("0001-lorem-ipsum.txt")
-      ).toBeUndefined();
-      expect(extractAdrNumberFromFilename("lorem-ipsum.md")).toBeUndefined();
+        MarkdownAdrFilename.create("0001-lorem-ipsum.txt").isErr()
+      ).toBeTruthy();
       expect(
-        extractAdrNumberFromFilename("lorem-ipsum-0001.md")
-      ).toBeUndefined();
+        MarkdownAdrFilename.create("lorem-ipsum.md")
+          .andThen((adrFilename) => adrFilename.extractAdrNumber())
+          .isErr()
+      ).toBeTruthy();
+      expect(
+        MarkdownAdrFilename.create("lorem-ipsum-0001.md")
+          .andThen((adrFilename) => adrFilename.extractAdrNumber())
+          .isErr()
+      ).toBeTruthy();
     });
   });
 });

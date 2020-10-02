@@ -26,6 +26,7 @@ module.exports = {
   rules: {
     // [Project-specific] no default exports (@adr-0005)
     "import/prefer-default-export": "off",
-    "import/no-default-export": "error"
+    "import/no-default-export": "error",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 };

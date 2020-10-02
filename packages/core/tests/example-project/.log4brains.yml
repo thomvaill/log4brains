@@ -1,0 +1,9 @@
+---
+project:
+  name: log4brains-e2e-tests
+
+adrFolders:
+  - path: ./simple
+
+  - name: warnings
+    path: ./with-warnings
