@@ -102,3 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Log4brains
+.log4brains

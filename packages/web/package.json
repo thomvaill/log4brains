@@ -2,26 +2,35 @@
   "name": "@log4brains/web",
   "version": "0.0.0",
   "description": "Log4brains web UI to edit and publish your Architecture Decision Records (ADR)",
-  "main": "./dist/index.ts",
   "repository": "git@github.com:log4brains/log4brains.git",
   "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
+  "bin": {
+    "log4brains": "./dist/bin/log4brains"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "next:dev": "next dev",
+    "build": "tsc --noEmit false && copyfiles -u 1 src/bin/log4brains dist",
+    "clean": "rimraf ./dist",
     "typescript": "tsc",
     "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0 --fix"
   },
   "dependencies": {
     "@log4brains/core": "0.0.0",
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "esm": "^3.2.25",
     "next": "9.5.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
-    "@types/react": "^16.9.49"
+    "@types/react": "^16.9.49",
+    "@types/signale": "^1.4.1",
+    "@types/url-parse": "^1.4.3",
+    "copyfiles": "^2.4.0"
   }
 }

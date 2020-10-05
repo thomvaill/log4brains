@@ -37,7 +37,6 @@
     "eslint-plugin-sonarjs": "^0.5.0",
     "jest": "^26.4.2",
     "lerna": "^3.22.1",
-    "microbundle": "^0.12.3",
     "prettier": "^2.1.2",
     "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^3.0.2",

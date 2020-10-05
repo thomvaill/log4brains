@@ -2,8 +2,7 @@ import { GetStaticProps } from "next";
 import { AdrDto } from "@log4brains/core";
 import Head from "next/head";
 import Link from "next/link";
-import { l4bInstance } from "src/lib";
-import styles from "../styles/Home.module.css";
+import { l4bInstance } from "../lib";
 
 type Props = {
   adrs: AdrDto[];
@@ -11,7 +10,7 @@ type Props = {
 
 export default function Home({ adrs }: Props) {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />

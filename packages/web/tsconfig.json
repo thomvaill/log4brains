@@ -6,7 +6,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "isolatedModules": true,
-    "baseUrl": "." // for absolute imports (https://nextjs.org/blog/next-9-4#absolute-imports-and-aliases)
+    "rootDir": "src",
+    "outDir": "dist"
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "**/*.test.ts"]

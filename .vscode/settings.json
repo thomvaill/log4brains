@@ -30,6 +30,8 @@
     "esnext",
     "microbundle",
     "neverthrow",
+    "outdir",
+    "signale",
     "workdir"
   ]
 }

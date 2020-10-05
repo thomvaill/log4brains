@@ -33,6 +33,7 @@
     "@types/cheerio": "^0.22.22",
     "@types/joi": "^14.3.4",
     "@types/lodash": "^4.14.161",
-    "@types/markdown-it": "^10.0.2"
+    "@types/markdown-it": "^10.0.2",
+    "microbundle": "^0.12.4"
   }
 }
