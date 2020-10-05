@@ -10,7 +10,7 @@
     "log4brains": "./dist/bin/log4brains"
   },
   "scripts": {
-    "next:dev": "next dev",
+    "next:dev": "cross-env LOG4BRAINS_CWD=../.. next dev",
     "build": "tsc --noEmit false && copyfiles -u 1 src/bin/log4brains dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc",
