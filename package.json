@@ -15,7 +15,8 @@
     "lint": "lerna run --stream lint",
     "lint-fix": "lerna run --stream lint-fix",
     "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --list-different",
-    "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --write"
+    "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --write",
+    "typedoc": "lerna run typedoc"
   },
   "workspaces": [
     "packages/**"
@@ -42,6 +43,7 @@
     "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
+    "typedoc": "0.17.0-3",
     "typescript": "^4.0.3"
   }
 }
