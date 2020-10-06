@@ -1,47 +1,35 @@
-import { Result, ok, err } from "neverthrow";
 import { uniq } from "lodash";
 import { Adr } from "./Adr";
-import { AggregateRoot } from "./AggregateRoot";
-import {
-  AcceptableDomainError,
-  DomainErrorSeverity,
-  DomainError
-} from "./errors";
 import { AdrNumber, FolderReference } from "./value-objects";
-import { DiagnosticableParent } from "./DiagnosticableParent";
+import {
+  DiagnosticableParent,
+  DiagnosticList,
+  DiagnosticSeverity,
+  DiagnosticType,
+  LocatableDiagnostic
+} from "./diagnostics";
 
-export class Folder extends AggregateRoot implements DiagnosticableParent {
-  readonly errors: AcceptableDomainError[] = [];
+export class Folder implements DiagnosticableParent {
+  readonly diagnostics: DiagnosticList = new DiagnosticList();
 
-  private constructor(
-    readonly ref: FolderReference,
-    readonly adrs: Adr[] = [],
-    preloadErrors: AcceptableDomainError[] = []
-  ) {
-    super();
-
-    this.errors = preloadErrors;
-
+  constructor(readonly ref: FolderReference, readonly adrs: Adr[] = []) {
     // Duplicates
     this.getDuplicatedAdrNumbers().forEach((number) => {
-      const error = new AcceptableDomainError(
-        DomainErrorSeverity.WARNING,
-        `Multiple ADRs have the same number: #${number.value}`
+      this.addDiagnostic(
+        DiagnosticType.DUPLICATED_ADR_NUMBER,
+        DiagnosticSeverity.WARNING,
+        `#${number.paddedStringValue}`
       );
-      if (!ref.root && ref.name) {
-        error.setLocation(ref.name);
-      }
-      this.errors.push(error);
     });
   }
 
   getDuplicatedAdrNumbers(): AdrNumber[] {
     const numbers = this.adrs
-      .filter((adr) => adr.number !== undefined)
-      .map((adr) => (adr.number ? adr.number.value : NaN));
+      .map((adr) => (adr.number ? adr.number.value : undefined))
+      .filter((nbOrUndef) => nbOrUndef !== undefined) as number[];
     return uniq(
       numbers.filter((number, index) => numbers.indexOf(number) !== index)
-    ).map((number) => AdrNumber.createUnsafe(number));
+    ).map((number) => new AdrNumber(number));
   }
 
   getAdrsByNumber(number: AdrNumber): Adr[] {
@@ -50,34 +38,25 @@ export class Folder extends AggregateRoot implements DiagnosticableParent {
     });
   }
 
-  hasErrors(): boolean {
-    return this.errors.length > 0;
+  getSelfAndChildrenDiagnostics(): DiagnosticList {
+    return new DiagnosticList(
+      ...this.diagnostics,
+      ...this.adrs.map((adr) => adr.diagnostics).flat()
+    );
   }
 
-  getSelfAndChildrenErrors(): AcceptableDomainError[] {
-    return [...this.errors, ...this.adrs.map((adr) => adr.errors).flat()];
-  }
-
-  hasErrorsInSelfOrChildren(): boolean {
-    return this.getSelfAndChildrenErrors().length > 0;
-  }
-
-  static create(
-    ref: FolderReference,
-    adrs: Adr[],
-    preloadErrors: AcceptableDomainError[] = []
-  ): Folder {
-    return new Folder(ref, adrs, preloadErrors);
-  }
-
-  static createStrict(
-    ref: FolderReference,
-    adrs: Adr[]
-  ): Result<Folder, DomainError> {
-    const folder = Folder.create(ref, adrs);
-    if (folder.hasErrors()) {
-      return err(folder.errors[0]);
-    }
-    return ok(folder);
+  private addDiagnostic(
+    type: DiagnosticType,
+    severity: DiagnosticSeverity,
+    details?: string
+  ) {
+    this.diagnostics.push(
+      new LocatableDiagnostic(
+        this.ref.root ? "Root ADR folder" : `Folder ${this.ref.name}`,
+        type,
+        severity,
+        details
+      )
+    );
   }
 }

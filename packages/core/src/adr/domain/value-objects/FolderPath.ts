@@ -1,19 +1,15 @@
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from "@src/domain";
 
 type Props = {
   value: string;
 };
 
 export class FolderPath extends ValueObject<Props> {
-  private constructor(props: Props) {
-    super(props);
+  constructor(value: string) {
+    super({ value });
   }
 
   get value(): string {
     return this.props.value;
-  }
-
-  static create(path: string): FolderPath {
-    return new FolderPath({ value: path });
   }
 }

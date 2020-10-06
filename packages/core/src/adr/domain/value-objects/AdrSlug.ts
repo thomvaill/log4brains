@@ -1,4 +1,4 @@
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from "@src/domain";
 import { MarkdownAdrFilename } from "./MarkdownAdrFilename";
 
 type Props = {
@@ -6,8 +6,8 @@ type Props = {
 };
 
 export class AdrSlug extends ValueObject<Props> {
-  private constructor(props: Props) {
-    super(props);
+  constructor(value: string) {
+    super({ value });
   }
 
   get value(): string {
@@ -15,6 +15,6 @@ export class AdrSlug extends ValueObject<Props> {
   }
 
   static createFromFilename(filename: MarkdownAdrFilename): AdrSlug {
-    return new AdrSlug({ value: filename.value.replace(/\.md$/i, "") });
+    return new AdrSlug(filename.value.replace(/\.md$/i, ""));
   }
 }

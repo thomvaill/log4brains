@@ -1,1 +1,2 @@
-export { FindAllAdrsUseCase } from "./FindAllAdrsUseCase";
+export * from "./GetAllAdrsUseCase";
+export * from "./GetAllDiagnosticsUseCase";

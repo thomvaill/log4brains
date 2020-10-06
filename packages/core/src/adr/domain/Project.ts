@@ -1,17 +1,13 @@
-import { Result, ok, err } from "neverthrow";
-import { AggregateRoot } from "./AggregateRoot";
-import { DomainError } from "./errors";
-import { FolderPath, FolderReference, ValueObjectMap } from "./value-objects";
+import { Log4brainsError, ValueObjectMap } from "@src/domain";
+import { FolderPath, FolderReference } from "./value-objects";
 
-export class Project extends AggregateRoot {
+export class Project {
   readonly folderPaths: ValueObjectMap<
     FolderReference,
     FolderPath
   > = new ValueObjectMap<FolderReference, FolderPath>();
 
-  private constructor(readonly name: string) {
-    super();
-  }
+  constructor(readonly name: string) {}
 
   get folders(): FolderReference[] {
     return Array.from(this.folderPaths.keys());
@@ -25,21 +21,13 @@ export class Project extends AggregateRoot {
     return this.folderPaths.get(ref);
   }
 
-  registerFolder(
-    ref: FolderReference,
-    path: FolderPath
-  ): Result<void, DomainError> {
+  registerFolder(ref: FolderReference, path: FolderPath): void {
     if (ref.root && this.isRootFolderRegistered()) {
-      return err(new DomainError("Only one root folder is allowed"));
+      throw new Log4brainsError("Only one root folder is allowed");
     }
     if (this.folderPaths.has(ref)) {
-      return err(new DomainError("This path name already exists", ref.name));
+      throw new Log4brainsError("This folder name already exists", ref.name);
     }
     this.folderPaths.set(ref, path);
-    return ok(undefined);
-  }
-
-  static create(name: string): Project {
-    return new Project(name);
   }
 }

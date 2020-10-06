@@ -1,8 +1,3 @@
-import { getInstance } from "@log4brains/core";
+import { Log4brains } from "@log4brains/core";
 
-const instanceRes = getInstance(process.env.LOG4BRAINS_CWD || "."); // TODO: handle errors
-if (instanceRes.isErr()) {
-  throw instanceRes.error;
-}
-
-export const l4bInstance = instanceRes.value;
+export const l4bInstance = Log4brains.create(process.env.LOG4BRAINS_CWD || ".");

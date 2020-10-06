@@ -9,10 +9,14 @@ import {
 import {
   FolderRepository as FolderRepositoryImpl,
   ProjectRepository
-} from "adr/infrastructure/repositories";
-import { FolderRepository, FindAllAdrsUseCase } from "adr/application";
-import { Log4brainsConfig } from "infrastructure/config";
-import { Project } from "adr/domain";
+} from "@src/adr/infrastructure/repositories";
+import {
+  FolderRepository,
+  GetAllAdrsUseCase,
+  GetAllDiagnosticsUseCase
+} from "@src/adr/application";
+import { Log4brainsConfig } from "@src/infrastructure/config";
+import { Project } from "@src/adr/domain";
 
 type BuildProjectProps = {
   projectRepository: ProjectRepository;
@@ -24,11 +28,7 @@ function buildProject({
   config,
   workdir
 }: BuildProjectProps) {
-  const projectRes = projectRepository.load(config, workdir);
-  if (projectRes.isErr()) {
-    throw projectRes.error;
-  }
-  return projectRes.value;
+  return projectRepository.load(config, workdir);
 }
 
 export interface ICradle {
@@ -37,7 +37,8 @@ export interface ICradle {
   projectRepository: ProjectRepository;
   folderRepository: FolderRepository;
   adrProject: Project;
-  findAllAdrsUseCase: FindAllAdrsUseCase;
+  getAllAdrsUseCase: GetAllAdrsUseCase;
+  getAllDiagnosticsUseCase: GetAllDiagnosticsUseCase;
 }
 
 export function buildContainer(
@@ -63,7 +64,8 @@ export function buildContainer(
 
   // Use cases
   container.register({
-    findAllAdrsUseCase: asClass(FindAllAdrsUseCase).singleton()
+    getAllAdrsUseCase: asClass(GetAllAdrsUseCase).singleton(),
+    getAllDiagnosticsUseCase: asClass(GetAllDiagnosticsUseCase).singleton()
   });
 
   return container;

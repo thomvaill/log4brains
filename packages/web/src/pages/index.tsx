@@ -33,11 +33,7 @@ export default function Home({ adrs }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const adrsRes = await l4bInstance.findAllAdrs();
-  if (adrsRes.isErr()) {
-    throw adrsRes.error;
-  }
-  const adrs = adrsRes.value;
+  const adrs = await l4bInstance.getAdrs();
   return {
     props: {
       adrs

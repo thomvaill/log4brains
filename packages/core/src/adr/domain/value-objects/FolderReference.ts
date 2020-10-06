@@ -1,4 +1,4 @@
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from "@src/domain";
 
 type Props = {
   root: boolean;

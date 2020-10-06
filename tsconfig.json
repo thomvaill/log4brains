@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ES2019", // Transpiled later by Next.js or microbundle with Babel
     "module": "esnext", // Microbundle/rollup will also generate a commonJS-compatible package
-    "lib": ["ES2019"],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,

@@ -1,6 +1,5 @@
 import { Result, ok, err } from "neverthrow";
-import { DomainError } from "../errors";
-import { ValueObject } from "./ValueObject";
+import { Log4brainsError, ValueObject } from "@src/domain";
 import { AdrNumber } from "./AdrNumber";
 
 type Props = {
@@ -8,42 +7,34 @@ type Props = {
 };
 
 export class MarkdownAdrFilename extends ValueObject<Props> {
-  private constructor(props: Props) {
-    super(props);
+  constructor(value: string) {
+    super({ value });
+
+    if (!value.toLowerCase().endsWith(".md")) {
+      throw new Log4brainsError("Only .md ADR files are supported", value);
+    }
   }
 
   get value(): string {
     return this.props.value;
   }
 
-  extractAdrNumber(): Result<AdrNumber, DomainError> {
+  extractAdrNumber(): Result<AdrNumber, Log4brainsError> {
     const regex = /^(?:adr(?:-|_)?)?(\d+).*\.md$/i;
     const res = regex.exec(this.value);
     if (!res) {
       return err(
-        new DomainError(
-          "There is not valid ADR number in this filename",
-          this.value
-        )
+        new Log4brainsError("No ADR number found in its filename", this.value)
       );
     }
-    return AdrNumber.create(parseInt(res[1], 10));
-  }
 
-  static create(filename: string): Result<MarkdownAdrFilename, DomainError> {
-    if (!filename.toLowerCase().endsWith(".md")) {
-      return err(
-        new DomainError(`ADR files must have an .md extension`, filename)
-      );
+    try {
+      return ok(new AdrNumber(parseInt(res[1], 10)));
+    } catch (e) {
+      if (e instanceof Log4brainsError) {
+        return err(e);
+      }
+      throw e;
     }
-    return ok(new MarkdownAdrFilename({ value: filename }));
-  }
-
-  static createUnsafe(filename: string): MarkdownAdrFilename {
-    const result = MarkdownAdrFilename.create(filename);
-    if (result.isErr()) {
-      throw result.error;
-    }
-    return result.value;
   }
 }

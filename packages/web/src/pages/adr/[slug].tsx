@@ -11,11 +11,7 @@ export default function Adr({ adr }: Props) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const adrsRes = await l4bInstance.findAllAdrs();
-  if (adrsRes.isErr()) {
-    throw adrsRes.error;
-  }
-  const adrs = adrsRes.value as AdrDto[];
+  const adrs = await l4bInstance.getAdrs();
   const paths = adrs.map((adr) => {
     return { params: { slug: adr.slug } };
   });
@@ -30,12 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { props: {} };
   }
 
-  const adrsRes = await l4bInstance.findAllAdrs();
-  if (adrsRes.isErr()) {
-    throw adrsRes.error;
-  }
-  const adrs = adrsRes.value as AdrDto[];
-
+  const adrs = await l4bInstance.getAdrs(); // TODO: create getAdrBySlug()
   const currentAdr = adrs
     .filter((adr) => {
       return adr.slug === params.slug;

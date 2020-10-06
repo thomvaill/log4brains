@@ -1,9 +1,5 @@
-import { Result } from "neverthrow";
-import { Folder, FolderReference, FolderPath } from "adr/domain";
+import { Folder, FolderReference, FolderPath } from "@src/adr/domain";
 
 export interface FolderRepository {
-  load(
-    folderRef: FolderReference,
-    folderPath: FolderPath
-  ): Promise<Result<Folder, Error>>;
+  load(folderRef: FolderReference, folderPath: FolderPath): Promise<Folder>;
 }

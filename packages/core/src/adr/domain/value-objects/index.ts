@@ -4,4 +4,3 @@ export * from "./FolderPath";
 export * from "./AdrNumber";
 export * from "./MarkdownAdrFilename";
 export * from "./MarkdownBody";
-export * from "./ValueObjectMap";

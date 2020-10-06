@@ -1,5 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
-/* eslint-disable no-underscore-dangle */
 import { FolderPath, FolderReference } from "../../domain/value-objects";
 import { FolderRepository } from "./FolderRepository";
 
@@ -8,29 +6,23 @@ describe("FolderRepository", () => {
     const repo = new FolderRepository();
 
     it("loads the `simple` folder example without any warning", async () => {
-      const folderRes = await repo.load(
+      const folder = await repo.load(
         FolderReference.create("simple"),
-        FolderPath.create("tests/example-project/simple")
+        new FolderPath("tests/example-project/simple")
       );
-      expect(folderRes.isOk()).toBeTruthy();
-      if (folderRes.isOk()) {
-        const folder = folderRes.value;
-        expect(folder.adrs).toHaveLength(2);
-        expect(folder.hasErrorsInSelfOrChildren()).toBeFalsy();
-      }
+
+      expect(folder.adrs).toHaveLength(2);
+      expect(folder.getSelfAndChildrenDiagnostics()).toHaveLength(0);
     });
 
     it("loads the `with-warnings` folder example with warnings", async () => {
-      const folderRes = await repo.load(
+      const folder = await repo.load(
         FolderReference.create("with-warnings"),
-        FolderPath.create("tests/example-project/with-warnings")
+        new FolderPath("tests/example-project/with-warnings")
       );
-      expect(folderRes.isOk()).toBeTruthy();
-      if (folderRes.isOk()) {
-        const folder = folderRes.value;
-        expect(folder.adrs).toHaveLength(3);
-        expect(folder.hasErrorsInSelfOrChildren()).toBeTruthy();
-      }
+
+      expect(folder.adrs).toHaveLength(4);
+      expect(folder.getSelfAndChildrenDiagnostics()).not.toHaveLength(0);
     });
   });
 });

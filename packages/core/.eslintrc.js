@@ -5,7 +5,7 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    project: path.join(__dirname, "tsconfig.dev.json")
+    project: path.join(__dirname, "tsconfig.json")
   },
   extends: ["../../.eslintrc"],
   rules: {

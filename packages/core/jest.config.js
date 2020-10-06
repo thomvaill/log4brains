@@ -1,9 +1,13 @@
 const base = require("../../jest.config.base");
+const { pathsToModuleNameMapper } = require("ts-jest/utils");
+const { compilerOptions } = require("./tsconfig");
 const packageJson = require("./package");
 
 module.exports = {
   ...base,
   name: packageJson.name,
   displayName: packageJson.name,
-  moduleDirectories: ["node_modules", "src"] // for absolute imports
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: "<rootDir>/"
+  })
 };

@@ -1,44 +1,46 @@
 import path from "path";
 import fs from "fs";
 import yaml from "yaml";
-import { Result, ok, err } from "neverthrow";
-import {
-  ConfigError,
-  ConfigFileNotFoundError,
-  ConfigParseError
-} from "./errors";
+import { Log4brainsError } from "@src/domain";
 import { Log4brainsConfig, schema } from "./schema";
 
 const configFilename = ".log4brains.yml";
 
-export function buildConfig(
-  object: Record<string, unknown>
-): Result<Log4brainsConfig, ConfigParseError> {
+export function buildConfig(object: Record<string, unknown>): Log4brainsConfig {
   const joiResult = schema.validate(object, {
     abortEarly: false,
     convert: false
   });
   if (joiResult.error) {
-    return err(new ConfigParseError(joiResult.error));
+    throw new Log4brainsError(
+      `There is an error in the ${configFilename} config file`,
+      joiResult.error?.message
+    );
   }
-  return ok(joiResult.value);
+  return joiResult.value as Log4brainsConfig;
 }
 
-export function buildConfigFromWorkdir(
-  workdir = "."
-): Result<Log4brainsConfig, ConfigError> {
+export function buildConfigFromWorkdir(workdir = "."): Log4brainsConfig {
   const workdirAbsolute = path.resolve(workdir);
   const configPath = path.join(workdirAbsolute, configFilename);
   if (!fs.existsSync(configPath)) {
-    return err(new ConfigFileNotFoundError(configFilename, workdirAbsolute));
+    throw new Log4brainsError(
+      `Impossible to find the ${configFilename} config file`,
+      `workdir: ${workdirAbsolute}`
+    );
   }
 
   try {
     const content = fs.readFileSync(configPath, "utf8");
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const object = yaml.parse(content);
+    const object = yaml.parse(content) as Record<string, unknown>;
     return buildConfig(object);
   } catch (e) {
-    return err(new ConfigError(`Impossible to read ${configFilename}: ${e}`));
+    if (e instanceof Log4brainsError) {
+      throw e;
+    }
+    throw new Log4brainsError(
+      `Impossible to read the ${configFilename} config file`,
+      e
+    );
   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import {
   AdrNumber,
   FolderReference,
@@ -16,12 +15,12 @@ type BuildAdrRes = {
 
 function buildAdr(filenameStr: string, markdownStr: string): BuildAdrRes {
   const folder = FolderReference.createRoot();
-  const filename = MarkdownAdrFilename.createUnsafe(filenameStr);
-  const markdownBody = MarkdownBody.create(markdownStr);
+  const filename = new MarkdownAdrFilename(filenameStr);
+  const markdownBody = new MarkdownBody(markdownStr);
   return {
     filename,
     markdownBody,
-    adr: Adr.create(folder, filename, markdownBody)._unsafeUnwrap()
+    adr: new Adr(folder, filename, markdownBody)
   };
 }
 
@@ -31,18 +30,15 @@ describe("Folder", () => {
     const { adr: adr1bis } = buildAdr("0001-My-ADR-bis.md", "# Test bis");
     const { adr: adr2 } = buildAdr("0002-My-ADR-2.md", "# Test");
 
-    const folder = Folder.create(FolderReference.createRoot(), [
+    const folder = new Folder(FolderReference.createRoot(), [
       adr1,
       adr1bis,
       adr2
     ]);
 
     expect(folder.adrs).toHaveLength(3);
-    expect(folder.getAdrsByNumber(AdrNumber.createUnsafe(1))).toEqual([
-      adr1,
-      adr1bis
-    ]);
-    expect(folder.getAdrsByNumber(AdrNumber.createUnsafe(2))).toEqual([adr2]);
+    expect(folder.getAdrsByNumber(new AdrNumber(1))).toEqual([adr1, adr1bis]);
+    expect(folder.getAdrsByNumber(new AdrNumber(2))).toEqual([adr2]);
   });
 
   it("handles ADR number duplicates with a warning", () => {
@@ -50,12 +46,12 @@ describe("Folder", () => {
     const { adr: adr1bis } = buildAdr("0001-My-ADR-bis.md", "# Test bis");
     const { adr: adr2 } = buildAdr("0002-My-ADR-2.md", "# Test");
 
-    const folder = Folder.create(FolderReference.createRoot(), [
+    const folder = new Folder(FolderReference.createRoot(), [
       adr1,
       adr1bis,
       adr2
     ]);
 
-    expect(folder.hasErrors()).toBeTruthy();
+    expect(folder.diagnostics).toHaveLength(1);
   });
 });

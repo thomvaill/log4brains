@@ -5,8 +5,11 @@
     "declarationMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "baseUrl": "src" // for absolute imports
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "exclude": ["node_modules"]
 }

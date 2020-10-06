@@ -1,6 +1,6 @@
 import cheerio from "cheerio";
 import MarkdownIt from "markdown-it";
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from "@src/domain";
 
 const markdownItInstance = new MarkdownIt();
 
@@ -11,9 +11,9 @@ type Props = {
 export class MarkdownBody extends ValueObject<Props> {
   private $: cheerio.Root; // read-only!
 
-  private constructor(props: Props) {
-    super(props);
-    this.$ = cheerio.load(markdownItInstance.render(props.value));
+  constructor(value: string) {
+    super({ value });
+    this.$ = cheerio.load(markdownItInstance.render(value));
   }
 
   getFirstH1Title(): string | undefined {
@@ -22,9 +22,5 @@ export class MarkdownBody extends ValueObject<Props> {
 
   getRawMarkdown(): string {
     return this.props.value;
-  }
-
-  static create(raw: string): MarkdownBody {
-    return new MarkdownBody({ value: raw });
   }
 }

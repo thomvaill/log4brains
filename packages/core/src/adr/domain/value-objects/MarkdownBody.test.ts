@@ -3,7 +3,7 @@ import { MarkdownBody } from "./MarkdownBody";
 describe("MarkdownBody", () => {
   describe("getFirstH1Title()", () => {
     it("returns the first H1 title", () => {
-      const body = MarkdownBody.create(
+      const body = new MarkdownBody(
         `# First title
 Lorem ipsum
 ## Subtitle
@@ -14,7 +14,7 @@ Lorem ipsum
     });
 
     it("returns undefined when there is no first title", () => {
-      const body = MarkdownBody.create(
+      const body = new MarkdownBody(
         `Lorem ipsum
 ## Subtitle
 ## Subtitle`

@@ -4,12 +4,11 @@ describe("MarkdownAdrFilename", () => {
   describe("allowed formats", () => {
     const checkFormatWorks = (format: string) => {
       const checkNumber = (number: number) => {
-        const filename = format
+        const filenameStr = format
           .replace("%NNNN", number.toString().padStart(4, "0"))
           .replace("%N", number.toString());
-        const adrNumberRes = MarkdownAdrFilename.create(
-          filename
-        ).andThen((adrFilename) => adrFilename.extractAdrNumber());
+        const filename = new MarkdownAdrFilename(filenameStr);
+        const adrNumberRes = filename.extractAdrNumber();
         expect(adrNumberRes.isOk()).toBeTruthy();
         if (adrNumberRes.isOk()) {
           expect(adrNumberRes.value.value).toEqual(number);
@@ -74,18 +73,20 @@ describe("MarkdownAdrFilename", () => {
   });
 
   describe("unknown formats", () => {
-    it("returns an error for unknown formats", () => {
+    it("throws when not .md", () => {
+      expect(() => {
+        // eslint-disable-next-line no-new
+        new MarkdownAdrFilename("0001-lorem-ipsum.txt");
+      }).toThrow();
+    });
+
+    it("returns an error when impossible to extract number", () => {
       expect(
-        MarkdownAdrFilename.create("0001-lorem-ipsum.txt").isErr()
+        new MarkdownAdrFilename("lorem-ipsum.md").extractAdrNumber().isErr()
       ).toBeTruthy();
       expect(
-        MarkdownAdrFilename.create("lorem-ipsum.md")
-          .andThen((adrFilename) => adrFilename.extractAdrNumber())
-          .isErr()
-      ).toBeTruthy();
-      expect(
-        MarkdownAdrFilename.create("lorem-ipsum-0001.md")
-          .andThen((adrFilename) => adrFilename.extractAdrNumber())
+        new MarkdownAdrFilename("lorem-ipsum-0001.md")
+          .extractAdrNumber()
           .isErr()
       ).toBeTruthy();
     });

@@ -1,29 +1,28 @@
 /* eslint-disable class-methods-use-this */
 import path from "path";
 import fs from "fs";
-import { Result, ok, err } from "neverthrow";
-import { Project } from "adr/domain/Project";
-import { FolderPath, FolderReference } from "adr/domain/value-objects";
-import { Log4brainsConfig } from "infrastructure/config";
+import { Project, FolderPath, FolderReference } from "@src/adr/domain";
+import { Log4brainsConfig } from "@src/infrastructure/config";
+import { Log4brainsError } from "@src/domain";
 
-// This repository is only accessible from the infrastructure
+/**
+ * This repository is only accessible from the infrastructure
+ */
 export class ProjectRepository {
-  load(config: Log4brainsConfig, workdir = "."): Result<Project, Error> {
-    const project = Project.create(config.project.name);
-    // eslint-disable-next-line no-restricted-syntax
-    for (const folderConfig of config.adrFolders) {
+  load(config: Log4brainsConfig, workdir = "."): Project {
+    const project = new Project(config.project.name);
+
+    config.adrFolders.forEach((folderConfig) => {
       const ref = folderConfig.name
         ? FolderReference.create(folderConfig.name)
         : FolderReference.createRoot();
       const folderPath = path.join(workdir, folderConfig.path);
       if (!fs.existsSync(folderPath)) {
-        return err(new Error(`This directory does not exist: ${folderPath}`));
+        throw new Log4brainsError("This ADR folder does not exist", folderPath);
       }
-      const res = project.registerFolder(ref, FolderPath.create(folderPath));
-      if (res.isErr()) {
-        return err(res.error);
-      }
-    }
-    return ok(project);
+      project.registerFolder(ref, new FolderPath(folderPath));
+    });
+
+    return project;
   }
 }

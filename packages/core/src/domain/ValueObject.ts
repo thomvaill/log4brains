@@ -14,10 +14,7 @@ export interface ValueObjectProps {
 export abstract class ValueObject<T extends ValueObjectProps> {
   public readonly props: T;
 
-  // Because we decided to enforce "expressive error handling" (@adr-0004),
-  // we can't throw Errors inside constructors.
-  // So, we enforce the usage of the Static Factory Method Pattern
-  protected constructor(props: T) {
+  constructor(props: T) {
     this.props = Object.freeze(props);
   }
 
