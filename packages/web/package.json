@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "cross-env LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
+    "dev:next": "cross-env LOG4BRAINS_CWD=../.. next dev",
     "build": "tsc --noEmit false && copyfiles next.config.js dist && copyfiles -u 1 src/bin/log4brains dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc",
@@ -23,6 +24,7 @@
     "commander": "^6.1.0",
     "esm": "^3.2.25",
     "next": "9.5.3",
+    "next-transpile-modules": "^4.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "signale": "^1.4.0"
