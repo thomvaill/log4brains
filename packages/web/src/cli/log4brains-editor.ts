@@ -1,5 +1,6 @@
 import next from "next";
 import { createServer } from "http";
+import SocketIO from "socket.io";
 import chalk from "chalk";
 import { getNextJsDir, logger } from "../lib";
 
@@ -15,6 +16,11 @@ export async function startEditorCommand(port: number): Promise<void> {
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const srv = createServer(app.getRequestHandler());
+
+  const io = SocketIO(srv);
+  io.on("connection", (socket) => {
+    console.log("a user connected");
+  });
 
   try {
     await new Promise((resolve, reject) => {

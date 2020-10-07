@@ -1,6 +1,9 @@
 import { GetStaticProps, GetStaticPaths } from "next";
+import io from "socket.io-client";
 import { AdrDto } from "@log4brains/core";
 import { l4bInstance } from "../../lib";
+
+const socket = io();
 
 type Props = {
   adr: AdrDto;
