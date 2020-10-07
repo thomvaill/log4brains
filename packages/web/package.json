@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@log4brains/core": "0.0.0",
+    "@material-ui/core": "^4.11.0",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "esm": "^3.2.25",

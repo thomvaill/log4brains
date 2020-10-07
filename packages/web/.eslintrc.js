@@ -31,7 +31,9 @@ module.exports = {
         namedComponents: "function-declaration",
         unnamedComponents: "arrow-function"
       }
-    ]
+    ],
+    // [Project-specific] we allow props spreading because we have too many HOC
+    "react/jsx-props-no-spreading": "off"
   },
   overrides: [
     // Specific rules for TSX only
