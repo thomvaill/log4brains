@@ -1,8 +1,7 @@
 import next from "next";
 import { createServer } from "http";
-import path from "path";
 import chalk from "chalk";
-import { logger } from "../lib";
+import { getNextJsDir, logger } from "../lib";
 
 export async function startEditorCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
@@ -10,7 +9,7 @@ export async function startEditorCommand(port: number): Promise<void> {
 
   const app = next({
     dev: true,
-    dir: path.join(__dirname, "..")
+    dir: getNextJsDir()
   });
   await app.prepare();
 
