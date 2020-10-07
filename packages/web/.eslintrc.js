@@ -51,6 +51,14 @@ module.exports = {
         // [Project-specific] avoid React.FC (@adr-0006)
         "import/no-default-export": "off"
       }
+    },
+    // Specific rules for Storybook stories only
+    {
+      files: ["src/**/*.stories.tsx"],
+      rules: {
+        // because storybook is a devDependency
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ],
   globals: {
