@@ -1,5 +1,6 @@
 import { Diagnostic, DiagnosticType } from "@src/adr/domain/diagnostics";
 import { DiagnosticDto } from "../types";
+import { deepFreeze } from "./utils";
 
 function getDiagnosticCode(type: DiagnosticType): string {
   const keys = Object.keys(DiagnosticType) as (keyof typeof DiagnosticType)[];
@@ -7,11 +8,11 @@ function getDiagnosticCode(type: DiagnosticType): string {
 }
 
 export function diagnosticToDto(diagnostic: Diagnostic): DiagnosticDto {
-  return {
+  return deepFreeze<DiagnosticDto>({
     code: getDiagnosticCode(diagnostic.type),
     severity: diagnostic.severity,
     message: `${diagnostic.type}${
       diagnostic.details ? ` (${diagnostic.details})` : ""
     }`
-  };
+  });
 }

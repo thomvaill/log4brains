@@ -1,8 +1,9 @@
 import { Adr } from "@src/adr/domain";
 import { AdrDto } from "../types";
+import { deepFreeze } from "./utils";
 
 export function adrToDto(adr: Adr): AdrDto {
-  return {
+  return deepFreeze<AdrDto>({
     folder: adr.folder.root ? null : adr.folder.name || null,
     number: adr.number ? adr.number.value : null,
     slug: adr.slug.value,
@@ -10,5 +11,5 @@ export function adrToDto(adr: Adr): AdrDto {
     body: {
       markdown: adr.body.getRawMarkdown()
     }
-  };
+  });
 }
