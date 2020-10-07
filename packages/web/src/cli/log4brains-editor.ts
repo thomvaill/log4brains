@@ -2,12 +2,16 @@ import next from "next";
 import { createServer } from "http";
 import path from "path";
 import chalk from "chalk";
-import { logger } from "../lib/logger";
+import { logger } from "../lib";
 
 export async function startEditorCommand(port: number): Promise<void> {
+  process.env.NEXT_TELEMETRY_DISABLED = "1";
   logger.info("🧠 Log4brains is starting...");
 
-  const app = next({ dev: true, dir: path.join(__dirname, "..") });
+  const app = next({
+    dev: true,
+    dir: path.join(__dirname, "..")
+  });
   await app.prepare();
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises

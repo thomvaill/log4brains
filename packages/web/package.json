@@ -11,7 +11,7 @@
   },
   "scripts": {
     "next:dev": "cross-env LOG4BRAINS_CWD=../.. next dev",
-    "build": "tsc --noEmit false && copyfiles -u 1 src/bin/log4brains dist",
+    "build": "tsc --noEmit false && copyfiles next.config.js dist && copyfiles -u 1 src/bin/log4brains dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc",
     "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",
