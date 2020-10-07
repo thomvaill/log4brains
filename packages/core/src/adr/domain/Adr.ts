@@ -62,7 +62,7 @@ export class Adr implements Diagnosticable {
     this.diagnostics.push(
       new LocatableDiagnostic(
         `ADR ${this.filename.value}${
-          this.folder.root ? "" : ` (folder ${this.folder.name})`
+          this.folder.root ? "" : ` ("${this.folder.name}" folder)`
         }`,
         type,
         severity,

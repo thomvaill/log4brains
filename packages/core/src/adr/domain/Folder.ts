@@ -52,7 +52,7 @@ export class Folder implements DiagnosticableParent {
   ) {
     this.diagnostics.push(
       new LocatableDiagnostic(
-        this.ref.root ? "Root ADR folder" : `Folder ${this.ref.name}`,
+        this.ref.root ? "root ADR folder" : `"${this.ref.name}" folder`,
         type,
         severity,
         details
