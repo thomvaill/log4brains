@@ -57,7 +57,8 @@ module.exports = {
       files: ["src/**/*.stories.tsx"],
       rules: {
         // because storybook is a devDependency
-        "import/no-extraneous-dependencies": "off"
+        "import/no-extraneous-dependencies": "off",
+        "import/no-default-export": "off"
       }
     }
   ],
