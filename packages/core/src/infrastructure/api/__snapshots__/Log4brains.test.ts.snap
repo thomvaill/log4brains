@@ -322,17 +322,17 @@ exports[`E2E getDiagnostics() works on the project example 1`] = `
 Array [
   Object {
     "code": "DUPLICATED_ADR_NUMBER",
-    "message": "This ADR number is duplicated ( - in Folder warnings)",
+    "message": "This ADR number is duplicated ( - in \\"warnings\\" folder)",
     "severity": "warning",
   },
   Object {
     "code": "ADR_TITLE_MISSING",
-    "message": "This ADR has no H1 title (in ADR 0001-no-title.md (folder warnings))",
+    "message": "This ADR has no H1 title (in ADR 0001-no-title.md (\\"warnings\\" folder))",
     "severity": "warning",
   },
   Object {
     "code": "ADR_NUMBER_MISSING",
-    "message": "This ADR does not have a valid number ( - in ADR hello.md (folder warnings))",
+    "message": "This ADR does not have a valid number ( - in ADR hello.md (\\"warnings\\" folder))",
     "severity": "warning",
   },
 ]
