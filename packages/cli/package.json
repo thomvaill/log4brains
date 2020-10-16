@@ -1,0 +1,34 @@
+{
+  "name": "@log4brains/cli",
+  "version": "0.0.0",
+  "description": "Manage your Architecture Decision Records (ADR) with log4brains",
+  "repository": "git@github.com:log4brains/log4brains.git",
+  "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "bin": {
+    "log4brains": "./dist/bin/log4brains"
+  },
+  "scripts": {
+    "dev": "cross-env LOG4BRAINS_CWD=../.. node -r esm -r ts-node/register ./src/main.ts",
+    "build": "tsc && copyfiles -u 1 src/log4brains dist",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "lint": "eslint . --ext ts --max-warnings=0",
+    "lint-fix": "eslint . --ext ts --max-warnings=0 --fix"
+  },
+  "dependencies": {
+    "@log4brains/core": "0.0.0",
+    "cli-table3": "^0.6.0",
+    "commander": "^6.1.0",
+    "inquirer": "^7.3.3",
+    "open-editor": "^2.0.1",
+    "signale": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1",
+    "copyfiles": "^2.4.0"
+  }
+}

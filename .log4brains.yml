@@ -1,22 +1,19 @@
 ---
 project:
   name: log4brains
+  adrFolder: ./docs/adr
 
-adrFolders:
-  - path: ./docs/adr
+  packages:
+    - name: core
+      path: ./packages/core
+      adrFolder: ./packages/core/docs/adr
 
-  - name: core
-    path: ./packages/core/docs/adr
-    tags:
-      - "package:core"
+    - name: web
+      path: ./packages/web
+      adrFolder: ./packages/web/docs/adr
 
-  # - name: web
-  #   path: ./packages/web/docs/adr
-  #   tags:
-  #     - "package:web"
-
-repository:
-  provider: github
-  github:
-    owner: log4brains
-    repo: log4brains
+  repository:
+    provider: github
+    github:
+      owner: log4brains
+      repo: log4brains

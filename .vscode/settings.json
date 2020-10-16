@@ -26,6 +26,7 @@
     "Transpiled",
     "adrs",
     "awilix",
+    "copyfiles",
     "diagnotics",
     "esnext",
     "microbundle",
@@ -34,5 +35,14 @@
     "signale",
     "typedoc",
     "workdir"
+  ],
+  "exportall.config.folderListener": [
+    "/packages/core/src/adr/domain",
+    "/packages/core/src/application",
+    "/packages/core/src/infrastructure/buses",
+    "/packages/core/src/adr/application/commands",
+    "/packages/core/src/adr/application/command-handlers",
+    "/packages/core/src/adr/application/query-results",
+    "/packages/core/src/adr/application"
   ]
 }

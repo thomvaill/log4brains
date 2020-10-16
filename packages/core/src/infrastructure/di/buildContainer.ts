@@ -6,66 +6,81 @@ import {
   AwilixContainer,
   asFunction
 } from "awilix";
-import {
-  FolderRepository as FolderRepositoryImpl,
-  ProjectRepository
-} from "@src/adr/infrastructure/repositories";
-import {
-  FolderRepository,
-  GetAllAdrsUseCase,
-  GetAllDiagnosticsUseCase
-} from "@src/adr/application";
 import { Log4brainsConfig } from "@src/infrastructure/config";
-import { Project } from "@src/adr/domain";
+import * as adrCommandHandlers from "@src/adr/application/command-handlers";
+import * as adrQueryHandlers from "@src/adr/application/query-handlers";
+import { CommandHandler, QueryHandler } from "@src/application";
+import * as repositories from "@src/adr/infrastructure/repositories";
+import { CommandBus, QueryBus } from "../buses";
 
-type BuildProjectProps = {
-  projectRepository: ProjectRepository;
-  config: Log4brainsConfig;
-  workdir: string;
-};
-function buildProject({
-  projectRepository,
-  config,
-  workdir
-}: BuildProjectProps) {
-  return projectRepository.load(config, workdir);
-}
-
-export interface ICradle {
-  workdir: string;
-  config: Log4brainsConfig;
-  projectRepository: ProjectRepository;
-  folderRepository: FolderRepository;
-  adrProject: Project;
-  getAllAdrsUseCase: GetAllAdrsUseCase;
-  getAllDiagnosticsUseCase: GetAllDiagnosticsUseCase;
+function lowerCaseFirstLetter(string: string): string {
+  return string.charAt(0).toLowerCase() + string.slice(1);
 }
 
 export function buildContainer(
   config: Log4brainsConfig,
-  workdir = "?"
-): AwilixContainer<ICradle> {
-  const container: AwilixContainer<ICradle> = createContainer<ICradle>({
+  workdir = "."
+): AwilixContainer {
+  const container: AwilixContainer = createContainer({
     injectionMode: InjectionMode.PROXY
   });
 
   // Configuration
   container.register({
-    workdir: asValue(workdir),
     config: asValue(config),
-    adrProject: asFunction(buildProject).singleton()
+    workdir: asValue(workdir)
   });
 
   // Repositories
-  container.register({
-    projectRepository: asClass(ProjectRepository).singleton(),
-    folderRepository: asClass(FolderRepositoryImpl).singleton()
+  Object.values(repositories).forEach((Repository) => {
+    container.register(
+      lowerCaseFirstLetter(Repository.name),
+      asClass<any>(Repository).singleton()
+    );
   });
 
-  // Use cases
+  // Command handlers
+  Object.values(adrCommandHandlers).forEach((Handler) => {
+    container.register(
+      Handler.name,
+      asClass<CommandHandler>(Handler).singleton()
+    );
+  });
+
+  // Command bus
   container.register({
-    getAllAdrsUseCase: asClass(GetAllAdrsUseCase).singleton(),
-    getAllDiagnosticsUseCase: asClass(GetAllDiagnosticsUseCase).singleton()
+    commandBus: asFunction(() => {
+      const bus = new CommandBus();
+
+      Object.values(adrCommandHandlers).forEach((Handler) => {
+        const handlerInstance = container.resolve<CommandHandler>(Handler.name);
+        bus.registerHandler(handlerInstance, handlerInstance.commandClass);
+      });
+
+      return bus;
+    }).singleton()
+  });
+
+  // Query handlers
+  Object.values(adrQueryHandlers).forEach((Handler) => {
+    container.register(
+      Handler.name,
+      asClass<QueryHandler>(Handler).singleton()
+    );
+  });
+
+  // Query bus
+  container.register({
+    queryBus: asFunction(() => {
+      const bus = new QueryBus();
+
+      Object.values(adrQueryHandlers).forEach((Handler) => {
+        const handlerInstance = container.resolve<QueryHandler>(Handler.name);
+        bus.registerHandler(handlerInstance, handlerInstance.queryClass);
+      });
+
+      return bus;
+    }).singleton()
   });
 
   return container;

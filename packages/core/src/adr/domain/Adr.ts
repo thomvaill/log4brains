@@ -1,73 +1,51 @@
-import {
-  Diagnosticable,
-  DiagnosticList,
-  DiagnosticSeverity,
-  DiagnosticType,
-  LocatableDiagnostic
-} from "./diagnostics";
-import {
-  AdrNumber,
-  AdrSlug,
-  FolderReference,
-  MarkdownAdrFilename,
-  MarkdownBody
-} from "./value-objects";
+import { AggregateRoot } from "@src/domain";
+import { AdrFile } from "./AdrFile";
+import { AdrSlug } from "./AdrSlug";
+import { AdrStatus } from "./AdrStatus";
+import { MarkdownBody } from "./MarkdownBody";
+import { PackageRef } from "./PackageRef";
 
-export class Adr implements Diagnosticable {
-  readonly number?: AdrNumber;
+type Props = {
+  slug: AdrSlug;
+  package?: PackageRef;
+  body: MarkdownBody;
+  file: AdrFile;
+};
 
-  readonly slug: AdrSlug;
-
-  readonly title?: string;
-
-  readonly diagnostics: DiagnosticList = new DiagnosticList();
-
-  constructor(
-    readonly folder: FolderReference,
-    readonly filename: MarkdownAdrFilename,
-    readonly body: MarkdownBody
-  ) {
-    // Number
-    const numberRes = filename.extractAdrNumber();
-    if (numberRes.isOk()) {
-      this.number = numberRes.value;
-    } else {
-      this.addDiagnostic(
-        DiagnosticType.ADR_NUMBER_MISSING,
-        DiagnosticSeverity.WARNING,
-        numberRes.error.message
-      );
-    }
-
-    // Slug
-    this.slug = AdrSlug.createFromFilename(filename);
-
-    // Title
-    const title = body.getFirstH1Title();
-    if (title === undefined) {
-      this.addDiagnostic(
-        DiagnosticType.ADR_TITLE_MISSING,
-        DiagnosticSeverity.WARNING
-      );
-    } else {
-      this.title = title;
-    }
+export class Adr extends AggregateRoot<Props> {
+  get slug(): AdrSlug {
+    return this.props.slug;
   }
 
-  private addDiagnostic(
-    type: DiagnosticType,
-    severity: DiagnosticSeverity,
-    details?: string
-  ) {
-    this.diagnostics.push(
-      new LocatableDiagnostic(
-        `ADR ${this.filename.value}${
-          this.folder.root ? "" : ` ("${this.folder.name}" folder)`
-        }`,
-        type,
-        severity,
-        details
-      )
-    );
+  get package(): PackageRef | undefined {
+    return this.props.package;
+  }
+
+  get body(): MarkdownBody {
+    return this.props.body;
+  }
+
+  get file(): AdrFile {
+    return this.props.file;
+  }
+
+  get title(): string | undefined {
+    return this.body.getFirstH1Title();
+  }
+
+  get status(): AdrStatus {
+    return AdrStatus.DRAFT; // TODO
+  }
+
+  get superseder(): AdrSlug | undefined {
+    return undefined; // TODO
+  }
+
+  get date(): Date {
+    return new Date("2020-01-01"); // TODO
+  }
+
+  get tags(): string[] {
+    return []; // TODO
   }
 }

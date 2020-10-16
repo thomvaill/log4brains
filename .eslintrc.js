@@ -28,5 +28,18 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
     "@typescript-eslint/restrict-template-expressions": "off"
-  }
+  },
+  overrides: [
+    // Specific rules for Jest tests only
+    {
+      files: "**.test.ts",
+      rules: {
+        "max-classes-per-file": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-new": "off",
+        "sonarjs/no-duplicate-string": "off",
+        "no-empty": "off"
+      }
+    }
+  ]
 };

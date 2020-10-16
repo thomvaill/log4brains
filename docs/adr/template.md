@@ -2,6 +2,7 @@
 
 - Status: [draft | proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->
 - Deciders: [list everyone involved in the decision] <!-- optional -->
+- Date: [YYYY-MM-DD when the decision was last updated] <!-- optional - changes the order displayed in the UI -->
 
 Technical Story: [description | ticket/issue URL] <!-- optional -->
 

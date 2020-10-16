@@ -40,6 +40,7 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-sonarjs": "^0.5.0",
     "jest": "^26.4.2",
+    "jest-mock-extended": "^1.0.10",
     "lerna": "^3.22.1",
     "prettier": "^2.1.2",
     "prettier-eslint-cli": "^5.0.0",

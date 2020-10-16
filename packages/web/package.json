@@ -1,18 +1,18 @@
 {
   "name": "@log4brains/web",
   "version": "0.0.0",
-  "description": "Log4brains web UI to edit and publish your Architecture Decision Records (ADR)",
+  "description": "Preview and publish your Architecture Decision Records (ADR) with log4brains",
   "repository": "git@github.com:log4brains/log4brains.git",
   "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
   "bin": {
-    "log4brains": "./dist/bin/log4brains"
+    "log4brains-web": "./dist/bin/log4brains-web"
   },
   "scripts": {
     "dev": "cross-env LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
-    "build": "tsc --noEmit false && copyfiles next.config.js dist && copyfiles -u 1 src/bin/log4brains dist",
+    "build": "tsc --noEmit false && copyfiles next.config.js dist && copyfiles -u 1 src/bin/log4brains-web dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc",
     "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",

@@ -11,12 +11,11 @@
   "license": "Apache-2.0",
   "private": false,
   "scripts": {
-    "dev": "microbundle --format es,cjs --tsconfig tsconfig.build.json watch",
-    "build": "microbundle --format es,cjs --tsconfig tsconfig.build.json",
+    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json watch",
+    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "test": "jest",
-    "test-watch": "jest --watch",
     "lint": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0 --fix",
     "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts"
@@ -27,7 +26,9 @@
     "joi": "^17.2.1",
     "lodash": "^4.17.20",
     "markdown-it": "^11.0.1",
+    "moment": "^2.29.1",
     "neverthrow": "^2.7.1",
+    "slugify": "^1.4.5",
     "yaml": "^1.10.0"
   },
   "devDependencies": {

@@ -16,9 +16,11 @@ function createCli(version: string): commander.Command {
   const program = new commander.Command();
   program.version(version);
 
+  // TODO: open browser automatically
+  // TODO: add [file] argument to open browser directly to given ADR (used by the CLI). Do not start another process if already started.
   program
-    .command("editor")
-    .description("Start the web editor locally")
+    .command("preview")
+    .description("Start log4brains locally to preview your changes")
     .option("-p, --port <port>", "Port to listen on", "3000")
     .action(
       (opts: StartEditorCommandOpts): Promise<void> => {
@@ -28,7 +30,7 @@ function createCli(version: string): commander.Command {
 
   program
     .command("build")
-    .description("Build the static website")
+    .description("Build the deployable static website")
     .option("-o, --out <path>", "Output path", ".log4brains/out")
     .action(
       (opts: BuildCommandOpts): Promise<void> => {
@@ -43,7 +45,6 @@ const cli = createCli(pkgVersion);
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 cli.parseAsync(process.argv).catch((err) => {
-  logger.fatal("Unhandled Promise Rejection");
   logger.fatal(err);
   process.exit(1);
 });

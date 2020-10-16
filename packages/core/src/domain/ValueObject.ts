@@ -3,9 +3,7 @@ import { isEqual } from "lodash";
 // Inspired from https://khalilstemmler.com/articles/typescript-value-object/
 // Thank you :-)
 
-export interface ValueObjectProps {
-  [index: string]: unknown;
-}
+export type ValueObjectProps = Record<string, unknown>;
 
 /**
  * @desc ValueObjects are objects that we determine their
@@ -20,6 +18,9 @@ export abstract class ValueObject<T extends ValueObjectProps> {
 
   public equals(vo?: ValueObject<T>): boolean {
     if (vo === null || vo === undefined) {
+      return false;
+    }
+    if (vo.constructor.name !== this.constructor.name) {
       return false;
     }
     if (vo.props === undefined) {
