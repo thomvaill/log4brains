@@ -209,7 +209,7 @@ Chosen option: \\"Option 5: Next.js\\", because
     },
     "package": null,
     "slug": "0001-use-nextjs-for-static-site-generation",
-    "status": "draft",
+    "status": "accepted",
     "supersededBy": null,
     "tags": Array [],
     "title": "Use Next.js for Static Site Generation",

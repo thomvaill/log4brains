@@ -5,6 +5,8 @@ import { AdrStatus } from "./AdrStatus";
 import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 
+const defaultStatus = AdrStatus.DRAFT;
+
 type Props = {
   slug: AdrSlug;
   package?: PackageRef;
@@ -34,7 +36,16 @@ export class Adr extends AggregateRoot<Props> {
   }
 
   get status(): AdrStatus {
-    return AdrStatus.DRAFT; // TODO
+    const statusStr = this.body.getHeaderMetadata("Status");
+    if (!statusStr) {
+      return defaultStatus;
+    }
+    try {
+      return AdrStatus.createFromName(statusStr);
+    } catch (e) {
+      console.log(`Warning: ${e.message}`); // TODO: log
+      return defaultStatus;
+    }
   }
 
   get superseder(): AdrSlug | undefined {

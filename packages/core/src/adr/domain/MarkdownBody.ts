@@ -1,41 +1,90 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import cheerio from "cheerio";
-import MarkdownIt from "markdown-it";
-import escapeStringRegexp from "escape-string-regexp";
 import { Entity } from "@src/domain";
-
-const markdownItInstance = new MarkdownIt();
+import { CheerioMarkdown } from "./cheerio-markdown";
 
 type Props = {
   value: string;
 };
 
+type ElementAndRegExpMatch = {
+  element: cheerio.Cheerio;
+  match: string[];
+};
+
 export class MarkdownBody extends Entity<Props> {
-  private $!: cheerio.Root; // read-only!
+  private cm: CheerioMarkdown;
 
   constructor(value: string) {
     super({ value });
-    this.parse();
+    this.cm = new CheerioMarkdown(value);
+    this.cm.onChange((newValue) => {
+      this.props.value = newValue;
+    });
   }
 
-  private parse(): void {
-    this.$ = cheerio.load(markdownItInstance.render(this.props.value));
+  private getFirstH1TitleElement(): cheerio.Cheerio | undefined {
+    const elt = this.cm.$("h1").first();
+    return elt.length > 0 ? elt : undefined;
   }
 
   getFirstH1Title(): string | undefined {
-    return this.$("h1").first().html() || undefined;
+    return this.getFirstH1TitleElement()?.text();
   }
 
   setFirstH1Title(title: string): void {
-    if (this.getFirstH1Title() === undefined) {
-      this.props.value = `# ${title}\n${this.props.value}`;
+    const elt = this.getFirstH1TitleElement();
+    if (elt) {
+      this.cm.replaceText(elt, title);
     } else {
-      const regexp = new RegExp(
-        `^# ${escapeStringRegexp(this.getFirstH1Title()!)}`
-      );
-      this.props.value = this.props.value.replace(regexp, `# ${title}`);
+      this.cm.insertLineAt(0, `# ${title}`);
     }
-    this.parse();
+  }
+
+  private getHeaderMetadataUl(): cheerio.Cheerio | undefined {
+    const elts = this.cm.$("h1").first().nextUntil("h2");
+    const ul = elts.filter("ul").first();
+    return ul.length > 0 ? ul : undefined;
+  }
+
+  private getHeaderMetadataElementAndMatch(
+    key: string
+  ): ElementAndRegExpMatch | undefined {
+    const ul = this.getHeaderMetadataUl();
+    if (!ul) {
+      return undefined;
+    }
+    const regexp = new RegExp(`^(\\s*${key}\\s*:\\s*)(.*)$`, "i");
+    const result = ul
+      .children()
+      .map((i, li) => {
+        const line = this.cm.$(li);
+        const match = regexp.exec(line.text());
+        return match ? { element: this.cm.$(li), match } : undefined;
+      })
+      .get() as ElementAndRegExpMatch[];
+    return result[0] ?? undefined;
+  }
+
+  getHeaderMetadata(key: string): string | undefined {
+    return this.getHeaderMetadataElementAndMatch(key)?.match[2].trim();
+  }
+
+  setHeaderMetadata(key: string, value: string): void {
+    const res = this.getHeaderMetadataElementAndMatch(key);
+    if (res) {
+      this.cm.replaceText(res.element, `${res.match[1]}${value}`);
+    } else {
+      const ul = this.getHeaderMetadataUl();
+      if (ul) {
+        this.cm.appendToList(ul, `${key}: ${value}`);
+      } else {
+        const h1TitleElt = this.getFirstH1TitleElement();
+        if (h1TitleElt) {
+          this.cm.insertLineAfter(h1TitleElt, `- ${key}: ${value}`);
+        } else {
+          this.cm.insertLineAt(0, `- ${key}: ${value}`);
+        }
+      }
+    }
   }
 
   getRawMarkdown(): string {

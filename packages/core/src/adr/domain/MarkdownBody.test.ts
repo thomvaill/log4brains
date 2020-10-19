@@ -53,4 +53,121 @@ Lorem ipsum
 ## Subtitle`);
     });
   });
+
+  describe("getHeaderMetadata()", () => {
+    it("returns a metadata", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+      expect(body.getHeaderMetadata("status")).toEqual("draft");
+      expect(body.getHeaderMetadata("date")).toEqual("2020-01-01");
+    });
+
+    it("returns a metadata even if there is a paragraph before", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+      expect(body.getHeaderMetadata("status")).toEqual("draft");
+      expect(body.getHeaderMetadata("date")).toEqual("2020-01-01");
+    });
+
+    it("returns undefined when the metadata is not set", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+      expect(body.getHeaderMetadata("Deciders")).toBeUndefined();
+    });
+  });
+
+  describe("setHeaderMetadata()", () => {
+    it("modifies an already existing metadata", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+
+      body.setHeaderMetadata("Status", "accepted");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: accepted
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`);
+    });
+
+    it("creates a metadata", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+
+      body.setHeaderMetadata("Deciders", "@JohnDoe");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+Hello!
+
+- Lorem Ipsum
+- Status: draft
+-  DATE :   2020-01-01
+- Deciders: @JohnDoe
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`);
+    });
+  });
 });
