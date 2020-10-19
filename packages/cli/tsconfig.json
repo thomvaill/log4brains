@@ -11,5 +11,7 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": { "files": true },
+  "files": ["src/decs.d.ts"]
 }

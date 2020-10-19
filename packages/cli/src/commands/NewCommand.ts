@@ -1,5 +1,6 @@
 import path from "path";
-import openEditor from "open-editor";
+import open from "open";
+import launchEditor from "launch-editor";
 import { Log4brains } from "@log4brains/core";
 import { Console } from "../console";
 
@@ -113,7 +114,16 @@ export class NewCommand {
     switch (action) {
       case "edit-and-preview": // TODO
       case "edit":
-        openEditor([adrDto.file.absolutePath]);
+        launchEditor(adrDto.file.absolutePath, undefined, async () => {
+          this.console.warn(
+            "We were not able to detect your favorite editor :("
+          );
+          this.console.warn(
+            "You can define it by setting your $VISUAL or $EDITOR environment variable in ~/.zshenv or ~/.bashrc"
+          );
+          this.console.warn("Falling back to xdg-open...");
+          await open(adrDto.file.absolutePath);
+        });
         break;
 
       default:

@@ -24,7 +24,8 @@
     "cli-table3": "^0.6.0",
     "commander": "^6.1.0",
     "inquirer": "^7.3.3",
-    "open-editor": "^2.0.1",
+    "launch-editor": "^2.2.1",
+    "open": "^7.3.0",
     "signale": "^1.4.0"
   },
   "devDependencies": {
