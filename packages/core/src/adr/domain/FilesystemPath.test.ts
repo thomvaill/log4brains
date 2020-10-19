@@ -39,4 +39,10 @@ describe("FilesystemPath", () => {
       new FilesystemPath("/foo", "bar/test.md").basenameWithoutExtension
     ).toEqual("test");
   });
+
+  it("joins a FilesystemPath to a string path", () => {
+    expect(
+      new FilesystemPath("/foo", "bar/test").join("hello-world.md").absolutePath
+    ).toEqual("/foo/bar/test/hello-world.md");
+  });
 });

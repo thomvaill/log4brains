@@ -9,7 +9,7 @@ type Props = {
   slug: AdrSlug;
   package?: PackageRef;
   body: MarkdownBody;
-  file: AdrFile;
+  file?: AdrFile; // set by the repository after save()
 };
 
 export class Adr extends AggregateRoot<Props> {
@@ -25,7 +25,7 @@ export class Adr extends AggregateRoot<Props> {
     return this.props.body;
   }
 
-  get file(): AdrFile {
+  get file(): AdrFile | undefined {
     return this.props.file;
   }
 
@@ -47,5 +47,13 @@ export class Adr extends AggregateRoot<Props> {
 
   get tags(): string[] {
     return []; // TODO
+  }
+
+  setFile(file: AdrFile): void {
+    this.props.file = file;
+  }
+
+  setTitle(title: string): void {
+    this.body.setFirstH1Title(title);
   }
 }

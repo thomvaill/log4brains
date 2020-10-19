@@ -22,4 +22,35 @@ Lorem ipsum
       expect(body.getFirstH1Title()).toBeUndefined();
     });
   });
+
+  describe("setFirstH1Title()", () => {
+    it("replaces the existing one", () => {
+      const body = new MarkdownBody(
+        `# First title
+Lorem ipsum
+## Subtitle
+## Subtitle
+# Second title`
+      );
+      body.setFirstH1Title("New title");
+      expect(body.getRawMarkdown()).toEqual(`# New title
+Lorem ipsum
+## Subtitle
+## Subtitle
+# Second title`);
+    });
+
+    it("creates one if needed", () => {
+      const body = new MarkdownBody(
+        `Lorem ipsum
+## Subtitle
+## Subtitle`
+      );
+      body.setFirstH1Title("New title");
+      expect(body.getRawMarkdown()).toEqual(`# New title
+Lorem ipsum
+## Subtitle
+## Subtitle`);
+    });
+  });
 });

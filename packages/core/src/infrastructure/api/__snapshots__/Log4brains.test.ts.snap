@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`E2E RO searchAdrs() on the project example 1`] = `
+exports[`E2E RO tests searchAdrs() on the project example 1`] = `
 Array [
   Object {
     "body": Object {
@@ -34,7 +34,7 @@ Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/simple/0000-use-markdown-architectural-decision-records.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0000-use-markdown-architectural-decision-records.md",
       "relativePath": "simple/0000-use-markdown-architectural-decision-records.md",
     },
     "package": null,
@@ -204,7 +204,7 @@ Chosen option: \\"Option 5: Next.js\\", because
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/simple/0001-use-nextjs-for-static-site-generation.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0001-use-nextjs-for-static-site-generation.md",
       "relativePath": "simple/0001-use-nextjs-for-static-site-generation.md",
     },
     "package": null,
@@ -246,7 +246,7 @@ Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/with-warnings/0000-use-markdown-architectural-decision-records.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0000-use-markdown-architectural-decision-records.md",
       "relativePath": "with-warnings/0000-use-markdown-architectural-decision-records.md",
     },
     "package": "with-warnings",
@@ -288,7 +288,7 @@ Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/with-warnings/0001-duplicate.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-duplicate.md",
       "relativePath": "with-warnings/0001-duplicate.md",
     },
     "package": "with-warnings",
@@ -328,7 +328,7 @@ Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/with-warnings/0001-no-title.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-no-title.md",
       "relativePath": "with-warnings/0001-no-title.md",
     },
     "package": "with-warnings",
@@ -347,7 +347,7 @@ This file should be parsed as an ADR without a number.
     },
     "date": 2020-01-01T00:00:00.000Z,
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/example-project/with-warnings/hello.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/hello.md",
       "relativePath": "with-warnings/hello.md",
     },
     "package": "with-warnings",

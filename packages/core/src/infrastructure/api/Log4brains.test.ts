@@ -1,16 +1,16 @@
 import moment from "moment";
 import fs from "fs";
 import path from "path";
+import globby from "globby";
+import rimraf from "rimraf";
 import { Log4brains } from "./Log4brains";
 
-const EXAMPLE_PATH = "./tests/example-project";
-
 describe("E2E", () => {
-  const instance = Log4brains.create(EXAMPLE_PATH);
+  describe("RO tests", () => {
+    const instance = Log4brains.create("./tests/ro-project");
 
-  describe("RO", () => {
     test("searchAdrs() on the project example", async () => {
-      expect(await instance.searchAdrs()).toMatchSnapshot();
+      expect(await instance.searchAdrs()).toMatchSnapshot(); // TODO: fix absolute paths
     });
 
     test("generateAdrSlug()", async () => {
@@ -24,27 +24,32 @@ describe("E2E", () => {
     });
   });
 
-  describe("RW", () => {
-    const EXAMPLE_ADR_SLUG = "jest-test";
-    const EXAMPLE_ADR_FILE = `simple/${EXAMPLE_ADR_SLUG}.md`;
+  describe("RW tests", () => {
+    const RW_PROJECT_PATH = "./tests/rw-project";
+    const RW_ADR_FOLDER_PATH = `${RW_PROJECT_PATH}/main`;
+
+    const instanceRw = Log4brains.create(RW_PROJECT_PATH);
 
     const clean = () => {
-      try {
-        fs.unlinkSync(path.join(EXAMPLE_PATH, EXAMPLE_ADR_FILE));
-      } catch (e) {}
+      globby
+        .sync([
+          `${RW_ADR_FOLDER_PATH}/*.md`,
+          `!${RW_ADR_FOLDER_PATH}/template.md`
+        ])
+        .forEach((fileToClean) => rimraf.sync(fileToClean));
     };
     beforeEach(clean);
     afterEach(clean);
 
     test("createAdrFromTemplate()", async () => {
-      await instance.createAdrFromTemplate("jest-test", "Hello World");
+      await instanceRw.createAdrFromTemplate("jest-test", "Hello World");
       expect(
-        fs.existsSync(path.join(EXAMPLE_PATH, EXAMPLE_ADR_FILE))
+        fs.existsSync(path.join(RW_ADR_FOLDER_PATH, "jest-test.md"))
       ).toBeTruthy();
 
-      expect(async () => {
-        await instance.createAdrFromTemplate("jest-test", "Hello World");
-      }).toThrow();
+      await expect(
+        instanceRw.createAdrFromTemplate("jest-test", "Hello World")
+      ).rejects.toThrow();
     });
   });
 });

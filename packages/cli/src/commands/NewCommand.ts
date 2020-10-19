@@ -39,19 +39,17 @@ export class NewCommand {
       const currentPackage = this.detectCurrentPackageFromCwd();
       const packageChoices = [
         {
-          name: `Root folder (${this.l4bInstance.config.project.adrFolder})`,
-          value: "",
-          short: "Root folder"
+          name: `Any (project level)`,
+          value: ""
         },
         ...packages.map((p) => ({
-          name: `Package: ${p.name} (${p.adrFolder})`,
-          value: p.name,
-          short: `Package: ${p.name}`
+          name: `Package: ${p.name}`,
+          value: p.name
         }))
       ];
       pkg =
         (await this.console.askListQuestion(
-          "Where do you want to create this new ADR?",
+          "For which package do you want to create this new ADR?",
           packageChoices,
           currentPackage
         )) || undefined;
@@ -60,10 +58,12 @@ export class NewCommand {
     const title = await this.console.askInputQuestion(
       "Enter a title for this new ADR"
     );
-    const slug = await this.console.askInputQuestion(
-      "We pre-generated a slug for this ADR. It will be used in its filename and for further reference. You can edit it if you want, or just press [ENTER].",
-      await this.l4bInstance.generateAdrSlug(title, pkg)
-    );
+
+    // const slug = await this.console.askInputQuestion(
+    //   "We pre-generated a slug to identify this ADR. Press [ENTER] or enter another one.",
+    //   await this.l4bInstance.generateAdrSlug(title, pkg)
+    // );
+    const slug = await this.l4bInstance.generateAdrSlug(title, pkg);
 
     const adrDto = await this.l4bInstance.createAdrFromTemplate(slug, title);
 

@@ -117,7 +117,24 @@ export class AdrRepository implements IAdrRepository {
       : new FilesystemPath(cwd, this.config.project.adrFolder);
   }
 
-  save(adr: Adr): Promise<void> {
-    throw new Error("Method not implemented.");
+  async save(adr: Adr): Promise<void> {
+    if (!adr.file) {
+      const file = AdrFile.createFromSlugInFolder(
+        this.getAdrFolderPath(),
+        adr.slug
+      );
+      if (fs.existsSync(file.path.absolutePath)) {
+        throw new Log4brainsError(
+          "An ADR with this slug already exists",
+          adr.slug.value
+        );
+      }
+      adr.setFile(file);
+    }
+    await fsP.writeFile(
+      adr.file!.path.absolutePath,
+      adr.body.getRawMarkdown(),
+      { encoding: "utf-8" }
+    );
   }
 }

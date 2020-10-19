@@ -1,0 +1,4 @@
+---
+project:
+  name: log4brains-rw-e2e-tests
+  adrFolder: ./main

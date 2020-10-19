@@ -45,4 +45,11 @@ export class FilesystemPath extends ValueObject<Props> {
       this.basename.length - this.extension.length
     );
   }
+
+  join(p: string): FilesystemPath {
+    return new FilesystemPath(
+      this.cwdAbsolutePath,
+      path.join(this.pathRelativeToCwd, p)
+    );
+  }
 }

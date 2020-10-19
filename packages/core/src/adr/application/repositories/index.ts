@@ -1,1 +1,2 @@
-export * from "./AdrRepository";
+export * from './AdrRepository';
+export * from './AdrTemplateRepository';

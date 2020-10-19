@@ -1,4 +1,5 @@
 import { Log4brainsError, ValueObject } from "@src/domain";
+import { AdrSlug } from "./AdrSlug";
 import { FilesystemPath } from "./FilesystemPath";
 
 type Props = {
@@ -35,5 +36,12 @@ export class AdrFile extends ValueObject<Props> {
     } catch (e) {
       return false;
     }
+  }
+
+  static createFromSlugInFolder(
+    folder: FilesystemPath,
+    slug: AdrSlug
+  ): AdrFile {
+    return new AdrFile(folder.join(`${slug.namePart}.md`));
   }
 }
