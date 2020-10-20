@@ -26,6 +26,7 @@ This file should be parsed as an ADR without a number.
 
 - Status: accepted
 - Deciders: @Thomvaill
+- Tags: frontend, frameworks
 
 ## Context and Problem Statement
 
@@ -186,7 +187,10 @@ Chosen option: \\"Option 5: Next.js\\", because
     "slug": "0001-use-nextjs-for-static-site-generation",
     "status": "accepted",
     "supersededBy": null,
-    "tags": Array [],
+    "tags": Array [
+      "frontend",
+      "frameworks",
+    ],
     "title": "Use Next.js for Static Site Generation",
   },
   Object {
