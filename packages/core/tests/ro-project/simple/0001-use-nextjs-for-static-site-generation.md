@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Deciders: @Thomvaill
+- Tags: frontend, frameworks
 
 ## Context and Problem Statement
 

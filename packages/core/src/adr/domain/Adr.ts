@@ -80,7 +80,11 @@ export class Adr extends AggregateRoot<Props> {
   }
 
   get tags(): string[] {
-    return []; // TODO
+    const tags = this.body.getHeaderMetadata("tags");
+    if (!tags || tags.trim() === "") {
+      return [];
+    }
+    return tags.split(/\s*[\s,]{1}\s*/).map((tag) => tag.trim().toLowerCase());
   }
 
   setFile(file: AdrFile): void {
