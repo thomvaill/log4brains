@@ -4,21 +4,165 @@ exports[`E2E RO tests searchAdrs() on the project example 1`] = `
 Array [
   Object {
     "body": Object {
-      "markdown": "# Hello
+      "markdown": "# Use Markdown Architectural Decision Records
 
-This file should be parsed as an ADR without a number.
+## Context and Problem Statement
+
+We want to record architectural decisions made in this project.
+Which format and structure should these records follow?
+
+## Considered Options
+
+- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
+- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
+- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
+- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
+- Formless – No conventions for file format and structure
+
+## Decision Outcome
+
+Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
+
+- Implicit assumptions should be made explicit.
+  Design documentation is important to enable people understanding the decisions later on.
+  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
+- The MADR format is lean and fits our development style.
+- The MADR structure is comprehensible and facilitates usage & maintenance.
+- The MADR project is vivid.
+- Version 2.1.2 is the latest one available when starting to document ADRs.
 ",
     },
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/hello.md",
-      "relativePath": "with-warnings/hello.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0000-use-markdown-architectural-decision-records.md",
+      "relativePath": "simple/0000-use-markdown-architectural-decision-records.md",
     },
-    "package": "with-warnings",
-    "slug": "with-warnings/hello",
+    "package": null,
+    "slug": "0000-use-markdown-architectural-decision-records",
     "status": "draft",
     "supersededBy": null,
     "tags": Array [],
-    "title": "Hello",
+    "title": "Use Markdown Architectural Decision Records",
+  },
+  Object {
+    "body": Object {
+      "markdown": "# Use Markdown Architectural Decision Records
+
+## Context and Problem Statement
+
+We want to record architectural decisions made in this project.
+Which format and structure should these records follow?
+
+## Considered Options
+
+- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
+- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
+- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
+- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
+- Formless – No conventions for file format and structure
+
+## Decision Outcome
+
+Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
+
+- Implicit assumptions should be made explicit.
+  Design documentation is important to enable people understanding the decisions later on.
+  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
+- The MADR format is lean and fits our development style.
+- The MADR structure is comprehensible and facilitates usage & maintenance.
+- The MADR project is vivid.
+- Version 2.1.2 is the latest one available when starting to document ADRs.
+",
+    },
+    "file": Object {
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0000-use-markdown-architectural-decision-records.md",
+      "relativePath": "with-warnings/0000-use-markdown-architectural-decision-records.md",
+    },
+    "package": "with-warnings",
+    "slug": "with-warnings/0000-use-markdown-architectural-decision-records",
+    "status": "draft",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Use Markdown Architectural Decision Records",
+  },
+  Object {
+    "body": Object {
+      "markdown": "# I am a duplicate
+
+## Context and Problem Statement
+
+We want to record architectural decisions made in this project.
+Which format and structure should these records follow?
+
+## Considered Options
+
+- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
+- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
+- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
+- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
+- Formless – No conventions for file format and structure
+
+## Decision Outcome
+
+Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
+
+- Implicit assumptions should be made explicit.
+  Design documentation is important to enable people understanding the decisions later on.
+  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
+- The MADR format is lean and fits our development style.
+- The MADR structure is comprehensible and facilitates usage & maintenance.
+- The MADR project is vivid.
+- Version 2.1.2 is the latest one available when starting to document ADRs.
+",
+    },
+    "file": Object {
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-duplicate.md",
+      "relativePath": "with-warnings/0001-duplicate.md",
+    },
+    "package": "with-warnings",
+    "slug": "with-warnings/0001-duplicate",
+    "status": "draft",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "I am a duplicate",
+  },
+  Object {
+    "body": Object {
+      "markdown": "## Context and Problem Statement
+
+We want to record architectural decisions made in this project.
+Which format and structure should these records follow?
+
+## Considered Options
+
+- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
+- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
+- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
+- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
+- Formless – No conventions for file format and structure
+
+## Decision Outcome
+
+Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
+
+- Implicit assumptions should be made explicit.
+  Design documentation is important to enable people understanding the decisions later on.
+  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
+- The MADR format is lean and fits our development style.
+- The MADR structure is comprehensible and facilitates usage & maintenance.
+- The MADR project is vivid.
+- Version 2.1.2 is the latest one available when starting to document ADRs.
+",
+    },
+    "file": Object {
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-no-title.md",
+      "relativePath": "with-warnings/0001-no-title.md",
+    },
+    "package": "with-warnings",
+    "slug": "with-warnings/0001-no-title",
+    "status": "draft",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": null,
   },
   Object {
     "body": Object {
@@ -195,165 +339,21 @@ Chosen option: \\"Option 5: Next.js\\", because
   },
   Object {
     "body": Object {
-      "markdown": "## Context and Problem Statement
+      "markdown": "# Hello
 
-We want to record architectural decisions made in this project.
-Which format and structure should these records follow?
-
-## Considered Options
-
-- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
-- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
-- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
-- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
-- Formless – No conventions for file format and structure
-
-## Decision Outcome
-
-Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
-
-- Implicit assumptions should be made explicit.
-  Design documentation is important to enable people understanding the decisions later on.
-  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
-- The MADR format is lean and fits our development style.
-- The MADR structure is comprehensible and facilitates usage & maintenance.
-- The MADR project is vivid.
-- Version 2.1.2 is the latest one available when starting to document ADRs.
+This file should be parsed as an ADR without a number.
 ",
     },
     "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-no-title.md",
-      "relativePath": "with-warnings/0001-no-title.md",
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/hello.md",
+      "relativePath": "with-warnings/hello.md",
     },
     "package": "with-warnings",
-    "slug": "with-warnings/0001-no-title",
+    "slug": "with-warnings/hello",
     "status": "draft",
     "supersededBy": null,
     "tags": Array [],
-    "title": null,
-  },
-  Object {
-    "body": Object {
-      "markdown": "# I am a duplicate
-
-## Context and Problem Statement
-
-We want to record architectural decisions made in this project.
-Which format and structure should these records follow?
-
-## Considered Options
-
-- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
-- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
-- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
-- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
-- Formless – No conventions for file format and structure
-
-## Decision Outcome
-
-Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
-
-- Implicit assumptions should be made explicit.
-  Design documentation is important to enable people understanding the decisions later on.
-  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
-- The MADR format is lean and fits our development style.
-- The MADR structure is comprehensible and facilitates usage & maintenance.
-- The MADR project is vivid.
-- Version 2.1.2 is the latest one available when starting to document ADRs.
-",
-    },
-    "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0001-duplicate.md",
-      "relativePath": "with-warnings/0001-duplicate.md",
-    },
-    "package": "with-warnings",
-    "slug": "with-warnings/0001-duplicate",
-    "status": "draft",
-    "supersededBy": null,
-    "tags": Array [],
-    "title": "I am a duplicate",
-  },
-  Object {
-    "body": Object {
-      "markdown": "# Use Markdown Architectural Decision Records
-
-## Context and Problem Statement
-
-We want to record architectural decisions made in this project.
-Which format and structure should these records follow?
-
-## Considered Options
-
-- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
-- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
-- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
-- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
-- Formless – No conventions for file format and structure
-
-## Decision Outcome
-
-Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
-
-- Implicit assumptions should be made explicit.
-  Design documentation is important to enable people understanding the decisions later on.
-  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
-- The MADR format is lean and fits our development style.
-- The MADR structure is comprehensible and facilitates usage & maintenance.
-- The MADR project is vivid.
-- Version 2.1.2 is the latest one available when starting to document ADRs.
-",
-    },
-    "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0000-use-markdown-architectural-decision-records.md",
-      "relativePath": "simple/0000-use-markdown-architectural-decision-records.md",
-    },
-    "package": null,
-    "slug": "0000-use-markdown-architectural-decision-records",
-    "status": "draft",
-    "supersededBy": null,
-    "tags": Array [],
-    "title": "Use Markdown Architectural Decision Records",
-  },
-  Object {
-    "body": Object {
-      "markdown": "# Use Markdown Architectural Decision Records
-
-## Context and Problem Statement
-
-We want to record architectural decisions made in this project.
-Which format and structure should these records follow?
-
-## Considered Options
-
-- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
-- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term \\"ADR\\"
-- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
-- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
-- Formless – No conventions for file format and structure
-
-## Decision Outcome
-
-Chosen option: \\"MADR 2.1.2 with log4brains patch\\", because
-
-- Implicit assumptions should be made explicit.
-  Design documentation is important to enable people understanding the decisions later on.
-  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
-- The MADR format is lean and fits our development style.
-- The MADR structure is comprehensible and facilitates usage & maintenance.
-- The MADR project is vivid.
-- Version 2.1.2 is the latest one available when starting to document ADRs.
-",
-    },
-    "file": Object {
-      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/0000-use-markdown-architectural-decision-records.md",
-      "relativePath": "with-warnings/0000-use-markdown-architectural-decision-records.md",
-    },
-    "package": "with-warnings",
-    "slug": "with-warnings/0000-use-markdown-architectural-decision-records",
-    "status": "draft",
-    "supersededBy": null,
-    "tags": Array [],
-    "title": "Use Markdown Architectural Decision Records",
+    "title": "Hello",
   },
 ]
 `;
