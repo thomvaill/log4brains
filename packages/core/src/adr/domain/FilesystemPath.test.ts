@@ -45,4 +45,30 @@ describe("FilesystemPath", () => {
       new FilesystemPath("/foo", "bar/test").join("hello-world.md").absolutePath
     ).toEqual("/foo/bar/test/hello-world.md");
   });
+
+  it("returns the relative path between two paths (from a directory)", () => {
+    const from = new FilesystemPath("/test", "foo/bar");
+    expect(from.relative(new FilesystemPath("/test", "foo"), true)).toEqual(
+      ".."
+    );
+    expect(
+      from.relative(new FilesystemPath("/test", "foo/lorem/ipsum"), true)
+    ).toEqual("../lorem/ipsum");
+    expect(
+      from.relative(new FilesystemPath("/test", "foo/bar/test"), true)
+    ).toEqual("test");
+  });
+
+  it("returns the relative path between two paths (from a file)", () => {
+    const from = new FilesystemPath("/test", "foo/bar.md");
+    expect(from.relative(new FilesystemPath("/test", "foo"), false)).toEqual(
+      ""
+    );
+    expect(
+      from.relative(new FilesystemPath("/test", "foo/lorem/ipsum"), false)
+    ).toEqual("lorem/ipsum");
+    expect(
+      from.relative(new FilesystemPath("/test", "bar/test"), false)
+    ).toEqual("../bar/test");
+  });
 });

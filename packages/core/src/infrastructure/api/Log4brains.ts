@@ -1,7 +1,10 @@
 import { AwilixContainer } from "awilix";
 import { buildContainer } from "@src/infrastructure/di";
 import { Adr, AdrSlug, AdrStatus, PackageRef } from "@src/adr/domain";
-import { CreateAdrFromTemplateCommand } from "@src/adr/application/commands";
+import {
+  CreateAdrFromTemplateCommand,
+  SupersedeAdrCommand
+} from "@src/adr/application/commands";
 import {
   SearchAdrsQuery,
   SearchAdrsFilters as AppSearchAdrsFilters,
@@ -114,7 +117,11 @@ export class Log4brains {
     supersededSlug: string,
     supersederSlug: string
   ): Promise<void> {
-    throw new Error("Not implemented");
+    const supersededSlugObj = new AdrSlug(supersededSlug);
+    const supersederSlugObj = new AdrSlug(supersederSlug);
+    await this.commandBus.dispatch(
+      new SupersedeAdrCommand(supersededSlugObj, supersederSlugObj)
+    );
   }
 
   /**

@@ -27,6 +27,10 @@ export class CheerioMarkdown {
     return this.$markdown;
   }
 
+  get nbLines(): number {
+    return this.markdown.split(`\n`).length;
+  }
+
   onChange(cb: OnChangeObserver): void {
     this.observers.push(cb);
   }
@@ -50,11 +54,14 @@ export class CheerioMarkdown {
     if (mdElt.startLine === undefined || mdElt.endLine === undefined) {
       throw new Error("Cannot source-map this element from Markdown");
     }
-    if (mdElt.endLine - mdElt.startLine > 1) {
-      throw new Error("Multiline elements are not supported yet");
+
+    for (let i = mdElt.startLine; i < mdElt.endLine; i += 1) {
+      const newLine = this.getLine(mdElt.startLine).replace(
+        elt.text(),
+        newText
+      );
+      this.replaceLine(mdElt.startLine, newLine);
     }
-    const newLine = this.getLine(mdElt.startLine).replace(elt.text(), newText);
-    this.replaceLine(mdElt.startLine, newLine);
   }
 
   replaceLine(i: number, newLine: string): void {
@@ -83,7 +90,19 @@ export class CheerioMarkdown {
     if (mdElt.endLine === undefined) {
       throw new Error("Cannot source-map this element from Markdown");
     }
-    this.insertLineAt(mdElt.endLine - 1, newLine);
+    const end = elt.is("ul") ? mdElt.endLine - 1 : mdElt.endLine;
+    this.insertLineAt(end, newLine);
+  }
+
+  appendLine(newLine: string): void {
+    const lines = this.markdown.split(`\n`);
+    const windowsLines = lines.length > 0 ? isWindowsLine(lines[0]) : false;
+    if (lines[lines.length - 1].trim() === "") {
+      delete lines[lines.length - 1];
+    }
+    lines.push(`${newLine}${windowsLines ? `\r` : ""}`);
+    lines.push(`${windowsLines ? `\r` : ""}\n`);
+    this.updateMarkdown(lines.join(`\n`));
   }
 
   appendToList(ul: cheerio.Cheerio, newItem: string): void {

@@ -11,4 +11,9 @@ describe("AdrStatus", () => {
       AdrStatus.createFromName("loremipsum");
     }).toThrow();
   });
+
+  it("works with 'superseded by XXX", () => {
+    const status = AdrStatus.createFromName("superseded by XXX");
+    expect(status.name).toEqual("superseded");
+  });
 });

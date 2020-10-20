@@ -1,5 +1,6 @@
 export * from "./Adr";
 export * from "./AdrFile";
+export * from "./MarkdownAdrLink";
 export * from "./AdrSlug";
 export * from "./AdrStatus";
 export * from "./AdrTemplate";

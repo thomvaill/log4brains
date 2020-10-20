@@ -1,1 +1,2 @@
-export * from './CreateAdrFromTemplateCommandHandler';
+export * from "./CreateAdrFromTemplateCommandHandler";
+export * from "./SupersedeAdrCommandHandler";

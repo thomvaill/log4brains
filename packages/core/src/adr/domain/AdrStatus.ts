@@ -26,6 +26,10 @@ export class AdrStatus extends ValueObject<Props> {
   }
 
   static createFromName(name: string): AdrStatus {
+    if (name.toLowerCase().startsWith("superseded by")) {
+      return this.SUPERSEDED;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const status = Object.values(AdrStatus)
       .filter((prop) => {
@@ -35,6 +39,7 @@ export class AdrStatus extends ValueObject<Props> {
     if (!status) {
       throw new Log4brainsError("Unknown ADR status", name);
     }
+
     return status as AdrStatus;
   }
 }

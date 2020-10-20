@@ -169,5 +169,129 @@ Technical Story: [description | ticket/issue URL] <!-- optional -->
 ## Subtitle
 # Second title`);
     });
+
+    it("creates a metadata even if the paragraph does not exist", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+
+## Subtitle
+## Subtitle
+# Second title`
+      );
+
+      body.setHeaderMetadata("Deciders", "@JohnDoe");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+
+- Deciders: @JohnDoe
+
+
+## Subtitle
+## Subtitle
+# Second title`);
+    });
+  });
+
+  describe("getlinks()", () => {
+    it("returns links", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+## Subtitle
+
+- test
+
+## Subtitle
+## Links
+
+- link1: [foo](bar.md)
+- link2`
+      );
+      expect(body.getLinks()).toEqual(["link1: [foo](bar.md)", "link2"]);
+    });
+
+    it("returns undefined when no links", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+## Subtitle
+
+- test
+
+## Subtitle`
+      );
+      expect(body.getLinks()).toBeUndefined();
+    });
+  });
+
+  describe("addLink()", () => {
+    it("adds a link", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+## Subtitle
+## Links
+
+- link1: [foo](bar.md)
+- link2
+
+`
+      ); // TODO: fix this whitespace issue
+
+      body.addLink("link3");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+## Subtitle
+## Links
+
+- link1: [foo](bar.md)
+- link2
+- link3
+
+`);
+    });
+
+    it("adds a link even if the paragraph does not exist", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+## Subtitle
+Lorem ipsum`
+      ); // TODO: fix this whitespace issue
+
+      body.addLink("link1");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+## Subtitle
+Lorem ipsum
+
+## Links
+
+- link1
+
+`);
+    });
+  });
+
+  describe("addLinkNoDuplicate()", () => {
+    it("does not add the link if there is a duplicate", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+## Subtitle
+## Links
+
+- link test
+
+`
+      ); // TODO: fix this whitespace issue
+
+      body.addLinkNoDuplicate("Link TEST");
+      body.addLinkNoDuplicate("Link2");
+
+      expect(body.getRawMarkdown()).toEqual(`# Hello World
+## Subtitle
+## Links
+
+- link test
+- Link2
+
+`);
+    });
   });
 });

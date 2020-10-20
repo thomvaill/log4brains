@@ -1,9 +1,11 @@
 import { AggregateRoot } from "@src/domain";
 import { AdrFile } from "./AdrFile";
+import { MarkdownAdrLink } from "./MarkdownAdrLink";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
 import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
+import { AdrRelation } from "./AdrRelation";
 
 const defaultStatus = AdrStatus.DRAFT;
 
@@ -32,7 +34,7 @@ export class Adr extends AggregateRoot<Props> {
   }
 
   get title(): string | undefined {
-    return this.body.getFirstH1Title();
+    return this.body.getFirstH1Title(); // TODO: log when no title
   }
 
   get status(): AdrStatus {
@@ -43,13 +45,21 @@ export class Adr extends AggregateRoot<Props> {
     try {
       return AdrStatus.createFromName(statusStr);
     } catch (e) {
-      console.log(`Warning: ${e.message}`); // TODO: log
-      return defaultStatus;
+      return defaultStatus; // TODO: log
     }
   }
 
   get superseder(): AdrSlug | undefined {
-    return undefined; // TODO
+    const statusStr = this.body.getHeaderMetadata("Status");
+    if (!this.status.equals(AdrStatus.SUPERSEDED) || !statusStr) {
+      return undefined;
+    }
+    const slug = statusStr.replace(/superseded\s*by\s*:?/i, "").trim();
+    try {
+      return slug ? new AdrSlug(slug) : undefined;
+    } catch (e) {
+      return undefined; // TODO: log
+    }
   }
 
   get date(): Date {
@@ -66,5 +76,16 @@ export class Adr extends AggregateRoot<Props> {
 
   setTitle(title: string): void {
     this.body.setFirstH1Title(title);
+  }
+
+  supersedeBy(superseder: Adr): void {
+    const relation = new AdrRelation(this, "superseded by", superseder);
+    this.body.setHeaderMetadata("Status", relation.toMarkdown());
+    superseder.markAsSuperseder(this);
+  }
+
+  private markAsSuperseder(superseded: Adr): void {
+    const relation = new AdrRelation(this, "Supersedes", superseded);
+    this.body.addLinkNoDuplicate(relation.toMarkdown());
   }
 }

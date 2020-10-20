@@ -52,4 +52,11 @@ export class FilesystemPath extends ValueObject<Props> {
       path.join(this.pathRelativeToCwd, p)
     );
   }
+
+  relative(to: FilesystemPath, amIaDirectory = false): string {
+    const from = amIaDirectory
+      ? this.absolutePath
+      : path.dirname(this.absolutePath);
+    return path.relative(from, to.absolutePath);
+  }
 }
