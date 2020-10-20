@@ -7,8 +7,6 @@ import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 import { AdrRelation } from "./AdrRelation";
 
-const defaultStatus = AdrStatus.DRAFT;
-
 type Props = {
   slug: AdrSlug;
   package?: PackageRef;
@@ -45,12 +43,15 @@ export class Adr extends AggregateRoot<Props> {
   get status(): AdrStatus {
     const statusStr = this.body.getHeaderMetadata("Status");
     if (!statusStr) {
-      return defaultStatus;
+      if (this.publicationDate) {
+        return AdrStatus.ACCEPTED;
+      }
+      return AdrStatus.DRAFT;
     }
     try {
       return AdrStatus.createFromName(statusStr);
     } catch (e) {
-      return defaultStatus; // TODO: log
+      return AdrStatus.DRAFT; // TODO: log
     }
   }
 

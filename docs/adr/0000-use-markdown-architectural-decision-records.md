@@ -1,5 +1,7 @@
 # Use Markdown Architectural Decision Records
 
+- Status: accepted
+
 ## Context and Problem Statement
 
 We want to record architectural decisions made in this project.

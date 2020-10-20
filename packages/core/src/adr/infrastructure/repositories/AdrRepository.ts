@@ -62,35 +62,34 @@ export class AdrRepository implements IAdrRepository {
     )
       .flat()
       .sort((a, b) => {
-        // sorted DESC
         // TODO: test
         if (
           a.publicationDateOrCreationDate &&
           !b.publicationDateOrCreationDate
         ) {
-          return 1;
+          return -1;
         }
         if (
           !a.publicationDateOrCreationDate &&
           b.publicationDateOrCreationDate
         ) {
-          return -1;
+          return 1;
         }
         if (
           a.publicationDateOrCreationDate! < b.publicationDateOrCreationDate!
         ) {
-          return 1;
+          return -1;
         }
         if (
           a.publicationDateOrCreationDate! > b.publicationDateOrCreationDate!
         ) {
-          return -1;
-        }
-        if (a.slug.namePart < b.slug.namePart) {
           return 1;
         }
-        if (a.slug.namePart > b.slug.namePart) {
+        if (a.slug.namePart < b.slug.namePart) {
           return -1;
+        }
+        if (a.slug.namePart > b.slug.namePart) {
+          return 1;
         }
         return 0;
       });
