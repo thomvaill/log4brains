@@ -1,6 +1,7 @@
 # Use Next.js for Static Site Generation
 
 - Status: accepted
+- Date: 2020-09-25
 - Deciders: @Thomvaill
 - Tags: frontend, frameworks
 

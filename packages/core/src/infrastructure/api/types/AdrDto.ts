@@ -16,6 +16,8 @@ export type AdrDto = Readonly<{
   body: Readonly<{
     markdown: string;
   }>;
+  creationDate: Date;
+  publicationDate: Date | null;
   file: Readonly<{
     relativePath: string;
     absolutePath: string;
