@@ -56,7 +56,7 @@ export class AdrRepository implements IAdrRepository {
       await Promise.all([
         this.findAllInPath(this.getAdrFolderPath()),
         ...packages.map((pkg) => {
-          return this.findAllInPath(pkg.path, pkg.ref);
+          return this.findAllInPath(pkg.adrFolderPath, pkg.ref);
         })
       ])
     )
