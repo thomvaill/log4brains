@@ -1,5 +1,5 @@
 import { Entity } from "@src/domain";
-import { CheerioMarkdown } from "./cheerio-markdown";
+import { CheerioMarkdown } from "@src/lib/cheerio-markdown";
 
 type Props = {
   value: string;
