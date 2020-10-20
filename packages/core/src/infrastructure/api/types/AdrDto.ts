@@ -12,7 +12,6 @@ export type AdrDto = Readonly<{
   title: string | null;
   status: AdrDtoStatus;
   supersededBy: string | null; // Optionally contains the target ADR slug when status === "superseded"
-  date: Date;
   tags: string[];
   body: Readonly<{
     markdown: string;

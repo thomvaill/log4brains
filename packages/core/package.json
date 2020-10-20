@@ -29,6 +29,7 @@
     "markdown-it-source-map": "^0.1.1",
     "moment": "^2.29.1",
     "neverthrow": "^2.7.1",
+    "simple-git": "^2.21.0",
     "slugify": "^1.4.5",
     "yaml": "^1.10.0"
   },

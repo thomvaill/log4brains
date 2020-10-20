@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
-import fs from "fs";
-import { promises as fsP } from "fs";
+import fs, { promises as fsP } from "fs";
 import path from "path";
+import simpleGit, { SimpleGit } from "simple-git";
 import { AdrRepository as IAdrRepository } from "@src/adr/application";
 import {
   Adr,
@@ -28,10 +28,13 @@ export class AdrRepository implements IAdrRepository {
 
   private readonly packageRepository: PackageRepository;
 
+  private readonly git: SimpleGit;
+
   constructor({ config, workdir, packageRepository }: Deps) {
     this.config = config;
     this.workdir = workdir;
     this.packageRepository = packageRepository;
+    this.git = simpleGit({ baseDir: workdir });
   }
 
   async find(slug: AdrSlug): Promise<Adr> {
@@ -56,7 +59,68 @@ export class AdrRepository implements IAdrRepository {
           return this.findAllInPath(pkg.path, pkg.ref);
         })
       ])
-    ).flat(); // TODO: order
+    )
+      .flat()
+      .sort((a, b) => {
+        // sorted DESC
+        // TODO: test
+        if (
+          a.publicationDateOrCreationDate &&
+          !b.publicationDateOrCreationDate
+        ) {
+          return 1;
+        }
+        if (
+          !a.publicationDateOrCreationDate &&
+          b.publicationDateOrCreationDate
+        ) {
+          return -1;
+        }
+        if (
+          a.publicationDateOrCreationDate! < b.publicationDateOrCreationDate!
+        ) {
+          return 1;
+        }
+        if (
+          a.publicationDateOrCreationDate! > b.publicationDateOrCreationDate!
+        ) {
+          return -1;
+        }
+        if (a.slug.namePart < b.slug.namePart) {
+          return 1;
+        }
+        if (a.slug.namePart > b.slug.namePart) {
+          return -1;
+        }
+        return 0;
+      });
+  }
+
+  private async getCreationDateFromGit(
+    file: AdrFile
+  ): Promise<Date | undefined> {
+    const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
+      .all;
+    if (!logs || logs.length === 0) {
+      return undefined;
+    }
+    const dateTime = new Date(logs[logs.length - 1].date);
+    return dateTime
+      ? new Date(
+          dateTime.getFullYear(),
+          dateTime.getMonth(),
+          dateTime.getDate()
+        )
+      : undefined;
+  }
+
+  private async getCreationDateFromFilesystem(file: AdrFile): Promise<Date> {
+    const stat = await fsP.stat(file.path.absolutePath);
+    return new Date(
+      stat.birthtime.getFullYear(),
+      stat.birthtime.getMonth(),
+      stat.birthtime.getDate()
+    );
   }
 
   private async findAllInPath(
@@ -80,13 +144,17 @@ export class AdrRepository implements IAdrRepository {
             .readFile(fsPath.absolutePath, {
               encoding: "utf8"
             })
-            .then((markdown) => {
+            .then(async (markdown) => {
               const adrFile = new AdrFile(fsPath);
+              const creationDate =
+                (await this.getCreationDateFromGit(adrFile)) ||
+                (await this.getCreationDateFromFilesystem(adrFile));
               return new Adr({
                 slug: AdrSlug.createFromFile(adrFile, packageRef),
                 package: packageRef,
                 body: new MarkdownBody(markdown),
-                file: adrFile
+                file: adrFile,
+                creationDate
               });
             });
         })

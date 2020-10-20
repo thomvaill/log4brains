@@ -14,6 +14,7 @@ type Props = {
   package?: PackageRef;
   body: MarkdownBody;
   file?: AdrFile; // set by the repository after save()
+  creationDate?: Date;
 };
 
 export class Adr extends AggregateRoot<Props> {
@@ -31,6 +32,10 @@ export class Adr extends AggregateRoot<Props> {
 
   get file(): AdrFile | undefined {
     return this.props.file;
+  }
+
+  get creationDate(): Date | undefined {
+    return this.props.creationDate;
   }
 
   get title(): string | undefined {
@@ -62,8 +67,16 @@ export class Adr extends AggregateRoot<Props> {
     }
   }
 
-  get date(): Date {
-    return new Date("2020-01-01"); // TODO
+  get publicationDate(): Date | undefined {
+    const dateStr = this.body.getHeaderMetadata("date");
+    if (!dateStr) {
+      return undefined;
+    }
+    return new Date(dateStr) ?? undefined;
+  }
+
+  get publicationDateOrCreationDate(): Date | undefined {
+    return this.publicationDate || this.creationDate || undefined;
   }
 
   get tags(): string[] {
