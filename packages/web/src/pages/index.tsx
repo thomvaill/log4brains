@@ -1,7 +1,7 @@
 import { GetStaticProps } from "next";
-import { AdrDto } from "@log4brains/core";
 import Head from "next/head";
 import Link from "next/link";
+import { AdrBrowserLayout } from "../layouts";
 import { l4bInstance } from "../lib";
 
 type Props = {
@@ -12,28 +12,20 @@ export default function Home({ adrs }: Props) {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Architecture Log</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <ul>
-        {adrs.map((adr) => (
-          <li key={adr.slug}>
-            <Link href={`/adr/${adr.slug}`}>
-              <a>
-                {adr.folder ? `${adr.folder}/` : ""}
-                {adr.number} - {adr.title || "Untitled"}
-              </a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      Hello!
     </div>
   );
 }
 
+Home.getLayout = (page, pageProps = {}) => (
+  <AdrBrowserLayout {...pageProps}>{page}</AdrBrowserLayout>
+);
+
 export const getStaticProps: GetStaticProps = async () => {
-  const adrs = await l4bInstance.getAdrs();
+  const adrs = (await l4bInstance.searchAdrs()).reverse();
   return {
     props: {
       adrs

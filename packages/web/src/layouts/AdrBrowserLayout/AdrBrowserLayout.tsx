@@ -10,7 +10,8 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography
+  Typography,
+  Link as MuiLink
 } from "@material-ui/core";
 import {
   Timeline,
@@ -33,8 +34,12 @@ import {
   FormatListBulleted as FormatListBulletedIcon,
   EmojiFlags as EmojiFlagsIcon
 } from "@material-ui/icons";
+import { AdrDto } from "@log4brains/core";
+import Link from "next/link";
+import clsx from "clsx";
+import { Markdown } from "../../components";
 
-const drawerWidth = 400;
+const drawerWidth = 450;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -117,11 +122,20 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
+    },
+    currentAdr: {
+      color: "red"
     }
   })
 );
 
-export function AdrBrowserLayout() {
+type Props = {
+  adrs: AdrDto[];
+  currentAdr?: AdrDto;
+  children: JSX.Element;
+};
+
+export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
   const classes = useStyles();
 
   return (
@@ -162,40 +176,34 @@ export function AdrBrowserLayout() {
         <div className={classes.drawerContainer}>
           <div className={classes.timelineContainer}>
             <Timeline className={classes.timeline}>
-              <TimelineItem>
-                <TimelineOppositeContent
-                  classes={{ root: classes.timelineOppositeContentRoot }}
-                >
-                  <Typography>DRAFT</Typography>
-                  <Typography variant="body2">backend</Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Typography>
-                    Use Markdown Architectural Decision Records
-                  </Typography>
-                </TimelineContent>
-              </TimelineItem>
-              <TimelineItem>
-                <TimelineOppositeContent
-                  classes={{ root: classes.timelineOppositeContentRoot }}
-                >
-                  <Typography>ACCEPTED</Typography>
-                  <Typography variant="body2">frontend</Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot />
-                  <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Typography>
-                    Use Next.js for Static Site Generation
-                  </Typography>
-                </TimelineContent>
-              </TimelineItem>
+              {adrs.map((adr) => (
+                <TimelineItem key={adr.slug}>
+                  <TimelineOppositeContent
+                    classes={{ root: classes.timelineOppositeContentRoot }}
+                  >
+                    <Typography>{adr.status.toUpperCase()}</Typography>
+                    <Typography variant="body2">{adr.package}</Typography>
+                  </TimelineOppositeContent>
+                  <TimelineSeparator>
+                    <TimelineDot />
+                    <TimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    <Link href={`/adr/${adr.slug}`}>
+                      <MuiLink
+                        href={`/adr/${adr.slug}`}
+                        className={clsx({
+                          [classes.currentAdr]:
+                            currentAdr?.slug === adr.slug
+                        })}
+                      >
+                        {adr.title || "Untitled"}
+                      </MuiLink>
+                    </Link>
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+
               <TimelineItem>
                 <TimelineOppositeContent
                   classes={{ root: classes.timelineStartOppositeContentRoot }}
@@ -233,40 +241,7 @@ export function AdrBrowserLayout() {
       </Drawer>
       <main className={classes.content}>
         <Toolbar />
-        <Typography variant="h1">
-          Use Markdown Architectural Decision Records
-        </Typography>
-        <Typography variant="h2">Context and Problem Statement</Typography>
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography variant="h2">Considered Options</Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {children}
       </main>
     </div>
   );

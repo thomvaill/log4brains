@@ -16,8 +16,8 @@ export type AdrDto = Readonly<{
   body: Readonly<{
     markdown: string;
   }>;
-  creationDate: Date;
-  publicationDate: Date | null;
+  creationDate: string; // not Date because Next.js cannot serialize Date objects
+  publicationDate: string | null; // not Date because Next.js cannot serialize Date objects
   file: Readonly<{
     relativePath: string;
     absolutePath: string;
