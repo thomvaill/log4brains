@@ -146,15 +146,14 @@ export class AdrRepository implements IAdrRepository {
             })
             .then(async (markdown) => {
               const adrFile = new AdrFile(fsPath);
-              const creationDate =
-                (await this.getCreationDateFromGit(adrFile)) ||
-                (await this.getCreationDateFromFilesystem(adrFile));
+              const gitDate = await this.getCreationDateFromGit(adrFile);
               return new Adr({
                 slug: AdrSlug.createFromFile(adrFile, packageRef),
                 package: packageRef,
                 body: new MarkdownBody(markdown),
                 file: adrFile,
-                creationDate
+                creationDate:
+                  gitDate || (await this.getCreationDateFromFilesystem(adrFile))
               });
             });
         })
