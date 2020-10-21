@@ -128,5 +128,9 @@ The "log4brains patch" performs the following modifications to the original temp
 adrMocks.reverse();
 
 export function Default() {
-  return <AdrBrowserLayout adrs={adrMocks}>Empty</AdrBrowserLayout>;
+  return (
+    <AdrBrowserLayout adrs={adrMocks}>
+      <></>
+    </AdrBrowserLayout>
+  );
 }
