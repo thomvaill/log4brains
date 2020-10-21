@@ -12,8 +12,9 @@
   "scripts": {
     "dev": "cross-env LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
-    "build": "tsc --noEmit false && copyfiles next.config.js dist && copyfiles -u 1 src/bin/log4brains-web dist",
+    "build": "yarn clean && tsc --noEmit false && copyfiles next.config.js dist && copyfiles --up 1 src/bin/log4brains-web src/lib/core-api/noop/.log4brains.yml src/lib/core-api/noop/**/.* dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
     "clean": "rimraf ./dist",
+    "serve": "serve .log4brains/out",
     "typescript": "tsc",
     "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0 --fix",

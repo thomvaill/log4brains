@@ -53,8 +53,8 @@ The "log4brains patch" performs the following modifications to the original temp
 - Remove the Date field, because this metadata is already available in Git.
 `
     },
-    creationDate: new Date(2020, 1, 1),
-    publicationDate: new Date(2020, 1, 1),
+    creationDate: new Date(2020, 1, 1).toJSON(),
+    publicationDate: new Date(2020, 1, 1).toJSON(),
     file: {
       relativePath:
         "docs/adr/20200101-use-markdown-architectural-decision-records.md",
@@ -70,7 +70,7 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: null,
     tags: [],
     body: { markdown: "" },
-    creationDate: new Date(2020, 1, 2),
+    creationDate: new Date(2020, 1, 2).toJSON(),
     publicationDate: null,
     file: {
       relativePath:
@@ -87,8 +87,8 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: "20200404-a-new-decision",
     tags: [],
     body: { markdown: "" },
-    creationDate: new Date(2020, 1, 6),
-    publicationDate: new Date(2020, 1, 8),
+    creationDate: new Date(2020, 1, 6).toJSON(),
+    publicationDate: new Date(2020, 1, 8).toJSON(),
     file: {
       relativePath: "docs/adr/20200106-an-old-decision.md",
       absolutePath: "/root/docs/adr/20200106-an-old-decision.md"
@@ -102,7 +102,7 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: null,
     tags: [],
     body: { markdown: "" },
-    creationDate: new Date(2020, 4, 4),
+    creationDate: new Date(2020, 4, 4).toJSON(),
     publicationDate: null,
     file: {
       relativePath: "docs/adr/20200404-a-new-decision.md",
@@ -117,7 +117,7 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: null,
     tags: [],
     body: { markdown: "" },
-    creationDate: new Date(2020, 4, 4),
+    creationDate: new Date(2020, 4, 4).toJSON(),
     publicationDate: null,
     file: {
       relativePath: "backend/docs/adr/20200404-untitled-draft.md",
@@ -128,11 +128,5 @@ The "log4brains patch" performs the following modifications to the original temp
 adrMocks.reverse();
 
 export function Default() {
-  return (
-    <AdrBrowserLayout
-      adrs={adrMocks}
-      currentPage="adr"
-      currentAdrSlug="20200101-use-markdown-architectural-decision-records"
-    />
-  );
+  return <AdrBrowserLayout adrs={adrMocks}>Empty</AdrBrowserLayout>;
 }

@@ -7,5 +7,8 @@ module.exports = withTM({
   reactStrictMode: true,
   // basePath: "", // TODO: make this customizable
   target: "serverless",
-  poweredByHeader: false
+  poweredByHeader: false,
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname // https://github.com/vercel/next.js/issues/8251
+  }
 });

@@ -41,7 +41,9 @@ module.exports = {
       files: ["*.tsx"],
       rules: {
         // [Project-specific] avoid React.FC (@adr-0006)
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        // [Project-specific]
+        "react/display-name": "off"
       }
     },
     // Specific rules for Next.js pages only

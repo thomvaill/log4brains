@@ -1,0 +1,6 @@
+---
+# This config file is used by instance.ts during Next.js build phase,
+# When we want to create a noop instance of Log4brains
+project:
+  name: noop
+  adrFolder: ./noop-adrs

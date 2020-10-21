@@ -132,11 +132,15 @@ const useStyles = makeStyles((theme: Theme) =>
 type Props = {
   adrs: AdrDto[];
   currentAdr?: AdrDto;
-  children: JSX.Element;
+  children: React.ReactNode;
 };
 
 export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
   const classes = useStyles();
+
+  if (adrs === undefined) {
+    return null; // Specific case during Next.js pre-rendering
+  }
 
   return (
     <div className={classes.root}>
@@ -193,8 +197,7 @@ export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
                       <MuiLink
                         href={`/adr/${adr.slug}`}
                         className={clsx({
-                          [classes.currentAdr]:
-                            currentAdr?.slug === adr.slug
+                          [classes.currentAdr]: currentAdr?.slug === adr.slug
                         })}
                       >
                         {adr.title || "Untitled"}

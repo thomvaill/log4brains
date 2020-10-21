@@ -9,7 +9,7 @@ export async function startEditorCommand(port: number): Promise<void> {
   logger.info("🧠 Log4brains is starting...");
 
   const app = next({
-    dev: true,
+    dev: false,
     dir: getNextJsDir()
   });
   await app.prepare();

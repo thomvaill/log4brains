@@ -1,3 +1,4 @@
+import { AdrDto } from "@log4brains/core";
 import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -20,7 +21,7 @@ export default function Home({ adrs }: Props) {
   );
 }
 
-Home.getLayout = (page, pageProps = {}) => (
+Home.getLayout = (page: JSX.Element, pageProps: Props) => (
   <AdrBrowserLayout {...pageProps}>{page}</AdrBrowserLayout>
 );
 
@@ -29,6 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       adrs
-    }
+    },
+    revalidate: 1
   };
 };

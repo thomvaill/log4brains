@@ -8,6 +8,7 @@ import { Markdown } from "../../components";
 const socket = io();
 
 type Props = {
+  adrs: AdrDto[];
   currentAdr: AdrDto;
 };
 
@@ -15,7 +16,7 @@ export default function Adr({ currentAdr }: Props) {
   return <Markdown>{currentAdr.body.markdown}</Markdown>;
 }
 
-Adr.getLayout = (page, pageProps = {}) => (
+Adr.getLayout = (page: JSX.Element, pageProps: Props) => (
   <AdrBrowserLayout {...pageProps}>{page}</AdrBrowserLayout>
 );
 
@@ -26,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   return {
     paths,
-    fallback: false
+    fallback: process.env.LOG4BRAINS_PHASE === "initial-build"
   };
 };
 
@@ -34,17 +35,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (params === undefined) {
     return { props: {} };
   }
+  const currentSlug = params.slug && (params.slug as string[]).join("/");
 
   const adrs = (await l4bInstance.searchAdrs()).reverse();
   const currentAdr = adrs
     .filter((adr) => {
-      return adr.slug === params.slug.join("/");
+      return adr.slug === currentSlug;
     })
     .pop();
   return {
     props: {
       adrs,
       currentAdr
-    }
+    },
+    revalidate: 1
   };
 };
