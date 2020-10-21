@@ -9,7 +9,8 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Link as MuiLink
+  Link as MuiLink,
+  Typography
 } from "@material-ui/core";
 import {
   createStyles,
@@ -28,8 +29,9 @@ import { AdrMenu } from "./components/AdrMenu";
 
 const drawerWidth = 450;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => {
+  const topSpace = theme.spacing(6);
+  return createStyles({
     root: {
       display: "flex"
     },
@@ -102,7 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       display: "flex",
       flexDirection: "column",
-      paddingTop: theme.spacing(3)
+      paddingTop: topSpace
     },
     adrMenu: {
       flexGrow: 1,
@@ -115,10 +117,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3)
+      paddingTop: topSpace
+    },
+    adlTitle: {
+      fontWeight: theme.typography.fontWeightBold,
+      paddingLeft: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        paddingLeft: theme.spacing(3)
+      },
+      paddingBottom: theme.spacing(0.5)
     }
-  })
-);
+  });
+});
 
 export type AdrBrowserLayoutProps = {
   adrs: AdrDto[];
@@ -143,11 +153,6 @@ export function AdrBrowserLayout({
             <Link href="/" passHref>
               <MuiLink variant="h6" noWrap className={classes.titleLink}>
                 Log4brains
-              </MuiLink>
-            </Link>
-            <Link href="/" passHref>
-              <MuiLink variant="body1" noWrap className={classes.titleLink}>
-                Architecture decisions log
               </MuiLink>
             </Link>
           </div>
@@ -176,6 +181,10 @@ export function AdrBrowserLayout({
       >
         <div className={classes.drawerContainer}>
           <Toolbar />
+
+          <Typography variant="subtitle2" className={classes.adlTitle}>
+            Architecture decisions log
+          </Typography>
 
           <AdrMenu
             adrs={adrs}

@@ -24,6 +24,13 @@ export const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        body: {
+          padding: "0 !important" // for storybook
+        }
+      }
+    },
     MuiLink: {
       root: {
         "&:hover": {
