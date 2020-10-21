@@ -27,17 +27,17 @@ const options = {
       component: Typography,
       props: {
         gutterBottom: true,
-        variant: "h5"
+        variant: "h3"
       }
     },
-    h2: { component: Typography, props: { gutterBottom: true, variant: "h6" } },
+    h2: { component: Typography, props: { gutterBottom: true, variant: "h4" } },
     h3: {
       component: Typography,
-      props: { gutterBottom: true, variant: "subtitle1" }
+      props: { gutterBottom: true, variant: "h5" }
     },
     h4: {
       component: Typography,
-      props: { gutterBottom: true, variant: "caption", paragraph: true }
+      props: { gutterBottom: true, variant: "h6" }
     },
     p: { component: Typography, props: { paragraph: true } },
     a: { component: Link },

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   AppBar,
-  Badge,
   Divider,
   Drawer,
   InputBase,
@@ -10,18 +9,8 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Typography,
   Link as MuiLink
 } from "@material-ui/core";
-import {
-  Timeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineItem,
-  TimelineOppositeContent,
-  TimelineSeparator
-} from "@material-ui/lab";
 import {
   createStyles,
   Theme,
@@ -31,13 +20,11 @@ import {
 import {
   Search as SearchIcon,
   ChevronRight as ChevronRightIcon,
-  FormatListBulleted as FormatListBulletedIcon,
-  EmojiFlags as EmojiFlagsIcon
+  FormatListBulleted as FormatListBulletedIcon
 } from "@material-ui/icons";
-import { AdrDto } from "@log4brains/core";
 import Link from "next/link";
-import clsx from "clsx";
-import { Markdown } from "../../components";
+import { AdrDto } from "@log4brains/core";
+import { AdrMenu } from "./components/AdrMenu";
 
 const drawerWidth = 450;
 
@@ -50,11 +37,20 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.drawer + 1
     },
     title: {
-      flexGrow: 1,
       display: "none",
       [theme.breakpoints.up("sm")]: {
         display: "block"
       }
+    },
+    titleLink: {
+      display: "block",
+      color: "inherit",
+      "&:hover": {
+        color: "inherit"
+      }
+    },
+    center: {
+      flexGrow: 1
     },
     search: {
       position: "relative",
@@ -108,52 +104,54 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
       paddingTop: theme.spacing(3)
     },
-    timelineContainer: {
-      overflow: "auto",
-      flexGrow: 1
+    adrMenu: {
+      flexGrow: 1,
+      flexShrink: 1,
+      overflow: "auto"
     },
-    timeline: {},
-    timelineOppositeContentRoot: {
-      flex: "0 0 32%"
-    },
-    timelineStartOppositeContentRoot: {
-      flex: "0 0 calc(32% - 12px)" // TODO: better calc
+    bottomMenuList: {
+      flexGrow: 0,
+      flexShrink: 0
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3)
-    },
-    currentAdr: {
-      color: "red"
     }
   })
 );
 
-type Props = {
+export type AdrBrowserLayoutProps = {
   adrs: AdrDto[];
   currentAdr?: AdrDto;
   children: React.ReactNode;
+  backlog?: boolean;
 };
 
-export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
+export function AdrBrowserLayout({
+  adrs,
+  currentAdr,
+  children,
+  backlog = false
+}: AdrBrowserLayoutProps) {
   const classes = useStyles();
-
-  if (adrs === undefined) {
-    return null; // Specific case during Next.js pre-rendering
-  }
 
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <div className={classes.title}>
-            <Typography variant="h6" noWrap>
-              Log4brains
-            </Typography>
-            <Typography variant="body1" noWrap>
-              Architecture decisions log
-            </Typography>
+            <Link href="/" passHref>
+              <MuiLink variant="h6" noWrap className={classes.titleLink}>
+                Log4brains
+              </MuiLink>
+            </Link>
+            <Link href="/" passHref>
+              <MuiLink variant="body1" noWrap className={classes.titleLink}>
+                Architecture decisions log
+              </MuiLink>
+            </Link>
           </div>
+          <div className={classes.center} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -176,53 +174,18 @@ export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
           paper: classes.drawerPaper
         }}
       >
-        <Toolbar />
         <div className={classes.drawerContainer}>
-          <div className={classes.timelineContainer}>
-            <Timeline className={classes.timeline}>
-              {adrs.map((adr) => (
-                <TimelineItem key={adr.slug}>
-                  <TimelineOppositeContent
-                    classes={{ root: classes.timelineOppositeContentRoot }}
-                  >
-                    <Typography>{adr.status.toUpperCase()}</Typography>
-                    <Typography variant="body2">{adr.package}</Typography>
-                  </TimelineOppositeContent>
-                  <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                  </TimelineSeparator>
-                  <TimelineContent>
-                    <Link href={`/adr/${adr.slug}`}>
-                      <MuiLink
-                        href={`/adr/${adr.slug}`}
-                        className={clsx({
-                          [classes.currentAdr]: currentAdr?.slug === adr.slug
-                        })}
-                      >
-                        {adr.title || "Untitled"}
-                      </MuiLink>
-                    </Link>
-                  </TimelineContent>
-                </TimelineItem>
-              ))}
+          <Toolbar />
 
-              <TimelineItem>
-                <TimelineOppositeContent
-                  classes={{ root: classes.timelineStartOppositeContentRoot }}
-                />
-                <TimelineSeparator>
-                  <TimelineConnector />
-                  <TimelineDot>
-                    <EmojiFlagsIcon />
-                  </TimelineDot>
-                </TimelineSeparator>
-                <TimelineContent />
-              </TimelineItem>
-            </Timeline>
-          </div>
-          <List>
-            <ListItem button>
+          <AdrMenu
+            adrs={adrs}
+            currentAdr={currentAdr}
+            className={classes.adrMenu}
+          />
+
+          <List className={classes.bottomMenuList}>
+            <Divider />
+            {/* <ListItem button>
               <ListItemIcon>
                 <ChevronRightIcon />
               </ListItemIcon>
@@ -232,13 +195,15 @@ export function AdrBrowserLayout({ adrs, currentAdr, children }: Props) {
                 </Badge>
               </ListItemText>
             </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <FormatListBulletedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Decision backlog" />
-            </ListItem>
+            <Divider /> */}
+            <Link href="/decision-backlog" passHref>
+              <ListItem button selected={backlog} component="a">
+                <ListItemIcon>
+                  <FormatListBulletedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Decision backlog" />
+              </ListItem>
+            </Link>
           </List>
         </div>
       </Drawer>

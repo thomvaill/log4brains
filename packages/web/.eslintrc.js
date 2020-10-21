@@ -60,7 +60,8 @@ module.exports = {
       rules: {
         // because storybook is a devDependency
         "import/no-extraneous-dependencies": "off",
-        "import/no-default-export": "off"
+        "import/no-default-export": "off",
+        "react/function-component-definition": "off"
       }
     }
   ],

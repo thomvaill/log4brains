@@ -1,12 +1,9 @@
 import React from "react";
-import { Meta } from "@storybook/react";
+import { Meta, Story } from "@storybook/react";
 import { AdrDtoStatus } from "@log4brains/core";
-import { AdrBrowserLayout } from "./AdrBrowserLayout";
-
-export default {
-  title: "AdrBrowserLayout",
-  component: AdrBrowserLayout
-} as Meta;
+import { AdrBrowserLayout, AdrBrowserLayoutProps } from "./AdrBrowserLayout";
+import { Default as MarkdownDefault } from "../../components/Markdown/Markdown.stories";
+import { Markdown } from "../../components";
 
 const adrMocks = [
   {
@@ -123,14 +120,75 @@ The "log4brains patch" performs the following modifications to the original temp
       relativePath: "backend/docs/adr/20200404-untitled-draft.md",
       absolutePath: "/root/backend/docs/adr/20200404-untitled-draft.md"
     }
+  },
+  {
+    slug: "backend/20200405-untitled-draft",
+    package: "backend",
+    title: "Untitled Draft",
+    status: "draft" as AdrDtoStatus,
+    supersededBy: null,
+    tags: [],
+    body: { markdown: "" },
+    creationDate: new Date(2020, 4, 5).toJSON(),
+    publicationDate: null,
+    file: {
+      relativePath: "backend/docs/adr/20200405-untitled-draft.md",
+      absolutePath: "/root/backend/docs/adr/20200405-untitled-draft.md"
+    }
+  },
+  {
+    slug: "backend/20200405-untitled-draft2",
+    package: "backend",
+    title:
+      "This is a very long title for an ADR which should span on multiple lines but it does not matter",
+    status: "draft" as AdrDtoStatus,
+    supersededBy: null,
+    tags: [],
+    body: {
+      markdown: `# This is a very long title for an ADR which should span on multiple lines but it does not matter
+
+Hello World
+`
+    },
+    creationDate: new Date(2020, 4, 5).toJSON(),
+    publicationDate: null,
+    file: {
+      relativePath: "backend/docs/adr/20200405-untitled-draft2.md",
+      absolutePath: "/root/backend/docs/adr/20200405-untitled-draft2.md"
+    }
   }
 ];
 adrMocks.reverse();
 
-export function Default() {
-  return (
-    <AdrBrowserLayout adrs={adrMocks}>
-      <></>
-    </AdrBrowserLayout>
-  );
-}
+const Template: Story<AdrBrowserLayoutProps> = (args) => (
+  <AdrBrowserLayout {...args} />
+);
+
+export default {
+  title: "AdrBrowserLayout",
+  component: AdrBrowserLayout
+} as Meta;
+
+export const Home = Template.bind({});
+Home.args = { adrs: adrMocks, children: <MarkdownDefault /> };
+
+export const FirstAdrSelected = Template.bind({});
+FirstAdrSelected.args = {
+  adrs: adrMocks,
+  currentAdr: adrMocks[0],
+  children: <Markdown>{adrMocks[0].body.markdown}</Markdown>
+};
+
+export const LastAdrSelected = Template.bind({});
+LastAdrSelected.args = {
+  adrs: adrMocks,
+  currentAdr: adrMocks[adrMocks.length - 1],
+  children: <Markdown>{adrMocks[adrMocks.length - 1].body.markdown}</Markdown>
+};
+
+export const BacklogSelected = Template.bind({});
+BacklogSelected.args = {
+  adrs: adrMocks,
+  backlog: true,
+  children: <MarkdownDefault />
+};

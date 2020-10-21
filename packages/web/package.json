@@ -31,6 +31,7 @@
     "commander": "^6.1.0",
     "esm": "^3.2.25",
     "markdown-to-jsx": "^7.0.1",
+    "moment": "^2.29.1",
     "next": "9.5.3",
     "next-transpile-modules": "^4.1.0",
     "react": "16.13.1",
