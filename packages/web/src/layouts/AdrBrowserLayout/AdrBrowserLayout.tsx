@@ -115,9 +115,12 @@ const useStyles = makeStyles((theme: Theme) => {
       flexGrow: 0,
       flexShrink: 0
     },
-    content: {
+    container: {
       flexGrow: 1,
       paddingTop: topSpace
+    },
+    content: {
+      minHeight: `calc(100vh - 57px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
     },
     adlTitle: {
       fontWeight: theme.typography.fontWeightBold,
@@ -126,6 +129,44 @@ const useStyles = makeStyles((theme: Theme) => {
         paddingLeft: theme.spacing(3)
       },
       paddingBottom: theme.spacing(0.5)
+    },
+    footer: {
+      backgroundColor: theme.palette.grey[800],
+      color: theme.palette.grey[600],
+      height: 57,
+      display: "flex",
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        paddingRight: theme.spacing(3)
+      }
+    },
+    footerText: {
+      fontSize: "0.77rem"
+    },
+    footerLink: {
+      color: theme.palette.grey[400],
+      fontSize: "0.8rem",
+      "&:hover": {
+        color: theme.palette.grey[100]
+      }
+    },
+    footerLeftGutter: {
+      flexGrow: 1,
+      flexShrink: 1
+    },
+    footerContent: {
+      flexGrow: 0,
+      flexShrink: 0,
+      flexBasis: 750,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    },
+    footerRightGutter: {
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 180
     }
   });
 });
@@ -216,10 +257,25 @@ export function AdrBrowserLayout({
           </List>
         </div>
       </Drawer>
-      <main className={classes.content}>
+      <div className={classes.container}>
         <Toolbar />
-        {children}
-      </main>
+        <main className={classes.content}>{children}</main>
+        <footer className={classes.footer}>
+          <div className={classes.footerLeftGutter} />
+          <div className={classes.footerContent}>
+            <Typography className={classes.footerText}>
+              Powered by{" "}
+              <MuiLink
+                href="https://github.com/log4brains/log4brains"
+                className={classes.footerLink}
+              >
+                🧠 Log4brains
+              </MuiLink>
+            </Typography>
+          </div>
+          <div className={classes.footerRightGutter} />
+        </footer>
+      </div>
     </div>
   );
 }
