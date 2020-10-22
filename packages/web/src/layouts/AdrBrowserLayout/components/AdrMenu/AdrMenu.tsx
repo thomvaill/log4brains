@@ -73,9 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
     currentAdrTimelineConnector: {
       backgroundColor: theme.palette.secondary.main
     },
-    draftLink: {
-      fontStyle: "italic"
-    },
+    draftLink: {},
     proposedLink: {},
     acceptedLink: {},
     rejectedLink: {
