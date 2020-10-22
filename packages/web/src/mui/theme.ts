@@ -19,7 +19,7 @@ export const theme: CustomTheme = {
         main: primary
       },
       secondary: {
-        main: "#19857b"
+        main: "#f50057"
       },
       error: {
         main: colors.red.A400

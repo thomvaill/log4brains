@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: "0.74rem",
       fontWeight: theme.typography.fontWeightMedium,
       height: "18px",
-      margin: "0 6px",
       verticalAlign: "text-bottom"
     },
     label: {
