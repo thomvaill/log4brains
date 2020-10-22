@@ -24,35 +24,50 @@ import {
   FormatListBulleted as FormatListBulletedIcon
 } from "@material-ui/icons";
 import Link from "next/link";
+import clsx from "clsx";
 import { AdrDto } from "@log4brains/core";
 import { AdrMenu } from "./components/AdrMenu";
+import { CustomTheme } from "../../mui";
 
 const drawerWidth = 450;
 
-const useStyles = makeStyles((theme: Theme) => {
+const useStyles = makeStyles((theme: CustomTheme) => {
   const topSpace = theme.spacing(6);
   return createStyles({
     root: {
       display: "flex"
     },
+    layoutLeftCol: {
+      flexGrow: 1
+    },
+    layoutCenterCol: {
+      flexGrow: 0,
+      flexShrink: 0,
+      flexBasis: theme.custom.layout.centerColBasis
+    },
+    layoutRightCol: {
+      flexGrow: 1,
+      flexBasis: theme.custom.layout.rightColBasis
+    },
     appBar: {
       zIndex: theme.zIndex.drawer + 1
     },
-    title: {
+    appBarTitle: {
       display: "none",
       [theme.breakpoints.up("sm")]: {
-        display: "block"
+        display: "block",
+        width: drawerWidth
       }
     },
-    titleLink: {
+    appBarTitleLink: {
       display: "block",
       color: "inherit",
       "&:hover": {
         color: "inherit"
       }
     },
-    center: {
-      flexGrow: 1
+    appBarSearchContainer: {
+      display: "flex"
     },
     search: {
       position: "relative",
@@ -64,7 +79,6 @@ const useStyles = makeStyles((theme: Theme) => {
       marginLeft: 0,
       width: "100%",
       [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(1),
         width: "auto"
       }
     },
@@ -87,9 +101,11 @@ const useStyles = makeStyles((theme: Theme) => {
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("sm")]: {
-        width: "30ch",
+        width: "40ch",
         "&:focus": {
-          width: "50ch"
+          width: `calc(${
+            theme.custom.layout.centerColBasis
+          }px - 1em - ${theme.spacing(4)}px)`
         }
       }
     },
@@ -115,13 +131,6 @@ const useStyles = makeStyles((theme: Theme) => {
       flexGrow: 0,
       flexShrink: 0
     },
-    container: {
-      flexGrow: 1,
-      paddingTop: topSpace
-    },
-    content: {
-      minHeight: `calc(100vh - 57px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
-    },
     adlTitle: {
       fontWeight: theme.typography.fontWeightBold,
       paddingLeft: theme.spacing(2),
@@ -130,16 +139,18 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       paddingBottom: theme.spacing(0.5)
     },
+    container: {
+      flexGrow: 1,
+      paddingTop: topSpace
+    },
+    content: {
+      minHeight: `calc(100vh - 57px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
+    },
     footer: {
       backgroundColor: theme.palette.grey[800],
       color: theme.palette.grey[600],
       height: 57,
-      display: "flex",
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        paddingRight: theme.spacing(3)
-      }
+      display: "flex"
     },
     footerText: {
       fontSize: "0.77rem"
@@ -151,22 +162,10 @@ const useStyles = makeStyles((theme: Theme) => {
         color: theme.palette.grey[100]
       }
     },
-    footerLeftGutter: {
-      flexGrow: 1,
-      flexShrink: 1
-    },
     footerContent: {
-      flexGrow: 0,
-      flexShrink: 0,
-      flexBasis: 750,
       display: "flex",
       flexDirection: "column",
       justifyContent: "center"
-    },
-    footerRightGutter: {
-      flexGrow: 1,
-      flexShrink: 1,
-      flexBasis: 180
     }
   });
 });
@@ -190,27 +189,44 @@ export function AdrBrowserLayout({
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <div className={classes.title}>
+          <div className={classes.appBarTitle}>
             <Link href="/" passHref>
-              <MuiLink variant="h6" noWrap className={classes.titleLink}>
+              <MuiLink variant="h6" noWrap className={classes.appBarTitleLink}>
                 Log4brains
               </MuiLink>
             </Link>
+            <Link href="/" passHref>
+              <MuiLink
+                variant="subtitle2"
+                noWrap
+                className={classes.appBarTitleLink}
+              >
+                Architecture knowledge base
+              </MuiLink>
+            </Link>
           </div>
-          <div className={classes.center} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <div className={classes.layoutLeftCol} />
+          <div
+            className={clsx(
+              classes.layoutCenterCol,
+              classes.appBarSearchContainer
+            )}
+          >
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search..."
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search..."
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
           </div>
+          <div className={classes.layoutRightCol} />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -224,7 +240,7 @@ export function AdrBrowserLayout({
           <Toolbar />
 
           <Typography variant="subtitle2" className={classes.adlTitle}>
-            Architecture decisions log
+            Decisions log
           </Typography>
 
           <AdrMenu
@@ -261,8 +277,8 @@ export function AdrBrowserLayout({
         <Toolbar />
         <main className={classes.content}>{children}</main>
         <footer className={classes.footer}>
-          <div className={classes.footerLeftGutter} />
-          <div className={classes.footerContent}>
+          <div className={classes.layoutLeftCol} />
+          <div className={clsx(classes.layoutCenterCol, classes.footerContent)}>
             <Typography className={classes.footerText}>
               Powered by{" "}
               <MuiLink
@@ -273,7 +289,7 @@ export function AdrBrowserLayout({
               </MuiLink>
             </Typography>
           </div>
-          <div className={classes.footerRightGutter} />
+          <div className={classes.layoutRightCol} />
         </footer>
       </div>
     </div>

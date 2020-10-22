@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "markdown-to-jsx";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
   Typography,
   Link as MuiLink,
@@ -13,30 +13,26 @@ import {
 } from "@material-ui/icons";
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
+import { CustomTheme } from "../../mui";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
     root: {
-      display: "flex",
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        paddingRight: theme.spacing(3)
-      }
+      display: "flex"
     },
-    leftGutter: {
-      flexGrow: 1,
-      flexShrink: 1
+    layoutLeftCol: {
+      flexGrow: 1
     },
-    mdContainer: {
+    layoutCenterCol: {
       flexGrow: 0,
       flexShrink: 0,
-      flexBasis: 750
+      flexBasis: theme.custom.layout.centerColBasis
+    },
+    layoutRightCol: {
+      flexGrow: 1,
+      flexBasis: theme.custom.layout.rightColBasis
     },
     tocContainer: {
-      flexGrow: 1,
-      flexShrink: 1,
-      flexBasis: 180,
       position: "sticky",
       top: theme.spacing(14), // TODO: calculate it based on AdrBrowserLayout's topSpace var
       alignSelf: "flex-start",
@@ -120,8 +116,8 @@ export function Markdown({ className, children }: MarkdownProps) {
 
   return (
     <div className={clsx(className, classes.root)}>
-      <div className={classes.leftGutter} />
-      <div className={classes.mdContainer}>
+      <div className={classes.layoutLeftCol} />
+      <div className={classes.layoutCenterCol}>
         <ReactMarkdown options={options}>{children}</ReactMarkdown>
         <Divider className={classes.bottomNavDivider} />
         <nav className={classes.bottomNav}>
@@ -137,7 +133,7 @@ export function Markdown({ className, children }: MarkdownProps) {
           <Button endIcon={<ArrowForwardIcon />}>Next</Button>
         </nav>
       </div>
-      <div className={classes.tocContainer}>
+      <div className={clsx(classes.layoutRightCol, classes.tocContainer)}>
         <Typography variant="subtitle2" className={classes.tocTitle}>
           Table of contents
         </Typography>
