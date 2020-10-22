@@ -197,7 +197,7 @@ export function AdrBrowserLayout({
             </Link>
             <Link href="/" passHref>
               <MuiLink
-                variant="subtitle2"
+                variant="body2"
                 noWrap
                 className={classes.appBarTitleLink}
               >
