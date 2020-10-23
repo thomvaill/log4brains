@@ -284,6 +284,8 @@ export function AdrBrowserLayout({
               <MuiLink
                 href="https://github.com/log4brains/log4brains"
                 className={classes.footerLink}
+                target="_blank"
+                rel="noopener"
               >
                 🧠 Log4brains
               </MuiLink>
