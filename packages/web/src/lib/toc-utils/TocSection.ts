@@ -9,7 +9,8 @@ export class TocSection {
 
   readonly id: string;
 
-  // Typescript constructor property shorthand does not work in Storybook!!! TODO: investigate
+  // Typescript parameter properties are not supported by Storybook for now! :-(
+  // https://github.com/storybookjs/storybook/issues/12019
   constructor(parent: TocContainer, title: string, id: string) {
     this.parent = parent;
     this.title = title;
