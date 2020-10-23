@@ -7,6 +7,7 @@ import {
   Adr,
   AdrFile,
   AdrSlug,
+  Author,
   FilesystemPath,
   MarkdownBody,
   PackageRef
@@ -14,6 +15,12 @@ import {
 import { Log4brainsConfig } from "@src/infrastructure/config";
 import { Log4brainsError } from "@src/domain";
 import { PackageRepository } from "./PackageRepository";
+
+type DateAndAuthor = {
+  date: Date;
+  authorName: string;
+  authorEmail: string;
+};
 
 type Deps = {
   config: Log4brainsConfig;
@@ -106,9 +113,29 @@ export class AdrRepository implements IAdrRepository {
     return new Date(logs[logs.length - 1].date);
   }
 
+  private async getLastEditDateAndAuthorFromGit(
+    file: AdrFile
+  ): Promise<DateAndAuthor | undefined> {
+    const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
+      .all;
+    if (!logs || logs.length === 0) {
+      return undefined;
+    }
+    return {
+      date: new Date(logs[0].date),
+      authorName: logs[0].author_name,
+      authorEmail: logs[0].author_email
+    };
+  }
+
   private async getCreationDateFromFilesystem(file: AdrFile): Promise<Date> {
     const stat = await fsP.stat(file.path.absolutePath);
-    return stat.birthtime;
+    return stat.birthtime; // often fallback to mtime on many OSes. Not reliable
+  }
+
+  private async getLastEditDateFromFilesystem(file: AdrFile): Promise<Date> {
+    const stat = await fsP.stat(file.path.absolutePath);
+    return stat.mtime;
   }
 
   private async findAllInPath(
@@ -134,14 +161,26 @@ export class AdrRepository implements IAdrRepository {
             })
             .then(async (markdown) => {
               const adrFile = new AdrFile(fsPath);
-              const gitDate = await this.getCreationDateFromGit(adrFile);
+              const creationGitDate = await this.getCreationDateFromGit(
+                adrFile
+              );
+              const lastEditGit = await this.getLastEditDateAndAuthorFromGit(
+                adrFile
+              );
               return new Adr({
                 slug: AdrSlug.createFromFile(adrFile, packageRef),
                 package: packageRef,
                 body: new MarkdownBody(markdown),
                 file: adrFile,
                 creationDate:
-                  gitDate || (await this.getCreationDateFromFilesystem(adrFile))
+                  creationGitDate ||
+                  (await this.getCreationDateFromFilesystem(adrFile)),
+                lastEditDate: lastEditGit
+                  ? lastEditGit.date
+                  : await this.getLastEditDateFromFilesystem(adrFile),
+                lastEditAuthor: lastEditGit
+                  ? new Author(lastEditGit.authorName, lastEditGit.authorEmail)
+                  : undefined
               });
             });
         })

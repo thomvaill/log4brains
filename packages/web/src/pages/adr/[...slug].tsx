@@ -13,7 +13,14 @@ type Props = {
 };
 
 export default function Adr({ currentAdr }: Props) {
-  return <Markdown>{currentAdr.body.markdown}</Markdown>;
+  return (
+    <Markdown
+      lastEditDate={new Date(currentAdr.lastEditDate)}
+      lastEditAuthor={currentAdr.lastEditAuthor}
+    >
+      {currentAdr.body.markdown}
+    </Markdown>
+  );
 }
 
 Adr.getLayout = (page: JSX.Element, pageProps: Props) => (

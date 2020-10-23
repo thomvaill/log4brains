@@ -6,6 +6,8 @@ export type AdrDtoStatus =
   | "deprecated"
   | "superseded";
 
+// Dates are string (Date.toJSON()) because because Next.js cannot serialize Date objects
+
 export type AdrDto = Readonly<{
   slug: string; // Follows this pattern: <package name>/<sub slug> or just <sub slug> when the ADR does not belong to a specific package
   package: string | null; // Null when the ADR does not belong to a package
@@ -16,8 +18,10 @@ export type AdrDto = Readonly<{
   body: Readonly<{
     markdown: string;
   }>;
-  creationDate: string; // not Date because Next.js cannot serialize Date objects
-  publicationDate: string | null; // not Date because Next.js cannot serialize Date objects
+  creationDate: string; // comes from Git or filesystem
+  lastEditDate: string; // comes from Git or filesystem
+  lastEditAuthor: string | null; // comes from Git
+  publicationDate: string | null; // come from the Markdown body
   file: Readonly<{
     relativePath: string;
     absolutePath: string;

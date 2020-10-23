@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { compiler as mdCompiler } from "markdown-to-jsx";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
@@ -106,9 +107,16 @@ const options = {
 type MarkdownProps = {
   className?: string;
   children: string;
+  lastEditDate: Date;
+  lastEditAuthor?: string;
 };
 
-export function Markdown({ className, children }: MarkdownProps) {
+export function Markdown({
+  className,
+  children,
+  lastEditDate,
+  lastEditAuthor
+}: MarkdownProps) {
   const classes = useStyles();
 
   if (!children) {
@@ -127,10 +135,10 @@ export function Markdown({ className, children }: MarkdownProps) {
           <Button startIcon={<ArrowBackIcon />}>Previous</Button>
           <div className={classes.bottomInfo}>
             <Typography className={classes.bottomInfoText}>
-              Last edited by <MuiLink href="#">John Doe</MuiLink>
+              Last edit {lastEditAuthor ? `by ${lastEditAuthor}` : null}
             </Typography>
             <Typography className={classes.bottomInfoText}>
-              on 22/10/2020 12:04
+              on {moment(lastEditDate).format("DD/MM/YYYY HH:mm")}
             </Typography>
           </div>
           <Button endIcon={<ArrowForwardIcon />}>Next</Button>

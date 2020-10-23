@@ -6,6 +6,7 @@ import { AdrStatus } from "./AdrStatus";
 import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 import { AdrRelation } from "./AdrRelation";
+import { Author } from "./Author";
 
 type Props = {
   slug: AdrSlug;
@@ -13,6 +14,8 @@ type Props = {
   body: MarkdownBody;
   file?: AdrFile; // set by the repository after save()
   creationDate?: Date;
+  lastEditDate?: Date;
+  lastEditAuthor?: Author;
 };
 
 export class Adr extends AggregateRoot<Props> {
@@ -34,6 +37,14 @@ export class Adr extends AggregateRoot<Props> {
 
   get creationDate(): Date | undefined {
     return this.props.creationDate;
+  }
+
+  get lastEditDate(): Date | undefined {
+    return this.props.lastEditDate;
+  }
+
+  get lastEditAuthor(): Author | undefined {
+    return this.props.lastEditAuthor;
   }
 
   get title(): string | undefined {
