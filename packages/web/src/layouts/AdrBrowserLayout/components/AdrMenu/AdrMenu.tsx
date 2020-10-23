@@ -141,7 +141,9 @@ export function AdrMenu({ adrs, currentAdr, className }: Props) {
                   <Link href={`/adr/${adr.slug}`} passHref>
                     <MuiLink
                       className={clsx(classes.adrLink, {
-                        [classes[`${adr.status}Link`]]: true
+                        [classes[
+                          `${adr.status}Link` as keyof typeof classes
+                        ]]: true
                       })}
                       variant="body2"
                     >

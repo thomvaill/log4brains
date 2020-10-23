@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { AdrBrowserLayout } from "../layouts";
-import { l4bInstance } from "../lib";
+import { getLog4brainsInstance } from "../lib";
 
 type Props = {
   adrs: AdrDto[];
@@ -26,7 +26,7 @@ Home.getLayout = (page: JSX.Element, pageProps: Props) => (
 );
 
 export const getStaticProps: GetStaticProps = async () => {
-  const adrs = (await l4bInstance.searchAdrs()).reverse();
+  const adrs = (await getLog4brainsInstance().searchAdrs()).reverse();
   return {
     props: {
       adrs

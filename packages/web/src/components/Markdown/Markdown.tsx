@@ -1,5 +1,5 @@
 import React from "react";
-import ReactMarkdown from "markdown-to-jsx";
+import { compiler as mdCompiler } from "markdown-to-jsx";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
   Typography,
@@ -14,6 +14,8 @@ import {
 import Link from "@material-ui/core/Link";
 import clsx from "clsx";
 import { CustomTheme } from "../../mui";
+import { Heading, Toc } from "./components";
+import { slugify } from "../../lib/slugify";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
@@ -38,14 +40,12 @@ const useStyles = makeStyles((theme: CustomTheme) =>
       alignSelf: "flex-start",
       paddingLeft: theme.spacing(6)
     },
-    tocUl: {
-      listStyleType: "none",
-      paddingLeft: "1rem"
-    },
-    tocRootUl: { padding: 0 },
     tocTitle: {
       fontWeight: theme.typography.fontWeightBold,
       paddingBottom: theme.spacing(1)
+    },
+    toc: {
+      marginTop: theme.spacing(2)
     },
     bottomNavDivider: {
       marginTop: theme.spacing(12)
@@ -82,24 +82,25 @@ const options = {
   overrides: {
     h1: {
       component: Typography,
-      props: {
-        gutterBottom: true,
-        variant: "h3"
-      }
+      props: { variant: "h3", component: "h1", gutterBottom: true }
     },
-    h2: { component: Typography, props: { gutterBottom: true, variant: "h4" } },
+    h2: {
+      component: Heading,
+      props: { variant: "h2" }
+    },
     h3: {
-      component: Typography,
-      props: { gutterBottom: true, variant: "h5" }
+      component: Heading,
+      props: { variant: "h3" }
     },
     h4: {
-      component: Typography,
-      props: { gutterBottom: true, variant: "h6" }
+      component: Heading,
+      props: { variant: "h4" }
     },
     p: { component: Typography, props: { paragraph: true } },
     a: { component: Link },
     li: { component: Li }
-  }
+  },
+  slugify
 };
 
 type MarkdownProps = {
@@ -114,11 +115,13 @@ export function Markdown({ className, children }: MarkdownProps) {
     return null;
   }
 
+  const renderedMarkdown = mdCompiler(children, options);
+
   return (
     <div className={clsx(className, classes.root)}>
       <div className={classes.layoutLeftCol} />
       <div className={classes.layoutCenterCol}>
-        <ReactMarkdown options={options}>{children}</ReactMarkdown>
+        {renderedMarkdown}
         <Divider className={classes.bottomNavDivider} />
         <nav className={classes.bottomNav}>
           <Button startIcon={<ArrowBackIcon />}>Previous</Button>
@@ -137,29 +140,11 @@ export function Markdown({ className, children }: MarkdownProps) {
         <Typography variant="subtitle2" className={classes.tocTitle}>
           Table of contents
         </Typography>
-        <ul className={clsx(classes.tocUl, classes.tocRootUl)}>
-          <li>
-            <MuiLink href="#">Lorem Ipsum</MuiLink>
-            <ul className={classes.tocUl}>
-              <li>
-                <MuiLink href="#">Lorem Ipsum</MuiLink>
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <MuiLink href="#">Lorem Ipsum</MuiLink>
-          </li>
-          <li>
-            <MuiLink href="#">Lorem Ipsum</MuiLink>
-          </li>
-          <li>
-            <MuiLink href="#">Lorem Ipsum</MuiLink>
-          </li>
-          <li>
-            <MuiLink href="#">Lorem Ipsum</MuiLink>
-          </li>
-        </ul>
+        <Toc
+          className={classes.toc}
+          content={renderedMarkdown.props.children}
+          levelStart={2}
+        />
       </div>
     </div>
   );

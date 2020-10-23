@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import io from "socket.io-client";
 import { AdrDto } from "@log4brains/core";
 import { AdrBrowserLayout } from "../../layouts";
-import { l4bInstance } from "../../lib";
+import { getLog4brainsInstance } from "../../lib";
 import { Markdown } from "../../components";
 
 const socket = io();
@@ -21,7 +21,7 @@ Adr.getLayout = (page: JSX.Element, pageProps: Props) => (
 );
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const adrs = await l4bInstance.searchAdrs();
+  const adrs = await getLog4brainsInstance().searchAdrs();
   const paths = adrs.map((adr) => {
     return { params: { slug: adr.slug.split("/") } };
   });
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
   const currentSlug = params.slug && (params.slug as string[]).join("/");
 
-  const adrs = (await l4bInstance.searchAdrs()).reverse();
+  const adrs = (await getLog4brainsInstance().searchAdrs()).reverse();
   const currentAdr = adrs
     .filter((adr) => {
       return adr.slug === currentSlug;
