@@ -150,12 +150,12 @@ export function AdrMenu({ adrs, currentAdr, className }: Props) {
                       {adr.title || "Untitled"}
                     </MuiLink>
                   </Link>
-                  <Typography variant="body2">
+                  <div>
                     <AdrStatusChip
                       status={adr.status}
                       className={classes.adrStatusChip}
                     />
-                  </Typography>
+                  </div>
                   <Typography variant="body2" className={classes.package}>
                     {adr.package || "global"}
                   </Typography>
