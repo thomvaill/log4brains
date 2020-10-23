@@ -39,7 +39,7 @@ describe("SearchAdrsQueryHandler", () => {
 
   it("filters the ADRs on their status", async () => {
     const adrs = await handler.execute(
-      new SearchAdrsQuery({ statuses: [AdrStatus.createFromName("accepted")] })
+      new SearchAdrsQuery({ statuses: [AdrStatus.createFromName("proposed")] })
     );
     expect(adrs).toHaveLength(0);
   });

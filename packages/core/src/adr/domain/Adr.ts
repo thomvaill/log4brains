@@ -54,15 +54,12 @@ export class Adr extends AggregateRoot<Props> {
   get status(): AdrStatus {
     const statusStr = this.body.getHeaderMetadata("Status");
     if (!statusStr) {
-      if (this.publicationDate) {
-        return AdrStatus.ACCEPTED;
-      }
-      return AdrStatus.DRAFT;
+      return AdrStatus.ACCEPTED;
     }
     try {
       return AdrStatus.createFromName(statusStr);
     } catch (e) {
-      return AdrStatus.DRAFT; // TODO: log
+      return AdrStatus.DRAFT; // TODO: log (DRAFT because usually the help from the template)
     }
   }
 

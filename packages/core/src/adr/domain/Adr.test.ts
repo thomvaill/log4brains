@@ -50,7 +50,7 @@ describe("Adr", () => {
         slug: new AdrSlug("test"),
         body: new MarkdownBody(`# My ADR`)
       });
-      expect(adr.status.equals(AdrStatus.DRAFT)).toBeTruthy();
+      expect(adr.status.equals(AdrStatus.ACCEPTED)).toBeTruthy();
     });
   });
 
