@@ -10,15 +10,11 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      "& > $tocUl": {
-        // First <ul>
-        padding: 0
-      }
+      padding: "0 !important"
     },
     tocUl: {
       listStyleType: "none",
-      paddingLeft: "1rem",
-      margin: 0
+      paddingLeft: "1rem"
     }
   })
 );
@@ -56,12 +52,10 @@ function TocSection({ title, id, children }: TocSectionProps) {
   const classes = useStyles();
 
   return (
-    <ul className={classes.tocUl}>
-      <li>
-        <MuiLink href={`#${id}`}>{title}</MuiLink>
-        {children}
-      </li>
-    </ul>
+    <li>
+      <MuiLink href={`#${id}`}>{title}</MuiLink>
+      {children ? <ul className={classes.tocUl}>{children}</ul> : null}
+    </li>
   );
 }
 
@@ -77,12 +71,12 @@ export function Toc({ className, content, levelStart = 1 }: TocProps) {
   const model = buildTocModelFromContent(content, levelStart);
 
   return (
-    <div className={clsx(classes.root, className)}>
+    <ul className={clsx(classes.root, classes.tocUl, className)}>
       {model.render((title: string, id: string, children: JSX.Element[]) => (
-        <TocSection title={title} id={id}>
+        <TocSection title={title} id={id} key={id}>
           {children}
         </TocSection>
       ))}
-    </div>
+    </ul>
   );
 }
