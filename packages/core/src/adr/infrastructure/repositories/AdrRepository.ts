@@ -103,23 +103,12 @@ export class AdrRepository implements IAdrRepository {
     if (!logs || logs.length === 0) {
       return undefined;
     }
-    const dateTime = new Date(logs[logs.length - 1].date);
-    return dateTime
-      ? new Date(
-          dateTime.getFullYear(),
-          dateTime.getMonth(),
-          dateTime.getDate()
-        )
-      : undefined;
+    return new Date(logs[logs.length - 1].date);
   }
 
   private async getCreationDateFromFilesystem(file: AdrFile): Promise<Date> {
     const stat = await fsP.stat(file.path.absolutePath);
-    return new Date(
-      stat.birthtime.getFullYear(),
-      stat.birthtime.getMonth(),
-      stat.birthtime.getDate()
-    );
+    return stat.birthtime;
   }
 
   private async findAllInPath(

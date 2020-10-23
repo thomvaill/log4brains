@@ -73,7 +73,17 @@ export class Adr extends AggregateRoot<Props> {
     if (!dateStr) {
       return undefined;
     }
-    return new Date(dateStr) ?? undefined;
+    const date = new Date(dateStr);
+    if (!date) {
+      return undefined;
+    }
+
+    // For sorting purpose:
+    // An ADR without a publication date is sorted based on its creationDate.
+    // Usually, ADRs created on the same publicationDate of another ADR are older than this one.
+    date.setHours(23, 59, 59);
+
+    return date;
   }
 
   get publicationDateOrCreationDate(): Date | undefined {
