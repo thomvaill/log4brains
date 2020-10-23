@@ -6,13 +6,14 @@ import {
   Typography,
   Link as MuiLink,
   Button,
-  Divider
+  Divider,
+  Tooltip
 } from "@material-ui/core";
 import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon
 } from "@material-ui/icons";
-import Link from "@material-ui/core/Link";
+import Link from "next/link";
 import clsx from "clsx";
 import { CustomTheme } from "../../mui";
 import { Heading, Toc } from "./components";
@@ -98,7 +99,7 @@ const options = {
       props: { variant: "h4" }
     },
     p: { component: Typography, props: { paragraph: true } },
-    a: { component: Link },
+    a: { component: MuiLink },
     li: { component: Li }
   },
   slugify
@@ -109,13 +110,21 @@ type MarkdownProps = {
   children: string;
   lastEditDate: Date;
   lastEditAuthor?: string;
+  previousUrl?: string;
+  nextUrl?: string;
+  previousTitle?: string;
+  nextTitle?: string;
 };
 
 export function Markdown({
   className,
   children,
   lastEditDate,
-  lastEditAuthor
+  lastEditAuthor,
+  previousUrl,
+  nextUrl,
+  previousTitle,
+  nextTitle
 }: MarkdownProps) {
   const classes = useStyles();
 
@@ -132,7 +141,16 @@ export function Markdown({
         {renderedMarkdown}
         <Divider className={classes.bottomNavDivider} />
         <nav className={classes.bottomNav}>
-          <Button startIcon={<ArrowBackIcon />}>Previous</Button>
+          {previousUrl ? (
+            <Link href={previousUrl} passHref>
+              <Tooltip title={previousTitle || ""} aria-label="previous">
+                <Button startIcon={<ArrowBackIcon />}>Previous</Button>
+              </Tooltip>
+            </Link>
+          ) : (
+            <div />
+          )}
+
           <div className={classes.bottomInfo}>
             <Typography className={classes.bottomInfoText}>
               Last edit {lastEditAuthor ? `by ${lastEditAuthor}` : null}
@@ -141,7 +159,15 @@ export function Markdown({
               on {moment(lastEditDate).format("DD/MM/YYYY HH:mm")}
             </Typography>
           </div>
-          <Button endIcon={<ArrowForwardIcon />}>Next</Button>
+          {nextUrl ? (
+            <Link href={nextUrl} passHref>
+              <Tooltip title={nextTitle || ""} aria-label="next">
+                <Button endIcon={<ArrowForwardIcon />}>Next</Button>
+              </Tooltip>
+            </Link>
+          ) : (
+            <div />
+          )}
         </nav>
       </div>
       <div className={clsx(classes.layoutRightCol, classes.tocContainer)}>

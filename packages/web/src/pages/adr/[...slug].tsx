@@ -12,11 +12,28 @@ type Props = {
   currentAdr: AdrDto;
 };
 
-export default function Adr({ currentAdr }: Props) {
+export default function Adr({ adrs, currentAdr }: Props) {
+  const currentIndex = adrs
+    .map((adr, index) => (adr.slug === currentAdr.slug ? index : undefined))
+    .filter((adr) => adr !== undefined)
+    .pop();
+  const previousAdr =
+    currentIndex !== undefined && currentIndex > 0
+      ? adrs[currentIndex - 1]
+      : undefined;
+  const nextAdr =
+    currentIndex !== undefined && currentIndex < adrs.length - 1
+      ? adrs[currentIndex + 1]
+      : undefined;
+
   return (
     <Markdown
       lastEditDate={new Date(currentAdr.lastEditDate)}
       lastEditAuthor={currentAdr.lastEditAuthor}
+      previousUrl={previousAdr ? `/adr/${previousAdr?.slug}` : undefined}
+      nextUrl={nextAdr ? `/adr/${nextAdr?.slug}` : undefined}
+      previousTitle={previousAdr?.title ?? undefined}
+      nextTitle={nextAdr?.title ?? undefined}
     >
       {currentAdr.body.markdown}
     </Markdown>
