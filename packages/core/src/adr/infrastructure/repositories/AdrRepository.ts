@@ -128,11 +128,6 @@ export class AdrRepository implements IAdrRepository {
     };
   }
 
-  private async getCreationDateFromFilesystem(file: AdrFile): Promise<Date> {
-    const stat = await fsP.stat(file.path.absolutePath);
-    return stat.birthtime; // often fallback to mtime on many OSes. Not reliable
-  }
-
   private async getLastEditDateFromFilesystem(file: AdrFile): Promise<Date> {
     const stat = await fsP.stat(file.path.absolutePath);
     return stat.mtime;
@@ -174,7 +169,7 @@ export class AdrRepository implements IAdrRepository {
                 file: adrFile,
                 creationDate:
                   creationGitDate ||
-                  (await this.getCreationDateFromFilesystem(adrFile)),
+                  (await this.getLastEditDateFromFilesystem(adrFile)),
                 lastEditDate: lastEditGit
                   ? lastEditGit.date
                   : await this.getLastEditDateFromFilesystem(adrFile),
