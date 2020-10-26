@@ -1,11 +1,6 @@
-import React from "react";
-import { Meta, Story } from "@storybook/react";
 import { AdrDtoStatus } from "@log4brains/core";
-import { AdrBrowserLayout, AdrBrowserLayoutProps } from "./AdrBrowserLayout";
-import { Default as MarkdownDefault } from "../../components/Markdown/Markdown.stories";
-import { Markdown } from "../../components";
 
-const adrMocks = [
+export const adrMocks = [
   {
     slug: "20200101-use-markdown-architectural-decision-records",
     package: null,
@@ -51,6 +46,8 @@ The "log4brains patch" performs the following modifications to the original temp
 `
     },
     creationDate: new Date(2020, 1, 1).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: new Date(2020, 1, 1).toJSON(),
     file: {
       relativePath:
@@ -68,6 +65,8 @@ The "log4brains patch" performs the following modifications to the original temp
     tags: [],
     body: { markdown: "" },
     creationDate: new Date(2020, 1, 2).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
       relativePath:
@@ -100,6 +99,8 @@ The "log4brains patch" performs the following modifications to the original temp
     tags: [],
     body: { markdown: "" },
     creationDate: new Date(2020, 4, 4).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
       relativePath: "docs/adr/20200404-a-new-decision.md",
@@ -115,6 +116,8 @@ The "log4brains patch" performs the following modifications to the original temp
     tags: [],
     body: { markdown: "" },
     creationDate: new Date(2020, 4, 4).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
       relativePath: "backend/docs/adr/20200404-untitled-draft.md",
@@ -130,6 +133,8 @@ The "log4brains patch" performs the following modifications to the original temp
     tags: [],
     body: { markdown: "" },
     creationDate: new Date(2020, 4, 5).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
       relativePath: "backend/docs/adr/20200405-untitled-draft.md",
@@ -151,6 +156,8 @@ Hello World
 `
     },
     creationDate: new Date(2020, 4, 5).toJSON(),
+    lastEditDate: new Date(2020, 10, 26).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
       relativePath: "backend/docs/adr/20200405-untitled-draft2.md",
@@ -159,36 +166,3 @@ Hello World
   }
 ];
 adrMocks.reverse();
-
-const Template: Story<AdrBrowserLayoutProps> = (args) => (
-  <AdrBrowserLayout {...args} />
-);
-
-export default {
-  title: "AdrBrowserLayout",
-  component: AdrBrowserLayout
-} as Meta;
-
-export const Home = Template.bind({});
-Home.args = { adrs: adrMocks, children: <MarkdownDefault /> };
-
-export const FirstAdrSelected = Template.bind({});
-FirstAdrSelected.args = {
-  adrs: adrMocks,
-  currentAdr: adrMocks[0],
-  children: <Markdown>{adrMocks[0].body.markdown}</Markdown>
-};
-
-export const LastAdrSelected = Template.bind({});
-LastAdrSelected.args = {
-  adrs: adrMocks,
-  currentAdr: adrMocks[adrMocks.length - 1],
-  children: <Markdown>{adrMocks[adrMocks.length - 1].body.markdown}</Markdown>
-};
-
-export const BacklogSelected = Template.bind({});
-BacklogSelected.args = {
-  adrs: adrMocks,
-  backlog: true,
-  children: <MarkdownDefault />
-};

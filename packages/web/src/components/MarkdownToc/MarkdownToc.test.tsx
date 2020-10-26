@@ -1,8 +1,8 @@
 import React from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
 import TestRenderer from "react-test-renderer";
-import { Heading } from "../Heading";
-import { Toc } from "./Toc";
+import { MarkdownHeading } from "../Markdown/components/MarkdownHeading";
+import { MarkdownToc } from "./MarkdownToc";
 
 const markdown = `# Header 1
 Lorem Ipsum
@@ -26,19 +26,19 @@ hello`;
 const options = {
   overrides: {
     h1: {
-      component: Heading,
+      component: MarkdownHeading,
       props: { variant: "h1" }
     },
     h2: {
-      component: Heading,
+      component: MarkdownHeading,
       props: { variant: "h2" }
     },
     h3: {
-      component: Heading,
+      component: MarkdownHeading,
       props: { variant: "h3" }
     },
     h4: {
-      component: Heading,
+      component: MarkdownHeading,
       props: { variant: "h4" }
     }
   }
@@ -48,7 +48,9 @@ describe("Toc", () => {
   const content = mdCompiler(markdown, options);
 
   it("renders correctly", () => {
-    const tree = TestRenderer.create(<Toc content={content.props.children} />);
+    const tree = TestRenderer.create(
+      <MarkdownToc content={content.props.children} />
+    );
     expect(tree.toJSON()).toMatchSnapshot();
   });
 });

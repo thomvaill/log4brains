@@ -5,7 +5,7 @@ import clsx from "clsx";
 import {
   Toc as TocModel,
   TocBuilder as TocModelBuilder
-} from "../../../../lib/toc-utils";
+} from "../../lib/toc-utils";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +29,10 @@ function buildTocModelFromContent(
 ): TocModel {
   const builder = new TocModelBuilder();
   content.forEach((element) => {
-    if (typeof element.type === "function" && element.type.name === "Heading") {
+    if (
+      typeof element.type === "function" &&
+      element.type.name === "MarkdownHeading"
+    ) {
       builder.addSection(
         variantToLevel(element.props.variant) - levelStart + 1,
         element.props.children,
@@ -59,13 +62,17 @@ function TocSection({ title, id, children }: TocSectionProps) {
   );
 }
 
-type TocProps = {
+export type MarkdownTocProps = {
   className?: string;
   content: JSX.Element[];
   levelStart?: number;
 };
 
-export function Toc({ className, content, levelStart = 1 }: TocProps) {
+export function MarkdownToc({
+  className,
+  content,
+  levelStart = 1
+}: MarkdownTocProps) {
   const classes = useStyles();
 
   const model = buildTocModelFromContent(content, levelStart);

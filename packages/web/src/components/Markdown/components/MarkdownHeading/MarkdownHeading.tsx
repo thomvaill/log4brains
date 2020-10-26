@@ -27,14 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type HeadingProps = {
+type MarkdownHeadingProps = {
   children: string;
   id: string;
   variant: "h1" | "h2" | "h3" | "h4";
   className?: string;
 };
 
-export function Heading({ id, children, variant, className }: HeadingProps) {
+export function MarkdownHeading({
+  id,
+  children,
+  variant,
+  className
+}: MarkdownHeadingProps) {
   const classes = useStyles();
 
   let typographyVariant: TypographyClassKey;

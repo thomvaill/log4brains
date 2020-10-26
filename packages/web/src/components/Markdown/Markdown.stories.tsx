@@ -9,7 +9,7 @@ export default {
 
 export function Default() {
   return (
-    <Markdown lastEditDate={new Date()} lastEditAuthor="John Doe">
+    <Markdown>
       {`# Header 1
 
 ## Header 2
