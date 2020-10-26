@@ -40,7 +40,7 @@ export class NewCommand {
       const currentPackage = this.detectCurrentPackageFromCwd();
       const packageChoices = [
         {
-          name: `Any (project level)`,
+          name: `Global`,
           value: ""
         },
         ...packages.map((p) => ({
@@ -57,7 +57,7 @@ export class NewCommand {
     }
 
     const title = await this.console.askInputQuestion(
-      "Enter a title for this new ADR"
+      "Please enter a short title of the solved problem and optionally its solution"
     );
 
     // const slug = await this.console.askInputQuestion(
@@ -78,7 +78,7 @@ export class NewCommand {
           value: ""
         },
         ...activeAdrs.map((a) => ({
-          name: a.title || "Untitled",
+          name: a.title || "Untitled", // TODO: add package and maybe date + format with tabs
           value: a.slug
         }))
       ];
