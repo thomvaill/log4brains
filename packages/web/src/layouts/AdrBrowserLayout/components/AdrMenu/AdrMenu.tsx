@@ -11,7 +11,10 @@ import {
   TimelineSeparator
 } from "@material-ui/lab";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { EmojiFlags as EmojiFlagsIcon } from "@material-ui/icons";
+import {
+  EmojiFlags as EmojiFlagsIcon,
+  CropFree as CropFreeIcon
+} from "@material-ui/icons";
 import { AdrDto } from "@log4brains/core";
 import Link from "next/link";
 import clsx from "clsx";
@@ -59,8 +62,16 @@ const useStyles = makeStyles((theme: Theme) =>
     adrStatusChip: {
       marginLeft: "-1ch"
     },
+    icon: {
+      verticalAlign: "middle"
+    },
+    adrTitle: {
+      marginRight: "0.5ch"
+    },
     package: {
       fontSize: "0.8rem",
+      verticalAlign: "text-top",
+      whiteSpace: "pre",
       color: theme.palette.grey[700]
     },
     timelineStartOppositeContentRoot: {
@@ -147,7 +158,18 @@ export function AdrMenu({ adrs, currentAdr, className }: Props) {
                       })}
                       variant="body2"
                     >
-                      {adr.title || "Untitled"}
+                      <span className={classes.adrTitle}>
+                        {adr.title || "Untitled"}
+                      </span>
+                      {adr.package ? (
+                        <span className={classes.package}>
+                          <CropFreeIcon
+                            fontSize="inherit"
+                            className={classes.icon}
+                          />{" "}
+                          {adr.package}
+                        </span>
+                      ) : null}
                     </MuiLink>
                   </Link>
                   <div>
@@ -156,9 +178,6 @@ export function AdrMenu({ adrs, currentAdr, className }: Props) {
                       className={classes.adrStatusChip}
                     />
                   </div>
-                  <Typography variant="body2" className={classes.package}>
-                    {adr.package || "global"}
-                  </Typography>
                 </div>
               </TimelineContent>
             </TimelineItem>

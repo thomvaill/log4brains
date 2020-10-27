@@ -1,7 +1,6 @@
 # Use Prettier-ESLint Airbnb for the code style
 
 - Status: accepted
-- Deciders: @Thomvaill
 
 ## Context and Problem Statement
 

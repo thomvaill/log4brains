@@ -21,7 +21,7 @@ import {
 import {
   Search as SearchIcon,
   ChevronRight as ChevronRightIcon,
-  FormatListBulleted as FormatListBulletedIcon
+  PlaylistAddCheck as PlaylistAddCheckIcon
 } from "@material-ui/icons";
 import Link from "next/link";
 import clsx from "clsx";
@@ -265,7 +265,7 @@ export function AdrBrowserLayout({
             <Link href="/decision-backlog" passHref>
               <ListItem button selected={backlog} component="a">
                 <ListItemIcon>
-                  <FormatListBulletedIcon />
+                  <PlaylistAddCheckIcon />
                 </ListItemIcon>
                 <ListItemText primary="Decision backlog" />
               </ListItem>

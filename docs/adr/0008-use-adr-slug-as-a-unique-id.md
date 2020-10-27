@@ -12,3 +12,7 @@ Sorting rules:
 4. By slug
 
 The core library is responsible for sorting.
+
+## Links
+
+- Supersedes [0001-use-adr-number-as-a-unique-id](0001-use-adr-number-as-a-unique-id.md)

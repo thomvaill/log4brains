@@ -56,8 +56,15 @@ export class MarkdownBody extends Entity<Props> {
     }
   }
 
+  deleteFirstH1Title(): void {
+    const elt = this.getFirstH1TitleElement();
+    if (elt) {
+      this.cm.deleteElement(elt);
+    }
+  }
+
   private getHeaderMetadataUl(): cheerio.Cheerio | undefined {
-    const elts = this.cm.$("h1").first().nextUntil("h2");
+    const elts = this.cm.$("body > *:first-child").nextUntil("h2").addBack();
     const ul = elts.filter("ul").first();
     return ul.length > 0 ? ul : undefined;
   }
@@ -101,6 +108,13 @@ export class MarkdownBody extends Entity<Props> {
           this.cm.insertLineAt(0, `- ${key}: ${value}`);
         }
       }
+    }
+  }
+
+  deleteHeaderMetadata(key: string): void {
+    const res = this.getHeaderMetadataElementAndMatch(key);
+    if (res) {
+      this.cm.deleteElement(res.element);
     }
   }
 

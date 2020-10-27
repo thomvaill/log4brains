@@ -106,6 +106,14 @@ export class Adr extends AggregateRoot<Props> {
     return tags.split(/\s*[\s,]{1}\s*/).map((tag) => tag.trim().toLowerCase());
   }
 
+  get deciders(): string[] {
+    const deciders = this.body.getHeaderMetadata("deciders");
+    if (!deciders || deciders.trim() === "") {
+      return [];
+    }
+    return deciders.split(/\s*[,]{1}\s*/).map((decider) => decider.trim());
+  }
+
   setFile(file: AdrFile): void {
     this.props.file = file;
   }
@@ -123,5 +131,19 @@ export class Adr extends AggregateRoot<Props> {
   private markAsSuperseder(superseded: Adr): void {
     const relation = new AdrRelation(this, "Supersedes", superseded);
     this.body.addLinkNoDuplicate(relation.toMarkdown());
+  }
+
+  getEnhancedMdx(): string {
+    const bodyCopy = this.body.clone();
+
+    // Remove title
+    bodyCopy.deleteFirstH1Title();
+
+    // Remove header metadata
+    ["status", "deciders", "date", "tags"].forEach((metadata) =>
+      bodyCopy.deleteHeaderMetadata(metadata)
+    );
+
+    return bodyCopy.getRawMarkdown();
   }
 }

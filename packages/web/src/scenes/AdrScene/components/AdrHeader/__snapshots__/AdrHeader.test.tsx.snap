@@ -1,0 +1,998 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdrHeader renders correctly with deciders 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div>
+    <div
+      className="makeStyles-inlineInfo-2"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Creation date"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+          />
+        </svg>
+         
+        Jan 1, 2020
+      </p>
+      <div
+        title="Status"
+      >
+        <div
+          className="MuiChip-root makeStyles-root-5 makeStyles-draft-7 MuiChip-outlined MuiChip-sizeSmall"
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+        >
+          <span
+            className="MuiChip-label MuiChip-labelSmall makeStyles-label-6"
+          >
+            DRAFT
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Deciders"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+        />
+      </svg>
+       
+      John Doe, Lorem Ipsum, Ipsum Dolor
+    </p>
+  </div>
+  <div>
+    <div>
+      <div
+        className="MuiButtonGroup-root"
+        role="group"
+      >
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Share"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit on Github"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined MuiButton-outlinedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit locally"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AdrHeader renders correctly with package 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div>
+    <div
+      className="makeStyles-inlineInfo-2"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Package"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+         
+        test
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Creation date"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+          />
+        </svg>
+         
+        Jan 1, 2020
+      </p>
+      <div
+        title="Status"
+      >
+        <div
+          className="MuiChip-root makeStyles-root-5 makeStyles-draft-7 MuiChip-outlined MuiChip-sizeSmall"
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+        >
+          <span
+            className="MuiChip-label MuiChip-labelSmall makeStyles-label-6"
+          >
+            DRAFT
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Author"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        />
+      </svg>
+       
+      John Doe
+    </p>
+  </div>
+  <div>
+    <div>
+      <div
+        className="MuiButtonGroup-root"
+        role="group"
+      >
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Share"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit on Github"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined MuiButton-outlinedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit locally"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AdrHeader renders correctly with publication date 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div>
+    <div
+      className="makeStyles-inlineInfo-2"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Package"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+         
+        test
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Publication date"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+          />
+        </svg>
+         
+        Jan 2, 2020
+      </p>
+      <div
+        title="Status"
+      >
+        <div
+          className="MuiChip-root makeStyles-root-5 makeStyles-accepted-10 MuiChip-outlined MuiChip-sizeSmall"
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+        >
+          <span
+            className="MuiChip-label MuiChip-labelSmall makeStyles-label-6"
+          >
+            ACCEPTED
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Author"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        />
+      </svg>
+       
+      John Doe
+    </p>
+  </div>
+  <div>
+    <div>
+      <div
+        className="MuiButtonGroup-root"
+        role="group"
+      >
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Share"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit on Github"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined MuiButton-outlinedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit locally"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AdrHeader renders correctly with tags 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div>
+    <div
+      className="makeStyles-inlineInfo-2"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Package"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"
+          />
+        </svg>
+         
+        test
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Creation date"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+          />
+        </svg>
+         
+        Jan 1, 2020
+      </p>
+      <div
+        title="Status"
+      >
+        <div
+          className="MuiChip-root makeStyles-root-5 makeStyles-draft-7 MuiChip-outlined MuiChip-sizeSmall"
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+        >
+          <span
+            className="MuiChip-label MuiChip-labelSmall makeStyles-label-6"
+          >
+            DRAFT
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Author"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        />
+      </svg>
+       
+      John Doe
+    </p>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Tags"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"
+        />
+      </svg>
+       
+      <span
+        className="makeStyles-tags-4"
+      >
+        #foo #bar
+      </span>
+    </p>
+  </div>
+  <div>
+    <div>
+      <div
+        className="MuiButtonGroup-root"
+        role="group"
+      >
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Share"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit on Github"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined MuiButton-outlinedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit locally"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AdrHeader renders correctly without deciders 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div>
+    <div
+      className="makeStyles-inlineInfo-2"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body2"
+        title="Creation date"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+          />
+        </svg>
+         
+        Jan 1, 2020
+      </p>
+      <div
+        title="Status"
+      >
+        <div
+          className="MuiChip-root makeStyles-root-5 makeStyles-draft-7 MuiChip-outlined MuiChip-sizeSmall"
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+        >
+          <span
+            className="MuiChip-label MuiChip-labelSmall makeStyles-label-6"
+          >
+            DRAFT
+          </span>
+        </div>
+      </div>
+    </div>
+    <p
+      className="MuiTypography-root MuiTypography-body2"
+      title="Author"
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root makeStyles-icon-3 MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        />
+      </svg>
+       
+      John Doe
+    </p>
+  </div>
+  <div>
+    <div>
+      <div
+        className="MuiButtonGroup-root"
+        role="group"
+      >
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Share"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit on Github"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 0-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.3-3.1-.2-.4-.6-1.6 0-3.2 0 0 1-.3 3.4 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8 0 3.2.9.8 1.3 1.9 1.3 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1 .9 2.2v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-describedby={null}
+          className="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined MuiButton-outlinedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseOver={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          title="Edit locally"
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

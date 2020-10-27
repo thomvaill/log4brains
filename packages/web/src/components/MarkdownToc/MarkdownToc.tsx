@@ -64,7 +64,7 @@ function TocSection({ title, id, children }: TocSectionProps) {
 
 export type MarkdownTocProps = {
   className?: string;
-  content: JSX.Element[];
+  content?: JSX.Element[];
   levelStart?: number;
 };
 
@@ -74,6 +74,10 @@ export function MarkdownToc({
   levelStart = 1
 }: MarkdownTocProps) {
   const classes = useStyles();
+
+  if (!content) {
+    return null;
+  }
 
   const model = buildTocModelFromContent(content, levelStart);
 

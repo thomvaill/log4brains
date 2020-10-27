@@ -2,7 +2,6 @@
 
 - Status: accepted
 - Date: 2020-09-25
-- Deciders: @Thomvaill
 - Tags: frontend, frameworks
 
 ## Context and Problem Statement

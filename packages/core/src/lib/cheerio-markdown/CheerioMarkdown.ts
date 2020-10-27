@@ -64,12 +64,30 @@ export class CheerioMarkdown {
     }
   }
 
+  deleteElement(elt: cheerio.Cheerio): void {
+    const mdElt = new CheerioMarkdownElement(elt);
+    if (mdElt.startLine === undefined || mdElt.endLine === undefined) {
+      throw new Error("Cannot source-map this element from Markdown");
+    }
+    this.deleteLines(mdElt.startLine, mdElt.endLine - 1);
+  }
+
   replaceLine(i: number, newLine: string): void {
     const lines = this.markdown.split(`\n`);
     if (lines[i] === undefined) {
       throw new Error(`Unknown line ${i}`);
     }
     lines[i] = `${newLine}${isWindowsLine(lines[i]) ? `\r` : ""}`;
+    this.updateMarkdown(lines.join(`\n`));
+  }
+
+  deleteLines(start: number, end?: number): void {
+    const lines = this.markdown.split(`\n`);
+    if (lines[start] === undefined) {
+      throw new Error(`Unknown line ${start}`);
+    }
+    const length = end ? end - start + 1 : 1;
+    lines.splice(start, length);
     this.updateMarkdown(lines.join(`\n`));
   }
 

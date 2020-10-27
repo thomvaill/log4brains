@@ -3,7 +3,12 @@ import { deepFreeze } from "@src/utils";
 import { AdrDto, AdrDtoStatus } from "../types";
 
 export function adrToDto(adr: Adr): AdrDto {
-  if (!adr.file || !adr.creationDate || !adr.lastEditDate) {
+  if (
+    !adr.file ||
+    !adr.creationDate ||
+    !adr.lastEditDate ||
+    !adr.lastEditAuthor
+  ) {
     throw new Error("You are serializing an non-saved ADR");
   }
 
@@ -14,10 +19,14 @@ export function adrToDto(adr: Adr): AdrDto {
     status: adr.status.name as AdrDtoStatus,
     supersededBy: adr.superseder?.value || null,
     tags: adr.tags,
-    body: { markdown: adr.body.getRawMarkdown() },
+    deciders: adr.deciders,
+    body: {
+      rawMarkdown: adr.body.getRawMarkdown(),
+      enhancedMdx: adr.getEnhancedMdx()
+    },
     creationDate: adr.creationDate.toJSON(),
     lastEditDate: adr.lastEditDate.toJSON(),
-    lastEditAuthor: adr.lastEditAuthor?.name || null,
+    lastEditAuthor: adr.lastEditAuthor.name,
     publicationDate: adr.publicationDate?.toJSON() || null,
     file: {
       relativePath: adr.file.path.pathRelativeToCwd,

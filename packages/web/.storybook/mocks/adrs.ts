@@ -1,4 +1,4 @@
-import { AdrDtoStatus } from "@log4brains/core";
+import { AdrDtoStatus, AdrDto } from "@log4brains/core";
 
 export const adrMocks = [
   {
@@ -8,11 +8,10 @@ export const adrMocks = [
     status: "accepted" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
+    deciders: [],
     body: {
-      markdown: `# Use Markdown Architectural Decision Records
-
-- Status: accepted
-
+      rawMarkdown: "",
+      enhancedMdx: `
 ## Context and Problem Statement
 
 We want to record architectural decisions made in this project.
@@ -63,7 +62,8 @@ The "log4brains patch" performs the following modifications to the original temp
     status: "proposed" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
-    body: { markdown: "" },
+    deciders: [],
+    body: { rawMarkdown: "", enhancedMdx: "" },
     creationDate: new Date(2020, 1, 2).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
@@ -82,8 +82,11 @@ The "log4brains patch" performs the following modifications to the original temp
     status: "superseded" as AdrDtoStatus,
     supersededBy: "20200404-a-new-decision",
     tags: [],
-    body: { markdown: "" },
+    deciders: [],
+    body: { rawMarkdown: "", enhancedMdx: "" },
     creationDate: new Date(2020, 1, 6).toJSON(),
+    lastEditDate: new Date(2020, 1, 7).toJSON(),
+    lastEditAuthor: "John Doe",
     publicationDate: new Date(2020, 1, 8).toJSON(),
     file: {
       relativePath: "docs/adr/20200106-an-old-decision.md",
@@ -97,7 +100,8 @@ The "log4brains patch" performs the following modifications to the original temp
     status: "accepted" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
-    body: { markdown: "" },
+    deciders: [],
+    body: { rawMarkdown: "", enhancedMdx: "" },
     creationDate: new Date(2020, 4, 4).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
@@ -114,7 +118,8 @@ The "log4brains patch" performs the following modifications to the original temp
     status: "draft" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
-    body: { markdown: "" },
+    deciders: [],
+    body: { rawMarkdown: "", enhancedMdx: "" },
     creationDate: new Date(2020, 4, 4).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
@@ -125,20 +130,34 @@ The "log4brains patch" performs the following modifications to the original temp
     }
   },
   {
-    slug: "backend/20200405-untitled-draft",
+    slug: "backend/20200405-lot-of-deciders",
     package: "backend",
-    title: "Untitled Draft",
+    title: "Lot of deciders",
     status: "draft" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
-    body: { markdown: "" },
+    deciders: [
+      "John Doe",
+      "Lorem Ipsum",
+      "Ipsum Dolor",
+      "Foo Bar",
+      "John Doe",
+      "Lorem Ipsum",
+      "Ipsum Dolor",
+      "Foo Bar",
+      "John Doe",
+      "Lorem Ipsum",
+      "Ipsum Dolor",
+      "Foo Bar"
+    ],
+    body: { rawMarkdown: "", enhancedMdx: "" },
     creationDate: new Date(2020, 4, 5).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
     file: {
-      relativePath: "backend/docs/adr/20200405-untitled-draft.md",
-      absolutePath: "/root/backend/docs/adr/20200405-untitled-draft.md"
+      relativePath: "backend/docs/adr/20200405-lot-of-deciders.md",
+      absolutePath: "/root/backend/docs/adr/20200405-lot-of-deciders.md"
     }
   },
   {
@@ -149,10 +168,10 @@ The "log4brains patch" performs the following modifications to the original temp
     status: "draft" as AdrDtoStatus,
     supersededBy: null,
     tags: [],
+    deciders: ["John Doe", "Lorem Ipsum", "Ipsum Dolor"],
     body: {
-      markdown: `# This is a very long title for an ADR which should span on multiple lines but it does not matter
-
-Hello World
+      rawMarkdown: "",
+      enhancedMdx: `Hello World
 `
     },
     creationDate: new Date(2020, 4, 5).toJSON(),
@@ -166,3 +185,7 @@ Hello World
   }
 ];
 adrMocks.reverse();
+
+export function getMockedAdrBySlug(slug: string): AdrDto | undefined {
+  return adrMocks.filter((adr) => adr.slug === slug).pop();
+}

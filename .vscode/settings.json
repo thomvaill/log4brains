@@ -35,6 +35,7 @@
     "outdir",
     "signale",
     "typedoc",
+    "unversioned",
     "workdir"
   ]
 }

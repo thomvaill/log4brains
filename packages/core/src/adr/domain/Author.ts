@@ -2,11 +2,11 @@ import { ValueObject } from "@src/domain";
 
 type Props = {
   name: string;
-  email: string;
+  email?: string;
 };
 
 export class Author extends ValueObject<Props> {
-  constructor(name: string, email: string) {
+  constructor(name: string, email?: string) {
     super({ name, email });
   }
 
@@ -14,7 +14,11 @@ export class Author extends ValueObject<Props> {
     return this.props.name;
   }
 
-  get email(): string {
+  get email(): string | undefined {
     return this.props.email;
+  }
+
+  static createAnonymous(): Author {
+    return new Author("Anonymous");
   }
 }

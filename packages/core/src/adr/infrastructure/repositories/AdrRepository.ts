@@ -18,8 +18,7 @@ import { PackageRepository } from "./PackageRepository";
 
 type DateAndAuthor = {
   date: Date;
-  authorName: string;
-  authorEmail: string;
+  author: Author;
 };
 
 type Deps = {
@@ -123,9 +122,19 @@ export class AdrRepository implements IAdrRepository {
     }
     return {
       date: new Date(logs[0].date),
-      authorName: logs[0].author_name,
-      authorEmail: logs[0].author_email
+      author: new Author(logs[0].author_name, logs[0].author_email)
     };
+  }
+
+  private async getAuthorFromGitConfig(): Promise<Author | undefined> {
+    const config = await this.git.listConfig();
+    if (config?.all["user.name"]) {
+      return new Author(
+        config.all["user.name"] as string,
+        config.all["user.email"] as string | undefined
+      );
+    }
+    return undefined;
   }
 
   private async getLastEditDateFromFilesystem(file: AdrFile): Promise<Date> {
@@ -170,12 +179,13 @@ export class AdrRepository implements IAdrRepository {
                 creationDate:
                   creationGitDate ||
                   (await this.getLastEditDateFromFilesystem(adrFile)),
-                lastEditDate: lastEditGit
-                  ? lastEditGit.date
-                  : await this.getLastEditDateFromFilesystem(adrFile),
-                lastEditAuthor: lastEditGit
-                  ? new Author(lastEditGit.authorName, lastEditGit.authorEmail)
-                  : undefined
+                lastEditDate:
+                  lastEditGit?.date ||
+                  (await this.getLastEditDateFromFilesystem(adrFile)),
+                lastEditAuthor:
+                  lastEditGit?.author ||
+                  (await this.getAuthorFromGitConfig()) ||
+                  Author.createAnonymous()
               });
             });
         })
