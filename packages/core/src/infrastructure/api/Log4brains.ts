@@ -67,7 +67,7 @@ export class Log4brains {
       new SearchAdrsQuery(appFilters)
     );
 
-    return adrs.map(adrToDto);
+    return Promise.all(adrs.map(adrToDto));
   }
 
   /**

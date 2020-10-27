@@ -15,6 +15,7 @@ import {
 import { Log4brainsConfig } from "@src/infrastructure/config";
 import { Log4brainsError } from "@src/domain";
 import { PackageRepository } from "./PackageRepository";
+import { MarkdownAdrLinkResolver } from "../MarkdownAdrLinkResolver";
 
 type DateAndAuthor = {
   date: Date;
@@ -36,24 +37,45 @@ export class AdrRepository implements IAdrRepository {
 
   private readonly git: SimpleGit;
 
+  private readonly markdownAdrLinkResolver: MarkdownAdrLinkResolver;
+
   constructor({ config, workdir, packageRepository }: Deps) {
     this.config = config;
     this.workdir = workdir;
     this.packageRepository = packageRepository;
     this.git = simpleGit({ baseDir: workdir });
+    this.markdownAdrLinkResolver = new MarkdownAdrLinkResolver({
+      adrRepository: this
+    });
   }
 
   async find(slug: AdrSlug): Promise<Adr> {
-    const packageRef = slug.packagePart
-      ? new PackageRef(slug.packagePart)
-      : undefined;
-    const adr = (await this.findAllInPath(this.getAdrFolderPath(), packageRef))
-      .filter((a) => a.slug.equals(slug))
-      .pop();
+    const packageRef = this.getPackageRef(slug);
+    const adr = await this.findInPath(
+      slug,
+      this.getAdrFolderPath(packageRef),
+      packageRef
+    );
     if (!adr) {
       throw new Log4brainsError("This ADR does not exist", slug.value);
     }
     return adr;
+  }
+
+  async findFromFile(adrFile: AdrFile): Promise<Adr | undefined> {
+    const adrFolderPath = adrFile.path.join("..");
+    const pkg = this.packageRepository.findByAdrFolderPath(adrFolderPath);
+    const possibleSlug = AdrSlug.createFromFile(
+      adrFile,
+      pkg ? pkg.ref : undefined
+    );
+
+    try {
+      return await this.find(possibleSlug);
+    } catch (e) {
+      // ignore
+    }
+    return undefined;
   }
 
   async findAll(): Promise<Adr[]> {
@@ -142,9 +164,22 @@ export class AdrRepository implements IAdrRepository {
     return stat.mtime;
   }
 
-  private async findAllInPath(
+  private async findInPath(
+    slug: AdrSlug,
     p: FilesystemPath,
     packageRef?: PackageRef
+  ): Promise<Adr | undefined> {
+    return (
+      await this.findAllInPath(p, packageRef, (f: AdrFile, s: AdrSlug) =>
+        s.equals(slug)
+      )
+    ).pop();
+  }
+
+  private async findAllInPath(
+    p: FilesystemPath,
+    packageRef?: PackageRef,
+    filter?: (f: AdrFile, s: AdrSlug) => boolean
   ): Promise<Adr[]> {
     const files = await fsP.readdir(p.absolutePath);
     return Promise.all(
@@ -159,12 +194,22 @@ export class AdrRepository implements IAdrRepository {
           return AdrFile.isPathValid(fsPath);
         })
         .map((fsPath) => {
+          const adrFile = new AdrFile(fsPath);
+          const slug = AdrSlug.createFromFile(adrFile, packageRef);
+          return { adrFile, slug };
+        })
+        .filter(({ adrFile, slug }) => {
+          if (filter) {
+            return filter(adrFile, slug);
+          }
+          return true;
+        })
+        .map(({ adrFile, slug }) => {
           return fsP
-            .readFile(fsPath.absolutePath, {
+            .readFile(adrFile.path.absolutePath, {
               encoding: "utf8"
             })
             .then(async (markdown) => {
-              const adrFile = new AdrFile(fsPath);
               const creationGitDate = await this.getCreationDateFromGit(
                 adrFile
               );
@@ -172,9 +217,11 @@ export class AdrRepository implements IAdrRepository {
                 adrFile
               );
               return new Adr({
-                slug: AdrSlug.createFromFile(adrFile, packageRef),
+                slug,
                 package: packageRef,
-                body: new MarkdownBody(markdown),
+                body: new MarkdownBody(markdown).setAdrLinkResolver(
+                  this.markdownAdrLinkResolver
+                ),
                 file: adrFile,
                 creationDate:
                   creationGitDate ||
@@ -206,6 +253,11 @@ export class AdrRepository implements IAdrRepository {
     return slug;
   }
 
+  private getPackageRef(slug: AdrSlug): PackageRef | undefined {
+    // undefined if global
+    return slug.packagePart ? new PackageRef(slug.packagePart) : undefined;
+  }
+
   private getAdrFolderPath(packageRef?: PackageRef): FilesystemPath {
     const pkg = packageRef
       ? this.packageRepository.find(packageRef)
@@ -219,7 +271,7 @@ export class AdrRepository implements IAdrRepository {
   async save(adr: Adr): Promise<void> {
     if (!adr.file) {
       const file = AdrFile.createFromSlugInFolder(
-        this.getAdrFolderPath(),
+        this.getAdrFolderPath(adr.package),
         adr.slug
       );
       if (fs.existsSync(file.path.absolutePath)) {

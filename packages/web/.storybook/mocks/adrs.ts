@@ -101,7 +101,17 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: null,
     tags: [],
     deciders: [],
-    body: { rawMarkdown: "", enhancedMdx: "" },
+    body: {
+      rawMarkdown: "",
+      enhancedMdx: `## Lorem Ipsum
+
+Ipsum Dolor
+
+## Links
+
+- Supersedes <AdrLink slug="20200106-an-old-decision" status="superseded" title="An old decision" />
+`
+    },
     creationDate: new Date(2020, 4, 4).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",

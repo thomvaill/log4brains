@@ -1,6 +1,7 @@
 import { Adr } from "./Adr";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
+import { MarkdownAdrLink } from "./MarkdownAdrLink";
 import { MarkdownBody } from "./MarkdownBody";
 
 describe("Adr", () => {
@@ -138,7 +139,27 @@ describe("Adr", () => {
   });
 
   describe("getEnhancedMdx()", () => {
-    test("default case", () => {
+    const markdownAdrLinkResolver = {
+      resolve: (
+        from: Adr,
+        uri: string
+      ): Promise<MarkdownAdrLink | undefined> => {
+        if (uri === "test-link.md") {
+          return Promise.resolve(
+            new MarkdownAdrLink(
+              from,
+              new Adr({
+                slug: new AdrSlug("test-link"),
+                body: new MarkdownBody("")
+              })
+            )
+          );
+        }
+        return Promise.resolve(undefined);
+      }
+    };
+
+    test("default case", async () => {
       const adr = new Adr({
         slug: new AdrSlug("test"),
         body: new MarkdownBody(`# My ADR
@@ -151,17 +172,17 @@ describe("Adr", () => {
 ## Subtitle
 
 Hello
-`)
+`).setAdrLinkResolver(markdownAdrLinkResolver)
       });
 
-      expect(adr.getEnhancedMdx()).toEqual(`
+      expect(await adr.getEnhancedMdx()).toEqual(`
 ## Subtitle
 
 Hello
 `);
     });
 
-    test("with additional information", () => {
+    test("with additional information", async () => {
       const adr = new Adr({
         slug: new AdrSlug("test"),
         body: new MarkdownBody(`# My ADR
@@ -180,10 +201,10 @@ Technical Story: test
 ## Subtitle
 
 Hello
-`)
+`).setAdrLinkResolver(markdownAdrLinkResolver)
       });
 
-      expect(adr.getEnhancedMdx()).toEqual(`
+      expect(await adr.getEnhancedMdx()).toEqual(`
 Hello this is a paragraph.
 
 - Unknown Metadata: test
@@ -194,6 +215,27 @@ Technical Story: test
 ## Subtitle
 
 Hello
+`);
+    });
+
+    test("links replacement", async () => {
+      const adr = new Adr({
+        slug: new AdrSlug("test"),
+        body: new MarkdownBody(`## Subtitle
+
+Link to an actual ADR: [lorem ipsum](test-link.md).
+Link to an unknown ADR: [lorem ipsum](unknown.md).
+Link to an other file: [lorem ipsum](test.html).
+Link to an URL: [lorem ipsum](https://www.google.com/).
+`).setAdrLinkResolver(markdownAdrLinkResolver)
+      });
+
+      expect(await adr.getEnhancedMdx()).toEqual(`## Subtitle
+
+Link to an actual ADR: <AdrLink slug="test-link" />.
+Link to an unknown ADR: [lorem ipsum](unknown.md).
+Link to an other file: [lorem ipsum](test.html).
+Link to an URL: [lorem ipsum](https://www.google.com/).
 `);
     });
   });

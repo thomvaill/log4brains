@@ -620,13 +620,15 @@ Chosen option: \\"Option 5: Next.js\\", because
     "body": Object {
       "enhancedMdx": "
 This file should be parsed as an ADR without a number.
+Link to an ADR: <AdrLink slug=\\"with-warnings/0001-duplicate\\" status=\\"accepted\\" title=\\"I am a duplicate\\" package=\\"with-warnings\\" />
 ",
       "rawMarkdown": "# Hello
 
 This file should be parsed as an ADR without a number.
+Link to an ADR: [0001-duplicate](0001-duplicate.md)
 ",
     },
-    "creationDate": "2020-09-29T17:51:59.000Z",
+    "creationDate": "2020-10-19T12:28:54.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/hello.md",
@@ -641,6 +643,88 @@ This file should be parsed as an ADR without a number.
     "supersededBy": null,
     "tags": Array [],
     "title": "Hello",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem Ipsum
+",
+      "rawMarkdown": "# A superseded ADR
+
+- Status: superseded by [0003-superseder](0003-superseder.md)
+- Date: 2020-10-26
+
+## Context and Problem Statement
+
+Lorem Ipsum
+",
+    },
+    "creationDate": "2020-10-27T16:35:10.048Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0002-superseded-adr.md",
+      "relativePath": "simple/0002-superseded-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-27T16:35:10.048Z",
+    "package": null,
+    "publicationDate": "2020-10-26T22:59:59.000Z",
+    "slug": "0002-superseded-adr",
+    "status": "superseded",
+    "supersededBy": "0003-superseder",
+    "tags": Array [],
+    "title": "A superseded ADR",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+- Date: 2020-10-27
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum
+
+## Links
+
+- Supersedes <AdrLink slug=\\"0002-superseded-adr\\" status=\\"superseded\\" title=\\"A superseded ADR\\" />
+",
+      "rawMarkdown": "# A new ADR
+
+- Status: accepted
+- Date: 2020-10-27
+- Deciders: John Doe
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum
+
+## Links
+
+- Supersedes [0002-superseded-adr](0002-superseded-adr.md)
+",
+    },
+    "creationDate": "2020-10-27T16:36:47.409Z",
+    "deciders": Array [
+      "John Doe",
+    ],
+    "file": Object {
+      "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0003-superseder.md",
+      "relativePath": "simple/0003-superseder.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-27T16:36:47.409Z",
+    "package": null,
+    "publicationDate": "2020-10-27T22:59:59.000Z",
+    "slug": "0003-superseder",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "A new ADR",
   },
 ]
 `;

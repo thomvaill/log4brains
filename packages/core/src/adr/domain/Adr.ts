@@ -133,7 +133,7 @@ export class Adr extends AggregateRoot<Props> {
     this.body.addLinkNoDuplicate(relation.toMarkdown());
   }
 
-  getEnhancedMdx(): string {
+  async getEnhancedMdx(): Promise<string> {
     const bodyCopy = this.body.clone();
 
     // Remove title
@@ -143,6 +143,9 @@ export class Adr extends AggregateRoot<Props> {
     ["status", "deciders", "date", "tags"].forEach((metadata) =>
       bodyCopy.deleteHeaderMetadata(metadata)
     );
+
+    // Replace links
+    await bodyCopy.replaceAdrLinks(this);
 
     return bodyCopy.getRawMarkdown();
   }

@@ -14,36 +14,46 @@ export class PackageRepository {
 
   private readonly workdir: string;
 
+  // We cache findAll() results to avoid unnecessary I/O checks
+  private packages?: Package[];
+
   constructor({ config, workdir }: Deps) {
     this.config = config;
     this.workdir = workdir;
   }
 
   find(packageRef: PackageRef): Package {
-    const packageConfig = (this.config.project.packages || [])
-      .filter((c) => c.name === packageRef.name)
+    const pkg = this.findAll()
+      .filter((p) => p.ref.equals(packageRef))
       .pop();
-    if (!packageConfig) {
+    if (!pkg) {
       throw new Log4brainsError(
         "No entry in the configuration for this package",
         packageRef.name
       );
     }
-    return this.buildPackage(
-      packageConfig.name,
-      packageConfig.path,
-      packageConfig.adrFolder
-    );
+    return pkg;
+  }
+
+  findByAdrFolderPath(adrFolderPath: FilesystemPath): Package | undefined {
+    return this.findAll()
+      .filter((p) => p.adrFolderPath.equals(adrFolderPath))
+      .pop();
   }
 
   findAll(): Package[] {
-    return (this.config.project.packages || []).map((packageConfig) =>
-      this.buildPackage(
-        packageConfig.name,
-        packageConfig.path,
-        packageConfig.adrFolder
-      )
-    );
+    if (!this.packages) {
+      this.packages = (
+        this.config.project.packages || []
+      ).map((packageConfig) =>
+        this.buildPackage(
+          packageConfig.name,
+          packageConfig.path,
+          packageConfig.adrFolder
+        )
+      );
+    }
+    return this.packages;
   }
 
   private buildPackage(

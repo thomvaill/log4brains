@@ -2,7 +2,7 @@ import { Adr } from "@src/adr/domain";
 import { deepFreeze } from "@src/utils";
 import { AdrDto, AdrDtoStatus } from "../types";
 
-export function adrToDto(adr: Adr): AdrDto {
+export async function adrToDto(adr: Adr): Promise<AdrDto> {
   if (
     !adr.file ||
     !adr.creationDate ||
@@ -22,7 +22,7 @@ export function adrToDto(adr: Adr): AdrDto {
     deciders: adr.deciders,
     body: {
       rawMarkdown: adr.body.getRawMarkdown(),
-      enhancedMdx: adr.getEnhancedMdx()
+      enhancedMdx: await adr.getEnhancedMdx()
     },
     creationDate: adr.creationDate.toJSON(),
     lastEditDate: adr.lastEditDate.toJSON(),

@@ -22,7 +22,7 @@ export class MarkdownAdrLink extends ValueObject<Props> {
   toMarkdown(): string {
     if (!this.from.file || !this.to.file) {
       throw new Log4brainsError(
-        "Impossible to create a link between to unsaved ADRs",
+        "Impossible to create a link between two unsaved ADRs",
         `${this.from.slug.value} -> ${this.to.slug.value}`
       );
     }

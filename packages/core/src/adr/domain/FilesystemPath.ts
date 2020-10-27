@@ -59,4 +59,13 @@ export class FilesystemPath extends ValueObject<Props> {
       : path.dirname(this.absolutePath);
     return path.relative(from, to.absolutePath);
   }
+
+  public equals(vo?: ValueObject<Props>): boolean {
+    // We redefine ValueObject's equals() method to test only the computed absolutePath
+    // because in some the pathRelativeToCwd can be different but targets the same location
+    if (vo === null || vo === undefined || !(vo instanceof FilesystemPath)) {
+      return false;
+    }
+    return this.absolutePath === vo.absolutePath;
+  }
 }

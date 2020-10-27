@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
     currentAdrTimelineConnector: {
       backgroundColor: theme.palette.secondary.main
     },
+    // TODO: refactor with AdrLink.tsx
     draftLink: {},
     proposedLink: {},
     acceptedLink: {},

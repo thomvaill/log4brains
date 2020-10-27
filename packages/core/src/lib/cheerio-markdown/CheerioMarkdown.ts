@@ -35,7 +35,7 @@ export class CheerioMarkdown {
     this.observers.push(cb);
   }
 
-  private updateMarkdown(markdown: string): void {
+  updateMarkdown(markdown: string): void {
     this.$markdown = markdown;
     this.$ = cheerio.load(markdownItInstance.render(this.markdown));
     this.observers.forEach((observer) => observer(this.markdown));

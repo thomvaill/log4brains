@@ -28,3 +28,15 @@ LotOfDeciders.args = {
   adrs: adrMocks,
   currentAdr: getMockedAdrBySlug("backend/20200405-lot-of-deciders")
 };
+
+export const Superseded = Template.bind({});
+Superseded.args = {
+  adrs: adrMocks,
+  currentAdr: getMockedAdrBySlug("20200106-an-old-decision")
+};
+
+export const Superseder = Template.bind({});
+Superseder.args = {
+  adrs: adrMocks,
+  currentAdr: getMockedAdrBySlug("20200404-a-new-decision")
+};

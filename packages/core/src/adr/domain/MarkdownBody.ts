@@ -1,6 +1,8 @@
 import cheerio from "cheerio";
-import { Entity } from "@src/domain";
+import { Entity, Log4brainsError } from "@src/domain";
 import { CheerioMarkdown } from "@src/lib/cheerio-markdown";
+import { Adr } from "./Adr";
+import { MarkdownAdrLinkResolver } from "./MarkdownAdrLinkResolver";
 
 type Props = {
   value: string;
@@ -10,6 +12,19 @@ type ElementAndRegExpMatch = {
   element: cheerio.Cheerio;
   match: string[];
 };
+
+type Link = {
+  text: string;
+  href: string;
+};
+
+function htmlentities(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
 
 function cheerioToMarkdown(elt: cheerio.Cheerio, keepLinks: boolean): string {
   const html = elt.html();
@@ -30,12 +45,19 @@ function cheerioToMarkdown(elt: cheerio.Cheerio, keepLinks: boolean): string {
 export class MarkdownBody extends Entity<Props> {
   private cm: CheerioMarkdown;
 
+  private adrLinkResolver?: MarkdownAdrLinkResolver;
+
   constructor(value: string) {
     super({ value });
     this.cm = new CheerioMarkdown(value);
     this.cm.onChange((newValue) => {
       this.props.value = newValue;
     });
+  }
+
+  setAdrLinkResolver(resolver: MarkdownAdrLinkResolver): MarkdownBody {
+    this.adrLinkResolver = resolver;
+    return this;
   }
 
   private getFirstH1TitleElement(): cheerio.Cheerio | undefined {
@@ -169,6 +191,62 @@ export class MarkdownBody extends Entity<Props> {
   }
 
   clone(): MarkdownBody {
-    return new MarkdownBody(this.props.value);
+    const copy = new MarkdownBody(this.props.value);
+    if (this.adrLinkResolver) {
+      copy.setAdrLinkResolver(this.adrLinkResolver);
+    }
+    return copy;
+  }
+
+  async replaceAdrLinks(from: Adr): Promise<void> {
+    if (!this.adrLinkResolver) {
+      throw new Log4brainsError(
+        "Impossible to call replaceAdrLinks() without an MarkdownAdrLinkResolver"
+      );
+    }
+
+    const links = this.cm
+      .$("a")
+      .map((_, element) => ({
+        text: this.cm.$(element).text(),
+        href: this.cm.$(element).attr("href")
+      }))
+      .get() as Link[];
+
+    const isUrlRegexp = new RegExp(/^https?:\/\//i);
+
+    const promises = links
+      .filter((link) => !isUrlRegexp.exec(link.href))
+      .filter((link) => link.href.toLowerCase().endsWith(".md"))
+      .map((link) =>
+        (async () => {
+          const mdAdrlink = await this.adrLinkResolver!.resolve(
+            from,
+            link.href
+          );
+          if (mdAdrlink) {
+            const params = [
+              `slug="${htmlentities(mdAdrlink.to.slug.value)}"`,
+              `status="${mdAdrlink.to.status.name}"`
+            ];
+            if (mdAdrlink.to.title) {
+              params.push(`title="${htmlentities(mdAdrlink.to.title)}"`);
+            }
+            if (mdAdrlink.to.package) {
+              params.push(
+                `package="${htmlentities(mdAdrlink.to.package.name)}"`
+              );
+            }
+            this.cm.updateMarkdown(
+              this.cm.markdown.replace(
+                `[${link.text}](${link.href})`,
+                `<AdrLink ${params.join(" ")} />`
+              )
+            );
+          }
+        })()
+      );
+
+    await Promise.all(promises);
   }
 }

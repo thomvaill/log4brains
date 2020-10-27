@@ -3,7 +3,7 @@ import { compiler as mdCompiler } from "markdown-to-jsx";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Typography, Link as MuiLink } from "@material-ui/core";
 import { CustomTheme } from "../../mui";
-import { MarkdownHeading } from "./components";
+import { AdrLink, MarkdownHeading } from "./components";
 import { slugify } from "../../lib/slugify";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
@@ -43,7 +43,8 @@ const options = {
     },
     p: { component: Typography, props: { paragraph: true } },
     a: { component: MuiLink },
-    li: { component: Li }
+    li: { component: Li },
+    AdrLink: { component: AdrLink }
   },
   slugify
 };
