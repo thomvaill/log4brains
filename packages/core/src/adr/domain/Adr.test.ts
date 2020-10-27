@@ -232,7 +232,7 @@ Link to an URL: [lorem ipsum](https://www.google.com/).
 
       expect(await adr.getEnhancedMdx()).toEqual(`## Subtitle
 
-Link to an actual ADR: <AdrLink slug="test-link" />.
+Link to an actual ADR: <AdrLink slug="test-link" status="accepted" />.
 Link to an unknown ADR: [lorem ipsum](unknown.md).
 Link to an other file: [lorem ipsum](test.html).
 Link to an URL: [lorem ipsum](https://www.google.com/).
