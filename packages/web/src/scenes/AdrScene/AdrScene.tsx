@@ -79,7 +79,7 @@ export type AdrSceneProps = {
 export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
   const classes = useStyles();
 
-  const [mdContent, setMdContent] = useState<JSX.Element[]>([]);
+  const [mdContent, setMdContent] = useState<JSX.Element[] | JSX.Element>([]);
 
   let alert;
   if (currentAdr.status === "superseded") {

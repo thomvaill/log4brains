@@ -51,7 +51,7 @@ const options = {
 type MarkdownProps = {
   className?: string;
   children: string;
-  onCompiled?: (content: JSX.Element[]) => void;
+  onCompiled?: (content: JSX.Element[] | JSX.Element) => void;
 };
 
 export function Markdown({ className, children, onCompiled }: MarkdownProps) {

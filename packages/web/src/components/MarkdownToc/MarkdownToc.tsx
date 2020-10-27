@@ -24,11 +24,11 @@ function variantToLevel(variant: string): number {
 }
 
 function buildTocModelFromContent(
-  content: JSX.Element[],
+  content: JSX.Element[] | JSX.Element,
   levelStart = 1
 ): TocModel {
   const builder = new TocModelBuilder();
-  content.forEach((element) => {
+  (Array.isArray(content) ? content : [content]).forEach((element) => {
     if (
       typeof element.type === "function" &&
       element.type.name === "MarkdownHeading"
@@ -64,7 +64,7 @@ function TocSection({ title, id, children }: TocSectionProps) {
 
 export type MarkdownTocProps = {
   className?: string;
-  content?: JSX.Element[];
+  content?: JSX.Element[] | JSX.Element;
   levelStart?: number;
 };
 
