@@ -628,14 +628,14 @@ This file should be parsed as an ADR without a number.
 Link to an ADR: [0001-duplicate](0001-duplicate.md)
 ",
     },
-    "creationDate": "2020-10-19T12:28:54.000Z",
+    "creationDate": "2020-09-29T17:51:59.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/with-warnings/hello.md",
       "relativePath": "with-warnings/hello.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-19T12:28:54.000Z",
+    "lastEditDate": "2020-10-27T17:52:59.000Z",
     "package": "with-warnings",
     "publicationDate": null,
     "slug": "with-warnings/hello",
@@ -661,14 +661,14 @@ Lorem Ipsum
 Lorem Ipsum
 ",
     },
-    "creationDate": "2020-10-27T16:35:10.048Z",
+    "creationDate": "2020-10-27T17:52:59.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/home/thomas/git/log4brains/log4brains/packages/core/tests/ro-project/simple/0002-superseded-adr.md",
       "relativePath": "simple/0002-superseded-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-27T16:35:10.048Z",
+    "lastEditDate": "2020-10-27T17:52:59.000Z",
     "package": null,
     "publicationDate": "2020-10-26T22:59:59.000Z",
     "slug": "0002-superseded-adr",
@@ -708,7 +708,7 @@ Lorem ipsum
 - Supersedes [0002-superseded-adr](0002-superseded-adr.md)
 ",
     },
-    "creationDate": "2020-10-27T16:36:47.409Z",
+    "creationDate": "2020-10-27T17:52:59.000Z",
     "deciders": Array [
       "John Doe",
     ],
@@ -717,7 +717,7 @@ Lorem ipsum
       "relativePath": "simple/0003-superseder.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-27T16:36:47.409Z",
+    "lastEditDate": "2020-10-27T17:52:59.000Z",
     "package": null,
     "publicationDate": "2020-10-27T22:59:59.000Z",
     "slug": "0003-superseder",
