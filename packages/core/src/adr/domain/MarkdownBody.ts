@@ -239,6 +239,14 @@ export class MarkdownBody extends Entity<Props> {
                 `package="${htmlentities(mdAdrlink.to.package.name)}"`
               );
             }
+            if (
+              ![
+                mdAdrlink.to.slug.value.toLowerCase(),
+                mdAdrlink.to.slug.namePart.toLowerCase()
+              ].includes(link.text.toLowerCase().trim())
+            ) {
+              params.push(`customLabel="${htmlentities(link.text)}"`);
+            }
             this.cm.updateMarkdown(
               this.cm.markdown.replace(
                 `[${link.text}](${link.href})`,

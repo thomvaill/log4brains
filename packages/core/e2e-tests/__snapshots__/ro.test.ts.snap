@@ -550,7 +550,7 @@ Lorem ipsum.
 
 - Classic link: <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
 - Relative link: <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
-- <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
+- <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" customLabel=\\"Link with a custom text\\" />
 - [External link](https://www.google.com/)
 - Broken link: [20200101-first-adr](20200101-first-adr-BROKEN.md)
 - Link to a package: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
@@ -592,7 +592,7 @@ Lorem ipsum.
 
 Test link with complete slug: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
 Test link with partial slug: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
-<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" customLabel=\\"Custom text and relative path\\" />
 
 ## Decision Outcome
 
@@ -635,7 +635,7 @@ Test link with partial slug: [20200101-first-adr](20200101-first-adr.md)
 ## Test
 
 Test link: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
-<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" customLabel=\\"Custom text\\" />
 ",
       "rawMarkdown": "# Links to another package
 

@@ -107,6 +107,8 @@ The "log4brains patch" performs the following modifications to the original temp
 
 Ipsum Dolor
 
+<AdrLink slug="20200106-an-old-decision" status="superseded" title="An old decision" customLabel="This is a link with a custom label" />
+
 ## Links
 
 - Supersedes <AdrLink slug="20200106-an-old-decision" status="superseded" title="An old decision" />

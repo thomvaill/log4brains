@@ -27,13 +27,15 @@ type AdrLinkProps = {
   status: AdrDtoStatus;
   package?: string;
   title?: string;
+  customLabel?: string;
 };
 
 export function AdrLink({
   slug,
   status,
   package: packageName,
-  title
+  title,
+  customLabel
 }: AdrLinkProps) {
   const classes = useStyles();
 
@@ -44,7 +46,7 @@ export function AdrLink({
           [classes[`${status}Link` as keyof typeof classes]]: true
         })}
       >
-        {title || "Untitled"}
+        {customLabel || title || "Untitled"}
       </MuiLink>
     </Link>
   );
