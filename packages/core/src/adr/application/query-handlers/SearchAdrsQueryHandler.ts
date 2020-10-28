@@ -8,7 +8,7 @@ type Deps = {
   adrRepository: AdrRepository;
 };
 
-export class SearchAdrsQueryHandler implements QueryHandler<SearchAdrsQuery> {
+export class SearchAdrsQueryHandler implements QueryHandler {
   readonly queryClass = SearchAdrsQuery;
 
   private readonly adrRepository: AdrRepository;

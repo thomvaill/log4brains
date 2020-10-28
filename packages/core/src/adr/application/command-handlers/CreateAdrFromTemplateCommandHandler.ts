@@ -8,8 +8,7 @@ type Deps = {
   adrTemplateRepository: AdrTemplateRepository;
 };
 
-export class CreateAdrFromTemplateCommandHandler
-  implements CommandHandler<CreateAdrFromTemplateCommand> {
+export class CreateAdrFromTemplateCommandHandler implements CommandHandler {
   readonly commandClass = CreateAdrFromTemplateCommand;
 
   private readonly adrRepository: AdrRepository;

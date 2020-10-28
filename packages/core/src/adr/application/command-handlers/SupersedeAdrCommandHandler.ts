@@ -6,8 +6,7 @@ type Deps = {
   adrRepository: AdrRepository;
 };
 
-export class SupersedeAdrCommandHandler
-  implements CommandHandler<SupersedeAdrCommand> {
+export class SupersedeAdrCommandHandler implements CommandHandler {
   readonly commandClass = SupersedeAdrCommand;
 
   private readonly adrRepository: AdrRepository;

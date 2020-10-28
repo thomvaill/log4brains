@@ -7,8 +7,7 @@ type Deps = {
   adrRepository: AdrRepository;
 };
 
-export class GenerateAdrSlugFromTitleQueryHandler
-  implements QueryHandler<GenerateAdrSlugFromTitleQuery> {
+export class GenerateAdrSlugFromTitleQueryHandler implements QueryHandler {
   readonly queryClass = GenerateAdrSlugFromTitleQuery;
 
   private readonly adrRepository: AdrRepository;
