@@ -134,6 +134,8 @@ export class MarkdownBody extends Entity<Props> {
   }
 
   deleteHeaderMetadata(key: string): void {
+    // TODO: fix bug: when the last item is deleted, it deletes also the next new line.
+    // As a result, it is not detected as a list anymore.
     const res = this.getHeaderMetadataElementAndMatch(key);
     if (res) {
       this.cm.deleteElement(res.element);
