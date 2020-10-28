@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`E2E tests / RO searchAdrs() 1`] = `
+exports[`E2E tests / RO searchAdrs() all 1`] = `
 Array [
   "20200101-first-adr",
   "package1/20200101-first-adr",
@@ -25,7 +25,7 @@ Array [
 ]
 `;
 
-exports[`E2E tests / RO searchAdrs() 2`] = `
+exports[`E2E tests / RO searchAdrs() all 2`] = `
 Array [
   Object {
     "body": Object {

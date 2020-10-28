@@ -14,23 +14,27 @@ function prepareDataForSnapshot(data: any): any {
 describe("E2E tests / RO", () => {
   const instance = Log4brains.create(path.join(__dirname, "ro-project"));
 
-  test("searchAdrs()", async () => {
-    const adrs = await instance.searchAdrs();
-    expect(adrs.map((adr) => adr.slug)).toMatchSnapshot(); // To see easily the order
-    expect(prepareDataForSnapshot(adrs)).toMatchSnapshot();
+  describe("searchAdrs()", () => {
+    test("all", async () => {
+      const adrs = await instance.searchAdrs();
+      expect(adrs.map((adr) => adr.slug)).toMatchSnapshot(); // To see easily the order
+      expect(prepareDataForSnapshot(adrs)).toMatchSnapshot();
+    });
   });
 
-  test("generateAdrSlug() in global scope", async () => {
-    const date = moment().format("YYYYMMDD");
-    expect(await instance.generateAdrSlug("My end-to-end test !")).toEqual(
-      `${date}-my-end-to-end-test`
-    );
-  });
+  describe("generateAdrSlug()", () => {
+    test("in global scope", async () => {
+      const date = moment().format("YYYYMMDD");
+      expect(await instance.generateAdrSlug("My end-to-end test !")).toEqual(
+        `${date}-my-end-to-end-test`
+      );
+    });
 
-  test("generateAdrSlug() in a package", async () => {
-    const date = moment().format("YYYYMMDD");
-    expect(
-      await instance.generateAdrSlug("My end-to-end test !", "package1")
-    ).toEqual(`package1/${date}-my-end-to-end-test`);
+    test("in a package", async () => {
+      const date = moment().format("YYYYMMDD");
+      expect(
+        await instance.generateAdrSlug("My end-to-end test !", "package1")
+      ).toEqual(`package1/${date}-my-end-to-end-test`);
+    });
   });
 });
