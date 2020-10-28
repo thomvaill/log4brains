@@ -16,7 +16,8 @@ describe("AdrHeader", () => {
           tags: [],
           deciders: ["John Doe", "Lorem Ipsum", "Ipsum Dolor"],
           body: {
-            markdown: `# Test`
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
           },
           creationDate: new Date(2020, 0, 1).toJSON(),
           lastEditDate: new Date(2020, 0, 1).toJSON(),
@@ -44,7 +45,8 @@ describe("AdrHeader", () => {
           tags: [],
           deciders: [],
           body: {
-            markdown: `# Test`
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
           },
           creationDate: new Date(2020, 0, 1).toJSON(),
           lastEditDate: new Date(2020, 0, 1).toJSON(),
@@ -72,7 +74,8 @@ describe("AdrHeader", () => {
           tags: [],
           deciders: [],
           body: {
-            markdown: `# Test`
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
           },
           creationDate: new Date(2020, 0, 1).toJSON(),
           lastEditDate: new Date(2020, 0, 1).toJSON(),
@@ -100,7 +103,8 @@ describe("AdrHeader", () => {
           tags: ["foo", "bar"],
           deciders: [],
           body: {
-            markdown: `# Test`
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
           },
           creationDate: new Date(2020, 0, 1).toJSON(),
           lastEditDate: new Date(2020, 0, 1).toJSON(),
@@ -128,7 +132,8 @@ describe("AdrHeader", () => {
           tags: [],
           deciders: [],
           body: {
-            markdown: `# Test`
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
           },
           creationDate: new Date(2020, 0, 1).toJSON(),
           lastEditDate: new Date(2020, 0, 1).toJSON(),
