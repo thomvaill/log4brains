@@ -33,6 +33,7 @@ describe("E2E tests / RW", () => {
 
       expect(adr).toBeDefined();
       expect(adr?.title).toEqual("Hello World");
+      expect(adr?.status).toEqual("draft");
       expect(adr?.package).toBeNull();
       expect(adr?.body.enhancedMdx).toMatchSnapshot();
     });
@@ -51,6 +52,7 @@ describe("E2E tests / RW", () => {
 
       expect(adr).toBeDefined();
       expect(adr?.title).toEqual("Foo Bar");
+      expect(adr?.status).toEqual("draft");
       expect(adr?.package).toEqual("package1");
       expect(adr?.body.enhancedMdx).toMatchSnapshot();
     });
@@ -69,6 +71,7 @@ describe("E2E tests / RW", () => {
 
       expect(adr).toBeDefined();
       expect(adr?.title).toEqual("Foo Baz");
+      expect(adr?.status).toEqual("draft");
       expect(adr?.package).toEqual("package2");
       expect(adr?.body.enhancedMdx).toMatchSnapshot();
     });
@@ -78,6 +81,28 @@ describe("E2E tests / RW", () => {
       await expect(
         instance.createAdrFromTemplate("duplicated-slug", "Hello World 2")
       ).rejects.toThrow();
+    });
+
+    test("unknown package", async () => {
+      await expect(
+        instance.createAdrFromTemplate("unknown-package/test", "Hello World")
+      ).rejects.toThrow();
+    });
+  });
+
+  describe("supersedeAdr()", () => {
+    test("basic", async () => {
+      await instance.createAdrFromTemplate("superseded", "Superseded");
+      await instance.createAdrFromTemplate("superseder", "Superseder");
+      await instance.supersedeAdr("superseded", "superseder");
+
+      const adrs = await instance.searchAdrs();
+      const superseded = getAdrBySlug("superseded", adrs);
+      const superseder = getAdrBySlug("superseder", adrs);
+
+      expect(superseded?.status).toEqual("superseded");
+      expect(superseded?.supersededBy).toEqual(superseder?.slug);
+      expect(superseder?.body.enhancedMdx).toMatchSnapshot();
     });
   });
 });

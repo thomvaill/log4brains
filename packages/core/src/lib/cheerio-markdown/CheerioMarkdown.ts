@@ -2,6 +2,7 @@ import cheerio from "cheerio";
 import MarkdownIt from "markdown-it";
 import { markdownItSourceMap } from "./markdown-it-source-map-plugin";
 import { CheerioMarkdownElement } from "./CheerioMarkdownElement";
+import { cheerioToMarkdown } from "./cheerioToMarkdown";
 
 // TODO: I am thinking to create a standalone library for this one
 
@@ -57,7 +58,7 @@ export class CheerioMarkdown {
 
     for (let i = mdElt.startLine; i < mdElt.endLine; i += 1) {
       const newLine = this.getLine(mdElt.startLine).replace(
-        elt.text(),
+        cheerioToMarkdown(elt),
         newText
       );
       this.replaceLine(mdElt.startLine, newLine);

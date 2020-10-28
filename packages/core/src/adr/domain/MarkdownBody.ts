@@ -1,6 +1,6 @@
 import cheerio from "cheerio";
 import { Entity, Log4brainsError } from "@src/domain";
-import { CheerioMarkdown } from "@src/lib/cheerio-markdown";
+import { CheerioMarkdown, cheerioToMarkdown } from "@src/lib/cheerio-markdown";
 import { Adr } from "./Adr";
 import { MarkdownAdrLinkResolver } from "./MarkdownAdrLinkResolver";
 
@@ -24,22 +24,6 @@ function htmlentities(str: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-}
-
-function cheerioToMarkdown(elt: cheerio.Cheerio, keepLinks: boolean): string {
-  const html = elt.html();
-  if (!html) {
-    return "";
-  }
-  const copy = cheerio.load(html);
-
-  if (keepLinks) {
-    copy("a").each((i, elt) => {
-      copy(elt).text(`[${copy(elt).text()}](${copy(elt).attr("href")})`);
-    });
-  }
-
-  return copy("body").text();
 }
 
 export class MarkdownBody extends Entity<Props> {
@@ -162,7 +146,7 @@ export class MarkdownBody extends Entity<Props> {
     }
     return ul
       .children()
-      .map((i, li) => cheerioToMarkdown(this.cm.$(li), true))
+      .map((i, li) => cheerioToMarkdown(this.cm.$(li)))
       .get() as string[];
   }
 
