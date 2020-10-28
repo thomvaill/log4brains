@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`E2E tests / RW createAdrFromTemplate() in global scope 1`] = `
+"
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+
+## Context and Problem Statement
+
+[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+
+<!-- TRUNCATED FOR TESTS -->
+
+## Decision Outcome
+
+Chosen option: \\"[option 1]\\", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+
+<!-- TRUNCATED FOR TESTS -->
+
+## Links <!-- optional -->
+
+- [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
+- … <!-- numbers of links can vary -->
+"
+`;
+
+exports[`E2E tests / RW createAdrFromTemplate() in package with custom template 1`] = `
+"
+## Context and Problem Statement
+
+This is a custom template for this package.
+"
+`;
+
+exports[`E2E tests / RW createAdrFromTemplate() in package with global template 1`] = `
+"
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+
+## Context and Problem Statement
+
+[Describe the context and problem statement, e.g., in free form using two to three sentences. You may want to articulate the problem in form of a question.]
+
+<!-- TRUNCATED FOR TESTS -->
+
+## Decision Outcome
+
+Chosen option: \\"[option 1]\\", because [justification. e.g., only option, which meets k.o. criterion decision driver | which resolves force force | … | comes out best (see below)].
+
+<!-- TRUNCATED FOR TESTS -->
+
+## Links <!-- optional -->
+
+- [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
+- … <!-- numbers of links can vary -->
+"
+`;

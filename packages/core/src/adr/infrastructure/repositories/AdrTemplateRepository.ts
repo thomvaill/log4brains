@@ -36,6 +36,14 @@ export class AdrTemplateRepository implements IAdrTemplateRepository {
     const adrFolderPath = this.getAdrFolderPath(packageRef);
     const templatePath = path.join(adrFolderPath.absolutePath, "template.md");
     if (!fs.existsSync(templatePath)) {
+      if (packageRef) {
+        // Returns the global template when there is no custom template for a package
+        const globalTemplate = await this.find();
+        return new AdrTemplate({
+          package: packageRef,
+          body: globalTemplate.body
+        });
+      }
       throw new Log4brainsError(
         "The template.md file does not exist",
         adrFolderPath.pathRelativeToCwd
