@@ -127,9 +127,15 @@ export class MarkdownBody extends Entity<Props> {
   }
 
   private getLinksUl(): cheerio.Cheerio | undefined {
-    const h2Results = this.cm
-      .$("h2")
-      .filter((i, elt) => this.cm.$(elt).text().toLowerCase() === "links");
+    const h2Results = this.cm.$("h2").filter(
+      (i, elt) =>
+        this.cm
+          .$(elt)
+          .text()
+          .toLowerCase()
+          .replace(/<!--.*-->/, "")
+          .trim() === "links"
+    );
     if (h2Results.length === 0) {
       return undefined;
     }

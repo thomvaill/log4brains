@@ -73,12 +73,7 @@ Chosen option: \\"[option 1]\\", because [justification. e.g., only option, whic
 ## Links <!-- optional -->
 
 - [Link type] [Link to ADR] <!-- example: Refined by [ADR-0005](0005-example.md) -->
-- … <!-- numbers of links can vary -->
-
-
-## Links
-
 - Supersedes <AdrLink slug=\\"superseded\\" status=\\"superseded\\" title=\\"Superseded\\" />
-
+- … <!-- numbers of links can vary -->
 "
 `;
