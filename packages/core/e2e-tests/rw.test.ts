@@ -11,10 +11,6 @@ function clean(): void {
     .forEach((fileToClean) => rimraf.sync(fileToClean));
 }
 
-function getAdrBySlug(slug: string, adrs: AdrDto[]): AdrDto | undefined {
-  return adrs.filter((adr) => adr.slug === slug).pop();
-}
-
 describe("E2E tests / RW", () => {
   beforeAll(clean);
   afterAll(clean);
@@ -27,9 +23,7 @@ describe("E2E tests / RW", () => {
         "create-adr-from-template",
         "Hello World"
       );
-
-      const adrs = await instance.searchAdrs();
-      const adr = getAdrBySlug("create-adr-from-template", adrs);
+      const adr = await instance.getAdrBySlug("create-adr-from-template");
 
       expect(adr).toBeDefined();
       expect(adr?.title).toEqual("Hello World");
@@ -43,11 +37,8 @@ describe("E2E tests / RW", () => {
         "package1/create-adr-from-template-package-custom-template",
         "Foo Bar"
       );
-
-      const adrs = await instance.searchAdrs();
-      const adr = getAdrBySlug(
-        "package1/create-adr-from-template-package-custom-template",
-        adrs
+      const adr = await instance.getAdrBySlug(
+        "package1/create-adr-from-template-package-custom-template"
       );
 
       expect(adr).toBeDefined();
@@ -62,11 +53,8 @@ describe("E2E tests / RW", () => {
         "package2/create-adr-from-template-package-global-template",
         "Foo Baz"
       );
-
-      const adrs = await instance.searchAdrs();
-      const adr = getAdrBySlug(
-        "package2/create-adr-from-template-package-global-template",
-        adrs
+      const adr = await instance.getAdrBySlug(
+        "package2/create-adr-from-template-package-global-template"
       );
 
       expect(adr).toBeDefined();
@@ -96,9 +84,8 @@ describe("E2E tests / RW", () => {
       await instance.createAdrFromTemplate("superseder", "Superseder");
       await instance.supersedeAdr("superseded", "superseder");
 
-      const adrs = await instance.searchAdrs();
-      const superseded = getAdrBySlug("superseded", adrs);
-      const superseder = getAdrBySlug("superseder", adrs);
+      const superseded = await instance.getAdrBySlug("superseded");
+      const superseder = await instance.getAdrBySlug("superseder");
 
       expect(superseded?.status).toEqual("superseded");
       expect(superseded?.supersededBy).toEqual(superseder?.slug);

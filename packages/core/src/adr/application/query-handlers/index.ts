@@ -1,2 +1,3 @@
-export * from './GenerateAdrSlugFromTitleCommandHandler';
-export * from './SearchAdrsQueryHandler';
+export * from "./GenerateAdrSlugFromTitleCommandHandler";
+export * from "./GetAdrBySlugQueryHandler";
+export * from "./SearchAdrsQueryHandler";

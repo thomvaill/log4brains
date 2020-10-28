@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { Query, QueryHandler, QueryResult } from "@src/application";
+import { Query, QueryHandler } from "@src/application";
 
 export class QueryBus {
   private readonly handlersByQueryName: Map<string, QueryHandler> = new Map<
@@ -11,7 +11,7 @@ export class QueryBus {
     this.handlersByQueryName.set(queryClass.name, handler);
   }
 
-  async dispatch<QR extends QueryResult>(query: Query): Promise<QR> {
+  async dispatch<QR>(query: Query): Promise<QR> {
     const queryName = query.constructor.name;
     const handler = this.handlersByQueryName.get(queryName);
     if (!handler) {

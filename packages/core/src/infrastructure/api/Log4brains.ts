@@ -9,7 +9,8 @@ import {
   SearchAdrsQuery,
   SearchAdrsFilters as AppSearchAdrsFilters,
   GenerateAdrSlugFromTitleQuery,
-  AdrRepository
+  AdrRepository,
+  GetAdrBySlugQuery
 } from "@src/adr/application";
 import { buildConfigFromWorkdir, Log4brainsConfig } from "../config";
 import { AdrDto, AdrDtoStatus } from "./types";
@@ -68,6 +69,21 @@ export class Log4brains {
     );
 
     return Promise.all(adrs.map(adrToDto));
+  }
+
+  /**
+   * Returns an ADR by its slug.
+   *
+   * @param slug ADR slug
+   *
+   * @throws {@link Log4brainsError}
+   * In case of a non-recoverable error.
+   */
+  async getAdrBySlug(slug: string): Promise<AdrDto | undefined> {
+    const adr = await this.queryBus.dispatch<Adr | undefined>(
+      new GetAdrBySlugQuery(new AdrSlug(slug))
+    );
+    return adr ? adrToDto(adr) : undefined;
   }
 
   /**
