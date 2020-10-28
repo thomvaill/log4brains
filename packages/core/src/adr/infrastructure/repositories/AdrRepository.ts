@@ -148,7 +148,7 @@ export class AdrRepository implements IAdrRepository {
     };
   }
 
-  private async getAuthorFromGitConfig(): Promise<Author | undefined> {
+  private async getAuthorFromGitConfig(): Promise<Author> {
     const config = await this.git.listConfig();
     if (config?.all["user.name"]) {
       return new Author(
@@ -156,7 +156,7 @@ export class AdrRepository implements IAdrRepository {
         config.all["user.email"] as string | undefined
       );
     }
-    return undefined;
+    return Author.createAnonymous();
   }
 
   private async getLastEditDateFromFilesystem(file: AdrFile): Promise<Date> {
@@ -230,9 +230,7 @@ export class AdrRepository implements IAdrRepository {
                   lastEditGit?.date ||
                   (await this.getLastEditDateFromFilesystem(adrFile)),
                 lastEditAuthor:
-                  lastEditGit?.author ||
-                  (await this.getAuthorFromGitConfig()) ||
-                  Author.createAnonymous()
+                  lastEditGit?.author || (await this.getAuthorFromGitConfig())
               });
             });
         })

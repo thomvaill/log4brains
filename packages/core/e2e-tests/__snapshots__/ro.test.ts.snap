@@ -1,0 +1,920 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`E2E tests / RO searchAdrs() 1`] = `
+Array [
+  "20200101-first-adr",
+  "package1/20200101-first-adr",
+  "20200102-adr-only-with-date",
+  "20200102-adr-with-intro",
+  "20200102-adr-without-status",
+  "20200102-adr-without-title",
+  "adr_with_a_WeIrd-filename",
+  "20201028-adr-with-no-metadata-no-title",
+  "20201028-adr-with-no-metadata",
+  "20201028-adr-without-date",
+  "package1/20201028-adr-without-date",
+  "20201028-links",
+  "package1/20201028-links-in-package",
+  "package2/20201028-links-to-another-package",
+  "package1/20201028-links-to-global",
+  "20201028-superseded-adr",
+  "20201029-proposed-adr",
+  "20201029-rejected-adr",
+  "20201029-superseder",
+  "20201030-draft-adr",
+]
+`;
+
+exports[`E2E tests / RO searchAdrs() 2`] = `
+Array [
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# First ADR
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Date: 2020-01-01
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:45:32.436Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200101-first-adr.md",
+      "relativePath": "docs/adr/20200101-first-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:45:32.436Z",
+    "package": null,
+    "publicationDate": "2020-01-01T22:59:59.000Z",
+    "slug": "20200101-first-adr",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "First ADR",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# First ADR (in package 1)
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Date: 2020-01-01
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:06:28.825Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20200101-first-adr.md",
+      "relativePath": "packages/package1/adr/20200101-first-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:06:28.825Z",
+    "package": "package1",
+    "publicationDate": "2020-01-01T22:59:59.000Z",
+    "slug": "package1/20200101-first-adr",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "First ADR (in package 1)",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR only with date
+
+- Date: 2020-01-02
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:05.112Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-only-with-date.md",
+      "relativePath": "docs/adr/20200102-adr-only-with-date.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:05.112Z",
+    "package": null,
+    "publicationDate": "2020-01-02T22:59:59.000Z",
+    "slug": "20200102-adr-only-with-date",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "ADR only with date",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+This is an introduction paragraph.
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR with intro
+
+This is an introduction paragraph.
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Date: 2020-01-02
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:10.392Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-with-intro.md",
+      "relativePath": "docs/adr/20200102-adr-with-intro.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:10.392Z",
+    "package": null,
+    "publicationDate": "2020-01-02T22:59:59.000Z",
+    "slug": "20200102-adr-with-intro",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "ADR with intro",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR without status
+
+- Deciders: John Doe
+- Date: 2020-01-02
+- Tags: foo
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:17.156Z",
+    "deciders": Array [
+      "John Doe",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-without-status.md",
+      "relativePath": "docs/adr/20200102-adr-without-status.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:17.156Z",
+    "package": null,
+    "publicationDate": "2020-01-02T22:59:59.000Z",
+    "slug": "20200102-adr-without-status",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+    ],
+    "title": "ADR without status",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "- Deciders: John Doe, Foo bar
+- Date: 2020-01-02
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:48:14.273Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-without-title.md",
+      "relativePath": "docs/adr/20200102-adr-without-title.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:48:14.273Z",
+    "package": null,
+    "publicationDate": "2020-01-02T22:59:59.000Z",
+    "slug": "20200102-adr-without-title",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": null,
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR with a weird filename
+
+- Status: accepted
+- Date: 2020-01-02
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:05:21.249Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/adr_with_a_WeIrd-filename.md",
+      "relativePath": "docs/adr/adr_with_a_WeIrd-filename.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:05:21.249Z",
+    "package": null,
+    "publicationDate": "2020-01-02T22:59:59.000Z",
+    "slug": "adr_with_a_WeIrd-filename",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "ADR with a weird filename",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:50:43.775Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata-no-title.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata-no-title.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:50:43.775Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-with-no-metadata-no-title",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": null,
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR with no metadata
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:28.761Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:28.761Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-with-no-metadata",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "ADR with no metadata",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR without date
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:34.169Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-without-date.md",
+      "relativePath": "docs/adr/20201028-adr-without-date.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:34.169Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-without-date",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "ADR without date",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR without date (in package 1)
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:07:42.122Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-adr-without-date.md",
+      "relativePath": "packages/package1/adr/20201028-adr-without-date.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:07:42.122Z",
+    "package": "package1",
+    "publicationDate": null,
+    "slug": "package1/20201028-adr-without-date",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "ADR without date (in package 1)",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Tests
+
+- Classic link: <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
+- Relative link: <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
+- <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
+- [External link](https://www.google.com/)
+- Broken link: [20200101-first-adr](20200101-first-adr-BROKEN.md)
+- Link to a package: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+",
+      "rawMarkdown": "# Links
+
+- Date: 2020-10-28
+
+## Tests
+
+- Classic link: [20200101-first-adr](20200101-first-adr.md)
+- Relative link: [20200101-first-adr](./20200101-first-adr.md)
+- [Link with a custom text](20200101-first-adr.md)
+- [External link](https://www.google.com/)
+- Broken link: [20200101-first-adr](20200101-first-adr-BROKEN.md)
+- Link to a package: [package1/20200101-first-adr](../../packages/package1/adr/20200101-first-adr.md)
+",
+    },
+    "creationDate": "2020-10-28T09:16:19.324Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-links.md",
+      "relativePath": "docs/adr/20201028-links.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:16:19.324Z",
+    "package": null,
+    "publicationDate": "2020-10-28T22:59:59.000Z",
+    "slug": "20201028-links",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Links",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Test link with complete slug: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+Test link with partial slug: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+
+## Decision Outcome
+
+- Relates to <AdrLink slug=\\"package1/20201028-links-to-global\\" status=\\"accepted\\" title=\\"Links to global\\" package=\\"package1\\" />
+",
+      "rawMarkdown": "# Links in package
+
+- Date: 2020-10-28
+
+## Context and Problem Statement
+
+Test link with complete slug: [package1/20200101-first-adr](20200101-first-adr.md)
+Test link with partial slug: [20200101-first-adr](20200101-first-adr.md)
+[Custom text and relative path](./20200101-first-adr.md)
+
+## Decision Outcome
+
+- Relates to [package1/20201028-links-to-global](20201028-links-to-global.md)
+",
+    },
+    "creationDate": "2020-10-28T09:49:45.502Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-in-package.md",
+      "relativePath": "packages/package1/adr/20201028-links-in-package.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:49:45.502Z",
+    "package": "package1",
+    "publicationDate": "2020-10-28T22:59:59.000Z",
+    "slug": "package1/20201028-links-in-package",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Links in package",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Test
+
+Test link: <AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+<AdrLink slug=\\"package1/20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR (in package 1)\\" package=\\"package1\\" />
+",
+      "rawMarkdown": "# Links to another package
+
+- Date: 2020-10-28
+
+## Test
+
+Test link: [package1/20200101-first-adr](../../package1/adr/20200101-first-adr.md)
+[Custom text](../../package1/adr/20200101-first-adr.md)
+",
+    },
+    "creationDate": "2020-10-28T09:20:41.043Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package2/adr/20201028-links-to-another-package.md",
+      "relativePath": "packages/package2/adr/20201028-links-to-another-package.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:20:41.043Z",
+    "package": "package2",
+    "publicationDate": "2020-10-28T22:59:59.000Z",
+    "slug": "package2/20201028-links-to-another-package",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Links to another package",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum. Test link: <AdrLink slug=\\"20200101-first-adr\\" status=\\"accepted\\" title=\\"First ADR\\" />
+
+## Decision Outcome
+
+- Relates to <AdrLink slug=\\"20201028-links\\" status=\\"accepted\\" title=\\"Links\\" />
+",
+      "rawMarkdown": "# Links to global
+
+- Date: 2020-10-28
+
+## Context and Problem Statement
+
+Lorem ipsum. Test link: [20200101-first-adr](../../docs/adr/20200101-first-adr.md)
+
+## Decision Outcome
+
+- Relates to [20201028-links](../../docs/adr/20201028-links.md)
+",
+    },
+    "creationDate": "2020-10-28T09:17:29.425Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-to-global.md",
+      "relativePath": "packages/package1/adr/20201028-links-to-global.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:17:29.425Z",
+    "package": "package1",
+    "publicationDate": "2020-10-28T22:59:59.000Z",
+    "slug": "package1/20201028-links-to-global",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Links to global",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# Superseded ADR
+
+- Status: superseded by [20201029-superseder](20201029-superseder.md)
+- Date: 2020-10-28
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:59:39.969Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-superseded-adr.md",
+      "relativePath": "docs/adr/20201028-superseded-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:39.969Z",
+    "package": null,
+    "publicationDate": "2020-10-28T22:59:59.000Z",
+    "slug": "20201028-superseded-adr",
+    "status": "superseded",
+    "supersededBy": "20201029-superseder",
+    "tags": Array [],
+    "title": "Superseded ADR",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# Proposed ADR
+
+- Status: proposed
+- Date: 2020-10-29
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:02:15.231Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-proposed-adr.md",
+      "relativePath": "docs/adr/20201029-proposed-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:02:15.231Z",
+    "package": null,
+    "publicationDate": "2020-10-29T22:59:59.000Z",
+    "slug": "20201029-proposed-adr",
+    "status": "proposed",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Proposed ADR",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# Rejected ADR
+
+- Status: rejected
+- Date: 2020-10-29
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:02:33.539Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-rejected-adr.md",
+      "relativePath": "docs/adr/20201029-rejected-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:02:33.539Z",
+    "package": null,
+    "publicationDate": "2020-10-29T22:59:59.000Z",
+    "slug": "20201029-rejected-adr",
+    "status": "rejected",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Rejected ADR",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+
+## Links
+
+- Supersedes <AdrLink slug=\\"20201028-superseded-adr\\" status=\\"superseded\\" title=\\"Superseded ADR\\" />
+",
+      "rawMarkdown": "# Superseder
+
+- Status: accepted
+- Date: 2020-10-29
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+
+## Links
+
+- Supersedes [20201028-superseded-adr](20201028-superseded-adr.md)
+",
+    },
+    "creationDate": "2020-10-28T08:59:45.249Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-superseder.md",
+      "relativePath": "docs/adr/20201029-superseder.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:59:45.249Z",
+    "package": null,
+    "publicationDate": "2020-10-29T22:59:59.000Z",
+    "slug": "20201029-superseder",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Superseder",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# Draft ADR
+
+- Status: draft
+- Date: 2020-10-30
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T09:03:15.287Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201030-draft-adr.md",
+      "relativePath": "docs/adr/20201030-draft-adr.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T09:03:15.287Z",
+    "package": null,
+    "publicationDate": "2020-10-30T22:59:59.000Z",
+    "slug": "20201030-draft-adr",
+    "status": "draft",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "Draft ADR",
+  },
+]
+`;

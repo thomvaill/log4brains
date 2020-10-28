@@ -1,0 +1,4 @@
+---
+project:
+  name: log4brains-e2e-tests-rw
+  adrFolder: ./docs/adr

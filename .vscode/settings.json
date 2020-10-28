@@ -30,6 +30,7 @@
     "copyfiles",
     "diagnotics",
     "esnext",
+    "globby",
     "microbundle",
     "neverthrow",
     "outdir",
