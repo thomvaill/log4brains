@@ -27,7 +27,8 @@ module.exports = {
     // [Project-specific] no default exports (@adr-0005)
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
-    "@typescript-eslint/restrict-template-expressions": "off"
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }]
   },
   overrides: [
     // Specific rules for Jest tests only

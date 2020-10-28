@@ -3,12 +3,7 @@ import { deepFreeze } from "@src/utils";
 import { AdrDto, AdrDtoStatus } from "../types";
 
 export async function adrToDto(adr: Adr): Promise<AdrDto> {
-  if (
-    !adr.file ||
-    !adr.creationDate ||
-    !adr.lastEditDate ||
-    !adr.lastEditAuthor
-  ) {
+  if (!adr.file) {
     throw new Error("You are serializing an non-saved ADR");
   }
 

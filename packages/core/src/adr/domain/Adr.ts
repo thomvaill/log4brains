@@ -1,6 +1,5 @@
 import { AggregateRoot } from "@src/domain";
 import { AdrFile } from "./AdrFile";
-import { MarkdownAdrLink } from "./MarkdownAdrLink";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
 import { MarkdownBody } from "./MarkdownBody";
@@ -13,12 +12,21 @@ type Props = {
   package?: PackageRef;
   body: MarkdownBody;
   file?: AdrFile; // set by the repository after save()
-  creationDate?: Date;
-  lastEditDate?: Date;
-  lastEditAuthor?: Author;
+  creationDate?: Date; // set by the repository after save() or automatically set to now()
+  lastEditDate?: Date; // set by the repository after save() or automatically set to now()
+  lastEditAuthor?: Author; // set by the repository after save() or automatically set to anonymous
 };
 
 export class Adr extends AggregateRoot<Props> {
+  constructor(props: Props) {
+    super({
+      creationDate: props.creationDate || new Date(),
+      lastEditDate: props.lastEditDate || new Date(),
+      lastEditAuthor: props.lastEditAuthor || Author.createAnonymous(),
+      ...props
+    });
+  }
+
   get slug(): AdrSlug {
     return this.props.slug;
   }
@@ -35,16 +43,16 @@ export class Adr extends AggregateRoot<Props> {
     return this.props.file;
   }
 
-  get creationDate(): Date | undefined {
-    return this.props.creationDate;
+  get creationDate(): Date {
+    return this.props.creationDate!;
   }
 
-  get lastEditDate(): Date | undefined {
-    return this.props.lastEditDate;
+  get lastEditDate(): Date {
+    return this.props.lastEditDate!;
   }
 
-  get lastEditAuthor(): Author | undefined {
-    return this.props.lastEditAuthor;
+  get lastEditAuthor(): Author {
+    return this.props.lastEditAuthor!;
   }
 
   get title(): string | undefined {
@@ -92,10 +100,6 @@ export class Adr extends AggregateRoot<Props> {
     date.setHours(23, 59, 59);
 
     return date;
-  }
-
-  get publicationDateOrCreationDate(): Date | undefined {
-    return this.publicationDate || this.creationDate || undefined;
   }
 
   get tags(): string[] {
@@ -148,5 +152,28 @@ export class Adr extends AggregateRoot<Props> {
     await bodyCopy.replaceAdrLinks(this);
 
     return bodyCopy.getRawMarkdown();
+  }
+
+  static compare(a: Adr, b: Adr): number {
+    // PublicationDate always wins on creationDate
+    const aDate = a.publicationDate || a.creationDate;
+    const bDate = b.publicationDate || b.creationDate;
+
+    const dateDiff = aDate.getTime() - bDate.getTime();
+    if (dateDiff !== 0) {
+      return dateDiff;
+    }
+
+    // When the dates are equal, we compare the slugs' name parts
+    const aSlugNamePart = a.slug.namePart.toLowerCase();
+    const bSlugNamePart = b.slug.namePart.toLowerCase();
+
+    if (aSlugNamePart === bSlugNamePart) {
+      // Special case: when the name parts are equal, we take the package name into account
+      // This case is very rare but we have to take it into account so that the results are not random
+      return a.slug.value.toLowerCase() < b.slug.value.toLowerCase() ? -1 : 1;
+    }
+
+    return aSlugNamePart < bSlugNamePart ? -1 : 1;
   }
 }

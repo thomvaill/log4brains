@@ -241,4 +241,161 @@ Link to an URL: [lorem ipsum](https://www.google.com/).
 `);
     });
   });
+
+  describe("compare()", () => {
+    function bodyWithDate(date: string): MarkdownBody {
+      return new MarkdownBody(`# Test\n\n- Date: ${date}\n`);
+    }
+    function bodyWithoutDate(): MarkdownBody {
+      return new MarkdownBody("# Test\n");
+    }
+
+    describe("when there is a publicationDate", () => {
+      it("sorts between two publicationDates", () => {
+        const one = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-02 00:00:00"),
+          body: bodyWithDate("2020-01-01")
+        });
+        const two = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithDate("2020-01-02")
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("sorts between a publicationDate and a creationDate", () => {
+        const one = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-02 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithDate("2020-01-03")
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      test("a publicationDate on the same day of a creationDate is always older", () => {
+        const one = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-02 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithDate("2020-01-02")
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("sorts by slug when two same publicationDates", () => {
+        const one = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-02 00:00:00"),
+          body: bodyWithDate("2020-01-02")
+        });
+        const two = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithDate("2020-01-02")
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+    });
+
+    describe("when there is no publicationDate", () => {
+      it("sorts between two creationDate", () => {
+        const one = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-02 00:00:00"),
+          body: bodyWithoutDate()
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("sorts by slug when two same creationDates", () => {
+        const one = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("abb"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("does not take slug's package part into account", () => {
+        const one = new Adr({
+          slug: new AdrSlug("zzz/aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("does not take case into account", () => {
+        const one = new Adr({
+          slug: new AdrSlug("AAA"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("bbb"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+
+      it("sorts numbers before letters", () => {
+        const one = new Adr({
+          slug: new AdrSlug("999"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+        const two = new Adr({
+          slug: new AdrSlug("aaa"),
+          creationDate: new Date("2020-01-01 00:00:00"),
+          body: bodyWithoutDate()
+        });
+
+        expect([two, one].sort(Adr.compare)).toEqual([one, two]);
+        expect([one, two].sort(Adr.compare)).toEqual([one, two]);
+      });
+    });
+  });
 });

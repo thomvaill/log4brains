@@ -89,38 +89,7 @@ export class AdrRepository implements IAdrRepository {
       ])
     )
       .flat()
-      .sort((a, b) => {
-        // TODO: test
-        if (
-          a.publicationDateOrCreationDate &&
-          !b.publicationDateOrCreationDate
-        ) {
-          return -1;
-        }
-        if (
-          !a.publicationDateOrCreationDate &&
-          b.publicationDateOrCreationDate
-        ) {
-          return 1;
-        }
-        if (
-          a.publicationDateOrCreationDate! < b.publicationDateOrCreationDate!
-        ) {
-          return -1;
-        }
-        if (
-          a.publicationDateOrCreationDate! > b.publicationDateOrCreationDate!
-        ) {
-          return 1;
-        }
-        if (a.slug.namePart < b.slug.namePart) {
-          return -1;
-        }
-        if (a.slug.namePart > b.slug.namePart) {
-          return 1;
-        }
-        return 0;
-      });
+      .sort(Adr.compare);
   }
 
   private async getCreationDateFromGit(
