@@ -81,6 +81,10 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
 
   const [mdContent, setMdContent] = useState<JSX.Element[] | JSX.Element>([]);
 
+  if (!currentAdr) {
+    return null; // Happens during Next.js initial build
+  }
+
   let alert;
   if (currentAdr.status === "superseded") {
     const superseder = currentAdr.supersededBy
