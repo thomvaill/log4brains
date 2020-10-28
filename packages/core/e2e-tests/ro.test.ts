@@ -20,6 +20,40 @@ describe("E2E tests / RO", () => {
       expect(adrs.map((adr) => adr.slug)).toMatchSnapshot(); // To see easily the order
       expect(prepareDataForSnapshot(adrs)).toMatchSnapshot();
     });
+
+    test("with filter on statuses", async () => {
+      const acceptedAdrs = await instance.searchAdrs({
+        statuses: ["accepted"]
+      });
+      expect(
+        acceptedAdrs.every((adr) => adr.status === "accepted")
+      ).toBeTruthy();
+
+      const supersededAdrs = await instance.searchAdrs({
+        statuses: ["superseded"]
+      });
+      expect(
+        supersededAdrs.every((adr) => adr.status === "superseded")
+      ).toBeTruthy();
+
+      const acceptedAndSupersededAdrs = await instance.searchAdrs({
+        statuses: ["accepted", "superseded"]
+      });
+      expect(
+        acceptedAndSupersededAdrs.every(
+          (adr) => adr.status === "accepted" || adr.status === "superseded"
+        )
+      ).toBeTruthy();
+
+      const acceptedAdrSlugs = acceptedAdrs.map((adr) => adr.slug);
+      const supersededAdrSlugs = supersededAdrs.map((adr) => adr.slug);
+      const acceptedAndSupersededAdrSlugs = acceptedAndSupersededAdrs.map(
+        (adr) => adr.slug
+      );
+      const a = [...acceptedAdrSlugs, ...supersededAdrSlugs].sort();
+      const b = [...acceptedAndSupersededAdrSlugs].sort();
+      expect(b).toEqual(a);
+    });
   });
 
   describe("generateAdrSlug()", () => {
