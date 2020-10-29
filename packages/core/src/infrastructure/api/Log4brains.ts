@@ -1,5 +1,7 @@
 import { AwilixContainer } from "awilix";
 import { buildContainer } from "@src/infrastructure/di";
+import open from "open";
+import launchEditor from "launch-editor";
 import { Adr, AdrSlug, AdrStatus, PackageRef } from "@src/adr/domain";
 import {
   CreateAdrFromTemplateCommand,
@@ -12,6 +14,7 @@ import {
   AdrRepository,
   GetAdrBySlugQuery
 } from "@src/adr/application";
+import { Log4brainsError } from "@src/domain";
 import { buildConfigFromWorkdir, Log4brainsConfig } from "../config";
 import { AdrDto, AdrDtoStatus } from "./types";
 import { adrToDto } from "./transformers";
@@ -138,6 +141,48 @@ export class Log4brains {
     await this.commandBus.dispatch(
       new SupersedeAdrCommand(supersededSlugObj, supersederSlugObj)
     );
+  }
+
+  /**
+   * Opens the given ADR in an editor on the local machine.
+   * Tries first to guess the preferred editor of the user thanks to https://github.com/yyx990803/launch-editor.
+   * If impossible to guess, uses xdg-open (or similar, depending on the OS, thanks to https://github.com/sindresorhus/open) as a fallback.
+   * The overall order is thus the following:
+   *  1) The currently running editor among the supported ones by launch-editor
+   *  2) The editor defined by the $VISUAL environment variable
+   *  3) The editor defined by the $EDITOR environment variable
+   *  4) Fallback: xdg-open or similar
+   *
+   * @param slug The ADR slug to open
+   * @param onImpossibleToGuess Optional. Callback called when the fallback method is used.
+   *                             Useful to display a warning to the user to tell him to set his $VISUAL environment variable for the next time.
+   *
+   * @throws {@link Log4brainsError}
+   * If the ADR does not exist or if even the fallback method fails.
+   */
+  async openAdrInEditor(
+    slug: string,
+    onImpossibleToGuess?: () => void
+  ): Promise<void> {
+    const adr = await this.queryBus.dispatch<Adr | undefined>(
+      new GetAdrBySlugQuery(new AdrSlug(slug))
+    );
+    if (!adr) {
+      throw new Log4brainsError("This ADR does not exist", slug);
+    }
+    if (!adr.file) {
+      throw new Log4brainsError(
+        "You are trying to open an non-saved ADR",
+        slug
+      );
+    }
+
+    launchEditor(adr.file.path.absolutePath, undefined, async () => {
+      await open(adr.file!.path.absolutePath);
+      if (onImpossibleToGuess) {
+        onImpossibleToGuess();
+      }
+    });
   }
 
   /**

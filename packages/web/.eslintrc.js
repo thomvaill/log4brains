@@ -46,9 +46,9 @@ module.exports = {
         "react/display-name": "off"
       }
     },
-    // Specific rules for Next.js pages only
+    // Specific rules for Next.js pages and api routes only
     {
-      files: ["src/pages/**/*.tsx"],
+      files: ["src/pages/**/*.tsx", "src/pages/api/**/*.ts"],
       rules: {
         // [Project-specific] avoid React.FC (@adr-0006)
         "import/no-default-export": "off"

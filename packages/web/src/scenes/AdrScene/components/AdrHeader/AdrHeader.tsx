@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+async function editLocally(slug: string): Promise<void> {
+  await fetch(`/api/adr/${slug}/_open-in-editor`, { method: "post" });
+}
+
 export type AdrHeaderProps = {
   className?: string;
   adr: AdrDto;
@@ -124,7 +128,7 @@ export function AdrHeader({ className, adr }: AdrHeaderProps) {
             </Tooltip>
 
             <Tooltip title="Edit locally">
-              <Button color="secondary">
+              <Button color="secondary" onClick={() => editLocally(adr.slug)}>
                 <EditIcon fontSize="small" />
               </Button>
             </Tooltip>

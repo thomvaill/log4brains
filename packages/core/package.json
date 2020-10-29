@@ -24,11 +24,13 @@
     "awilix": "^4.2.6",
     "cheerio": "^1.0.0-rc.3",
     "joi": "^17.2.1",
+    "launch-editor": "^2.2.1",
     "lodash": "^4.17.20",
     "markdown-it": "^11.0.1",
     "markdown-it-source-map": "^0.1.1",
     "moment": "^2.29.1",
     "neverthrow": "^2.7.1",
+    "open": "^7.3.0",
     "simple-git": "^2.21.0",
     "slugify": "^1.4.5",
     "yaml": "^1.10.0"
