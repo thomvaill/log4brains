@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Link as MuiLink } from "@material-ui/core";
+import { Link as MuiLink, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import {
   Toc as TocModel,
@@ -10,7 +10,13 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: "0 !important"
+      "& > ul": {
+        padding: "0 !important"
+      }
+    },
+    title: {
+      fontWeight: theme.typography.fontWeightBold,
+      paddingBottom: theme.spacing(1)
     },
     tocUl: {
       listStyleType: "none",
@@ -80,14 +86,22 @@ export function MarkdownToc({
   }
 
   const model = buildTocModelFromContent(content, levelStart);
+  if (model.children.length === 0) {
+    return null;
+  }
 
   return (
-    <ul className={clsx(classes.root, classes.tocUl, className)}>
-      {model.render((title: string, id: string, children: JSX.Element[]) => (
-        <TocSection title={title} id={id} key={id}>
-          {children}
-        </TocSection>
-      ))}
-    </ul>
+    <div className={clsx(classes.root, className)}>
+      <Typography variant="subtitle2" className={classes.title}>
+        Table of contents
+      </Typography>
+      <ul className={classes.tocUl}>
+        {model.render((title: string, id: string, children: JSX.Element[]) => (
+          <TocSection title={title} id={id} key={id}>
+            {children}
+          </TocSection>
+        ))}
+      </ul>
+    </div>
   );
 }
