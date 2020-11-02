@@ -250,8 +250,8 @@ export function AdrBrowserLayout({
           />
 
           <List className={classes.bottomMenuList}>
-            <Divider />
-            {/* <ListItem button>
+            {/* <Divider />
+            <ListItem button>
               <ListItemIcon>
                 <ChevronRightIcon />
               </ListItemIcon>
@@ -260,8 +260,8 @@ export function AdrBrowserLayout({
                   <Typography>Filters</Typography>
                 </Badge>
               </ListItemText>
-            </ListItem>
-            <Divider /> */}
+            </ListItem> */}
+            {/* <Divider />
             <Link href="/decision-backlog" passHref>
               <ListItem button selected={backlog} component="a">
                 <ListItemIcon>
@@ -269,7 +269,7 @@ export function AdrBrowserLayout({
                 </ListItemIcon>
                 <ListItemText primary="Decision backlog" />
               </ListItem>
-            </Link>
+            </Link> */}
           </List>
         </div>
       </Drawer>
