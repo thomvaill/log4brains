@@ -11,9 +11,3 @@ project:
     - name: web
       path: ./packages/web
       adrFolder: ./packages/web/docs/adr
-
-  repository:
-    provider: github
-    github:
-      owner: log4brains
-      repo: log4brains

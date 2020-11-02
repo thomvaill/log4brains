@@ -12,24 +12,25 @@ const projectPackageSchema = Joi.object({
   adrFolder: Joi.string().required()
 });
 
-type GitRepositoryConfig = Readonly<{
-  provider: "github"; // TODO: add more providers + a generic one
-  github?: Readonly<{
-    owner: string;
-    repo: string;
-  }>;
+export const gitProviders = [
+  "github",
+  "gitlab",
+  "bitbucket",
+  "generic"
+] as const;
+export type GitProvider = typeof gitProviders[number];
+
+// Optional values are automatically guessed at configuration build time
+export type GitRepositoryConfig = Readonly<{
+  url?: string;
+  provider?: GitProvider;
+  viewFileUriPattern?: string;
 }>;
 
 const gitRepositorySchema = Joi.object({
-  provider: Joi.string().valid("github").required(),
-  github: Joi.object({
-    owner: Joi.string().required(),
-    repo: Joi.string().required()
-  }).when("provider", {
-    is: "github",
-    then: Joi.required(),
-    otherwise: Joi.forbidden()
-  })
+  url: Joi.string().uri(), // Guessed from the current Git configuration if omitted
+  provider: Joi.string().valid(...gitProviders), // Guessed from url if omitted (useful for enterprise plans with custom domains)
+  viewFileUriPattern: Joi.string() // Useful for unsupported providers. Example for GitHub: /blob/%branch/%path
 });
 
 type ProjectConfig = Readonly<{

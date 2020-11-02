@@ -30,6 +30,7 @@
     "copyfiles",
     "diagnotics",
     "esnext",
+    "gitlab",
     "globby",
     "microbundle",
     "neverthrow",

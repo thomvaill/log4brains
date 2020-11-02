@@ -53,6 +53,11 @@ The "log4brains patch" performs the following modifications to the original temp
         "docs/adr/20200101-use-markdown-architectural-decision-records.md",
       absolutePath:
         "/root/docs/adr/20200101-use-markdown-architectural-decision-records.md"
+    },
+    repository: {
+      provider: "gitlab",
+      viewUrl:
+        "https://gitlab.com/foo/bar/-/blob/master/docs/adr/20200101-use-markdown-architectural-decision-records.md"
     }
   },
   {
@@ -73,6 +78,11 @@ The "log4brains patch" performs the following modifications to the original temp
         "frontend/docs/adr/20200102-use-nextjs-for-static-site-generation.md",
       absolutePath:
         "/root/frontend/docs/adr/20200102-use-nextjs-for-static-site-generation.md"
+    },
+    repository: {
+      provider: "github",
+      viewUrl:
+        "https://github.com/foo/bar/blob/master/docs/adr/20200102-use-nextjs-for-static-site-generation.md"
     }
   },
   {
@@ -91,6 +101,11 @@ The "log4brains patch" performs the following modifications to the original temp
     file: {
       relativePath: "docs/adr/20200106-an-old-decision.md",
       absolutePath: "/root/docs/adr/20200106-an-old-decision.md"
+    },
+    repository: {
+      provider: "bitbucket",
+      viewUrl:
+        "https://bitbucket.org/foo/bar/src/master/docs/adr/20200106-an-old-decision.md"
     }
   },
   {
@@ -121,6 +136,11 @@ Ipsum Dolor
     file: {
       relativePath: "docs/adr/20200404-a-new-decision.md",
       absolutePath: "/root/docs/adr/20200404-a-new-decision.md"
+    },
+    repository: {
+      provider: "github",
+      viewUrl:
+        "https://github.com/foo/bar/blob/master/docs/adr/20200404-a-new-decision.md"
     }
   },
   {
@@ -139,6 +159,11 @@ Ipsum Dolor
     file: {
       relativePath: "backend/docs/adr/20200404-untitled-draft.md",
       absolutePath: "/root/backend/docs/adr/20200404-untitled-draft.md"
+    },
+    repository: {
+      provider: "github",
+      viewUrl:
+        "https://github.com/foo/bar/blob/master/docs/adr/20200404-untitled-draft.md"
     }
   },
   {
@@ -170,6 +195,11 @@ Ipsum Dolor
     file: {
       relativePath: "backend/docs/adr/20200405-lot-of-deciders.md",
       absolutePath: "/root/backend/docs/adr/20200405-lot-of-deciders.md"
+    },
+    repository: {
+      provider: "generic",
+      viewUrl:
+        "https://custom.com/foo/bar/blob/master/docs/adr/20200405-lot-of-deciders.md"
     }
   },
   {
@@ -193,6 +223,11 @@ Ipsum Dolor
     file: {
       relativePath: "backend/docs/adr/20200405-untitled-draft2.md",
       absolutePath: "/root/backend/docs/adr/20200405-untitled-draft2.md"
+    },
+    repository: {
+      provider: "github",
+      viewUrl:
+        "https://github.com/foo/bar/blob/master/docs/adr/20200405-untitled-draft2.md"
     }
   }
 ];

@@ -1,3 +1,5 @@
+import { GitProvider } from "@src/infrastructure/config";
+
 export type AdrDtoStatus =
   | "draft"
   | "proposed"
@@ -27,5 +29,9 @@ export type AdrDto = Readonly<{
   file: Readonly<{
     relativePath: string;
     absolutePath: string;
+  }>;
+  repository?: Readonly<{
+    provider: GitProvider;
+    viewUrl: string;
   }>;
 }>;

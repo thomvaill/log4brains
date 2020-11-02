@@ -1,11 +1,32 @@
-import { Adr } from "@src/adr/domain";
+import { Adr, AdrFile } from "@src/adr/domain";
+import { GitRepositoryConfig } from "@src/infrastructure/config";
 import { deepFreeze } from "@src/utils";
 import { AdrDto, AdrDtoStatus } from "../types";
 
-export async function adrToDto(adr: Adr): Promise<AdrDto> {
+function buildViewUrl(
+  repositoryConfig: GitRepositoryConfig,
+  file: AdrFile
+): string | undefined {
+  if (!repositoryConfig.url || !repositoryConfig.viewFileUriPattern) {
+    return undefined;
+  }
+  const uri = repositoryConfig.viewFileUriPattern
+    .replace("%branch", "master") // TODO: make this customizable
+    .replace("%path", file.path.pathRelativeToCwd);
+  return `${repositoryConfig.url.replace(/\.git$/, "")}${uri}`;
+}
+
+export async function adrToDto(
+  adr: Adr,
+  repositoryConfig?: GitRepositoryConfig
+): Promise<AdrDto> {
   if (!adr.file) {
     throw new Error("You are serializing an non-saved ADR");
   }
+
+  const viewUrl = repositoryConfig
+    ? buildViewUrl(repositoryConfig, adr.file)
+    : undefined;
 
   return deepFreeze<AdrDto>({
     slug: adr.slug.value,
@@ -26,6 +47,14 @@ export async function adrToDto(adr: Adr): Promise<AdrDto> {
     file: {
       relativePath: adr.file.path.pathRelativeToCwd,
       absolutePath: adr.file.path.absolutePath
-    }
+    },
+    ...(repositoryConfig && repositoryConfig.provider && viewUrl
+      ? {
+          repository: {
+            provider: repositoryConfig.provider,
+            viewUrl
+          }
+        }
+      : undefined)
   });
 }

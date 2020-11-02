@@ -4,6 +4,7 @@ import yaml from "yaml";
 import { deepFreeze } from "@src/utils";
 import { Log4brainsError } from "@src/domain";
 import { Log4brainsConfig, schema } from "./schema";
+import { guessGitRepositoryConfig } from "./guessGitRepositoryConfig";
 
 const configFilename = ".log4brains.yml";
 
@@ -64,7 +65,14 @@ export function buildConfigFromWorkdir(workdir = "."): Log4brainsConfig {
   try {
     const content = fs.readFileSync(configPath, "utf8");
     const object = yaml.parse(content) as Record<string, unknown>;
-    return buildConfig(object);
+    const config = buildConfig(object);
+    return deepFreeze({
+      ...config,
+      project: {
+        ...config.project,
+        repository: guessGitRepositoryConfig(config, workdir)
+      }
+    }) as Log4brainsConfig;
   } catch (e) {
     if (e instanceof Log4brainsError) {
       throw e;

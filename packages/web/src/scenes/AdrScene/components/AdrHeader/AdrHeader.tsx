@@ -7,7 +7,8 @@ import {
   Snackbar,
   Tooltip,
   Typography,
-  IconButton
+  IconButton,
+  SvgIcon
 } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import {
@@ -16,14 +17,61 @@ import {
   People as PeopleIcon,
   Person as PersonIcon,
   Label as LabelIcon,
-  Share as ShareIcon,
-  GitHub as GitHubIcon,
   Edit as EditIcon,
   Close as CloseIcon
 } from "@material-ui/icons";
+import {
+  AiFillGithub as GithubRIcon,
+  AiFillGitlab as GitlabRIcon
+} from "react-icons/ai";
+import {
+  DiBitbucket as BitbucketRIcon,
+  DiGit as GitRIcon
+} from "react-icons/di";
+import { FiLink as LinkRIcon } from "react-icons/fi";
 import clsx from "clsx";
 import { AdrDto } from "@log4brains/core";
 import { AdrStatusChip } from "../../../../components";
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function getRepositoryIcon(provider: string): JSX.Element {
+  switch (provider) {
+    case "github":
+      return (
+        <SvgIcon>
+          <GithubRIcon />
+        </SvgIcon>
+      );
+      break;
+
+    case "gitlab":
+      return (
+        <SvgIcon>
+          <GitlabRIcon />
+        </SvgIcon>
+      );
+      break;
+
+    case "bitbucket":
+      return (
+        <SvgIcon>
+          <BitbucketRIcon />
+        </SvgIcon>
+      );
+      break;
+
+    default:
+      return (
+        <SvgIcon>
+          <GitRIcon />
+        </SvgIcon>
+      );
+      break;
+  }
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -141,19 +189,33 @@ export function AdrHeader({ className, adr }: AdrHeaderProps) {
                     linkCopiedSnackSetOpened(true);
                   }}
                 >
-                  <ShareIcon fontSize="small" />
+                  <SvgIcon>
+                    <LinkRIcon />
+                  </SvgIcon>
                 </Button>
               </Tooltip>
 
-              <Tooltip title="View/edit on Github">
-                <Button>
-                  <GitHubIcon fontSize="small" />
-                </Button>
-              </Tooltip>
+              {adr.repository ? (
+                <Tooltip
+                  title={`View/edit on ${
+                    adr.repository.provider === "generic"
+                      ? "Git"
+                      : capitalize(adr.repository.provider)
+                  }`}
+                >
+                  <Button
+                    href={adr.repository.viewUrl}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {getRepositoryIcon(adr.repository.provider)}
+                  </Button>
+                </Tooltip>
+              ) : null}
 
               <Tooltip title="Edit locally">
                 <Button color="secondary" onClick={() => editLocally(adr.slug)}>
-                  <EditIcon fontSize="small" />
+                  <EditIcon />
                 </Button>
               </Tooltip>
             </ButtonGroup>

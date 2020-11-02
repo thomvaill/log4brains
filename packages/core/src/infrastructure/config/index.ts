@@ -1,2 +1,2 @@
 export * from "./builders";
-export { Log4brainsConfig } from "./schema";
+export { Log4brainsConfig, GitProvider, GitRepositoryConfig } from "./schema";

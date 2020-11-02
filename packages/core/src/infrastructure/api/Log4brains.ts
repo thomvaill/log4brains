@@ -70,8 +70,9 @@ export class Log4brains {
     const adrs = await this.queryBus.dispatch<Adr[]>(
       new SearchAdrsQuery(appFilters)
     );
-
-    return Promise.all(adrs.map(adrToDto));
+    return Promise.all(
+      adrs.map((adr) => adrToDto(adr, this.config.project.repository))
+    );
   }
 
   /**
@@ -86,7 +87,7 @@ export class Log4brains {
     const adr = await this.queryBus.dispatch<Adr | undefined>(
       new GetAdrBySlugQuery(new AdrSlug(slug))
     );
-    return adr ? adrToDto(adr) : undefined;
+    return adr ? adrToDto(adr, this.config.project.repository) : undefined;
   }
 
   /**

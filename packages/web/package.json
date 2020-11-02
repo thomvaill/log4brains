@@ -38,6 +38,7 @@
     "next-transpile-modules": "^4.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-icons": "^3.11.0",
     "signale": "^1.4.0",
     "slugify": "^1.4.5",
     "socket.io": "^2.3.0",
