@@ -9,9 +9,18 @@ describe("AdrFile", () => {
     }).toThrow();
   });
 
-  it("throws when template.md", () => {
+  it("throws when reserved filename", () => {
     expect(() => {
       new AdrFile(new FilesystemPath("/", "template.md"));
+    }).toThrow();
+    expect(() => {
+      new AdrFile(new FilesystemPath("/", "README.md"));
+    }).toThrow();
+    expect(() => {
+      new AdrFile(new FilesystemPath("/", "index.md"));
+    }).toThrow();
+    expect(() => {
+      new AdrFile(new FilesystemPath("/", "backlog.md"));
     }).toThrow();
   });
 

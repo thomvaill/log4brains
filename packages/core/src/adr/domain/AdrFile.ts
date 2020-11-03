@@ -6,7 +6,12 @@ type Props = {
   path: FilesystemPath;
 };
 
-const reservedFilenames = ["template.md"];
+const reservedFilenames = [
+  "template.md",
+  "readme.md",
+  "index.md",
+  "backlog.md"
+];
 
 export class AdrFile extends ValueObject<Props> {
   constructor(path: FilesystemPath) {

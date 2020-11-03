@@ -10,5 +10,13 @@ module.exports = withTM({
   poweredByHeader: false,
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname // https://github.com/vercel/next.js/issues/8251
+  },
+  webpack: function (config) {
+    // Only used to load default-index.md
+    config.module.rules.push({
+      test: /\.md$/,
+      use: "raw-loader"
+    });
+    return config;
   }
 });

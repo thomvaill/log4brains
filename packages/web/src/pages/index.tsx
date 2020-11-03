@@ -1,35 +1,16 @@
-import { AdrDto } from "@log4brains/core";
 import { GetStaticProps } from "next";
-import Head from "next/head";
-import Link from "next/link";
-import { AdrBrowserLayout } from "../layouts";
-import { getLog4brainsInstance } from "../lib";
+import { getIndexPageMarkdown, getLog4brainsInstance } from "../lib";
+import { IndexScene } from "../scenes";
 
-type Props = {
-  adrs: AdrDto[];
-};
-
-export default function Home({ adrs }: Props) {
-  return (
-    <div>
-      <Head>
-        <title>Architecture Log</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      Hello!
-    </div>
-  );
-}
-
-Home.getLayout = (page: JSX.Element, pageProps: Props) => (
-  <AdrBrowserLayout {...pageProps}>{page}</AdrBrowserLayout>
-);
+export default IndexScene;
 
 export const getStaticProps: GetStaticProps = async () => {
   const adrs = (await getLog4brainsInstance().searchAdrs()).reverse();
+
   return {
     props: {
-      adrs
+      adrs,
+      markdown: await getIndexPageMarkdown()
     },
     revalidate: 1
   };
