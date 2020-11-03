@@ -122,7 +122,6 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
 
   return (
     <TwoColContent
-      rightColTitle="Table of contents"
       rightColContent={<MarkdownToc content={mdContent} levelStart={2} />}
     >
       <Typography variant="h3" gutterBottom>
