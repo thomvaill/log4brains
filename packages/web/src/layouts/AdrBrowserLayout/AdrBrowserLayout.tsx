@@ -3,23 +3,18 @@ import {
   AppBar,
   Divider,
   Drawer,
-  InputBase,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
   Toolbar,
   Link as MuiLink,
-  Typography
+  Typography,
+  Backdrop,
+  NoSsr
 } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
-  createStyles,
-  Theme,
-  makeStyles,
-  fade
-} from "@material-ui/core/styles";
-import {
-  Search as SearchIcon,
   ChevronRight as ChevronRightIcon,
   PlaylistAddCheck as PlaylistAddCheckIcon
 } from "@material-ui/icons";
@@ -28,8 +23,10 @@ import clsx from "clsx";
 import { AdrDto } from "@log4brains/core";
 import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
+import { ConnectedSearchBox } from "./components/ConnectedSearchBox/ConnectedSearchBox";
 
 const drawerWidth = 450;
+const searchTransitionDuration = 300;
 
 const useStyles = makeStyles((theme: CustomTheme) => {
   const topSpace = theme.spacing(6);
@@ -66,48 +63,18 @@ const useStyles = makeStyles((theme: CustomTheme) => {
         color: "inherit"
       }
     },
-    appBarSearchContainer: {
-      display: "flex"
+    searchBackdrop: {
+      zIndex: theme.zIndex.modal - 2
     },
-    search: {
-      position: "relative",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25)
-      },
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "auto"
-      }
+    searchBox: {
+      zIndex: theme.zIndex.modal - 1,
+      width: "40%",
+      transition: theme.transitions.create("width", {
+        duration: searchTransitionDuration
+      })
     },
-    searchIcon: {
-      padding: theme.spacing(0, 2),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    inputRoot: {
-      color: "inherit"
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        width: "40ch",
-        "&:focus": {
-          width: `calc(${
-            theme.custom.layout.centerColBasis
-          }px - 1em - ${theme.spacing(4)}px)`
-        }
-      }
+    searchBoxOpen: {
+      width: "100%"
     },
     drawer: {
       width: drawerWidth,
@@ -185,6 +152,9 @@ export function AdrBrowserLayout({
 }: AdrBrowserLayoutProps) {
   const classes = useStyles();
 
+  const [searchOpen, setSearchOpenState] = React.useState(false);
+  const [searchReallyOpen, setSearchReallyOpenState] = React.useState(false);
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -206,25 +176,29 @@ export function AdrBrowserLayout({
             </Link>
           </div>
           <div className={classes.layoutLeftCol} />
-          <div
-            className={clsx(
-              classes.layoutCenterCol,
-              classes.appBarSearchContainer
-            )}
-          >
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search..."
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
+          <div className={clsx(classes.layoutCenterCol)}>
+            <Backdrop open={searchOpen} className={classes.searchBackdrop} />
+            <NoSsr>
+              <ConnectedSearchBox
+                adrs={adrs}
+                onOpen={() => {
+                  setSearchOpenState(true);
+                  // Delayed real opening because otherwise the dropdown width is bugged
+                  setTimeout(
+                    () => setSearchReallyOpenState(true),
+                    searchTransitionDuration + 100
+                  );
                 }}
-                inputProps={{ "aria-label": "search" }}
+                onClose={() => {
+                  setSearchOpenState(false);
+                  setSearchReallyOpenState(false);
+                }}
+                open={searchReallyOpen}
+                className={clsx(classes.searchBox, {
+                  [classes.searchBoxOpen]: searchOpen
+                })}
               />
-            </div>
+            </NoSsr>
           </div>
           <div className={classes.layoutRightCol} />
         </Toolbar>
