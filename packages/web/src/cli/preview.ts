@@ -4,7 +4,7 @@ import SocketIO from "socket.io";
 import chalk from "chalk";
 import { getNextJsDir, logger } from "../lib";
 
-export async function startEditorCommand(port: number): Promise<void> {
+export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
   logger.info("🧠 Log4brains is starting...");
 
@@ -31,7 +31,7 @@ export async function startEditorCommand(port: number): Promise<void> {
     });
 
     logger.info(
-      `The editor is now 🚀 on ${chalk.underline.blueBright(
+      `Your Log4brains preview is now 🚀 on ${chalk.underline.blueBright(
         `http://localhost:${port}/`
       )}`
     );

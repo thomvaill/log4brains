@@ -1,5 +1,5 @@
 import commander from "commander";
-import { startEditorCommand, buildCommand } from "../cli";
+import { previewCommand, buildCommand } from "../cli";
 import { logger } from "../lib";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,global-require,@typescript-eslint/no-var-requires
@@ -24,7 +24,7 @@ function createCli(version: string): commander.Command {
     .option("-p, --port <port>", "Port to listen on", "3000")
     .action(
       (opts: StartEditorCommandOpts): Promise<void> => {
-        return startEditorCommand(parseInt(opts.port, 10));
+        return previewCommand(parseInt(opts.port, 10));
       }
     );
 
