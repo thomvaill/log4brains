@@ -1,5 +1,5 @@
 import { createMuiTheme, darken, Theme } from "@material-ui/core/styles";
-import { colors } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 
 export type CustomTheme = Theme & {
   custom: {
@@ -22,7 +22,7 @@ export const theme: CustomTheme = {
         main: "#f50057"
       },
       error: {
-        main: colors.red.A400
+        main: red.A400
       },
       background: {
         default: "#fff"

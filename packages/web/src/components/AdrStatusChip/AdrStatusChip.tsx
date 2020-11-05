@@ -1,5 +1,6 @@
 import React from "react";
-import { Chip, colors } from "@material-ui/core";
+import { Chip } from "@material-ui/core";
+import {grey, indigo, deepOrange, lightGreen, brown} from "@material-ui/core/colors"
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import type { AdrDtoStatus } from "@log4brains/core";
 import clsx from "clsx";
@@ -17,22 +18,22 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "0 6px"
     },
     draft: {
-      color: colors.grey[800]
+      color: grey[800]
     },
     proposed: {
-      color: colors.indigo[800]
+      color: indigo[800]
     },
     rejected: {
-      color: colors.deepOrange[800]
+      color: deepOrange[800]
     },
     accepted: {
-      color: colors.lightGreen[800]
+      color: lightGreen[800]
     },
     deprecated: {
-      color: colors.brown[600]
+      color: brown[600]
     },
     superseded: {
-      color: colors.brown[600]
+      color: brown[600]
     }
   })
 );

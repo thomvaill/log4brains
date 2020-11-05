@@ -4,7 +4,8 @@ import {
   AutocompleteCloseReason,
   AutocompleteInputChangeReason
 } from "@material-ui/lab";
-import { SvgIcon, Typography, useControlled } from "@material-ui/core";
+import { SvgIcon, Typography } from "@material-ui/core";
+import { useControlled } from "@material-ui/core/utils";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GrDocumentText as AdrIcon } from "react-icons/gr";
 import { useRouter } from "next/router";
