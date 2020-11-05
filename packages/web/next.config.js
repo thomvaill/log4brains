@@ -23,5 +23,8 @@ module.exports = withPlugins([withBundleAnalyzer, withTM], {
       use: "raw-loader"
     });
     return config;
+  },
+  future: {
+    excludeDefaultMomentLocales: true
   }
 });

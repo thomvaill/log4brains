@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 
 // Inspired from https://khalilstemmler.com/articles/typescript-value-object/
 // Thank you :-)
