@@ -14,7 +14,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   });
   return {
     paths,
-    fallback: process.env.LOG4BRAINS_PHASE === "initial-build"
+    fallback:
+      process.env.LOG4BRAINS_PHASE === "initial-build" ? "blocking" : false
   };
 };
 

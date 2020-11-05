@@ -35,7 +35,7 @@
     "lunr": "^2.3.9",
     "markdown-to-jsx": "^7.0.1",
     "moment": "^2.29.1",
-    "next": "9.5.3",
+    "next": "10.0.1",
     "next-transpile-modules": "^4.1.0",
     "raw-loader": "^4.0.2",
     "react": "16.13.1",
