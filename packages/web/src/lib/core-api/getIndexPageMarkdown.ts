@@ -1,7 +1,6 @@
 import path from "path";
 import { promises as fsP } from "fs";
 import { getLog4brainsInstance } from "./instance";
-import defaultIndexMarkdown from "./default-index.md";
 
 export async function getIndexPageMarkdown(): Promise<string> {
   const instance = getLog4brainsInstance();
@@ -16,6 +15,6 @@ export async function getIndexPageMarkdown(): Promise<string> {
       encoding: "utf8"
     });
   } catch (e) {
-    return defaultIndexMarkdown as string;
+    return require("./default-index.md").default as string;
   }
 }

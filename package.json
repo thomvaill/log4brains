@@ -17,7 +17,8 @@
     "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --list-different",
     "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --write",
     "typedoc": "lerna run typedoc",
-    "log4brains": "./packages/web/dist/bin/log4brains",
+    "log4brains": "./packages/cli/dist/log4brains",
+    "log4brains-web": "./packages/web/dist/bin/log4brains-web",
     "serve": "serve .log4brains/out"
   },
   "workspaces": [
