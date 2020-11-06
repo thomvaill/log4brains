@@ -19,6 +19,7 @@ import { CustomTheme } from "../../mui";
 import { Markdown, MarkdownToc, TwoColContent } from "../../components";
 import { AdrBrowserLayout } from "../../layouts";
 import { AdrHeader } from "./components";
+import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
@@ -79,6 +80,8 @@ export type AdrSceneProps = {
 export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
   const classes = useStyles();
 
+  const mode = React.useContext(Log4brainsModeContext);
+
   const [mdContent, setMdContent] = useState<JSX.Element[] | JSX.Element>([]);
 
   if (!currentAdr) {
@@ -128,7 +131,11 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
         {currentAdr.title || "Untitled"}
       </Typography>
       <Divider />
-      <AdrHeader adr={currentAdr} className={classes.header} />
+      <AdrHeader
+        adr={currentAdr}
+        className={classes.header}
+        locallyEditable={mode === Log4brainsMode.preview}
+      />
 
       {alert}
 

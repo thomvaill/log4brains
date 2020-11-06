@@ -2,6 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { AdrScene, AdrSceneProps } from "./AdrScene";
 import { adrMocks, getMockedAdrBySlug } from "../../../.storybook/mocks";
+import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
 
 const Template: Story<AdrSceneProps> = (args) =>
   AdrScene.getLayout(<AdrScene {...args} />, args);
@@ -22,6 +23,19 @@ LastAdr.args = {
   adrs: adrMocks,
   currentAdr: adrMocks[adrMocks.length - 1]
 };
+
+export const PreviewMode = Template.bind({});
+PreviewMode.args = {
+  adrs: adrMocks,
+  currentAdr: adrMocks[adrMocks.length - 1]
+};
+PreviewMode.decorators = [
+  (DecoratedStory) => (
+    <Log4brainsModeContext.Provider value={Log4brainsMode.preview}>
+      <DecoratedStory />
+    </Log4brainsModeContext.Provider>
+  )
+];
 
 export const LotOfDeciders = Template.bind({});
 LotOfDeciders.args = {

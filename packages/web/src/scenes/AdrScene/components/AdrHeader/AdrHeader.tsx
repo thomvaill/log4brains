@@ -110,9 +110,14 @@ async function editLocally(slug: string): Promise<void> {
 export type AdrHeaderProps = {
   className?: string;
   adr: AdrDto;
+  locallyEditable?: boolean;
 };
 
-export function AdrHeader({ className, adr }: AdrHeaderProps) {
+export function AdrHeader({
+  className,
+  adr,
+  locallyEditable = false
+}: AdrHeaderProps) {
   const classes = useStyles();
 
   const [linkCopiedSnackIsOpened, linkCopiedSnackSetOpened] = React.useState(
@@ -213,11 +218,16 @@ export function AdrHeader({ className, adr }: AdrHeaderProps) {
                 </Tooltip>
               ) : null}
 
-              <Tooltip title="Edit locally">
-                <Button color="secondary" onClick={() => editLocally(adr.slug)}>
-                  <EditIcon />
-                </Button>
-              </Tooltip>
+              {locallyEditable ? (
+                <Tooltip title="Edit locally">
+                  <Button
+                    color="secondary"
+                    onClick={() => editLocally(adr.slug)}
+                  >
+                    <EditIcon />
+                  </Button>
+                </Tooltip>
+              ) : null}
             </ButtonGroup>
           </div>
         </div>

@@ -148,4 +148,137 @@ describe("AdrHeader", () => {
     );
     expect(tree.toJSON()).toMatchSnapshot();
   });
+
+  it("shows the Github repository button", () => {
+    const tree = TestRenderer.create(
+      <AdrHeader
+        adr={{
+          slug: "test",
+          package: "test",
+          title: "Test",
+          status: "accepted" as AdrDtoStatus,
+          supersededBy: null,
+          tags: [],
+          deciders: [],
+          body: {
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
+          },
+          creationDate: new Date(2020, 0, 1).toJSON(),
+          lastEditDate: new Date(2020, 0, 1).toJSON(),
+          lastEditAuthor: "John Doe",
+          publicationDate: new Date(2020, 0, 2).toJSON(),
+          file: {
+            relativePath: "test.md",
+            absolutePath: "/test.md"
+          },
+          repository: {
+            provider: "github",
+            viewUrl: "https://github.com/xxx"
+          }
+        }}
+      />
+    );
+    expect(tree.toJSON()).toMatchSnapshot();
+  });
+
+  it("shows the Gitlab repository button", () => {
+    const tree = TestRenderer.create(
+      <AdrHeader
+        adr={{
+          slug: "test",
+          package: "test",
+          title: "Test",
+          status: "accepted" as AdrDtoStatus,
+          supersededBy: null,
+          tags: [],
+          deciders: [],
+          body: {
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
+          },
+          creationDate: new Date(2020, 0, 1).toJSON(),
+          lastEditDate: new Date(2020, 0, 1).toJSON(),
+          lastEditAuthor: "John Doe",
+          publicationDate: new Date(2020, 0, 2).toJSON(),
+          file: {
+            relativePath: "test.md",
+            absolutePath: "/test.md"
+          },
+          repository: {
+            provider: "gitlab",
+            viewUrl: "https://gitlab.com/xxx"
+          }
+        }}
+      />
+    );
+    expect(tree.toJSON()).toMatchSnapshot();
+  });
+
+  it("shows the generic repository button", () => {
+    const tree = TestRenderer.create(
+      <AdrHeader
+        adr={{
+          slug: "test",
+          package: "test",
+          title: "Test",
+          status: "accepted" as AdrDtoStatus,
+          supersededBy: null,
+          tags: [],
+          deciders: [],
+          body: {
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
+          },
+          creationDate: new Date(2020, 0, 1).toJSON(),
+          lastEditDate: new Date(2020, 0, 1).toJSON(),
+          lastEditAuthor: "John Doe",
+          publicationDate: new Date(2020, 0, 2).toJSON(),
+          file: {
+            relativePath: "test.md",
+            absolutePath: "/test.md"
+          },
+          repository: {
+            provider: "generic",
+            viewUrl: "https://foo.com/xxx"
+          }
+        }}
+      />
+    );
+    expect(tree.toJSON()).toMatchSnapshot();
+  });
+
+  it("shows the locally edit button", () => {
+    const tree = TestRenderer.create(
+      <AdrHeader
+        adr={{
+          slug: "test",
+          package: "test",
+          title: "Test",
+          status: "accepted" as AdrDtoStatus,
+          supersededBy: null,
+          tags: [],
+          deciders: [],
+          body: {
+            enhancedMdx: "# Test",
+            rawMarkdown: "#Test"
+          },
+          creationDate: new Date(2020, 0, 1).toJSON(),
+          lastEditDate: new Date(2020, 0, 1).toJSON(),
+          lastEditAuthor: "John Doe",
+          publicationDate: new Date(2020, 0, 2).toJSON(),
+          file: {
+            relativePath: "test.md",
+            absolutePath: "/test.md"
+          },
+          repository: {
+            provider: "generic",
+            viewUrl: "https://foo.com/xxx"
+          }
+        }}
+        locallyEditable
+      />
+    );
+    expect(tree.toJSON()).toMatchSnapshot();
+  });
 });
