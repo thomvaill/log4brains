@@ -1,5 +1,5 @@
 import lunr from "lunr";
-import { AdrDto } from "@log4brains/core";
+import { Adr } from "../../types";
 
 // Inspired by https://github.com/squidfunk/mkdocs-material/tree/master/src/assets/javascripts/integrations/search
 
@@ -10,7 +10,7 @@ export type SearchResult = {
 
 export class Search {
   constructor(
-    private readonly adrs: AdrDto[], // TODO: do not store all ADRs here?
+    private readonly adrs: Adr[], // TODO: do not store all ADRs here?
     private readonly index: lunr.Index
   ) {}
 
@@ -24,7 +24,7 @@ export class Search {
     });
   }
 
-  private getAdrBySlug(slug: string): AdrDto {
+  private getAdrBySlug(slug: string): Adr {
     const adr = this.adrs.filter((a) => a.slug === slug).pop();
     if (!adr) {
       throw new Error(`Unknown ADR slug: ${slug}`);
@@ -32,7 +32,7 @@ export class Search {
     return adr;
   }
 
-  static createFromAdrs(adrs: AdrDto[]): Search {
+  static createFromAdrs(adrs: Adr[]): Search {
     const index = lunr((builder) => {
       builder.ref("slug");
       builder.field("title", { boost: 1000 });
@@ -42,7 +42,7 @@ export class Search {
         builder.add({
           slug: adr.slug,
           title: adr.title,
-          body: adr.body.rawMarkdown
+          body: adr.body.enhancedMdx // TODO: to improve
         });
       });
     });

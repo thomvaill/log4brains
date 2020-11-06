@@ -2,6 +2,7 @@ import { GetStaticProps, GetStaticPaths } from "next";
 import io from "socket.io-client";
 import { getLog4brainsInstance } from "../../lib";
 import { AdrScene } from "../../scenes";
+import { toAdr, toAdrLight } from "../../types";
 
 const socket = io();
 
@@ -25,7 +26,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
   const currentSlug = params.slug && (params.slug as string[]).join("/");
 
-  const adrs = (await getLog4brainsInstance().searchAdrs()).reverse();
+  const adrs = (await getLog4brainsInstance().searchAdrs())
+    .reverse()
+    .map(toAdr);
   const currentAdr = adrs
     .filter((adr) => {
       return adr.slug === currentSlug;
@@ -33,8 +36,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .pop();
   return {
     props: {
-      adrs,
-      currentAdr
+      adrs: adrs.map(toAdrLight),
+      currentAdr,
+      currentAdrSlug: currentAdr?.slug // for the layout
     },
     revalidate: 1
   };

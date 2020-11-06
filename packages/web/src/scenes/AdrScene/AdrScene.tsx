@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import moment from "moment";
-import { AdrDto } from "@log4brains/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
   Typography,
@@ -20,6 +19,7 @@ import { Markdown, MarkdownToc, TwoColContent } from "../../components";
 import { AdrBrowserLayout } from "../../layouts";
 import { AdrHeader } from "./components";
 import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
+import { Adr, AdrLight } from "../../types";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
@@ -45,18 +45,18 @@ const useStyles = makeStyles((theme: CustomTheme) =>
   })
 );
 
-function buildAdrUrl(adr: AdrDto): string {
+function buildAdrUrl(adr: AdrLight): string {
   return `/adr/${adr.slug}`;
 }
 
-function getAdrBySlug(slug: string, adrs: AdrDto[]): AdrDto | undefined {
+function getAdrBySlug(slug: string, adrs: AdrLight[]): AdrLight | undefined {
   return adrs.filter((a) => a.slug === slug).pop();
 }
 
 function getPreviousAndNextAdrs(
-  currentAdr: AdrDto,
-  adrs: AdrDto[]
-): [AdrDto | undefined, AdrDto | undefined] {
+  currentAdr: AdrLight,
+  adrs: AdrLight[]
+): [AdrLight | undefined, AdrLight | undefined] {
   const currentIndex = adrs
     .map((adr, index) => (adr.slug === currentAdr.slug ? index : undefined))
     .filter((adr) => adr !== undefined)
@@ -73,8 +73,8 @@ function getPreviousAndNextAdrs(
 }
 
 export type AdrSceneProps = {
-  adrs: AdrDto[];
-  currentAdr: AdrDto;
+  adrs: AdrLight[]; // TODO: pass previous and next buttons instead
+  currentAdr: Adr;
 };
 
 export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {

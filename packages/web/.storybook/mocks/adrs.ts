@@ -1,4 +1,5 @@
-import { AdrDtoStatus, AdrDto } from "@log4brains/core";
+import { AdrDtoStatus } from "@log4brains/core";
+import { Adr } from "../../src/types";
 
 export const adrMocks = [
   {
@@ -10,7 +11,6 @@ export const adrMocks = [
     tags: [],
     deciders: [],
     body: {
-      rawMarkdown: "",
       enhancedMdx: `
 ## Context and Problem Statement
 
@@ -48,12 +48,6 @@ The "log4brains patch" performs the following modifications to the original temp
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: new Date(2020, 1, 1).toJSON(),
-    file: {
-      relativePath:
-        "docs/adr/20200101-use-markdown-architectural-decision-records.md",
-      absolutePath:
-        "/root/docs/adr/20200101-use-markdown-architectural-decision-records.md"
-    },
     repository: {
       provider: "gitlab",
       viewUrl:
@@ -68,17 +62,11 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: null,
     tags: [],
     deciders: [],
-    body: { rawMarkdown: "", enhancedMdx: "" },
+    body: { enhancedMdx: "" },
     creationDate: new Date(2020, 1, 2).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
-    file: {
-      relativePath:
-        "frontend/docs/adr/20200102-use-nextjs-for-static-site-generation.md",
-      absolutePath:
-        "/root/frontend/docs/adr/20200102-use-nextjs-for-static-site-generation.md"
-    },
     repository: {
       provider: "github",
       viewUrl:
@@ -93,15 +81,11 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: "20200404-a-new-decision",
     tags: [],
     deciders: [],
-    body: { rawMarkdown: "", enhancedMdx: "" },
+    body: { enhancedMdx: "" },
     creationDate: new Date(2020, 1, 6).toJSON(),
     lastEditDate: new Date(2020, 1, 7).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: new Date(2020, 1, 8).toJSON(),
-    file: {
-      relativePath: "docs/adr/20200106-an-old-decision.md",
-      absolutePath: "/root/docs/adr/20200106-an-old-decision.md"
-    },
     repository: {
       provider: "bitbucket",
       viewUrl:
@@ -117,7 +101,6 @@ The "log4brains patch" performs the following modifications to the original temp
     tags: [],
     deciders: [],
     body: {
-      rawMarkdown: "",
       enhancedMdx: `## Lorem Ipsum
 
 Ipsum Dolor
@@ -133,10 +116,6 @@ Ipsum Dolor
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
-    file: {
-      relativePath: "docs/adr/20200404-a-new-decision.md",
-      absolutePath: "/root/docs/adr/20200404-a-new-decision.md"
-    },
     repository: {
       provider: "github",
       viewUrl:
@@ -151,15 +130,11 @@ Ipsum Dolor
     supersededBy: null,
     tags: [],
     deciders: [],
-    body: { rawMarkdown: "", enhancedMdx: "" },
+    body: { enhancedMdx: "" },
     creationDate: new Date(2020, 4, 4).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
-    file: {
-      relativePath: "backend/docs/adr/20200404-untitled-draft.md",
-      absolutePath: "/root/backend/docs/adr/20200404-untitled-draft.md"
-    },
     repository: {
       provider: "github",
       viewUrl:
@@ -187,15 +162,11 @@ Ipsum Dolor
       "Ipsum Dolor",
       "Foo Bar"
     ],
-    body: { rawMarkdown: "", enhancedMdx: "" },
+    body: { enhancedMdx: "" },
     creationDate: new Date(2020, 4, 5).toJSON(),
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
-    file: {
-      relativePath: "backend/docs/adr/20200405-lot-of-deciders.md",
-      absolutePath: "/root/backend/docs/adr/20200405-lot-of-deciders.md"
-    },
     repository: {
       provider: "generic",
       viewUrl:
@@ -212,7 +183,6 @@ Ipsum Dolor
     tags: [],
     deciders: ["John Doe", "Lorem Ipsum", "Ipsum Dolor"],
     body: {
-      rawMarkdown: "",
       enhancedMdx: `Hello World
 `
     },
@@ -220,10 +190,6 @@ Ipsum Dolor
     lastEditDate: new Date(2020, 10, 26).toJSON(),
     lastEditAuthor: "John Doe",
     publicationDate: null,
-    file: {
-      relativePath: "backend/docs/adr/20200405-untitled-draft2.md",
-      absolutePath: "/root/backend/docs/adr/20200405-untitled-draft2.md"
-    },
     repository: {
       provider: "github",
       viewUrl:
@@ -233,6 +199,6 @@ Ipsum Dolor
 ];
 adrMocks.reverse();
 
-export function getMockedAdrBySlug(slug: string): AdrDto | undefined {
+export function getMockedAdrBySlug(slug: string): Adr | undefined {
   return adrMocks.filter((adr) => adr.slug === slug).pop();
 }

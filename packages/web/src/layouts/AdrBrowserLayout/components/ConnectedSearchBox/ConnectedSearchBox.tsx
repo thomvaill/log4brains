@@ -1,15 +1,15 @@
 import React from "react";
 import { AutocompleteCloseReason } from "@material-ui/lab";
-import { AdrDto } from "@log4brains/core";
 import { SearchBox } from "../../../../components/SearchBox";
 import { createSearchInstance, SearchResult } from "../../../../lib/search";
+import { Adr } from "../../../../types";
 
 export type ConnectedSearchBoxProps = {
   /**
    * ADRs to search on.
    * This component is responsible for creating the search index from them, or to load its serialized version, depending on the context.
    */
-  adrs: AdrDto[];
+  adrs: Adr[];
 
   /**
    * Callback fired when the search box requests to be opened.

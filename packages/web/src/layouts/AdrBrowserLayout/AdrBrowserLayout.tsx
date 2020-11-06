@@ -20,10 +20,10 @@ import {
 } from "@material-ui/icons";
 import Link from "next/link";
 import clsx from "clsx";
-import { AdrDto } from "@log4brains/core";
 import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
 import { ConnectedSearchBox } from "./components/ConnectedSearchBox/ConnectedSearchBox";
+import { AdrLight } from "../../types";
 
 const drawerWidth = 450;
 const searchTransitionDuration = 300;
@@ -138,15 +138,15 @@ const useStyles = makeStyles((theme: CustomTheme) => {
 });
 
 export type AdrBrowserLayoutProps = {
-  adrs: AdrDto[];
-  currentAdr?: AdrDto;
+  adrs: AdrLight[];
+  currentAdrSlug?: string;
   children: React.ReactNode;
   backlog?: boolean;
 };
 
 export function AdrBrowserLayout({
   adrs,
-  currentAdr,
+  currentAdrSlug,
   children,
   backlog = false
 }: AdrBrowserLayoutProps) {
@@ -180,7 +180,7 @@ export function AdrBrowserLayout({
             <Backdrop open={searchOpen} className={classes.searchBackdrop} />
             <NoSsr>
               <ConnectedSearchBox
-                adrs={adrs}
+                adrs={[]} // TODO: fetch them
                 onOpen={() => {
                   setSearchOpenState(true);
                   // Delayed real opening because otherwise the dropdown width is bugged
@@ -219,7 +219,7 @@ export function AdrBrowserLayout({
 
           <AdrMenu
             adrs={adrs}
-            currentAdr={currentAdr}
+            currentAdrSlug={currentAdrSlug}
             className={classes.adrMenu}
           />
 

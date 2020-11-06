@@ -15,10 +15,10 @@ import {
   EmojiFlags as EmojiFlagsIcon,
   CropFree as CropFreeIcon
 } from "@material-ui/icons";
-import { AdrDto } from "@log4brains/core";
 import Link from "next/link";
 import clsx from "clsx";
 import { AdrStatusChip } from "../../../../components";
+import { AdrLight } from "../../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -101,12 +101,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  adrs: AdrDto[];
-  currentAdr?: AdrDto;
+  adrs: AdrLight[];
+  currentAdrSlug?: string;
   className?: string;
 };
 
-export function AdrMenu({ adrs, currentAdr, className }: Props) {
+export function AdrMenu({ adrs, currentAdrSlug, className }: Props) {
   const classes = useStyles();
 
   if (adrs === undefined) {
@@ -131,7 +131,7 @@ export function AdrMenu({ adrs, currentAdr, className }: Props) {
             <TimelineItem
               key={adr.slug}
               className={clsx(classes.timelineItem, {
-                [classes.selectedTimelineItem]: currentAdr?.slug === adr.slug
+                [classes.selectedTimelineItem]: currentAdrSlug === adr.slug
               })}
             >
               <TimelineOppositeContent

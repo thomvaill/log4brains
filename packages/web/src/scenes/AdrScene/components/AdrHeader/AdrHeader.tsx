@@ -30,8 +30,8 @@ import {
 } from "react-icons/di";
 import { FiLink as LinkRIcon } from "react-icons/fi";
 import clsx from "clsx";
-import { AdrDto } from "@log4brains/core";
 import { AdrStatusChip } from "../../../../components";
+import { Adr } from "../../../../types";
 
 function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -109,7 +109,7 @@ async function editLocally(slug: string): Promise<void> {
 
 export type AdrHeaderProps = {
   className?: string;
-  adr: AdrDto;
+  adr: Adr;
   locallyEditable?: boolean;
 };
 
