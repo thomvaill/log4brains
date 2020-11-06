@@ -37,6 +37,7 @@ export class Search {
       builder.ref("slug");
       builder.field("title", { boost: 1000 });
       builder.field("body");
+      builder.metadataWhitelist = ["position"];
 
       adrs.forEach((adr) => {
         builder.add({
