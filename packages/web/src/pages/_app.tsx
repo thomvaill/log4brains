@@ -22,10 +22,9 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Persistent Layout Pattern (https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/)
   const getLayout = Component.getLayout || ((page) => page);
 
-  const mode =
-    process.env.LOG4BRAINS_PREVIEW || process.env.NODE_ENV === "development"
-      ? Log4brainsMode.preview
-      : Log4brainsMode.static;
+  const mode = process.env.NEXT_PUBLIC_LOG4BRAINS_STATIC
+    ? Log4brainsMode.static
+    : Log4brainsMode.preview;
 
   return (
     <>

@@ -180,7 +180,6 @@ export function AdrBrowserLayout({
             <Backdrop open={searchOpen} className={classes.searchBackdrop} />
             <NoSsr>
               <ConnectedSearchBox
-                adrs={[]} // TODO: fetch them
                 onOpen={() => {
                   setSearchOpenState(true);
                   // Delayed real opening because otherwise the dropdown width is bugged

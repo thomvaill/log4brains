@@ -6,7 +6,6 @@ import { getNextJsDir, logger } from "../lib";
 
 export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
-  process.env.LOG4BRAINS_PREVIEW = "1";
   logger.info("🧠 Log4brains is starting...");
 
   const app = next({

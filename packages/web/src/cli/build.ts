@@ -3,7 +3,10 @@ import exportApp from "next/dist/export";
 import loadConfig from "next/dist/next-server/server/config";
 import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
 import path from "path";
-import { getNextJsDir, logger } from "../lib";
+import mkdirp from "mkdirp";
+import { promises as fsP } from "fs";
+import { getLog4brainsInstance, getNextJsDir, logger, Search } from "../lib";
+import { toAdr, toAdrLight } from "../types";
 
 export async function buildCommand(outPath: string): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
@@ -19,7 +22,13 @@ export async function buildCommand(outPath: string): Promise<void> {
   // because getStaticPath()'s `fallback` config is somehow cached
   const nextCustomConfig = {
     ...nextConfig,
-    distDir: ".next-export"
+    distDir: ".next-export",
+    env: {
+      ...(nextConfig.env && typeof nextConfig.env === "object"
+        ? nextConfig.env
+        : {}),
+      NEXT_PUBLIC_LOG4BRAINS_STATIC: "1"
+    }
   };
 
   logger.debug("Running `next build`...");
@@ -27,12 +36,48 @@ export async function buildCommand(outPath: string): Promise<void> {
   await build(nextDir, nextCustomConfig);
 
   logger.debug("Running `next export`...");
+  // TODO: fix output issues
   await exportApp(
     nextDir,
     {
       outdir: outPath
     },
     loadConfig(PHASE_EXPORT, nextDir, nextCustomConfig) // Configuration is not handled like in build() here
+  );
+
+  logger.debug("Generating ADR JSON data...");
+  // TODO: move to a dedicated module
+  const adrs = await getLog4brainsInstance().searchAdrs();
+  const packages = new Set<string>();
+  adrs.forEach((adr) => adr.package && packages.add(adr.package));
+
+  await mkdirp(path.join(outPath, "data/adr"));
+  const mkdirpPromises = Array.from(packages).map((pkg) =>
+    mkdirp(path.join(outPath, `data/adr/${pkg}`))
+  );
+  await Promise.all(mkdirpPromises);
+
+  const promises = [
+    ...adrs.map((adr) =>
+      fsP.writeFile(
+        path.join(outPath, `data/adr/${adr.slug}.json`),
+        JSON.stringify(toAdr(adr)),
+        "utf-8"
+      )
+    ),
+    fsP.writeFile(
+      path.join(outPath, "data/adrs.json"),
+      JSON.stringify(adrs.map(toAdrLight)),
+      "utf-8"
+    )
+  ];
+  await Promise.all(promises);
+
+  logger.debug("Generating search index...");
+  await fsP.writeFile(
+    path.join(outPath, "data/search-index.json"),
+    JSON.stringify(Search.createFromAdrs(adrs.map(toAdr)).serializeIndex()),
+    "utf-8"
   );
 
   logger.info(

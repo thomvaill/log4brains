@@ -10,7 +10,6 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GrDocumentText as AdrIcon } from "react-icons/gr";
 import { useRouter } from "next/router";
 import { SearchBar } from "./components/SearchBar";
-import { SearchResult } from "../../lib";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -26,6 +25,11 @@ const useStyles = makeStyles((theme: Theme) => {
     }
   });
 });
+
+export type SearchResult = {
+  title: string;
+  href: string;
+};
 
 export type SearchBoxProps = {
   /**

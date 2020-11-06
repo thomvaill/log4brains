@@ -1,16 +1,11 @@
 import React from "react";
 import { AutocompleteCloseReason } from "@material-ui/lab";
-import { SearchBox } from "../../../../components/SearchBox";
-import { createSearchInstance, SearchResult } from "../../../../lib/search";
+import { SearchBox, SearchResult } from "../../../../components/SearchBox";
+import { createSearchInstance, Search } from "../../../../lib/search";
 import { Adr } from "../../../../types";
+import { Log4brainsMode, Log4brainsModeContext } from "../../../../contexts";
 
 export type ConnectedSearchBoxProps = {
-  /**
-   * ADRs to search on.
-   * This component is responsible for creating the search index from them, or to load its serialized version, depending on the context.
-   */
-  adrs: Adr[];
-
   /**
    * Callback fired when the search box requests to be opened.
    * Used in controlled mode (see open).
@@ -40,23 +35,60 @@ export type ConnectedSearchBoxProps = {
   className?: string;
 };
 
+async function fetchAdr(slug: string, mode: Log4brainsMode): Promise<Adr> {
+  return (
+    await fetch(
+      mode === Log4brainsMode.preview
+        ? `/api/adr/${slug}`
+        : `/data/adr/${slug}.json`
+    )
+  ).json();
+}
+
 export function ConnectedSearchBox({
-  adrs,
   onOpen,
   onClose,
   open,
   className
 }: ConnectedSearchBoxProps) {
-  const search = React.useMemo(() => createSearchInstance(adrs), [adrs]);
+  const mode = React.useContext(Log4brainsModeContext);
 
+  const [searchInstance, setSearchInstance] = React.useState<Search>();
   const [searchQuery, setSearchQueryState] = React.useState("");
   const [searchResults, setSearchResultsState] = React.useState<SearchResult[]>(
     []
   );
 
-  const handleSearchQueryChange = (query: string): void => {
+  React.useEffect(() => {
+    (async () => {
+      setSearchInstance(await createSearchInstance(mode));
+    })();
+  }, [mode]);
+
+  // TODO: improve UX with throttling, debounce and a spinner
+  const handleSearchQueryChange = async (query: string): Promise<void> => {
+    if (!searchInstance) {
+      return; // TODO: handle this case better
+    }
     setSearchQueryState(query);
-    setSearchResultsState(query.trim() === "" ? [] : search.search(query));
+
+    if (query.trim() === "") {
+      setSearchResultsState([]);
+      return;
+    }
+
+    const lunrResults = searchInstance.search(query);
+    setSearchResultsState(
+      await Promise.all(
+        lunrResults.map(async (lunrResult) => {
+          const adr = await fetchAdr(lunrResult.ref, mode);
+          return {
+            title: adr.title || "Undefined",
+            href: `/adr/${adr.slug}`
+          };
+        })
+      )
+    );
   };
 
   return (

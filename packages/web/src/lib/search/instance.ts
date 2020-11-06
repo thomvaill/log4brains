@@ -1,7 +1,15 @@
-import { Adr } from "../../types";
+import { Log4brainsMode } from "../../contexts";
 import { Search } from "./Search";
 
-export function createSearchInstance(adrs: Adr[]): Search {
-  // TODO: generate the serialized index in public/ during the build and load the index from it when SSG
-  return Search.createFromAdrs(adrs);
+export async function createSearchInstance(
+  mode: Log4brainsMode
+): Promise<Search> {
+  const index = await (
+    await fetch(
+      mode === Log4brainsMode.preview
+        ? "/api/search-index"
+        : "/data/search-index.json"
+    )
+  ).json();
+  return Search.createFromSerializedIndex(index);
 }

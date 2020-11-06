@@ -1,35 +1,18 @@
-import lunr from "lunr";
+/* eslint-disable @typescript-eslint/ban-types */
+import lunr, { Index } from "lunr";
 import { Adr } from "../../types";
 
 // Inspired by https://github.com/squidfunk/mkdocs-material/tree/master/src/assets/javascripts/integrations/search
 
-export type SearchResult = {
-  title: string;
-  href: string;
-};
-
 export class Search {
-  constructor(
-    private readonly adrs: Adr[], // TODO: do not store all ADRs here?
-    private readonly index: lunr.Index
-  ) {}
+  private constructor(private readonly index: lunr.Index) {}
 
-  search(query: string): SearchResult[] {
-    return this.index.search(`${query}*`).map((lunrResult) => {
-      const adr = this.getAdrBySlug(lunrResult.ref);
-      return {
-        title: adr.title || "Untitled",
-        href: `/adr/${adr.slug}`
-      };
-    });
+  search(query: string): Index.Result[] {
+    return this.index.search(`${query}*`);
   }
 
-  private getAdrBySlug(slug: string): Adr {
-    const adr = this.adrs.filter((a) => a.slug === slug).pop();
-    if (!adr) {
-      throw new Error(`Unknown ADR slug: ${slug}`);
-    }
-    return adr;
+  serializeIndex(): object {
+    return this.index.toJSON();
   }
 
   static createFromAdrs(adrs: Adr[]): Search {
@@ -47,6 +30,10 @@ export class Search {
         });
       });
     });
-    return new Search(adrs, index);
+    return new Search(index);
+  }
+
+  static createFromSerializedIndex(serializedIndex: object): Search {
+    return new Search(lunr.Index.load(serializedIndex));
   }
 }
