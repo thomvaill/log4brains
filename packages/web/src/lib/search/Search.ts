@@ -1,39 +1,96 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import lunr, { Index } from "lunr";
+import lunr from "lunr";
 import { Adr } from "../../types";
 
-// Inspired by https://github.com/squidfunk/mkdocs-material/tree/master/src/assets/javascripts/integrations/search
+type AdrForSearch = {
+  title: string;
+  verbatim: string; // body without Markdown or HTML tags, without recurring headers
+};
 
+type SerializedIndex = {
+  lunr: object;
+  adrs: [string, AdrForSearch][];
+};
+
+export type SearchResult = {
+  slug: string;
+  href: string;
+  title: string;
+
+  /**
+   * A number between 0 and 1 representing how similar this document is to the query.
+   * @see lunr.Index.Result
+   */
+  score: number;
+
+  // TODO: add highlighted verbatim
+};
+
+function mapToJson<K, V>(map: Map<K, V>): [K, V][] {
+  return Array.from(map.entries());
+}
+
+function mapFromJson<K, V>(entries: [K, V][]): Map<K, V> {
+  return new Map(entries);
+}
+
+/**
+ * Inspired by https://github.com/squidfunk/mkdocs-material/tree/master/src/assets/javascripts/integrations/search
+ */
 export class Search {
-  private constructor(private readonly index: lunr.Index) {}
+  private constructor(
+    private readonly index: lunr.Index,
+    private readonly adrs: Map<string, AdrForSearch>
+  ) {}
 
-  search(query: string): Index.Result[] {
-    return this.index.search(`${query}*`);
+  search(query: string): SearchResult[] {
+    return this.index.search(`${query}*`).map((result) => {
+      const adr = this.adrs.get(result.ref);
+      return {
+        slug: result.ref,
+        href: `/adr/${result.ref}`,
+        title: adr!.title,
+        score: result.score
+      };
+    });
   }
 
-  serializeIndex(): object {
-    return this.index.toJSON();
+  serializeIndex(): SerializedIndex {
+    return { lunr: this.index.toJSON(), adrs: mapToJson(this.adrs) };
   }
 
   static createFromAdrs(adrs: Adr[]): Search {
+    const adrsForSearch = new Map<string, AdrForSearch>(
+      adrs.map((adr) => [
+        adr.slug,
+        {
+          title: adr.title || "Untitled",
+          verbatim: adr.body.enhancedMdx // TODO: remove tags
+        }
+      ])
+    );
+
     const index = lunr((builder) => {
       builder.ref("slug");
       builder.field("title", { boost: 1000 });
-      builder.field("body");
+      builder.field("verbatim");
       builder.metadataWhitelist = ["position"];
 
-      adrs.forEach((adr) => {
+      adrsForSearch.forEach((adr, slug) => {
         builder.add({
-          slug: adr.slug,
+          slug,
           title: adr.title,
-          body: adr.body.enhancedMdx // TODO: to improve
+          verbatim: adr.verbatim
         });
       });
     });
-    return new Search(index);
+    return new Search(index, adrsForSearch);
   }
 
-  static createFromSerializedIndex(serializedIndex: object): Search {
-    return new Search(lunr.Index.load(serializedIndex));
+  static createFromSerializedIndex(serializedIndex: SerializedIndex): Search {
+    return new Search(
+      lunr.Index.load(serializedIndex.lunr),
+      mapFromJson(serializedIndex.adrs)
+    );
   }
 }

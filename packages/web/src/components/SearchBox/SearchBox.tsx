@@ -2,7 +2,8 @@ import React from "react";
 import {
   Autocomplete,
   AutocompleteCloseReason,
-  AutocompleteInputChangeReason
+  AutocompleteInputChangeReason,
+  AutocompleteProps
 } from "@material-ui/lab";
 import { SvgIcon, Typography } from "@material-ui/core";
 import { useControlled } from "@material-ui/core/utils";
@@ -10,6 +11,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GrDocumentText as AdrIcon } from "react-icons/gr";
 import { useRouter } from "next/router";
 import { SearchBar } from "./components/SearchBar";
+import { SearchResult } from "../../lib";
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -26,12 +28,10 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-export type SearchResult = {
-  title: string;
-  href: string;
-};
-
-export type SearchBoxProps = {
+export type SearchBoxProps = Omit<
+  AutocompleteProps<SearchResult, false, false, false>,
+  "results" | "renderInput" | "options"
+> & {
   /**
    * Callback fired when the search box requests to be opened.
    * Used in controlled mode (see open).
@@ -83,20 +83,20 @@ export type SearchBoxProps = {
    * Controlled mode only.
    */
   results?: SearchResult[];
-
-  className?: string;
 };
 
-export function SearchBox({
-  onOpen,
-  onClose,
-  open: openProp,
-  onQueryChange,
-  query,
-  results,
-  className
-}: SearchBoxProps) {
+export function SearchBox(props: SearchBoxProps) {
   const classes = useStyles();
+
+  const {
+    onOpen,
+    onClose,
+    open: openProp,
+    onQueryChange,
+    query,
+    results,
+    ...otherProps
+  } = props;
 
   const [open, setOpenState] = useControlled({
     controlled: openProp,
@@ -132,7 +132,7 @@ export function SearchBox({
 
   return (
     <Autocomplete
-      className={className}
+      {...otherProps}
       classes={{ paper: classes.acPaper }}
       options={results ?? []}
       getOptionLabel={(result) => result.title}
