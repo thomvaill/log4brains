@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import moment from "moment";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
@@ -60,7 +60,9 @@ export function AdrScene({ currentAdr }: AdrSceneProps) {
   const mode = React.useContext(Log4brainsModeContext);
   const adrNav = React.useContext(AdrNavContext);
 
-  const [mdContent, setMdContent] = useState<JSX.Element[] | JSX.Element>([]);
+  const [mdContent, setMdContent] = React.useState<
+    JSX.Element[] | JSX.Element | undefined
+  >(undefined);
 
   if (!currentAdr) {
     return null; // Happens during Next.js initial build
@@ -112,9 +114,7 @@ export function AdrScene({ currentAdr }: AdrSceneProps) {
 
       {alert}
 
-      <Markdown
-        onCompiled={useCallback((content) => setMdContent(content), [])}
-      >
+      <Markdown onCompiled={setMdContent}>
         {currentAdr.body.enhancedMdx}
       </Markdown>
 

@@ -35,10 +35,8 @@ function buildTocModelFromContent(
 ): TocModel {
   const builder = new TocModelBuilder();
   (Array.isArray(content) ? content : [content]).forEach((element) => {
-    if (
-      typeof element.type === "function" &&
-      element.type.name === "MarkdownHeading"
-    ) {
+    // Ugly hack to be able to identity headings
+    if (typeof element.type === "function" && element.type.LOG4BRAINS_HEADING) {
       builder.addSection(
         variantToLevel(element.props.variant) - levelStart + 1,
         element.props.children,

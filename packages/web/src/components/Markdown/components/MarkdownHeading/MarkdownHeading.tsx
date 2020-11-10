@@ -76,3 +76,7 @@ export function MarkdownHeading({
     </Typography>
   );
 }
+
+// Ugly hack to be able to identify headings from the TOC
+// We can't rely on function's name because of minifying
+MarkdownHeading.LOG4BRAINS_HEADING = true;
