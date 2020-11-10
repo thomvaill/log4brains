@@ -27,7 +27,7 @@ Closed.args = {};
 
 export const Open = Template.bind({});
 Open.args = {
-  open: true,
+  open: true
 };
 
 export const OpenWithResults = Template.bind({});
@@ -38,6 +38,14 @@ OpenWithResults.args = {
     title: adr.title,
     href: `/adr/${adr.slug}`
   }))
+};
+
+export const OpenLoading = Template.bind({});
+OpenLoading.args = {
+  open: true,
+  query: "test",
+  results: [],
+  loading: true
 };
 
 export const OpenWithoutResults = Template.bind({});

@@ -5,7 +5,7 @@ import {
   AutocompleteInputChangeReason,
   AutocompleteProps
 } from "@material-ui/lab";
-import { SvgIcon, Typography } from "@material-ui/core";
+import { CircularProgress, SvgIcon, Typography } from "@material-ui/core";
 import { useControlled } from "@material-ui/core/utils";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { GrDocumentText as AdrIcon } from "react-icons/gr";
@@ -83,6 +83,11 @@ export type SearchBoxProps = Omit<
    * Controlled mode only.
    */
   results?: SearchResult[];
+
+  /**
+   * To display a spinner.
+   */
+  loading?: boolean;
 };
 
 export function SearchBox(props: SearchBoxProps) {
@@ -95,6 +100,7 @@ export function SearchBox(props: SearchBoxProps) {
     onQueryChange,
     query,
     results,
+    loading = false,
     ...otherProps
   } = props;
 
@@ -129,6 +135,15 @@ export function SearchBox(props: SearchBoxProps) {
       onClose(event, reason);
     }
   };
+
+  let noOptionsText: React.ReactNode = "Type to start searching";
+  if (loading) {
+    noOptionsText = (
+      <div style={{ textAlign: "center" }}><CircularProgress size={20} /></div>
+    );
+  } else if (query) {
+    noOptionsText = "No matching documents";
+  }
 
   return (
     <Autocomplete
@@ -167,9 +182,7 @@ export function SearchBox(props: SearchBoxProps) {
           </Typography>
         </>
       )}
-      noOptionsText={
-        query === "" ? "Type to start searching" : "No matching documents"
-      }
+      noOptionsText={noOptionsText}
       onChange={async (_, result) => {
         if (result) {
           await router.push(result.href);
