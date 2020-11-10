@@ -32,6 +32,7 @@ import {
   Log4brainsMode,
   Log4brainsModeContext
 } from "../../contexts";
+import { RoutingProgress } from "./components/RoutingProgress";
 
 const drawerWidth = 450;
 const searchTransitionDuration = 300;
@@ -172,6 +173,7 @@ export type AdrBrowserLayoutProps = {
   adrs?: AdrLight[]; // undefined -> loading, empty -> empty
   currentAdr?: AdrLight;
   children: React.ReactNode;
+  routing?: boolean;
   backlog?: boolean;
 };
 
@@ -179,6 +181,7 @@ export function AdrBrowserLayout({
   adrs,
   currentAdr,
   children,
+  routing = false,
   backlog = false
 }: AdrBrowserLayoutProps) {
   const classes = useStyles();
@@ -189,6 +192,7 @@ export function AdrBrowserLayout({
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
+        {routing && <RoutingProgress />}
         <Toolbar>
           <div className={classes.appBarTitle}>
             <Link href="/" passHref>

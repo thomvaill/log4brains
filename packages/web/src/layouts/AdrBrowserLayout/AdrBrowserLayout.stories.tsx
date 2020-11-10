@@ -21,3 +21,6 @@ LoadingMenu.args = {};
 
 export const EmptyMenu = Template.bind({});
 EmptyMenu.args = { adrs: [] };
+
+export const RoutingProgressBar = Template.bind({});
+RoutingProgressBar.args = { adrs: adrMocks.map(toAdrLight), routing: true };

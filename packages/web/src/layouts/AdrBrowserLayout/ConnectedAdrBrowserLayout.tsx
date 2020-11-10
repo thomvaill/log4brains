@@ -1,4 +1,5 @@
 import React from "react";
+import Router from "next/router";
 import { AdrLight } from "../../types";
 import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
 import { AdrBrowserLayout, AdrBrowserLayoutProps } from "./AdrBrowserLayout";
@@ -8,6 +9,11 @@ export function ConnectedAdrBrowserLayout(
 ) {
   const mode = React.useContext(Log4brainsModeContext);
   const [adrs, setAdrsState] = React.useState<AdrLight[]>();
+  const [routing, setRoutingState] = React.useState(false);
+
+  Router.events.on("routeChangeStart", () => setRoutingState(true));
+  Router.events.on("routeChangeComplete", () => setRoutingState(false));
+  Router.events.on("routeChangeError", () => setRoutingState(false)); // TODO: show a modal?
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -22,5 +28,5 @@ export function ConnectedAdrBrowserLayout(
     })();
   }, [mode]);
 
-  return <AdrBrowserLayout {...props} adrs={adrs} />;
+  return <AdrBrowserLayout {...props} adrs={adrs} routing={routing} />;
 }
