@@ -21,7 +21,9 @@ export function ConnectedAdrBrowserLayout(
       setAdrsState(
         await (
           await fetch(
-            mode === Log4brainsMode.preview ? "/api/adr" : "/data/adrs.json"
+            mode === Log4brainsMode.preview
+              ? "/api/adr"
+              : `/data/${process.env.NEXT_BUILD_ID}/adrs.json`
           )
         ).json()
       );

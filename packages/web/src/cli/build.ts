@@ -5,14 +5,8 @@ import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
 import path from "path";
 import mkdirp from "mkdirp";
 import { promises as fsP } from "fs";
-import {
-  getAdrBySlug,
-  getLog4brainsInstance,
-  getNextJsDir,
-  logger,
-  Search
-} from "../lib";
-import { toAdr, toAdrLight } from "../types";
+import { getLog4brainsInstance, getNextJsDir, logger, Search } from "../lib";
+import { toAdrLight } from "../types";
 
 export async function buildCommand(outPath: string): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
@@ -26,9 +20,10 @@ export async function buildCommand(outPath: string): Promise<void> {
 
   // We use a different distDir than the preview mode
   // because getStaticPath()'s `fallback` config is somehow cached
+  const distDir = ".next-export";
   const nextCustomConfig = {
     ...nextConfig,
-    distDir: ".next-export",
+    distDir,
     env: {
       ...(nextConfig.env && typeof nextConfig.env === "object"
         ? nextConfig.env
@@ -52,8 +47,13 @@ export async function buildCommand(outPath: string): Promise<void> {
   );
 
   logger.debug("Generating ADR JSON data...");
+  const buildId = await fsP.readFile(
+    path.join(nextDir, distDir, "BUILD_ID"),
+    "utf-8"
+  );
+
   // TODO: move to a dedicated module
-  await mkdirp(path.join(outPath, "data/adr"));
+  await mkdirp(path.join(outPath, "data", buildId));
   const adrs = await getLog4brainsInstance().searchAdrs();
 
   // TODO: remove this dead code when we are sure we don't need a JSON file per ADR
@@ -68,7 +68,7 @@ export async function buildCommand(outPath: string): Promise<void> {
   const promises = [
     // ...adrs.map((adr) =>
     //   fsP.writeFile(
-    //     path.join(outPath, `data/adr/${adr.slug}.json`),
+    //     path.join(outPath, "data", buildId, "adr", `${adr.slug}.json`),
     //     JSON.stringify(
     //       toAdr(
     //         adr,
@@ -79,7 +79,7 @@ export async function buildCommand(outPath: string): Promise<void> {
     //   )
     // ),
     fsP.writeFile(
-      path.join(outPath, "data/adrs.json"),
+      path.join(outPath, "data", buildId, "adrs.json"),
       JSON.stringify(adrs.map(toAdrLight)),
       "utf-8"
     )
@@ -88,7 +88,7 @@ export async function buildCommand(outPath: string): Promise<void> {
 
   logger.debug("Generating search index...");
   await fsP.writeFile(
-    path.join(outPath, "data/search-index.json"),
+    path.join(outPath, "data", buildId, "search-index.json"),
     JSON.stringify(Search.createFromAdrs(adrs).serializeIndex()),
     "utf-8"
   );

@@ -8,7 +8,7 @@ export async function createSearchInstance(
     await fetch(
       mode === Log4brainsMode.preview
         ? "/api/search-index"
-        : "/data/search-index.json"
+        : `/data/${process.env.NEXT_BUILD_ID}/search-index.json`
     )
   ).json();
   return Search.createFromSerializedIndex(index);
