@@ -11,7 +11,9 @@ import {
   Link as MuiLink,
   Typography,
   Backdrop,
-  NoSsr
+  NoSsr,
+  CircularProgress,
+  Grow
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -24,6 +26,12 @@ import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
 import { ConnectedSearchBox } from "./components/ConnectedSearchBox/ConnectedSearchBox";
 import { AdrLight } from "../../types";
+import {
+  AdrNav,
+  AdrNavContext,
+  Log4brainsMode,
+  Log4brainsModeContext
+} from "../../contexts";
 
 const drawerWidth = 450;
 const searchTransitionDuration = 300;
@@ -106,6 +114,10 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       },
       paddingBottom: theme.spacing(0.5)
     },
+    adrMenuSpinner: {
+      alignSelf: "center",
+      marginTop: "30vh"
+    },
     container: {
       flexGrow: 1,
       paddingTop: topSpace
@@ -137,16 +149,35 @@ const useStyles = makeStyles((theme: CustomTheme) => {
   });
 });
 
+function buildAdrNav(currentAdr: AdrLight, adrs: AdrLight[]): AdrNav {
+  const currentIndex = adrs
+    .map((adr, index) => (adr.slug === currentAdr.slug ? index : undefined))
+    .filter((adr) => adr !== undefined)
+    .pop();
+  const previousAdr =
+    currentIndex !== undefined && currentIndex > 0
+      ? adrs[currentIndex - 1]
+      : undefined;
+  const nextAdr =
+    currentIndex !== undefined && currentIndex < adrs.length - 1
+      ? adrs[currentIndex + 1]
+      : undefined;
+  return {
+    previousAdr,
+    nextAdr
+  };
+}
+
 export type AdrBrowserLayoutProps = {
-  adrs: AdrLight[];
-  currentAdrSlug?: string;
+  adrs?: AdrLight[]; // undefined -> loading, empty -> empty
+  currentAdr?: AdrLight;
   children: React.ReactNode;
   backlog?: boolean;
 };
 
 export function AdrBrowserLayout({
   adrs,
-  currentAdrSlug,
+  currentAdr,
   children,
   backlog = false
 }: AdrBrowserLayoutProps) {
@@ -216,11 +247,20 @@ export function AdrBrowserLayout({
             Decisions log
           </Typography>
 
-          <AdrMenu
-            adrs={adrs}
-            currentAdrSlug={currentAdrSlug}
-            className={classes.adrMenu}
-          />
+          <Grow
+            in={adrs !== undefined}
+            style={{ transformOrigin: "center left" }}
+          >
+            <AdrMenu
+              adrs={adrs!}
+              currentAdrSlug={currentAdr?.slug}
+              className={classes.adrMenu}
+            />
+          </Grow>
+
+          {adrs === undefined && (
+            <CircularProgress size={30} className={classes.adrMenuSpinner} />
+          )}
 
           <List className={classes.bottomMenuList}>
             {/* <Divider />
@@ -248,7 +288,13 @@ export function AdrBrowserLayout({
       </Drawer>
       <div className={classes.container}>
         <Toolbar />
-        <main className={classes.content}>{children}</main>
+        <main className={classes.content}>
+          <AdrNavContext.Provider
+            value={currentAdr && adrs ? buildAdrNav(currentAdr, adrs) : {}}
+          >
+            {children}
+          </AdrNavContext.Provider>
+        </main>
         <footer className={classes.footer}>
           <div className={classes.layoutLeftCol} />
           <div className={clsx(classes.layoutCenterCol, classes.footerContent)}>

@@ -1,10 +1,8 @@
 import React from "react";
 import { Markdown, TwoColContent } from "../../components";
-import { AdrBrowserLayout } from "../../layouts";
-import { AdrLight } from "../../types";
+import { ConnectedAdrBrowserLayout } from "../../layouts";
 
 export type IndexSceneProps = {
-  adrs: AdrLight[];
   markdown: string;
 };
 
@@ -17,5 +15,5 @@ export function IndexScene({ markdown }: IndexSceneProps) {
 }
 
 IndexScene.getLayout = (scene: JSX.Element, sceneProps: IndexSceneProps) => (
-  <AdrBrowserLayout {...sceneProps}>{scene}</AdrBrowserLayout>
+  <ConnectedAdrBrowserLayout {...sceneProps}>{scene}</ConnectedAdrBrowserLayout>
 );

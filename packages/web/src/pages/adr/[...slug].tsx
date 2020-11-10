@@ -1,8 +1,8 @@
 import { GetStaticProps, GetStaticPaths } from "next";
 import io from "socket.io-client";
 import { getLog4brainsInstance } from "../../lib";
-import { AdrScene } from "../../scenes";
-import { toAdr, toAdrLight } from "../../types";
+import { AdrScene, AdrSceneProps } from "../../scenes";
+import { toAdr } from "../../types";
 
 const socket = io();
 
@@ -20,25 +20,29 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (params === undefined) {
-    return { props: {} };
-  }
-  const currentSlug = params.slug && (params.slug as string[]).join("/");
+export const getStaticProps: GetStaticProps<AdrSceneProps> = async ({
+  params
+}) => {
+  const l4bInstance = getLog4brainsInstance();
 
-  const adrs = (await getLog4brainsInstance().searchAdrs())
-    .reverse()
-    .map(toAdr);
-  const currentAdr = adrs
-    .filter((adr) => {
-      return adr.slug === currentSlug;
-    })
-    .pop();
+  if (params === undefined || !params.slug) {
+    return { notFound: true };
+  }
+
+  const currentSlug = (params.slug as string[]).join("/");
+  const currentAdr = await l4bInstance.getAdrBySlug(currentSlug);
+  if (!currentAdr) {
+    return { notFound: true };
+  }
+
   return {
     props: {
-      adrs: adrs.map(toAdrLight),
-      currentAdr,
-      currentAdrSlug: currentAdr?.slug // for the layout
+      currentAdr: toAdr(
+        currentAdr,
+        currentAdr.supersededBy
+          ? await l4bInstance.getAdrBySlug(currentAdr.supersededBy)
+          : undefined
+      )
     },
     revalidate: 1
   };

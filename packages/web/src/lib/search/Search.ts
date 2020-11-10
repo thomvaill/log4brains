@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { AdrDto } from "@log4brains/core";
 import lunr from "lunr";
-import { Adr } from "../../types";
 
 type AdrForSearch = {
   title: string;
@@ -59,7 +59,7 @@ export class Search {
     return { lunr: this.index.toJSON(), adrs: mapToJson(this.adrs) };
   }
 
-  static createFromAdrs(adrs: Adr[]): Search {
+  static createFromAdrs(adrs: AdrDto[]): Search {
     const adrsForSearch = new Map<string, AdrForSearch>(
       adrs.map((adr) => [
         adr.slug,

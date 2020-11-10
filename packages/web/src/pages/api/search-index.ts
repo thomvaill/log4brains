@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getLog4brainsInstance, Search } from "../../lib";
-import { toAdr } from "../../types";
 
 export default async (
   req: NextApiRequest,
@@ -15,7 +14,7 @@ export default async (
     .status(200)
     .json(
       Search.createFromAdrs(
-        (await getLog4brainsInstance().searchAdrs()).map(toAdr)
+        await getLog4brainsInstance().searchAdrs()
       ).serializeIndex()
     );
 };

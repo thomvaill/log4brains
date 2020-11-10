@@ -3,9 +3,13 @@ import { Meta, Story } from "@storybook/react";
 import { IndexScene, IndexSceneProps } from "./IndexScene";
 import { adrMocks } from "../../../.storybook/mocks";
 import { toAdrLight } from "../../types";
+import { AdrBrowserLayout } from "../../layouts";
 
-const Template: Story<IndexSceneProps> = (args) =>
-  IndexScene.getLayout(<IndexScene {...args} />, args);
+const Template: Story<IndexSceneProps> = (args) => (
+  <AdrBrowserLayout adrs={adrMocks.map(toAdrLight)}>
+    <IndexScene {...args} />
+  </AdrBrowserLayout>
+);
 
 export default {
   title: "Scenes/Index",
@@ -14,7 +18,6 @@ export default {
 
 export const Default = Template.bind({});
 Default.args = {
-  adrs: adrMocks.map(toAdrLight),
   markdown: `# Hello World
 
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae dapibus libero. Praesent at ipsum non tellus tempus porta. Quisque tempus aliquam mi. Morbi ullamcorper tortor dui, a congue diam efficitur elementum. Nullam vestibulum posuere ante in condimentum. Donec volutpat orci ut semper elementum. Phasellus finibus est orci, ac posuere arcu imperdiet et. Nam lobortis tellus nunc, vel hendrerit ligula vestibulum a. Nulla dolor tellus, placerat sit amet bibendum quis, ullamcorper sit amet neque. Maecenas ac lectus iaculis ipsum iaculis finibus a non diam.

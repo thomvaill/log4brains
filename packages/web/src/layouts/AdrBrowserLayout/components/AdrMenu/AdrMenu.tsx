@@ -23,6 +23,11 @@ import { AdrLight } from "../../../../types";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
+    emptyLabel: {
+      color: theme.palette.grey[500],
+      marginTop: theme.spacing(3),
+      marginLeft: "6ch"
+    },
     timeline: {
       padding: 0
     },
@@ -106,7 +111,7 @@ type Props = {
   className?: string;
 };
 
-export function AdrMenu({ adrs, currentAdrSlug, className }: Props) {
+export function AdrMenu({ adrs, currentAdrSlug, className, ...props }: Props) {
   const classes = useStyles();
 
   if (adrs === undefined) {
@@ -116,7 +121,13 @@ export function AdrMenu({ adrs, currentAdrSlug, className }: Props) {
   let lastDateString = "";
 
   return (
-    <div className={clsx(className, classes.root)}>
+    <div className={clsx(className, classes.root)} {...props}>
+      {adrs.length === 0 && (
+        <Typography variant="body2" className={classes.emptyLabel}>
+          No ADR found :-(
+        </Typography>
+      )}
+
       <Timeline className={classes.timeline}>
         {adrs.map((adr) => {
           const currentDateString = moment(

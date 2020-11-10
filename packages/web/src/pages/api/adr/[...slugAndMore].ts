@@ -39,13 +39,24 @@ export default async (
   }
 
   // GET /adr/:slug
-  if (req.method === "GET") {
-    const adr = await l4bInstance.getAdrBySlug(uri);
-    if (adr) {
-      res.status(200).json(toAdr(adr));
-      return;
-    }
-  }
+  // TODO: remove this dead code when we are sure we don't need this route
+
+  // if (req.method === "GET") {
+  //   const adr = await l4bInstance.getAdrBySlug(uri);
+  //   if (adr) {
+  //     res
+  //       .status(200)
+  //       .json(
+  //         toAdr(
+  //           adr,
+  //           adr.supersededBy
+  //             ? await l4bInstance.getAdrBySlug(adr.supersededBy)
+  //             : undefined
+  //         )
+  //       );
+  //     return;
+  //   }
+  // }
 
   res.status(404).send("Not Found");
 };

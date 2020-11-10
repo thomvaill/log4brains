@@ -5,7 +5,13 @@ import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
 import path from "path";
 import mkdirp from "mkdirp";
 import { promises as fsP } from "fs";
-import { getLog4brainsInstance, getNextJsDir, logger, Search } from "../lib";
+import {
+  getAdrBySlug,
+  getLog4brainsInstance,
+  getNextJsDir,
+  logger,
+  Search
+} from "../lib";
 import { toAdr, toAdrLight } from "../types";
 
 export async function buildCommand(outPath: string): Promise<void> {
@@ -47,24 +53,31 @@ export async function buildCommand(outPath: string): Promise<void> {
 
   logger.debug("Generating ADR JSON data...");
   // TODO: move to a dedicated module
-  const adrs = await getLog4brainsInstance().searchAdrs();
-  const packages = new Set<string>();
-  adrs.forEach((adr) => adr.package && packages.add(adr.package));
-
   await mkdirp(path.join(outPath, "data/adr"));
-  const mkdirpPromises = Array.from(packages).map((pkg) =>
-    mkdirp(path.join(outPath, `data/adr/${pkg}`))
-  );
-  await Promise.all(mkdirpPromises);
+  const adrs = await getLog4brainsInstance().searchAdrs();
+
+  // TODO: remove this dead code when we are sure we don't need a JSON file per ADR
+
+  // const packages = new Set<string>();
+  // adrs.forEach((adr) => adr.package && packages.add(adr.package));
+  // const mkdirpPromises = Array.from(packages).map((pkg) =>
+  //   mkdirp(path.join(outPath, `data/adr/${pkg}`))
+  // );
+  // await Promise.all(mkdirpPromises);
 
   const promises = [
-    ...adrs.map((adr) =>
-      fsP.writeFile(
-        path.join(outPath, `data/adr/${adr.slug}.json`),
-        JSON.stringify(toAdr(adr)),
-        "utf-8"
-      )
-    ),
+    // ...adrs.map((adr) =>
+    //   fsP.writeFile(
+    //     path.join(outPath, `data/adr/${adr.slug}.json`),
+    //     JSON.stringify(
+    //       toAdr(
+    //         adr,
+    //         adr.supersededBy ? getAdrBySlug(adr.supersededBy, adrs) : undefined
+    //       )
+    //     ),
+    //     "utf-8"
+    //   )
+    // ),
     fsP.writeFile(
       path.join(outPath, "data/adrs.json"),
       JSON.stringify(adrs.map(toAdrLight)),
@@ -76,7 +89,7 @@ export async function buildCommand(outPath: string): Promise<void> {
   logger.debug("Generating search index...");
   await fsP.writeFile(
     path.join(outPath, "data/search-index.json"),
-    JSON.stringify(Search.createFromAdrs(adrs.map(toAdr)).serializeIndex()),
+    JSON.stringify(Search.createFromAdrs(adrs).serializeIndex()),
     "utf-8"
   );
 

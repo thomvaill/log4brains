@@ -16,10 +16,15 @@ import Link from "next/link";
 import { Alert } from "@material-ui/lab";
 import { CustomTheme } from "../../mui";
 import { Markdown, MarkdownToc, TwoColContent } from "../../components";
-import { AdrBrowserLayout } from "../../layouts";
+import { ConnectedAdrBrowserLayout } from "../../layouts";
 import { AdrHeader } from "./components";
-import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
-import { Adr, AdrLight } from "../../types";
+import {
+  AdrNavContext,
+  Log4brainsMode,
+  Log4brainsModeContext
+} from "../../contexts";
+import { Adr } from "../../types";
+import { buildAdrUrl } from "../../lib/adr-utils";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
@@ -45,42 +50,15 @@ const useStyles = makeStyles((theme: CustomTheme) =>
   })
 );
 
-function buildAdrUrl(adr: AdrLight): string {
-  return `/adr/${adr.slug}`;
-}
-
-function getAdrBySlug(slug: string, adrs: AdrLight[]): AdrLight | undefined {
-  return adrs.filter((a) => a.slug === slug).pop();
-}
-
-function getPreviousAndNextAdrs(
-  currentAdr: AdrLight,
-  adrs: AdrLight[]
-): [AdrLight | undefined, AdrLight | undefined] {
-  const currentIndex = adrs
-    .map((adr, index) => (adr.slug === currentAdr.slug ? index : undefined))
-    .filter((adr) => adr !== undefined)
-    .pop();
-  const previousAdr =
-    currentIndex !== undefined && currentIndex > 0
-      ? adrs[currentIndex - 1]
-      : undefined;
-  const nextAdr =
-    currentIndex !== undefined && currentIndex < adrs.length - 1
-      ? adrs[currentIndex + 1]
-      : undefined;
-  return [previousAdr, nextAdr];
-}
-
 export type AdrSceneProps = {
-  adrs: AdrLight[]; // TODO: pass previous and next buttons instead
   currentAdr: Adr;
 };
 
-export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
+export function AdrScene({ currentAdr }: AdrSceneProps) {
   const classes = useStyles();
 
   const mode = React.useContext(Log4brainsModeContext);
+  const adrNav = React.useContext(AdrNavContext);
 
   const [mdContent, setMdContent] = useState<JSX.Element[] | JSX.Element>([]);
 
@@ -90,17 +68,14 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
 
   let alert;
   if (currentAdr.status === "superseded") {
-    const superseder = currentAdr.supersededBy
-      ? getAdrBySlug(currentAdr.supersededBy, adrs)
-      : undefined;
     alert = (
       <Alert severity="warning">
         This ADR is <strong>superseded</strong>
-        {superseder ? (
+        {currentAdr.supersededBy ? (
           <>
             {" by "}
-            <Link href={buildAdrUrl(superseder)} passHref>
-              <MuiLink>{superseder.title || "Untitled"}</MuiLink>
+            <Link href={buildAdrUrl(currentAdr.supersededBy)} passHref>
+              <MuiLink>{currentAdr.supersededBy.title || "Untitled"}</MuiLink>
             </Link>
           </>
         ) : null}
@@ -120,8 +95,6 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
       </Alert>
     );
   }
-
-  const [previousAdr, nextAdr] = getPreviousAndNextAdrs(currentAdr, adrs);
 
   return (
     <TwoColContent
@@ -148,9 +121,12 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
       <Divider className={classes.bottomNavDivider} />
 
       <nav className={classes.bottomNav}>
-        {previousAdr ? (
-          <Link href={buildAdrUrl(previousAdr)} passHref>
-            <Tooltip title={previousAdr.title || ""} aria-label="previous">
+        {adrNav.previousAdr ? (
+          <Link href={buildAdrUrl(adrNav.previousAdr)} passHref>
+            <Tooltip
+              title={adrNav.previousAdr.title || ""}
+              aria-label="previous"
+            >
               <Button startIcon={<ArrowBackIcon />}>Previous</Button>
             </Tooltip>
           </Link>
@@ -166,9 +142,9 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
             on {moment(currentAdr.lastEditDate).format("lll")}
           </Typography>
         </div>
-        {nextAdr ? (
-          <Link href={buildAdrUrl(nextAdr)} passHref>
-            <Tooltip title={nextAdr.title || ""} aria-label="next">
+        {adrNav.nextAdr ? (
+          <Link href={buildAdrUrl(adrNav.nextAdr)} passHref>
+            <Tooltip title={adrNav.nextAdr.title || ""} aria-label="next">
               <Button endIcon={<ArrowForwardIcon />}>Next</Button>
             </Tooltip>
           </Link>
@@ -181,5 +157,5 @@ export function AdrScene({ adrs, currentAdr }: AdrSceneProps) {
 }
 
 AdrScene.getLayout = (scene: JSX.Element, sceneProps: AdrSceneProps) => (
-  <AdrBrowserLayout {...sceneProps}>{scene}</AdrBrowserLayout>
+  <ConnectedAdrBrowserLayout {...sceneProps}>{scene}</ConnectedAdrBrowserLayout>
 );
