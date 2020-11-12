@@ -56,6 +56,18 @@ describe("E2E tests / RO", () => {
     });
   });
 
+  describe("getAdrBySlug()", () => {
+    test("existing ADR", async () => {
+      const adr = await instance.getAdrBySlug("20200101-first-adr");
+      expect(prepareDataForSnapshot(adr)).toMatchSnapshot();
+    });
+
+    test("unknown ADR", async () => {
+      const adr = await instance.getAdrBySlug("unknown");
+      expect(adr).toBeUndefined();
+    });
+  });
+
   describe("generateAdrSlug()", () => {
     test("in global scope", async () => {
       const date = moment().format("YYYYMMDD");

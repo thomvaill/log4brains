@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`E2E tests / RO getAdrBySlug() existing ADR 1`] = `
+Object {
+  "body": Object {
+    "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    "rawMarkdown": "# First ADR
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Date: 2020-01-01
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+  },
+  "creationDate": "2020-10-28T09:56:38.000Z",
+  "deciders": Array [
+    "John Doe",
+    "Foo bar",
+  ],
+  "file": Object {
+    "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200101-first-adr.md",
+    "relativePath": "docs/adr/20200101-first-adr.md",
+  },
+  "lastEditAuthor": "Thomas Vaillant",
+  "lastEditDate": "2020-10-28T09:56:38.000Z",
+  "package": null,
+  "publicationDate": "2020-01-01T22:59:59.000Z",
+  "slug": "20200101-first-adr",
+  "status": "accepted",
+  "supersededBy": null,
+  "tags": Array [
+    "foo",
+    "bar",
+  ],
+  "title": "First ADR",
+}
+`;
+
 exports[`E2E tests / RO searchAdrs() all 1`] = `
 Array [
   "20200101-first-adr",

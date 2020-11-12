@@ -1,5 +1,6 @@
 import { Adr } from "@src/adr/domain";
 import { QueryHandler } from "@src/application";
+import { Log4brainsError } from "@src/domain";
 import { GetAdrBySlugQuery } from "../queries";
 import { AdrRepository } from "../repositories";
 
@@ -16,7 +17,16 @@ export class GetAdrBySlugQueryHandler implements QueryHandler {
     this.adrRepository = adrRepository;
   }
 
-  execute(query: GetAdrBySlugQuery): Promise<Adr | undefined> {
-    return this.adrRepository.find(query.slug);
+  async execute(query: GetAdrBySlugQuery): Promise<Adr | undefined> {
+    try {
+      return await this.adrRepository.find(query.slug);
+    } catch (e) {
+      if (
+        !(e instanceof Log4brainsError && e.name === "This ADR does not exist")
+      ) {
+        throw e;
+      }
+    }
+    return undefined;
   }
 }
