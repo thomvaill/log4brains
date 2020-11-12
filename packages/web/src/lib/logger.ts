@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import signale from "signale";
+import { Signale } from "signale";
 
 export interface Logger {
   debug(message: string): void;
@@ -10,10 +10,13 @@ export interface Logger {
   fatal(message: string): void;
 }
 
-function createLogger(): Logger {
+function createLogger(dev = false): Logger {
+  const signale = new Signale();
   return {
     debug: (message: string): void => {
-      signale.debug(message);
+      if (dev) {
+        signale.debug(message);
+      }
     },
     info: (message: string): void => {
       signale.info(message);
@@ -30,4 +33,4 @@ function createLogger(): Logger {
   };
 }
 
-export const logger = createLogger();
+export const logger = createLogger(process.env.NODE_ENV === "development");
