@@ -1,6 +1,6 @@
 import { AdrDto } from "@log4brains/core";
 
-export type Adr = Omit<AdrDto, "file" | "supersededBy" | "body"> & {
+export type Adr = Omit<AdrDto, "supersededBy" | "body"> & {
   supersededBy: AdrLight | null;
   body: { enhancedMdx: string };
 };
@@ -31,9 +31,8 @@ export function toAdr(dto: AdrDto, superseder?: AdrLight): Adr {
     );
   }
 
-  const { file, ...adrWithoutFile } = dto;
   return {
-    ...adrWithoutFile,
+    ...dto,
     supersededBy: superseder ? toAdrLight(superseder) : null,
     body: {
       enhancedMdx: dto.body.enhancedMdx

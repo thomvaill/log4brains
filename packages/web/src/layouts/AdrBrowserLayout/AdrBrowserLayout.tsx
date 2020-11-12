@@ -13,7 +13,8 @@ import {
   Backdrop,
   NoSsr,
   CircularProgress,
-  Grow
+  Grow,
+  Fade
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
@@ -26,12 +27,7 @@ import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
 import { ConnectedSearchBox } from "./components/ConnectedSearchBox/ConnectedSearchBox";
 import { AdrLight } from "../../types";
-import {
-  AdrNav,
-  AdrNavContext,
-  Log4brainsMode,
-  Log4brainsModeContext
-} from "../../contexts";
+import { AdrNav, AdrNavContext } from "../../contexts";
 import { RoutingProgress } from "./components/RoutingProgress";
 
 const drawerWidth = 450;
@@ -107,13 +103,18 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       flexGrow: 0,
       flexShrink: 0
     },
-    adlTitle: {
-      fontWeight: theme.typography.fontWeightBold,
+    adlTitleAndSpinner: {
+      display: "flex",
+      justifyContent: "space-between",
       paddingLeft: theme.spacing(2),
       [theme.breakpoints.up("sm")]: {
         paddingLeft: theme.spacing(3)
       },
-      paddingBottom: theme.spacing(0.5)
+      paddingBottom: theme.spacing(0.5),
+      paddingRight: theme.spacing(3)
+    },
+    adlTitle: {
+      fontWeight: theme.typography.fontWeightBold
     },
     adrMenuSpinner: {
       alignSelf: "center",
@@ -171,6 +172,7 @@ function buildAdrNav(currentAdr: AdrLight, adrs: AdrLight[]): AdrNav {
 
 export type AdrBrowserLayoutProps = {
   adrs?: AdrLight[]; // undefined -> loading, empty -> empty
+  adrsReloading?: boolean;
   currentAdr?: AdrLight;
   children: React.ReactNode;
   routing?: boolean;
@@ -179,6 +181,7 @@ export type AdrBrowserLayoutProps = {
 
 export function AdrBrowserLayout({
   adrs,
+  adrsReloading = false,
   currentAdr,
   children,
   routing = false,
@@ -247,9 +250,15 @@ export function AdrBrowserLayout({
         <div className={classes.drawerContainer}>
           <Toolbar />
 
-          <Typography variant="subtitle2" className={classes.adlTitle}>
-            Decisions log
-          </Typography>
+          <div className={classes.adlTitleAndSpinner}>
+            <Typography variant="subtitle2" className={classes.adlTitle}>
+              Decisions log
+            </Typography>
+
+            <Fade in={adrsReloading}>
+              <CircularProgress size={13} />
+            </Fade>
+          </div>
 
           <Grow
             in={adrs !== undefined}

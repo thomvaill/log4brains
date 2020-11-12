@@ -2,25 +2,41 @@ import next from "next";
 import { createServer } from "http";
 import SocketIO from "socket.io";
 import chalk from "chalk";
-import { getNextJsDir, logger } from "../lib";
+import { getLog4brainsInstance, getNextJsDir, logger } from "../lib";
 
 export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
   logger.info("🧠 Log4brains is starting...");
 
   const app = next({
-    dev: false,
+    dev: process.env.NODE_ENV === "development",
     dir: getNextJsDir()
   });
+
+  /**
+   * Ugly hack of Next.JS.
+   * We override this private property to set the incrementalCache in "dev" mode (ie. it disables it)
+   * to make our Hot Reload feature work.
+   * In fact, we trigger a page re-render every time an ADR changes and we absolutely need up-to-date data on every render.
+   * The "serve stale data while revalidating" Next.JS policy is not suitable for us.
+   */
+  // @ts-ignore
+  app.incrementalCache.incrementalOptions.dev = true;
+
   await app.prepare();
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const srv = createServer(app.getRequestHandler());
 
+  // FileWatcher with Socket.io
   const io = SocketIO(srv);
-  io.on("connection", (socket) => {
-    console.log("a user connected");
+
+  const { fileWatcher } = getLog4brainsInstance();
+  getLog4brainsInstance().fileWatcher.subscribe((event) => {
+    logger.debug(`[FileWatcher] ${event.type} - ${event.relativePath}`);
+    io.emit("FileWatcher", event);
   });
+  fileWatcher.start();
 
   try {
     await new Promise((resolve, reject) => {

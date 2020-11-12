@@ -19,6 +19,11 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+
+          {!process.env.NEXT_PUBLIC_LOG4BRAINS_STATIC && (
+            <script src="/socket.io/socket.io.js" />
+          )}
+
           <NextScript />
         </body>
       </Html>

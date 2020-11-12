@@ -19,6 +19,7 @@ import { buildConfigFromWorkdir, Log4brainsConfig } from "../config";
 import { AdrDto, AdrDtoStatus } from "./types";
 import { adrToDto } from "./transformers";
 import { CommandBus, QueryBus } from "../buses";
+import { FileWatcher } from "../file-watcher";
 
 export type SearchAdrsFilters = {
   statuses?: AdrDtoStatus[];
@@ -184,6 +185,15 @@ export class Log4brains {
         onImpossibleToGuess();
       }
     });
+  }
+
+  /**
+   * Returns a singleton instance of FileWatcher.
+   * Useful for Hot Reloading.
+   * @see FileWatcher
+   */
+  get fileWatcher(): FileWatcher {
+    return this.container.resolve<FileWatcher>("fileWatcher");
   }
 
   /**

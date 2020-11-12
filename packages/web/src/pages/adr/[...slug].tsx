@@ -1,10 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from "next";
-import io from "socket.io-client";
 import { getLog4brainsInstance } from "../../lib";
 import { AdrScene, AdrSceneProps } from "../../scenes";
 import { toAdr } from "../../types";
-
-const socket = io();
 
 export default AdrScene;
 

@@ -23,6 +23,7 @@
   "dependencies": {
     "awilix": "^4.2.6",
     "cheerio": "^1.0.0-rc.3",
+    "chokidar": "^3.4.3",
     "git-url-parse": "^11.4.0",
     "joi": "^17.2.1",
     "launch-editor": "^2.2.1",

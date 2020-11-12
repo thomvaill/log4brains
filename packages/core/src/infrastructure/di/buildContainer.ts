@@ -12,6 +12,7 @@ import * as adrQueryHandlers from "@src/adr/application/query-handlers";
 import { CommandHandler, QueryHandler } from "@src/application";
 import * as repositories from "@src/adr/infrastructure/repositories";
 import { CommandBus, QueryBus } from "../buses";
+import { FileWatcher } from "../file-watcher";
 
 function lowerCaseFirstLetter(string: string): string {
   return string.charAt(0).toLowerCase() + string.slice(1);
@@ -25,10 +26,11 @@ export function buildContainer(
     injectionMode: InjectionMode.PROXY
   });
 
-  // Configuration
+  // Configuration & misc
   container.register({
     config: asValue(config),
-    workdir: asValue(workdir)
+    workdir: asValue(workdir),
+    fileWatcher: asClass(FileWatcher).singleton()
   });
 
   // Repositories

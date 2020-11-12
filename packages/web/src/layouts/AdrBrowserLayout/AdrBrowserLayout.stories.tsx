@@ -19,6 +19,9 @@ Default.args = { adrs: adrMocks.map(toAdrLight) };
 export const LoadingMenu = Template.bind({});
 LoadingMenu.args = {};
 
+export const ReloadingMenu = Template.bind({});
+ReloadingMenu.args = { adrs: adrMocks.map(toAdrLight), adrsReloading: true };
+
 export const EmptyMenu = Template.bind({});
 EmptyMenu.args = { adrs: [] };
 

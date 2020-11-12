@@ -10,7 +10,7 @@
     "log4brains-web": "./dist/bin/log4brains-web"
   },
   "scripts": {
-    "dev": "cross-env LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
+    "dev": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
     "build": "yarn clean && tsc --noEmit false && copyfiles next.config.js dist && copyfiles --up 1 src/bin/log4brains-web src/lib/core-api/noop/.log4brains.yml src/lib/core-api/noop/**/.* src/lib/core-api/default-index.md dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
     "clean": "rimraf ./dist",
@@ -40,7 +40,6 @@
     "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
     "next": "10.0.1",
-    "next-transpile-modules": "^4.1.0",
     "raw-loader": "^4.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
