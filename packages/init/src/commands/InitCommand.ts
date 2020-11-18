@@ -38,9 +38,27 @@ export class InitCommand {
     return process.env.NODE_ENV === "development";
   }
 
-  private async installNpmPackages(packages: string[]): Promise<void> {
+  private async installNpmPackages(): Promise<void> {
+    const packages = ["@log4brains/cli", "@log4brains/web"];
+
     if (this.isDev()) {
       await execa("yarn", ["link", ...packages]);
+
+      // ... but unfortunately `yarn link` does not create the bin symlinks (https://github.com/yarnpkg/yarn/issues/5713)
+      // we have to do it ourselves:
+      await mkdirp("node_modules/.bin");
+      await execa("ln", [
+        "-s",
+        "--force",
+        "../@log4brains/cli/dist/log4brains",
+        "node_modules/.bin/log4brains"
+      ]);
+      await execa("ln", [
+        "-s",
+        "--force",
+        "../@log4brains/web/dist/bin/log4brains-web",
+        "node_modules/.bin/log4brains-web"
+      ]);
     } else if (this.hasYarn()) {
       await execa("yarn", [
         "add",
@@ -123,7 +141,7 @@ export class InitCommand {
 
     // Install NPM packages
     this.console.startSpinner("Installing Log4brains CLI & web packages");
-    await this.installNpmPackages(["@log4brains/cli", "@log4brains/web"]);
+    await this.installNpmPackages();
     this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
 
     // Set scripts
