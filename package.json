@@ -19,7 +19,8 @@
     "typedoc": "lerna run typedoc",
     "log4brains": "./packages/cli/dist/log4brains",
     "log4brains-web": "./packages/web/dist/bin/log4brains-web",
-    "serve": "serve .log4brains/out"
+    "serve": "serve .log4brains/out",
+    "links": "lerna exec --parallel --scope @log4brains/{cli,web} -- yarn link"
   },
   "workspaces": [
     "packages/**"

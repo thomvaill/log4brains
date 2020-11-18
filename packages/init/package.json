@@ -1,17 +1,15 @@
 {
-  "name": "@log4brains/cli",
+  "name": "@log4brains/init",
   "version": "0.0.0",
   "description": "Manage your Architecture Decision Records (ADR) with log4brains",
   "repository": "git@github.com:log4brains/log4brains.git",
   "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
-  "bin": {
-    "log4brains": "./dist/bin/log4brains"
-  },
+  "bin": "./dist/bin/log4brains-init",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. node -r esm -r ts-node/register ./src/main.ts",
-    "build": "tsc && copyfiles -u 1 src/log4brains dist",
+    "dev": "cross-env NODE_ENV=development node -r esm -r ts-node/register ./src/main.ts",
+    "build": "tsc && copyfiles -u 1 src/log4brains-init dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "test": "jest",
@@ -20,13 +18,20 @@
     "lint-fix": "eslint . --ext ts --max-warnings=0 --fix"
   },
   "dependencies": {
-    "@log4brains/core": "0.0.0",
-    "cli-table3": "^0.6.0",
+    "chalk": "^4.1.0",
     "commander": "^6.1.0",
+    "edit-json-file": "^1.5.0",
+    "execa": "^4.1.0",
+    "has-yarn": "^2.1.0",
     "inquirer": "^7.3.3",
-    "signale": "^1.4.0"
+    "mkdirp": "^1.0.4",
+    "ora": "^5.1.0",
+    "signale": "^1.4.0",
+    "terminal-link": "^2.1.1",
+    "yaml": "^1.10.0"
   },
   "devDependencies": {
+    "@types/edit-json-file": "^1.4.0",
     "@types/inquirer": "^7.3.1",
     "copyfiles": "^2.4.0"
   }
