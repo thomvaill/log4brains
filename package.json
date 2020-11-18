@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Log4brains monorepo root package",
   "repository": "git@github.com:log4brains/log4brains.git",
-  "author": "Thomas Vaillant <vaillant.thomas+gh@gmail.com>",
+  "author": "Thomas Vaillant <thomas+github@bluebricks.dev>",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
