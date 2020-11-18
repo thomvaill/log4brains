@@ -42,7 +42,12 @@ export class InitCommand {
     if (this.isDev()) {
       await execa("yarn", ["link", ...packages]);
     } else if (this.hasYarn()) {
-      await execa("yarn", ["add", "--dev", ...packages]);
+      await execa("yarn", [
+        "add",
+        "--dev",
+        "--ignore-workspace-root-check",
+        ...packages
+      ]);
     } else {
       await execa("npm", ["install", "--save-dev", ...packages]);
     }
@@ -104,10 +109,10 @@ export class InitCommand {
     // Check package.json existence
     if (!fs.existsSync("package.json")) {
       this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
-      this.console.fatal(
+      this.console.print(
         "Are you sure to execute the command inside your project root directory?"
       );
-      this.console.info(
+      this.console.print(
         `Please refer to the ${terminalLink(
           "documentation",
           docLink
@@ -123,7 +128,7 @@ export class InitCommand {
 
     // Set scripts
     const pkgJson = editJsonFile("package.json");
-    pkgJson.set("scripts.adr", "log4brains-cli");
+    pkgJson.set("scripts.adr", "log4brains adr");
     pkgJson.set("scripts.log4brains-preview", "log4brains-web preview");
     pkgJson.set("scripts.log4brains-build", "log4brains-web build");
     pkgJson.save();
