@@ -10,7 +10,7 @@
     "log4brains": "./dist/bin/log4brains"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. node -r esm -r ts-node/register ./src/main.ts",
+    "dev": "nodemon",
     "build": "tsc && copyfiles -u 1 src/log4brains dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",

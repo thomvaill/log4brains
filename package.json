@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "dev": "lerna run --parallel dev",
+    "dev": "lerna run --parallel --ignore @log4brains/web dev",
     "build": "lerna run build",
     "clean": "lerna run clean",
     "typescript": "lerna run typescript",
@@ -45,6 +45,7 @@
     "jest": "^26.4.2",
     "jest-mock-extended": "^1.0.10",
     "lerna": "^3.22.1",
+    "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
     "prettier-eslint-cli": "^5.0.0",
     "rimraf": "^3.0.2",
