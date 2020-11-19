@@ -1,10 +1,17 @@
 import path from "path";
-import { Log4brains } from "@log4brains/core";
+import { Log4brains, Log4brainsError } from "@log4brains/core";
+import fs, { promises as fsP } from "fs";
 import { Console } from "../console";
 
 type Deps = {
   l4bInstance: Log4brains;
   appConsole: Console;
+};
+
+export type NewCommandOpts = {
+  quiet: boolean;
+  package?: string;
+  from?: string;
 };
 
 export class NewCommand {
@@ -30,11 +37,11 @@ export class NewCommand {
     return match?.name;
   }
 
-  async execute(): Promise<void> {
+  async execute(opts: NewCommandOpts, titleArg?: string): Promise<void> {
     const { packages } = this.l4bInstance.config.project;
 
-    let pkg;
-    if (packages && packages.length > 0) {
+    let pkg = opts.package;
+    if (!opts.quiet && !pkg && packages && packages.length > 0) {
       const currentPackage = this.detectCurrentPackageFromCwd();
       const packageChoices = [
         {
@@ -54,9 +61,14 @@ export class NewCommand {
         )) || undefined;
     }
 
-    const title = await this.console.askInputQuestion(
-      "Please enter a short title of the solved problem and optionally its solution"
-    );
+    if (opts.quiet && !titleArg) {
+      throw new Log4brainsError("<title> is required when using --quiet");
+    }
+    const title =
+      titleArg ||
+      (await this.console.askInputQuestion(
+        "Please enter a short title of the solved problem and optionally its solution"
+      ));
 
     // const slug = await this.console.askInputQuestion(
     //   "We pre-generated a slug to identify this ADR. Press [ENTER] or enter another one.",
@@ -65,6 +77,25 @@ export class NewCommand {
     const slug = await this.l4bInstance.generateAdrSlug(title, pkg);
 
     const adrDto = await this.l4bInstance.createAdrFromTemplate(slug, title);
+
+    // --from option (used by @log4brains/init to create the starter ADRs)
+    // Since this is a private use case, we don't include it in CORE for now
+    if (opts.from) {
+      if (!fs.existsSync(opts.from)) {
+        throw new Log4brainsError("The given file does not exist", opts.from);
+      }
+      // TODO: use streams
+      await fsP.writeFile(
+        adrDto.file.absolutePath,
+        await fsP.readFile(opts.from, "utf-8"),
+        "utf-8"
+      );
+    }
+
+    if (opts.quiet) {
+      this.console.print(adrDto.slug);
+      process.exit(0);
+    }
 
     const activeAdrs = await this.l4bInstance.searchAdrs({
       statuses: ["accepted"]

@@ -26,6 +26,7 @@
     "has-yarn": "^2.1.0",
     "inquirer": "^7.3.3",
     "mkdirp": "^1.0.4",
+    "moment": "^2.29.1",
     "ora": "^5.1.0",
     "signale": "^1.4.0",
     "terminal-link": "^2.1.1",

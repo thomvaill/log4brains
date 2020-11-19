@@ -35,7 +35,7 @@ export class AdrRepository implements IAdrRepository {
 
   private readonly packageRepository: PackageRepository;
 
-  private readonly git: SimpleGit;
+  private readonly git?: SimpleGit;
 
   private readonly markdownAdrLinkResolver: MarkdownAdrLinkResolver;
 
@@ -43,7 +43,9 @@ export class AdrRepository implements IAdrRepository {
     this.config = config;
     this.workdir = workdir;
     this.packageRepository = packageRepository;
-    this.git = simpleGit({ baseDir: workdir });
+    if (fs.existsSync(path.join(workdir, ".git"))) {
+      this.git = simpleGit({ baseDir: workdir });
+    }
     this.markdownAdrLinkResolver = new MarkdownAdrLinkResolver({
       adrRepository: this
     });
@@ -95,6 +97,9 @@ export class AdrRepository implements IAdrRepository {
   private async getCreationDateFromGit(
     file: AdrFile
   ): Promise<Date | undefined> {
+    if (!this.git) {
+      return undefined;
+    }
     const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
       .all;
     if (!logs || logs.length === 0) {
@@ -106,6 +111,9 @@ export class AdrRepository implements IAdrRepository {
   private async getLastEditDateAndAuthorFromGit(
     file: AdrFile
   ): Promise<DateAndAuthor | undefined> {
+    if (!this.git) {
+      return undefined;
+    }
     const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
       .all;
     if (!logs || logs.length === 0) {
@@ -118,12 +126,14 @@ export class AdrRepository implements IAdrRepository {
   }
 
   private async getAuthorFromGitConfig(): Promise<Author> {
-    const config = await this.git.listConfig();
-    if (config?.all["user.name"]) {
-      return new Author(
-        config.all["user.name"] as string,
-        config.all["user.email"] as string | undefined
-      );
+    if (this.git) {
+      const config = await this.git.listConfig();
+      if (config?.all["user.name"]) {
+        return new Author(
+          config.all["user.name"] as string,
+          config.all["user.email"] as string | undefined
+        );
+      }
     }
     return Author.createAnonymous();
   }

@@ -9,10 +9,14 @@ import mkdirp from "mkdirp";
 import yaml from "yaml";
 import path from "path";
 import editJsonFile from "edit-json-file";
+import moment from "moment";
 import { Console } from "../console";
 import { FailureExit } from "./FailureExit";
 
+const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
 const docLink = "https://github.com/log4brains/log4brains";
+const cliBinPath = "@log4brains/cli/dist/log4brains";
+const webBinPath = "@log4brains/web/dist/bin/log4brains-web";
 
 export type InitCommandOpts = {
   defaults: boolean;
@@ -55,12 +59,7 @@ export class InitCommand {
       await mkdirp(path.join(cwd, "node_modules/.bin"));
       await execa(
         "ln",
-        [
-          "-s",
-          "--force",
-          "../@log4brains/cli/dist/log4brains",
-          "node_modules/.bin/log4brains"
-        ],
+        ["-s", "--force", `../${cliBinPath}`, "node_modules/.bin/log4brains"],
         { cwd }
       );
       await execa(
@@ -68,7 +67,7 @@ export class InitCommand {
         [
           "-s",
           "--force",
-          "../@log4brains/web/dist/bin/log4brains-web",
+          `../${webBinPath}`,
           "node_modules/.bin/log4brains-web"
         ],
         { cwd }
@@ -309,6 +308,88 @@ export class InitCommand {
       }),
       "utf-8"
     );
+
+    // Copy template if not already created
+    const templatePath = path.join(cwd, adrFolder, "template.md");
+    if (!fs.existsSync(templatePath)) {
+      await fsP.copyFile(path.join(assetsPath, "template.md"), templatePath);
+    }
+
+    const adrListRes = await execa(
+      path.join(cwd, `node_modules/${cliBinPath}`),
+      ["adr", "list", "--raw"],
+      { cwd }
+    );
+
+    // Create Log4brains ADR
+    const l4bAdrSlug = (
+      await execa(
+        path.join(cwd, `node_modules/${cliBinPath}`),
+        [
+          "adr",
+          "new",
+          "--quiet",
+          "--from",
+          path.join(assetsPath, "use-log4brains-to-manage-the-adrs.md"),
+          '"Use Log4brains to manage the ADRs"'
+        ],
+        { cwd }
+      )
+    ).stdout;
+    await execa(
+      "sed",
+      [
+        "-i",
+        `s/{DATE}/${moment().format("YYYY-MM-DD")}/g`,
+        path.join(cwd, adrFolder, `${l4bAdrSlug}.md`)
+      ],
+      {
+        cwd
+      }
+    );
+
+    // Create MADR ADR if there was no ADR in the repository
+    if (!adrListRes.stdout) {
+      const madrAdrSlug = (
+        await execa(
+          path.join(cwd, `node_modules/${cliBinPath}`),
+          [
+            "adr",
+            "new",
+            "--quiet",
+            "--from",
+            path.join(
+              assetsPath,
+              "use-markdown-architectural-decision-records.md"
+            ),
+            '"Use Markdown Architectural Decision Records"'
+          ],
+          { cwd }
+        )
+      ).stdout;
+      await execa(
+        "sed",
+        [
+          "-i",
+          `s/{DATE}/${moment().format("YYYY-MM-DD")}/g`,
+          path.join(cwd, adrFolder, `${madrAdrSlug}.md`)
+        ],
+        {
+          cwd
+        }
+      );
+      await execa(
+        "sed",
+        [
+          "-i",
+          `s/{LOG4BRAINS_ADR_SLUG}/${l4bAdrSlug}/g`,
+          path.join(cwd, adrFolder, `${madrAdrSlug}.md`)
+        ],
+        {
+          cwd
+        }
+      );
+    }
 
     // End
     this.printSuccess();

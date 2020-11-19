@@ -1,6 +1,7 @@
 # Use Markdown Architectural Decision Records
 
 - Status: accepted
+- Date: {DATE}
 
 ## Context and Problem Statement
 
@@ -34,3 +35,7 @@ The "Log4brains patch" performs the following modifications to the original temp
 - Change the ADR filenames format (`NNN-adr-name` becomes `YYYYMMDD-adr-name`), to avoid conflicts during Git merges.
 - Add a `draft` status, to enable collaborative writing.
 - Remove the `Tags`.
+
+## Links
+
+- Relates to [Use Log4brains to manage the ADRs]({LOG4BRAINS_ADR_SLUG}.md)

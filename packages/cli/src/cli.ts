@@ -1,7 +1,12 @@
 import commander from "commander";
 import { Log4brains } from "@log4brains/core";
 import { Console } from "./console";
-import { ListCommand, ListCommandOpts, NewCommand } from "./commands";
+import {
+  ListCommand,
+  ListCommandOpts,
+  NewCommand,
+  NewCommandOpts
+} from "./commands";
 
 type Deps = {
   l4bInstance: Log4brains;
@@ -22,11 +27,22 @@ export function createCli({
     .description("Manage the Architecture Decision Records (ADR)");
 
   adr
-    .command("new")
-    .description("Create an ADR")
+    .command("new [title]")
+    .description("Create an ADR", {
+      title: "The title of the ADR. Required if --quiet is passed"
+    })
+    .option("-q, --quiet", "Disable interactive mode", false)
+    .option(
+      "-p, --package <package>",
+      "To create the ADR for a specific package"
+    )
+    .option(
+      "--from <file>",
+      "Copy <file> contents into the ADR instead of using the default template"
+    )
     .action(
-      (): Promise<void> => {
-        return new NewCommand({ l4bInstance, appConsole }).execute();
+      (title: string | undefined, opts: NewCommandOpts): Promise<void> => {
+        return new NewCommand({ l4bInstance, appConsole }).execute(opts, title);
       }
     );
 

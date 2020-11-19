@@ -20,6 +20,7 @@ type ChoiceDefinition<V extends string> = {
 
 export interface Console extends Logger {
   success(message: string): void;
+  print(message?: string): void;
   table(table: Table, raw?: boolean): void;
   askYesNoQuestion(question: string, defaultValue: boolean): Promise<boolean>;
   askInputQuestion(question: string, defaultValue?: string): Promise<string>;
@@ -50,6 +51,10 @@ function createConsole(): Console {
 
     success: (message: string): void => {
       signale.success(message);
+    },
+
+    print: (message?: string): void => {
+      console.log(message || "");
     },
 
     table: (table: Table, raw = false): void => {

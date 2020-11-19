@@ -4,6 +4,7 @@ const os = require("os");
 const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
+const { expect } = require("chai");
 const fsP = fs.promises;
 
 process.env.NODE_ENV = "test";
@@ -39,12 +40,34 @@ async function run(file, arguments, cwd) {
     await run("npm", ["install"], cwd);
     await run(initBin, ["--defaults"], cwd);
 
+    await run(
+      "npm",
+      ["run", "adr", "--", "new", "--quiet", '"E2E test ADR"'],
+      cwd
+    );
+
     const adrListRes = await run(
       "npm",
       ["run", "adr", "--", "list", "--raw"],
       cwd
     );
-    console.log(adrListRes);
+    expect(adrListRes.stdout).to.contain(
+      "use-log4brains-to-manage-the-adrs",
+      "Log4brains ADR was not created by init"
+    );
+    expect(adrListRes.stdout).to.contain(
+      "use-markdown-architectural-decision-records",
+      "MADR ADR was not created by init"
+    );
+    expect(adrListRes.stdout).to.contain(
+      "E2E test ADR",
+      "E2E test ADR was not created"
+    );
+
+    // TODO: log4brains-web preview
+    // TODO: log4brains-web build
+
+    console.log(chalk.bold.green("END"));
   });
 })().catch((e) => {
   console.error("");
