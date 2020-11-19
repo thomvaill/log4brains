@@ -9,6 +9,7 @@ type Deps = {
 
 export type ListCommandOpts = {
   statuses: string;
+  raw: boolean;
 };
 
 export class ListCommand {
@@ -27,14 +28,15 @@ export class ListCommand {
       filters.statuses = opts.statuses.split(",") as AdrDtoStatus[];
     }
     const adrs = await this.l4bInstance.searchAdrs(filters);
-    const table = new Table({ head: ["Status", "Package", "Title"] });
+    const table = new Table({ head: ["Slug", "Status", "Package", "Title"] });
     adrs.forEach((adr) => {
       table.push([
+        adr.slug,
         adr.status.toUpperCase(),
         adr.package || "",
         adr.title || "Untitled"
       ]);
     });
-    this.console.table(table);
+    this.console.table(table, opts.raw);
   }
 }

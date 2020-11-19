@@ -45,6 +45,7 @@ export function createCli({
       "-s, --statuses <statuses>",
       "Filter on the given statuses, comma-separated"
     ) // TODO: list available statuses
+    .option("-r, --raw", "Use a raw format instead of a table", false)
     .description("List ADRs")
     .action(
       (opts: ListCommandOpts): Promise<void> => {

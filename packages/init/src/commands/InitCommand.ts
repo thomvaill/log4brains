@@ -14,6 +14,10 @@ import { FailureExit } from "./FailureExit";
 
 const docLink = "https://github.com/log4brains/log4brains";
 
+export type InitCommandOpts = {
+  defaults: boolean;
+};
+
 type Deps = {
   appConsole: Console;
 };
@@ -135,7 +139,9 @@ export class InitCommand {
     return p;
   }
 
-  async execute(customCwd?: string): Promise<void> {
+  async execute(options: InitCommandOpts, customCwd?: string): Promise<void> {
+    const noInteraction = options.defaults;
+
     const cwd = customCwd ? path.resolve(customCwd) : process.cwd();
     if (!fs.existsSync(cwd)) {
       this.console.fatal(`The given path does not exist: ${chalk.cyan(cwd)}`);
@@ -199,28 +205,32 @@ export class InitCommand {
         )}`
       );
     }
-    name = await this.console.askInputQuestion(
-      "What is the name of your project?",
-      name
-    );
+    name = noInteraction
+      ? name || "untitled"
+      : await this.console.askInputQuestion(
+          "What is the name of your project?",
+          name
+        );
 
     // Project type
-    const type = await this.console.askListQuestion(
-      "Which statement describes the best your project?",
-      [
-        {
-          name: "Simple project (only one ADR folder)",
-          value: "mono",
-          short: "Mono-package project"
-        },
-        {
-          name:
-            "Multi-packages project (a main ADR folder for global ones + an ADR folder per package for specific ones)",
-          value: "multi",
-          short: "Multi-package project"
-        }
-      ]
-    );
+    const type = noInteraction
+      ? "mono"
+      : await this.console.askListQuestion(
+          "Which statement describes the best your project?",
+          [
+            {
+              name: "Simple project (only one ADR folder)",
+              value: "mono",
+              short: "Mono-package project"
+            },
+            {
+              name:
+                "Multi-packages project (a main ADR folder for global ones + an ADR folder per package for specific ones)",
+              value: "multi",
+              short: "Multi-package project"
+            }
+          ]
+        );
 
     // Main ADR folder location
     let adrFolder = this.guessMainAdrFolderPath(cwd);
@@ -230,17 +240,21 @@ export class InitCommand {
           adrFolder
         )}`
       );
-      adrFolder = (await this.console.askYesNoQuestion("Do you confirm?", true))
-        ? adrFolder
-        : undefined;
+      adrFolder =
+        noInteraction ||
+        (await this.console.askYesNoQuestion("Do you confirm?", true))
+          ? adrFolder
+          : undefined;
     }
     if (!adrFolder) {
-      adrFolder = await this.console.askInputQuestion(
-        `In which directory do you plan to store your ${
-          type === "multi" ? "global " : ""
-        }ADRs? (will be automatically created)`,
-        "docs/adr"
-      );
+      adrFolder = noInteraction
+        ? "docs/adr"
+        : await this.console.askInputQuestion(
+            `In which directory do you plan to store your ${
+              type === "multi" ? "global " : ""
+            }ADRs? (will be automatically created)`,
+            "docs/adr"
+          );
     }
     await mkdirp(path.join(cwd, adrFolder));
     this.console.print();

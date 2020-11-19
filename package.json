@@ -17,10 +17,11 @@
     "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --list-different",
     "format-fix": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --ignore \"**/out/**\"  --ignore \"**/dist/**\" --write",
     "typedoc": "lerna run typedoc",
-    "log4brains": "./packages/cli/dist/log4brains",
+    "adr": "./packages/cli/dist/log4brains adr",
     "log4brains-web": "./packages/web/dist/bin/log4brains-web",
     "serve": "serve .log4brains/out",
-    "links": "lerna exec --parallel --scope @log4brains/{cli,web} -- yarn link"
+    "links": "lerna exec --parallel --scope @log4brains/{cli,web} -- yarn link",
+    "e2e": "node e2e-tests/e2e-launcher.js"
   },
   "workspaces": [
     "packages/**"
@@ -31,6 +32,7 @@
     "@types/rimraf": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
+    "chalk": "^4.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-typescript": "^10.0.0",
@@ -42,6 +44,7 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-sonarjs": "^0.5.0",
+    "execa": "^4.1.0",
     "jest": "^26.4.2",
     "jest-mock-extended": "^1.0.10",
     "lerna": "^3.22.1",

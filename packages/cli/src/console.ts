@@ -20,7 +20,7 @@ type ChoiceDefinition<V extends string> = {
 
 export interface Console extends Logger {
   success(message: string): void;
-  table(table: Table): void;
+  table(table: Table, raw?: boolean): void;
   askYesNoQuestion(question: string, defaultValue: boolean): Promise<boolean>;
   askInputQuestion(question: string, defaultValue?: string): Promise<string>;
   askListQuestion<V extends string>(
@@ -52,8 +52,18 @@ function createConsole(): Console {
       signale.success(message);
     },
 
-    table: (table: Table): void => {
-      console.log(table.toString());
+    table: (table: Table, raw = false): void => {
+      if (raw) {
+        table.forEach((value) => {
+          if (typeof value === "object" && value instanceof Array) {
+            console.log(value.join(","));
+          } else {
+            console.log(value);
+          }
+        });
+      } else {
+        console.log(table.toString());
+      }
     },
 
     askYesNoQuestion: async (

@@ -31,7 +31,7 @@ jest.setTimeout(1000 * 60);
 
 async function usingTempDir(fn: (cwd: string) => void | Promise<void>) {
   const folder = await fsP.mkdtemp(
-    path.join(os.tmpdir(), "log4brains-init-tests")
+    path.join(os.tmpdir(), "log4brains-init-tests-")
   );
   try {
     return await fn(folder);
