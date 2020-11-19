@@ -9,6 +9,7 @@
       "@src/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "e2e-tests/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "integration-tests/**/*.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": { "files": true }
 }

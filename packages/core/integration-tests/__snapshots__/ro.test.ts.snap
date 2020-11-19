@@ -32,7 +32,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
   },
-  "creationDate": "2020-10-28T09:56:38.000Z",
+  "creationDate": "2020-10-28T08:45:32.436Z",
   "deciders": Array [
     "John Doe",
     "Foo bar",
@@ -42,7 +42,7 @@ Lorem ipsum.
     "relativePath": "docs/adr/20200101-first-adr.md",
   },
   "lastEditAuthor": "Thomas Vaillant",
-  "lastEditDate": "2020-10-28T09:56:38.000Z",
+  "lastEditDate": "2020-10-28T08:45:32.436Z",
   "package": null,
   "publicationDate": "2020-01-01T22:59:59.000Z",
   "slug": "20200101-first-adr",
@@ -65,8 +65,8 @@ Array [
   "20200102-adr-without-status",
   "20200102-adr-without-title",
   "adr_with_a_WeIrd-filename",
-  "20201028-adr-with-no-metadata",
   "20201028-adr-with-no-metadata-no-title",
+  "20201028-adr-with-no-metadata",
   "20201028-adr-without-date",
   "package1/20201028-adr-without-date",
   "20201028-links",
@@ -114,7 +114,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:45:32.436Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -124,7 +124,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20200101-first-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:45:32.436Z",
     "package": null,
     "publicationDate": "2020-01-01T22:59:59.000Z",
     "slug": "20200101-first-adr",
@@ -167,7 +167,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:06:28.825Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -177,7 +177,7 @@ Lorem ipsum.
       "relativePath": "packages/package1/adr/20200101-first-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:06:28.825Z",
     "package": "package1",
     "publicationDate": "2020-01-01T22:59:59.000Z",
     "slug": "package1/20200101-first-adr",
@@ -213,14 +213,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:05.112Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-only-with-date.md",
       "relativePath": "docs/adr/20200102-adr-only-with-date.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:05.112Z",
     "package": null,
     "publicationDate": "2020-01-02T22:59:59.000Z",
     "slug": "20200102-adr-only-with-date",
@@ -264,7 +264,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:10.392Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -274,7 +274,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20200102-adr-with-intro.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:10.392Z",
     "package": null,
     "publicationDate": "2020-01-02T22:59:59.000Z",
     "slug": "20200102-adr-with-intro",
@@ -312,7 +312,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:17.156Z",
     "deciders": Array [
       "John Doe",
     ],
@@ -321,7 +321,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20200102-adr-without-status.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:17.156Z",
     "package": null,
     "publicationDate": "2020-01-02T22:59:59.000Z",
     "slug": "20200102-adr-without-status",
@@ -359,7 +359,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:48:14.273Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -369,7 +369,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20200102-adr-without-title.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:48:14.273Z",
     "package": null,
     "publicationDate": "2020-01-02T22:59:59.000Z",
     "slug": "20200102-adr-without-title",
@@ -406,14 +406,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:05:21.249Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/adr_with_a_WeIrd-filename.md",
       "relativePath": "docs/adr/adr_with_a_WeIrd-filename.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:05:21.249Z",
     "package": null,
     "publicationDate": "2020-01-02T22:59:59.000Z",
     "slug": "adr_with_a_WeIrd-filename",
@@ -421,6 +421,41 @@ Lorem ipsum.
     "supersededBy": null,
     "tags": Array [],
     "title": "ADR with a weird filename",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-10-28T08:50:43.775Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata-no-title.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata-no-title.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-10-28T08:50:43.775Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-with-no-metadata-no-title",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": null,
   },
   Object {
     "body": Object {
@@ -444,14 +479,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:28.761Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
       "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:28.761Z",
     "package": null,
     "publicationDate": null,
     "slug": "20201028-adr-with-no-metadata",
@@ -459,41 +494,6 @@ Lorem ipsum.
     "supersededBy": null,
     "tags": Array [],
     "title": "ADR with no metadata",
-  },
-  Object {
-    "body": Object {
-      "enhancedMdx": "## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-      "rawMarkdown": "## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-    },
-    "creationDate": "2020-10-28T09:56:38.000Z",
-    "deciders": Array [],
-    "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata-no-title.md",
-      "relativePath": "docs/adr/20201028-adr-with-no-metadata-no-title.md",
-    },
-    "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
-    "package": null,
-    "publicationDate": null,
-    "slug": "20201028-adr-with-no-metadata-no-title",
-    "status": "accepted",
-    "supersededBy": null,
-    "tags": Array [],
-    "title": null,
   },
   Object {
     "body": Object {
@@ -525,7 +525,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:34.169Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -535,7 +535,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20201028-adr-without-date.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:34.169Z",
     "package": null,
     "publicationDate": null,
     "slug": "20201028-adr-without-date",
@@ -577,7 +577,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:07:42.122Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -587,7 +587,7 @@ Lorem ipsum.
       "relativePath": "packages/package1/adr/20201028-adr-without-date.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:07:42.122Z",
     "package": "package1",
     "publicationDate": null,
     "slug": "package1/20201028-adr-without-date",
@@ -625,14 +625,14 @@ Lorem ipsum.
 - Link to a package: [package1/20200101-first-adr](../../packages/package1/adr/20200101-first-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:16:19.324Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-links.md",
       "relativePath": "docs/adr/20201028-links.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:16:19.324Z",
     "package": null,
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "20201028-links",
@@ -669,14 +669,14 @@ Test link with partial slug: [20200101-first-adr](20200101-first-adr.md)
 - Relates to [package1/20201028-links-to-global](20201028-links-to-global.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:49:45.502Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-in-package.md",
       "relativePath": "packages/package1/adr/20201028-links-in-package.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:49:45.502Z",
     "package": "package1",
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "package1/20201028-links-in-package",
@@ -703,14 +703,14 @@ Test link: [package1/20200101-first-adr](../../package1/adr/20200101-first-adr.m
 [Custom text](../../package1/adr/20200101-first-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:20:41.043Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package2/adr/20201028-links-to-another-package.md",
       "relativePath": "packages/package2/adr/20201028-links-to-another-package.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:20:41.043Z",
     "package": "package2",
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "package2/20201028-links-to-another-package",
@@ -743,14 +743,14 @@ Lorem ipsum. Test link: [20200101-first-adr](../../docs/adr/20200101-first-adr.m
 - Relates to [20201028-links](../../docs/adr/20201028-links.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:17:29.425Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-to-global.md",
       "relativePath": "packages/package1/adr/20201028-links-to-global.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:17:29.425Z",
     "package": "package1",
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "package1/20201028-links-to-global",
@@ -784,14 +784,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:39.969Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-superseded-adr.md",
       "relativePath": "docs/adr/20201028-superseded-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:39.969Z",
     "package": null,
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "20201028-superseded-adr",
@@ -825,14 +825,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:02:15.231Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-proposed-adr.md",
       "relativePath": "docs/adr/20201029-proposed-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:02:15.231Z",
     "package": null,
     "publicationDate": "2020-10-29T22:59:59.000Z",
     "slug": "20201029-proposed-adr",
@@ -866,14 +866,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:02:33.539Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-rejected-adr.md",
       "relativePath": "docs/adr/20201029-rejected-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:02:33.539Z",
     "package": null,
     "publicationDate": "2020-10-29T22:59:59.000Z",
     "slug": "20201029-rejected-adr",
@@ -915,14 +915,14 @@ Lorem ipsum.
 - Supersedes [20201028-superseded-adr](20201028-superseded-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:45.249Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-superseder.md",
       "relativePath": "docs/adr/20201029-superseder.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T08:59:45.249Z",
     "package": null,
     "publicationDate": "2020-10-29T22:59:59.000Z",
     "slug": "20201029-superseder",
@@ -956,14 +956,14 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T09:03:15.287Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201030-draft-adr.md",
       "relativePath": "docs/adr/20201030-draft-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T09:56:38.000Z",
+    "lastEditDate": "2020-10-28T09:03:15.287Z",
     "package": null,
     "publicationDate": "2020-10-30T22:59:59.000Z",
     "slug": "20201030-draft-adr",

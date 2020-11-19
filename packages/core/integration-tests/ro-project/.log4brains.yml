@@ -1,6 +1,6 @@
 ---
 project:
-  name: log4brains-e2e-tests-ro
+  name: log4brains-tests-ro
   adrFolder: ./docs/adr
 
   packages:

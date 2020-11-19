@@ -15,10 +15,13 @@ export function createCli({
 }: Deps): commander.Command {
   return new commander.Command(name)
     .version(version)
-    .description("Installs and configures Log4brains for your project")
+    .arguments("[path]")
+    .description("Installs and configures Log4brains for your project", {
+      path: "Path of your project. Default: current directory"
+    })
     .action(
-      (): Promise<void> => {
-        return new InitCommand({ appConsole }).execute();
+      (path?: string): Promise<void> => {
+        return new InitCommand({ appConsole }).execute(path);
       }
     );
 }

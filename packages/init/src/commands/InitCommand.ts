@@ -35,43 +35,52 @@ export class InitCommand {
   }
 
   private isDev(): boolean {
-    return process.env.NODE_ENV === "development";
+    return (
+      process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test"
+    );
   }
 
-  private async installNpmPackages(): Promise<void> {
+  private async installNpmPackages(cwd: string): Promise<void> {
     const packages = ["@log4brains/cli", "@log4brains/web"];
 
     if (this.isDev()) {
-      await execa("yarn", ["link", ...packages]);
+      await execa("yarn", ["link", ...packages], { cwd });
 
       // ... but unfortunately `yarn link` does not create the bin symlinks (https://github.com/yarnpkg/yarn/issues/5713)
       // we have to do it ourselves:
-      await mkdirp("node_modules/.bin");
-      await execa("ln", [
-        "-s",
-        "--force",
-        "../@log4brains/cli/dist/log4brains",
-        "node_modules/.bin/log4brains"
-      ]);
-      await execa("ln", [
-        "-s",
-        "--force",
-        "../@log4brains/web/dist/bin/log4brains-web",
-        "node_modules/.bin/log4brains-web"
-      ]);
+      await mkdirp(path.join(cwd, "node_modules/.bin"));
+      await execa(
+        "ln",
+        [
+          "-s",
+          "--force",
+          "../@log4brains/cli/dist/log4brains",
+          "node_modules/.bin/log4brains"
+        ],
+        { cwd }
+      );
+      await execa(
+        "ln",
+        [
+          "-s",
+          "--force",
+          "../@log4brains/web/dist/bin/log4brains-web",
+          "node_modules/.bin/log4brains-web"
+        ],
+        { cwd }
+      );
     } else if (this.hasYarn()) {
-      await execa("yarn", [
-        "add",
-        "--dev",
-        "--ignore-workspace-root-check",
-        ...packages
-      ]);
+      await execa(
+        "yarn",
+        ["add", "--dev", "--ignore-workspace-root-check", ...packages],
+        { cwd }
+      );
     } else {
-      await execa("npm", ["install", "--save-dev", ...packages]);
+      await execa("npm", ["install", "--save-dev", ...packages], { cwd });
     }
   }
 
-  private guessMainAdrFolderPath(): string | undefined {
+  private guessMainAdrFolderPath(cwd: string): string | undefined {
     const usualPaths = [
       "docs/adr",
       "docs/adrs",
@@ -85,7 +94,7 @@ export class InitCommand {
     ];
     // eslint-disable-next-line no-restricted-syntax
     for (const possiblePath of usualPaths) {
-      if (fs.existsSync(possiblePath)) {
+      if (fs.existsSync(path.join(cwd, possiblePath))) {
         return possiblePath;
       }
     }
@@ -114,18 +123,27 @@ export class InitCommand {
     );
   }
 
-  private async askPathWhileNotFound(question: string): Promise<string> {
+  private async askPathWhileNotFound(
+    question: string,
+    cwd: string
+  ): Promise<string> {
     const p = await this.console.askInputQuestion(question);
-    if (!fs.existsSync(p)) {
+    if (!fs.existsSync(path.join(cwd, p))) {
       this.console.warn("This path does not exist. Please try again...");
-      return this.askPathWhileNotFound(question);
+      return this.askPathWhileNotFound(question, cwd);
     }
     return p;
   }
 
-  async execute(): Promise<void> {
+  async execute(customCwd?: string): Promise<void> {
+    const cwd = customCwd ? path.resolve(customCwd) : process.cwd();
+    if (!fs.existsSync(cwd)) {
+      this.console.fatal(`The given path does not exist: ${chalk.cyan(cwd)}`);
+      throw new FailureExit();
+    }
+
     // Check package.json existence
-    if (!fs.existsSync("package.json")) {
+    if (!fs.existsSync(path.join(cwd, "package.json"))) {
       this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
       this.console.print(
         "Are you sure to execute the command inside your project root directory?"
@@ -141,11 +159,11 @@ export class InitCommand {
 
     // Install NPM packages
     this.console.startSpinner("Installing Log4brains CLI & web packages");
-    await this.installNpmPackages();
+    await this.installNpmPackages(cwd);
     this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
 
     // Set scripts
-    const pkgJson = editJsonFile("package.json");
+    const pkgJson = editJsonFile(path.join(cwd, "package.json"));
     pkgJson.set("scripts.adr", "log4brains adr");
     pkgJson.set("scripts.log4brains-preview", "log4brains-web preview");
     pkgJson.set("scripts.log4brains-build", "log4brains-web build");
@@ -158,7 +176,7 @@ export class InitCommand {
     this.console.print();
 
     // Terminate now if already configured
-    if (fs.existsSync(".log4brains.yml")) {
+    if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
       this.console.info(
         `${chalk.cyan(".log4brains.yml")} is already created. We stop there!`
       );
@@ -170,7 +188,7 @@ export class InitCommand {
     // Name
     let name;
     try {
-      name = require(path.join(process.cwd(), "package.json")).name as string;
+      name = require(path.join(cwd, "package.json")).name as string;
       if (!name) {
         throw Error("Empty name");
       }
@@ -205,7 +223,7 @@ export class InitCommand {
     );
 
     // Main ADR folder location
-    let adrFolder = this.guessMainAdrFolderPath();
+    let adrFolder = this.guessMainAdrFolderPath(cwd);
     if (adrFolder) {
       this.console.info(
         `We have detected a possible existing ADR folder: ${chalk.cyan(
@@ -224,7 +242,7 @@ export class InitCommand {
         "docs/adr"
       );
     }
-    await mkdirp(adrFolder);
+    await mkdirp(path.join(cwd, adrFolder));
     this.console.print();
 
     // Packages
@@ -244,20 +262,21 @@ export class InitCommand {
           "Name? (short, lowercase, without special characters, nor spaces)"
         );
         const pkgCodeFolder = await this.askPathWhileNotFound(
-          "Where is located the source code of this package?"
+          "Where is located the source code of this package?",
+          cwd
         );
         const pkgAdrFolder = await this.console.askInputQuestion(
           `In which directory do you plan to store the ADRs of this package? (will be automatically created)`,
           `${pkgCodeFolder}/docs/adr`
         );
-        await mkdirp(pkgAdrFolder);
+        await mkdirp(path.join(cwd, pkgAdrFolder));
         packages.push({
           name: pkgName,
           path: pkgCodeFolder,
           adrFolder: pkgAdrFolder
         });
         oneMorePackage = await this.console.askYesNoQuestion(
-          `We are done for package #${packageNumber}. Do you want to add another one?`,
+          `We are done with package #${packageNumber}. Do you want to add another one?`,
           false
         );
         packageNumber += 1;
@@ -266,7 +285,7 @@ export class InitCommand {
 
     // Write config
     await fsP.writeFile(
-      ".log4brains.yml",
+      path.join(cwd, ".log4brains.yml"),
       yaml.stringify({
         project: {
           name,

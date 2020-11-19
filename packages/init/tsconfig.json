@@ -4,13 +4,12 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "dist",
-    "rootDir": "src",
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "integration-tests/**/*.ts"],
   "exclude": ["node_modules"],
   "ts-node": { "files": true }
 }
