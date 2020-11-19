@@ -208,13 +208,15 @@ export class AdrRepository implements IAdrRepository {
 
   generateAvailableSlug(title: string, packageRef?: PackageRef): AdrSlug {
     const adrFolderPath = this.getAdrFolderPath(packageRef);
+    const baseSlug = AdrSlug.createFromTitle(title, packageRef);
 
-    const i = 1;
+    let i = 1;
     let slug: AdrSlug;
     let filename: string;
     do {
-      slug = AdrSlug.createFromTitle(title, packageRef);
-      filename = `${slug.namePart}${i > 1 ? `-${i}` : ""}.md`;
+      slug = new AdrSlug(`${baseSlug.value}${i > 1 ? `-${i}` : ""}`);
+      filename = `${slug.namePart}.md`;
+      i += 1;
     } while (fs.existsSync(path.join(adrFolderPath.absolutePath, filename)));
 
     return slug;

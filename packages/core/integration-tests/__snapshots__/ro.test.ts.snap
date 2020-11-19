@@ -114,7 +114,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-11-19T11:33:33.000Z",
+    "creationDate": "2020-10-28T09:56:38.000Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -312,7 +312,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-10-28T08:59:17.156Z",
     "deciders": Array [
       "John Doe",
     ],
@@ -791,7 +791,7 @@ Lorem ipsum.
       "relativePath": "docs/adr/20201028-superseded-adr.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-10-28T08:59:39.969Z",
+    "lastEditDate": "2020-11-19T11:33:33.000Z",
     "package": null,
     "publicationDate": "2020-10-28T22:59:59.000Z",
     "slug": "20201028-superseded-adr",

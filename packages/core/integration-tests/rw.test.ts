@@ -1,7 +1,8 @@
 import path from "path";
 import globby from "globby";
 import rimraf from "rimraf";
-import { Log4brains, AdrDto } from "../src/infrastructure/api";
+import moment from "moment";
+import { Log4brains } from "../src/infrastructure/api";
 
 const PROJECT_PATH = path.join(__dirname, "rw-project");
 
@@ -90,6 +91,19 @@ describe("E2E tests / RW", () => {
       expect(superseded?.status).toEqual("superseded");
       expect(superseded?.supersededBy).toEqual(superseder?.slug);
       expect(superseder?.body.enhancedMdx).toMatchSnapshot();
+    });
+  });
+
+  describe("generateAdrSlug()", () => {
+    test("duplicate", async () => {
+      const date = moment().format("YYYYMMDD");
+      const slug = await instance.generateAdrSlug("Duplicate Test");
+      expect(slug).toEqual(`${date}-duplicate-test`);
+
+      await instance.createAdrFromTemplate(slug, "Duplicate Test");
+      expect(await instance.generateAdrSlug("Duplicate Test")).toEqual(
+        `${date}-duplicate-test-2`
+      );
     });
   });
 });
