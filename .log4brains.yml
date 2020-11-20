@@ -1,6 +1,6 @@
 ---
 project:
-  name: log4brains
+  name: Log4brains
   adrFolder: ./docs/adr
 
   packages:

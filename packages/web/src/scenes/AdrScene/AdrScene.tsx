@@ -12,6 +12,7 @@ import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon
 } from "@material-ui/icons";
+import Head from "next/head";
 import Link from "next/link";
 import { Alert } from "@material-ui/lab";
 import { CustomTheme } from "../../mui";
@@ -51,10 +52,11 @@ const useStyles = makeStyles((theme: CustomTheme) =>
 );
 
 export type AdrSceneProps = {
+  projectName: string;
   currentAdr: Adr;
 };
 
-export function AdrScene({ currentAdr }: AdrSceneProps) {
+export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
   const classes = useStyles();
 
   const mode = React.useContext(Log4brainsModeContext);
@@ -99,60 +101,68 @@ export function AdrScene({ currentAdr }: AdrSceneProps) {
   }
 
   return (
-    <TwoColContent
-      rightColContent={<MarkdownToc content={mdContent} levelStart={2} />}
-    >
-      <Typography variant="h3" gutterBottom>
-        {currentAdr.title || "Untitled"}
-      </Typography>
-      <Divider />
-      <AdrHeader
-        adr={currentAdr}
-        className={classes.header}
-        locallyEditable={mode === Log4brainsMode.preview}
-      />
+    <>
+      <Head>
+        <title>
+          {currentAdr.title || "Untitled"} | {projectName} architecture
+          Knowledge Base
+        </title>
+      </Head>
+      <TwoColContent
+        rightColContent={<MarkdownToc content={mdContent} levelStart={2} />}
+      >
+        <Typography variant="h3" gutterBottom>
+          {currentAdr.title || "Untitled"}
+        </Typography>
+        <Divider />
+        <AdrHeader
+          adr={currentAdr}
+          className={classes.header}
+          locallyEditable={mode === Log4brainsMode.preview}
+        />
 
-      {alert}
+        {alert}
 
-      <Markdown onCompiled={setMdContent}>
-        {currentAdr.body.enhancedMdx}
-      </Markdown>
+        <Markdown onCompiled={setMdContent}>
+          {currentAdr.body.enhancedMdx}
+        </Markdown>
 
-      <Divider className={classes.bottomNavDivider} />
+        <Divider className={classes.bottomNavDivider} />
 
-      <nav className={classes.bottomNav}>
-        {adrNav.previousAdr ? (
-          <Link href={buildAdrUrl(adrNav.previousAdr)} passHref>
-            <Tooltip
-              title={adrNav.previousAdr.title || ""}
-              aria-label="previous"
-            >
-              <Button startIcon={<ArrowBackIcon />}>Previous</Button>
-            </Tooltip>
-          </Link>
-        ) : (
-          <div />
-        )}
+        <nav className={classes.bottomNav}>
+          {adrNav.previousAdr ? (
+            <Link href={buildAdrUrl(adrNav.previousAdr)} passHref>
+              <Tooltip
+                title={adrNav.previousAdr.title || ""}
+                aria-label="previous"
+              >
+                <Button startIcon={<ArrowBackIcon />}>Previous</Button>
+              </Tooltip>
+            </Link>
+          ) : (
+            <div />
+          )}
 
-        <div className={classes.bottomInfo}>
-          <Typography className={classes.bottomInfoText}>
-            Last edited by {currentAdr.lastEditAuthor}
-          </Typography>
-          <Typography className={classes.bottomInfoText}>
-            on {moment(currentAdr.lastEditDate).format("lll")}
-          </Typography>
-        </div>
-        {adrNav.nextAdr ? (
-          <Link href={buildAdrUrl(adrNav.nextAdr)} passHref>
-            <Tooltip title={adrNav.nextAdr.title || ""} aria-label="next">
-              <Button endIcon={<ArrowForwardIcon />}>Next</Button>
-            </Tooltip>
-          </Link>
-        ) : (
-          <div />
-        )}
-      </nav>
-    </TwoColContent>
+          <div className={classes.bottomInfo}>
+            <Typography className={classes.bottomInfoText}>
+              Last edited by {currentAdr.lastEditAuthor}
+            </Typography>
+            <Typography className={classes.bottomInfoText}>
+              on {moment(currentAdr.lastEditDate).format("lll")}
+            </Typography>
+          </div>
+          {adrNav.nextAdr ? (
+            <Link href={buildAdrUrl(adrNav.nextAdr)} passHref>
+              <Tooltip title={adrNav.nextAdr.title || ""} aria-label="next">
+                <Button endIcon={<ArrowForwardIcon />}>Next</Button>
+              </Tooltip>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </nav>
+      </TwoColContent>
+    </>
   );
 }
 

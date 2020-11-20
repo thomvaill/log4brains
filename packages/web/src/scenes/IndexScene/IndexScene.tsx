@@ -1,16 +1,23 @@
 import React from "react";
+import Head from "next/head";
 import { Markdown, TwoColContent } from "../../components";
 import { ConnectedAdrBrowserLayout } from "../../layouts";
 
 export type IndexSceneProps = {
+  projectName: string;
   markdown: string;
 };
 
-export function IndexScene({ markdown }: IndexSceneProps) {
+export function IndexScene({ projectName, markdown }: IndexSceneProps) {
   return (
-    <TwoColContent>
-      <Markdown>{markdown}</Markdown>
-    </TwoColContent>
+    <>
+      <Head>
+        <title>{projectName} architecture knowledge base</title>
+      </Head>
+      <TwoColContent>
+        <Markdown>{markdown}</Markdown>
+      </TwoColContent>
+    </>
   );
 }
 

@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps<AdrSceneProps> = async ({
 
   return {
     props: {
+      projectName: l4bInstance.config.project.name,
       currentAdr: toAdr(
         currentAdr,
         currentAdr.supersededBy
