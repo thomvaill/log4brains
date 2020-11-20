@@ -1,7 +1,9 @@
 # Log4brains <!-- omit in toc -->
 
 <p align="center">
-  <img src="docs/Log4brains-logo-full.png" alt="Log4brains" width="276" height="367" />
+  <a href="#">
+    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" width="276" height="367" />
+  </a>
 </p>
 
 <p align="center">
