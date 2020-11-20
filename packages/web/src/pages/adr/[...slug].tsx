@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from "next";
+import getConfig from "next/config";
 import { getLog4brainsInstance } from "../../lib";
 import { AdrScene, AdrSceneProps } from "../../scenes";
 import { toAdr } from "../../types";
@@ -40,7 +41,8 @@ export const getStaticProps: GetStaticProps<AdrSceneProps> = async ({
         currentAdr.supersededBy
           ? await l4bInstance.getAdrBySlug(currentAdr.supersededBy)
           : undefined
-      )
+      ),
+      l4bVersion: getConfig().serverRuntimeConfig.VERSION
     },
     revalidate: 1
   };

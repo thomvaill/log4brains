@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: CustomTheme) =>
 export type AdrSceneProps = {
   projectName: string;
   currentAdr: Adr;
+  l4bVersion: string;
 };
 
 export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {

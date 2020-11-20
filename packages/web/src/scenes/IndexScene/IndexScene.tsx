@@ -6,6 +6,7 @@ import { ConnectedAdrBrowserLayout } from "../../layouts";
 export type IndexSceneProps = {
   projectName: string;
   markdown: string;
+  l4bVersion: string;
 };
 
 export function IndexScene({ projectName, markdown }: IndexSceneProps) {

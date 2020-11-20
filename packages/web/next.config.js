@@ -2,13 +2,16 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true"
 });
 
+const packageJson = require("./package.json");
+
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   // basePath: "", // TODO: make this customizable
   target: "serverless",
   poweredByHeader: false,
   serverRuntimeConfig: {
-    PROJECT_ROOT: __dirname // https://github.com/vercel/next.js/issues/8251
+    PROJECT_ROOT: __dirname, // https://github.com/vercel/next.js/issues/8251
+    VERSION: packageJson.version
   },
   webpack: function (config, { webpack, buildId, isServer }) {
     // Only used to load default-index.md

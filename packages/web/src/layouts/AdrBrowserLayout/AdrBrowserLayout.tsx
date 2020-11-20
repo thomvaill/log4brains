@@ -138,22 +138,24 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       paddingTop: topSpace
     },
     content: {
-      minHeight: `calc(100vh - 57px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
+      minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
     },
     footer: {
-      backgroundColor: theme.palette.grey[800],
-      color: theme.palette.grey[600],
-      height: 57,
+      backgroundColor: theme.palette.grey[100],
+      color: theme.palette.grey[500],
+      height: 35,
       display: "flex"
+      // alignItems: "flex-start"
     },
     footerText: {
+      // marginTop: theme.spacing(2),
       fontSize: "0.77rem"
     },
     footerLink: {
-      color: theme.palette.grey[400],
+      color: theme.palette.grey[600],
       fontSize: "0.8rem",
       "&:hover": {
-        color: theme.palette.grey[100]
+        color: theme.palette.grey[800]
       }
     },
     footerContent: {
@@ -190,6 +192,7 @@ export type AdrBrowserLayoutProps = {
   children: React.ReactNode;
   routing?: boolean;
   backlog?: boolean;
+  l4bVersion: string;
 };
 
 export function AdrBrowserLayout({
@@ -198,7 +201,8 @@ export function AdrBrowserLayout({
   currentAdr,
   children,
   routing = false,
-  backlog = false
+  backlog = false,
+  l4bVersion
 }: AdrBrowserLayoutProps) {
   const classes = useStyles();
 
@@ -348,8 +352,9 @@ export function AdrBrowserLayout({
                 target="_blank"
                 rel="noopener"
               >
-                🧠 Log4brains
-              </MuiLink>
+                Log4brains
+              </MuiLink>{" "}
+              <span style={{ fontSize: "0.8em" }}>(v{l4bVersion})</span>
             </Typography>
           </div>
           <div className={classes.layoutRightCol} />
