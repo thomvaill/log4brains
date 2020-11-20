@@ -22,6 +22,7 @@ import {
   PlaylistAddCheck as PlaylistAddCheckIcon
 } from "@material-ui/icons";
 import Link from "next/link";
+import Image from "next/image";
 import clsx from "clsx";
 import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
@@ -57,8 +58,10 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     appBarTitle: {
       display: "none",
       [theme.breakpoints.up("sm")]: {
-        display: "block",
-        width: drawerWidth
+        display: "flex",
+        alignItems: "center",
+        width: drawerWidth,
+        cursor: "pointer"
       }
     },
     appBarTitleLink: {
@@ -66,7 +69,8 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       color: "inherit",
       "&:hover": {
         color: "inherit"
-      }
+      },
+      marginLeft: theme.spacing(2)
     },
     searchBackdrop: {
       zIndex: theme.zIndex.modal - 2
@@ -206,22 +210,38 @@ export function AdrBrowserLayout({
       <AppBar position="fixed" className={classes.appBar}>
         {routing && <RoutingProgress />}
         <Toolbar>
-          <div className={classes.appBarTitle}>
-            <Link href="/" passHref>
-              <MuiLink variant="h6" noWrap className={classes.appBarTitleLink}>
-                Log4brains
-              </MuiLink>
-            </Link>
-            <Link href="/" passHref>
-              <MuiLink
-                variant="body2"
-                noWrap
-                className={classes.appBarTitleLink}
-              >
-                Architecture knowledge base
-              </MuiLink>
-            </Link>
-          </div>
+          <Link href="/">
+            <div className={classes.appBarTitle}>
+              <div>
+                <Image
+                  src="/Log4brains-logo-dark.png"
+                  alt="Log4brains logo"
+                  width={50}
+                  height={50}
+                />
+              </div>
+              <div>
+                <Link href="/" passHref>
+                  <MuiLink
+                    variant="h6"
+                    noWrap
+                    className={classes.appBarTitleLink}
+                  >
+                    Log4brains
+                  </MuiLink>
+                </Link>
+                <Link href="/" passHref>
+                  <MuiLink
+                    variant="body2"
+                    noWrap
+                    className={classes.appBarTitleLink}
+                  >
+                    Architecture knowledge base
+                  </MuiLink>
+                </Link>
+              </div>
+            </div>
+          </Link>
           <div className={classes.layoutLeftCol} />
           <div className={clsx(classes.layoutCenterCol)}>
             <Backdrop open={searchOpen} className={classes.searchBackdrop} />
