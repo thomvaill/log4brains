@@ -10,7 +10,8 @@ export type CustomTheme = Theme & {
   };
 };
 
-const primary = "#556cd6";
+const primary = "#2176AE";
+const titleFontFamily = '"Roboto Slab", "Noto Serif", "Times New Roman", serif';
 
 export const theme: CustomTheme = {
   ...createMuiTheme({
@@ -19,13 +20,35 @@ export const theme: CustomTheme = {
         main: primary
       },
       secondary: {
-        main: "#f50057"
+        main: "#FF007B"
       },
       error: {
         main: red.A400
       },
       background: {
         default: "#fff"
+      }
+    },
+    typography: {
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      h1: {
+        fontFamily: titleFontFamily
+      },
+      h2: {
+        fontFamily: titleFontFamily
+      },
+      h3: {
+        fontFamily: titleFontFamily,
+        lineHeight: 1.1
+      },
+      h4: {
+        fontFamily: titleFontFamily
+      },
+      h5: {
+        fontFamily: titleFontFamily
+      },
+      h6: {
+        fontFamily: titleFontFamily
       }
     },
     props: {
