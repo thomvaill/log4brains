@@ -97,7 +97,16 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     adrMenu: {
       flexGrow: 1,
       flexShrink: 1,
-      overflow: "auto"
+      overflow: "auto",
+      "&::-webkit-scrollbar": {
+        width: 6,
+        backgroundColor: theme.palette.background
+      },
+      "&::-webkit-scrollbar-thumb": {
+        borderRadius: 10,
+        "-webkit-box-shadow": "inset 0 0 2px rgba(0,0,0,.3)",
+        backgroundColor: theme.palette.grey[400]
+      }
     },
     bottomMenuList: {
       flexGrow: 0,
