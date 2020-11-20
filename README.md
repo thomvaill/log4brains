@@ -32,7 +32,7 @@ Lorem ipsum.
 
 ## Acknowledgments
 
-Lorem ipsum.
+- [Tippawan Sookruay](https://thenounproject.com/wanny4/) for the Log4brains logo
 
 ## License
 
