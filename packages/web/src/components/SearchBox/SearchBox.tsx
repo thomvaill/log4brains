@@ -139,7 +139,9 @@ export function SearchBox(props: SearchBoxProps) {
   let noOptionsText: React.ReactNode = "Type to start searching";
   if (loading) {
     noOptionsText = (
-      <div style={{ textAlign: "center" }}><CircularProgress size={20} /></div>
+      <div style={{ textAlign: "center" }}>
+        <CircularProgress size={20} />
+      </div>
     );
   } else if (query) {
     noOptionsText = "No matching documents";

@@ -1,2 +1,2 @@
-export * from './CommandBus';
-export * from './QueryBus';
+export * from "./CommandBus";
+export * from "./QueryBus";
