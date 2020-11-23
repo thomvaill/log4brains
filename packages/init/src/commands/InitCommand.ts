@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable class-methods-use-this */
 import fs, { promises as fsP } from "fs";
@@ -20,6 +21,19 @@ const webBinPath = "@log4brains/web/dist/bin/log4brains-web";
 
 export type InitCommandOpts = {
   defaults: boolean;
+};
+
+type L4bYmlPackageConfig = {
+  name: string;
+  path: string;
+  adrFolder: string;
+};
+type L4bYmlConfig = {
+  project: {
+    name: string;
+    adrFolder: string;
+    packages?: L4bYmlPackageConfig[];
+  };
 };
 
 type Deps = {
@@ -83,6 +97,14 @@ export class InitCommand {
     }
   }
 
+  private setupPackageJsonScripts(packageJsonPath: string): void {
+    const pkgJson = editJsonFile(packageJsonPath);
+    pkgJson.set("scripts.adr", "log4brains adr");
+    pkgJson.set("scripts.log4brains-preview", "log4brains-web preview");
+    pkgJson.set("scripts.log4brains-build", "log4brains-web build");
+    pkgJson.save();
+  }
+
   private guessMainAdrFolderPath(cwd: string): string | undefined {
     const usualPaths = [
       "docs/adr",
@@ -104,95 +126,15 @@ export class InitCommand {
     return undefined;
   }
 
-  private printSuccess(): void {
-    const runCmd = this.hasYarn() ? "yarn" : "npm run";
-    const l4bCliCmdName = "adr";
-
-    this.console.success("Log4brains is installed and configured! 🎉🎉🎉");
-    this.console.print();
-    this.console.print("You can now use the CLI to create a new ADR:");
-    this.console.print(`  ${chalk.cyan(`${runCmd} ${l4bCliCmdName} new`)}`);
-    this.console.print("");
-    this.console.print(
-      "And start the web UI to preview your architecture knowledge base:"
-    );
-    this.console.print(`  ${chalk.cyan(`${runCmd} log4brains-preview`)}`);
-    this.console.print();
-    this.console.print(
-      `Do not forget to check the ${terminalLink(
-        "documentation",
-        docLink
-      )} to learn how to set up your CI/CD to publish it`
-    );
-  }
-
-  private async askPathWhileNotFound(
-    question: string,
-    cwd: string
-  ): Promise<string> {
-    const p = await this.console.askInputQuestion(question);
-    if (!fs.existsSync(path.join(cwd, p))) {
-      this.console.warn("This path does not exist. Please try again...");
-      return this.askPathWhileNotFound(question, cwd);
-    }
-    return p;
-  }
-
-  async execute(options: InitCommandOpts, customCwd?: string): Promise<void> {
-    const noInteraction = options.defaults;
-
-    const cwd = customCwd ? path.resolve(customCwd) : process.cwd();
-    if (!fs.existsSync(cwd)) {
-      this.console.fatal(`The given path does not exist: ${chalk.cyan(cwd)}`);
-      throw new FailureExit();
-    }
-
-    // Check package.json existence
-    if (!fs.existsSync(path.join(cwd, "package.json"))) {
-      this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
-      this.console.print(
-        "Are you sure to execute the command inside your project root directory?"
-      );
-      this.console.print(
-        `Please refer to the ${terminalLink(
-          "documentation",
-          docLink
-        )} if you want to use Log4brains in a non-JS project or globally`
-      );
-      throw new FailureExit();
-    }
-
-    // Install NPM packages
-    this.console.startSpinner("Installing Log4brains CLI & web packages");
-    await this.installNpmPackages(cwd);
-    this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
-
-    // Set scripts
-    const pkgJson = editJsonFile(path.join(cwd, "package.json"));
-    pkgJson.set("scripts.adr", "log4brains adr");
-    pkgJson.set("scripts.log4brains-preview", "log4brains-web preview");
-    pkgJson.set("scripts.log4brains-build", "log4brains-web build");
-    pkgJson.save();
-    this.console.print(
-      `We have added the following scripts to your ${chalk.cyan(
-        "package.json"
-      )}: adr, log4brains-preview, log4brains-build`
-    );
-    this.console.print();
-
-    // Terminate now if already configured
-    if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
-      this.console.info(
-        `${chalk.cyan(".log4brains.yml")} is already created. We stop there!`
-      );
-      this.printSuccess();
-      return;
-    }
-
-    // Create .log4brains.yml interactively
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+  private async buildLog4brainsConfigInteractively(
+    cwd: string,
+    noInteraction: boolean
+  ): Promise<L4bYmlConfig> {
     // Name
     let name;
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,global-require,import/no-dynamic-require,@typescript-eslint/no-var-requires
       name = require(path.join(cwd, "package.json")).name as string;
       if (!name) {
         throw Error("Empty name");
@@ -296,16 +238,155 @@ export class InitCommand {
       } while (oneMorePackage);
     }
 
-    // Write config
+    return {
+      project: {
+        name,
+        adrFolder,
+        packages
+      }
+    };
+  }
+
+  private async createAdr(
+    cwd: string,
+    adrFolder: string,
+    title: string,
+    source: string,
+    replacements: string[][] = []
+  ): Promise<string> {
+    const slug = (
+      await execa(
+        path.join(cwd, `node_modules/${cliBinPath}`),
+        [
+          "adr",
+          "new",
+          "--quiet",
+          "--from",
+          path.join(assetsPath, source),
+          `"${title}"`
+        ],
+        { cwd }
+      )
+    ).stdout;
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const replacement of [
+      ["{DATE}", moment().format("YYYY-MM-DD")],
+      ...replacements
+    ]) {
+      await execa(
+        "sed",
+        [
+          "-i",
+          `s/${replacement[0]}/${replacement[1]}/g`,
+          path.join(cwd, adrFolder, `${slug}.md`)
+        ],
+        {
+          cwd
+        }
+      );
+    }
+
+    return slug;
+  }
+
+  private printSuccess(): void {
+    const runCmd = this.hasYarn() ? "yarn" : "npm run";
+    const l4bCliCmdName = "adr";
+
+    this.console.success("Log4brains is installed and configured! 🎉🎉🎉");
+    this.console.print();
+    this.console.print("You can now use the CLI to create a new ADR:");
+    this.console.print(`  ${chalk.cyan(`${runCmd} ${l4bCliCmdName} new`)}`);
+    this.console.print("");
+    this.console.print(
+      "And start the web UI to preview your architecture knowledge base:"
+    );
+    this.console.print(`  ${chalk.cyan(`${runCmd} log4brains-preview`)}`);
+    this.console.print();
+    this.console.print(
+      `Do not forget to check the ${terminalLink(
+        "documentation",
+        docLink
+      )} to learn how to set up your CI/CD to publish it`
+    );
+  }
+
+  private async askPathWhileNotFound(
+    question: string,
+    cwd: string
+  ): Promise<string> {
+    const p = await this.console.askInputQuestion(question);
+    if (!fs.existsSync(path.join(cwd, p))) {
+      this.console.warn("This path does not exist. Please try again...");
+      return this.askPathWhileNotFound(question, cwd);
+    }
+    return p;
+  }
+
+  /**
+   * Command flow.
+   *
+   * @param options
+   * @param customCwd
+   */
+  async execute(options: InitCommandOpts, customCwd?: string): Promise<void> {
+    const noInteraction = options.defaults;
+
+    const cwd = customCwd ? path.resolve(customCwd) : process.cwd();
+    if (!fs.existsSync(cwd)) {
+      this.console.fatal(`The given path does not exist: ${chalk.cyan(cwd)}`);
+      throw new FailureExit();
+    }
+
+    // Check package.json existence
+    const packageJsonPath = path.join(cwd, "package.json");
+    if (!fs.existsSync(packageJsonPath)) {
+      this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
+      this.console.print(
+        "Are you sure to execute the command inside your project root directory?"
+      );
+      this.console.print(
+        `Please refer to the ${terminalLink(
+          "documentation",
+          docLink
+        )} if you want to use Log4brains in a non-JS project or globally`
+      );
+      throw new FailureExit();
+    }
+
+    // Install NPM packages
+    this.console.startSpinner("Installing Log4brains CLI & web packages");
+    await this.installNpmPackages(cwd);
+    this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
+
+    // Setup package.json scripts
+    this.setupPackageJsonScripts(packageJsonPath);
+    this.console.print(
+      `We have added the following scripts to your ${chalk.cyan(
+        "package.json"
+      )}: adr, log4brains-preview, log4brains-build`
+    );
+    this.console.print();
+
+    // Terminate now if already configured
+    if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
+      this.console.info(
+        `${chalk.cyan(".log4brains.yml")} is already created. We stop there!`
+      );
+      this.printSuccess();
+      return;
+    }
+
+    // Create .log4brains.yml interactively
+    const config = await this.buildLog4brainsConfigInteractively(
+      cwd,
+      noInteraction
+    );
+    const { adrFolder } = config.project;
     await fsP.writeFile(
       path.join(cwd, ".log4brains.yml"),
-      yaml.stringify({
-        project: {
-          name,
-          adrFolder,
-          packages
-        }
-      }),
+      yaml.stringify(config),
       "utf-8"
     );
 
@@ -315,6 +396,7 @@ export class InitCommand {
       await fsP.copyFile(path.join(assetsPath, "template.md"), templatePath);
     }
 
+    // List existing ADRs
     const adrListRes = await execa(
       path.join(cwd, `node_modules/${cliBinPath}`),
       ["adr", "list", "--raw"],
@@ -322,72 +404,21 @@ export class InitCommand {
     );
 
     // Create Log4brains ADR
-    const l4bAdrSlug = (
-      await execa(
-        path.join(cwd, `node_modules/${cliBinPath}`),
-        [
-          "adr",
-          "new",
-          "--quiet",
-          "--from",
-          path.join(assetsPath, "use-log4brains-to-manage-the-adrs.md"),
-          '"Use Log4brains to manage the ADRs"'
-        ],
-        { cwd }
-      )
-    ).stdout;
-    await execa(
-      "sed",
-      [
-        "-i",
-        `s/{DATE}/${moment().format("YYYY-MM-DD")}/g`,
-        path.join(cwd, adrFolder, `${l4bAdrSlug}.md`)
-      ],
-      {
-        cwd
-      }
+    const l4bAdrSlug = await this.createAdr(
+      cwd,
+      adrFolder,
+      "Use Log4brains to manage the ADRs",
+      "use-log4brains-to-manage-the-adrs.md"
     );
 
     // Create MADR ADR if there was no ADR in the repository
     if (!adrListRes.stdout) {
-      const madrAdrSlug = (
-        await execa(
-          path.join(cwd, `node_modules/${cliBinPath}`),
-          [
-            "adr",
-            "new",
-            "--quiet",
-            "--from",
-            path.join(
-              assetsPath,
-              "use-markdown-architectural-decision-records.md"
-            ),
-            '"Use Markdown Architectural Decision Records"'
-          ],
-          { cwd }
-        )
-      ).stdout;
-      await execa(
-        "sed",
-        [
-          "-i",
-          `s/{DATE}/${moment().format("YYYY-MM-DD")}/g`,
-          path.join(cwd, adrFolder, `${madrAdrSlug}.md`)
-        ],
-        {
-          cwd
-        }
-      );
-      await execa(
-        "sed",
-        [
-          "-i",
-          `s/{LOG4BRAINS_ADR_SLUG}/${l4bAdrSlug}/g`,
-          path.join(cwd, adrFolder, `${madrAdrSlug}.md`)
-        ],
-        {
-          cwd
-        }
+      await this.createAdr(
+        cwd,
+        adrFolder,
+        "Use Markdown Architectural Decision Records",
+        "use-markdown-architectural-decision-records.md",
+        [["{LOG4BRAINS_ADR_SLUG}", l4bAdrSlug]]
       );
     }
 

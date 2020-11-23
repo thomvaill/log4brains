@@ -45,10 +45,15 @@ type PackageAnswer = {
   path: string;
   adrFolder: string;
 };
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function bindAnswers(
   cli: execa.ExecaChildProcess<string>,
   packageAnswer?: PackageAnswer
 ): execa.ExecaChildProcess<string> {
+  if (!cli.stdout) {
+    throw new Error("CLI must have an stdout");
+  }
+
   let name = false;
   let type = false;
   let adrFolder = false;
@@ -56,11 +61,14 @@ function bindAnswers(
   let packagePath = false;
   let packageAdrFolder = false;
   let packageDone = false;
-  cli.stdout!.on("data", (data: Buffer) => {
+  cli.stdout.on("data", (data: Buffer) => {
     const line = data.toString();
+    if (!cli.stdin) {
+      throw new Error("CLI must have an stdin");
+    }
 
     if (!name && line.match(/What is the name of your project\?/)) {
-      cli.stdin!.write("\n");
+      cli.stdin.write("\n");
       name = true;
     }
     if (
@@ -68,9 +76,9 @@ function bindAnswers(
       line.match(/Which statement describes the best your project\?/)
     ) {
       if (packageAnswer) {
-        cli.stdin!.write(keys.down);
+        cli.stdin.write(keys.down);
       }
-      cli.stdin!.write("\n");
+      cli.stdin.write("\n");
       type = true;
     }
     if (
@@ -79,21 +87,21 @@ function bindAnswers(
         /In which directory do you plan to store your( global)? ADRs\?/
       )
     ) {
-      cli.stdin!.write("\n");
+      cli.stdin.write("\n");
       adrFolder = true;
     }
 
     // Multi only:
     if (packageAnswer) {
       if (!packageName && line.match(/Name\?/)) {
-        cli.stdin!.write(`${packageAnswer.name}\n`);
+        cli.stdin.write(`${packageAnswer.name}\n`);
         packageName = true;
       }
       if (
         !packagePath &&
         line.match(/Where is located the source code of this package\?/)
       ) {
-        cli.stdin!.write(`${packageAnswer.path}\n`);
+        cli.stdin.write(`${packageAnswer.path}\n`);
         packagePath = true;
       }
       if (
@@ -102,11 +110,11 @@ function bindAnswers(
           /In which directory do you plan to store the ADRs of this package\?/
         )
       ) {
-        cli.stdin!.write(`${packageAnswer.adrFolder}\n`);
+        cli.stdin.write(`${packageAnswer.adrFolder}\n`);
         packageAdrFolder = true;
       }
       if (!packageDone && line.match(/Do you want to add another one\?/)) {
-        cli.stdin!.write(`N\n`);
+        cli.stdin.write(`N\n`);
         packageDone = true;
       }
     }
