@@ -5,7 +5,7 @@ import {
   MarkdownAdrLinkResolver as IMarkdownAdrLinkResolver
 } from "@src/adr/domain";
 import { Log4brainsError } from "@src/domain";
-import { AdrRepository } from "./repositories";
+import type { AdrRepository } from "./repositories";
 
 type Deps = {
   adrRepository: AdrRepository;

@@ -1,5 +1,5 @@
 import { Log4brainsError, ValueObject } from "@src/domain";
-import { AdrSlug } from "./AdrSlug";
+import type { AdrSlug } from "./AdrSlug";
 import { FilesystemPath } from "./FilesystemPath";
 
 type Props = {

@@ -16,8 +16,8 @@
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "test": "jest",
-    "lint": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts --ignore-pattern '/out/' --max-warnings=0 --fix",
+    "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
+    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
     "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts"
   },
   "dependencies": {

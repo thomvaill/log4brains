@@ -33,6 +33,7 @@
     "execa",
     "gitlab",
     "globby",
+    "htmlentities",
     "lunr",
     "microbundle",
     "neverthrow",

@@ -248,8 +248,9 @@ export class AdrRepository implements IAdrRepository {
   }
 
   async save(adr: Adr): Promise<void> {
-    if (!adr.file) {
-      const file = AdrFile.createFromSlugInFolder(
+    let { file } = adr;
+    if (!file) {
+      file = AdrFile.createFromSlugInFolder(
         this.getAdrFolderPath(adr.package),
         adr.slug
       );
@@ -261,10 +262,8 @@ export class AdrRepository implements IAdrRepository {
       }
       adr.setFile(file);
     }
-    await fsP.writeFile(
-      adr.file!.path.absolutePath,
-      adr.body.getRawMarkdown(),
-      { encoding: "utf-8" }
-    );
+    await fsP.writeFile(file.path.absolutePath, adr.body.getRawMarkdown(), {
+      encoding: "utf-8"
+    });
   }
 }

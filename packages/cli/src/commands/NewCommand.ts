@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import path from "path";
 import { Log4brains, Log4brainsError } from "@log4brains/core";
 import fs, { promises as fsP } from "fs";

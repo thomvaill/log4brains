@@ -172,15 +172,16 @@ export class Log4brains {
     if (!adr) {
       throw new Log4brainsError("This ADR does not exist", slug);
     }
-    if (!adr.file) {
+    const { file } = adr;
+    if (!file) {
       throw new Log4brainsError(
         "You are trying to open an non-saved ADR",
         slug
       );
     }
 
-    launchEditor(adr.file.path.absolutePath, undefined, async () => {
-      await open(adr.file!.path.absolutePath);
+    launchEditor(file.path.absolutePath, undefined, async () => {
+      await open(file.path.absolutePath);
       if (onImpossibleToGuess) {
         onImpossibleToGuess();
       }

@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import fs from "fs";
-import { promises as fsP } from "fs";
+import fs, { promises as fsP } from "fs";
 import path from "path";
 import { AdrTemplateRepository as IAdrTemplateRepository } from "@src/adr/application";
 import {

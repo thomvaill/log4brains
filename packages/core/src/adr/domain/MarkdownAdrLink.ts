@@ -1,5 +1,5 @@
 import { Log4brainsError, ValueObject } from "@src/domain";
-import { Adr } from "./Adr";
+import type { Adr } from "./Adr";
 
 type Props = {
   from: Adr;

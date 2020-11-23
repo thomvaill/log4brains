@@ -1,7 +1,7 @@
 import cheerio from "cheerio";
 import { Entity, Log4brainsError } from "@src/domain";
 import { CheerioMarkdown, cheerioToMarkdown } from "@src/lib/cheerio-markdown";
-import { Adr } from "./Adr";
+import type { Adr } from "./Adr";
 import { MarkdownAdrLinkResolver } from "./MarkdownAdrLinkResolver";
 
 type Props = {
@@ -191,12 +191,6 @@ export class MarkdownBody extends Entity<Props> {
   }
 
   async replaceAdrLinks(from: Adr): Promise<void> {
-    if (!this.adrLinkResolver) {
-      throw new Log4brainsError(
-        "Impossible to call replaceAdrLinks() without an MarkdownAdrLinkResolver"
-      );
-    }
-
     const links = this.cm
       .$("a")
       .map((_, element) => ({
@@ -212,27 +206,29 @@ export class MarkdownBody extends Entity<Props> {
       .filter((link) => link.href.toLowerCase().endsWith(".md"))
       .map((link) =>
         (async () => {
-          const mdAdrlink = await this.adrLinkResolver!.resolve(
-            from,
-            link.href
-          );
-          if (mdAdrlink) {
+          if (!this.adrLinkResolver) {
+            throw new Log4brainsError(
+              "Impossible to call replaceAdrLinks() without an MarkdownAdrLinkResolver"
+            );
+          }
+          const mdAdrLink = await this.adrLinkResolver.resolve(from, link.href);
+          if (mdAdrLink) {
             const params = [
-              `slug="${htmlentities(mdAdrlink.to.slug.value)}"`,
-              `status="${mdAdrlink.to.status.name}"`
+              `slug="${htmlentities(mdAdrLink.to.slug.value)}"`,
+              `status="${mdAdrLink.to.status.name}"`
             ];
-            if (mdAdrlink.to.title) {
-              params.push(`title="${htmlentities(mdAdrlink.to.title)}"`);
+            if (mdAdrLink.to.title) {
+              params.push(`title="${htmlentities(mdAdrLink.to.title)}"`);
             }
-            if (mdAdrlink.to.package) {
+            if (mdAdrLink.to.package) {
               params.push(
-                `package="${htmlentities(mdAdrlink.to.package.name)}"`
+                `package="${htmlentities(mdAdrLink.to.package.name)}"`
               );
             }
             if (
               ![
-                mdAdrlink.to.slug.value.toLowerCase(),
-                mdAdrlink.to.slug.namePart.toLowerCase()
+                mdAdrLink.to.slug.value.toLowerCase(),
+                mdAdrLink.to.slug.namePart.toLowerCase()
               ].includes(link.text.toLowerCase().trim())
             ) {
               params.push(`customLabel="${htmlentities(link.text)}"`);

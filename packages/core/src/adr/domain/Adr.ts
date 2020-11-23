@@ -2,23 +2,30 @@ import { AggregateRoot } from "@src/domain";
 import { AdrFile } from "./AdrFile";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
-import { MarkdownBody } from "./MarkdownBody";
+import type { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 import { AdrRelation } from "./AdrRelation";
 import { Author } from "./Author";
+
+type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 type Props = {
   slug: AdrSlug;
   package?: PackageRef;
   body: MarkdownBody;
   file?: AdrFile; // set by the repository after save()
-  creationDate?: Date; // set by the repository after save() or automatically set to now()
-  lastEditDate?: Date; // set by the repository after save() or automatically set to now()
-  lastEditAuthor?: Author; // set by the repository after save() or automatically set to anonymous
+  creationDate: Date; // set by the repository after save() or automatically set to now()
+  lastEditDate: Date; // set by the repository after save() or automatically set to now()
+  lastEditAuthor: Author; // set by the repository after save() or automatically set to anonymous
 };
 
 export class Adr extends AggregateRoot<Props> {
-  constructor(props: Props) {
+  constructor(
+    props: WithOptional<
+      Props,
+      "creationDate" | "lastEditDate" | "lastEditAuthor"
+    >
+  ) {
     super({
       creationDate: props.creationDate || new Date(),
       lastEditDate: props.lastEditDate || new Date(),
@@ -44,15 +51,15 @@ export class Adr extends AggregateRoot<Props> {
   }
 
   get creationDate(): Date {
-    return this.props.creationDate!;
+    return this.props.creationDate;
   }
 
   get lastEditDate(): Date {
-    return this.props.lastEditDate!;
+    return this.props.lastEditDate;
   }
 
   get lastEditAuthor(): Author {
-    return this.props.lastEditAuthor!;
+    return this.props.lastEditAuthor;
   }
 
   get title(): string | undefined {

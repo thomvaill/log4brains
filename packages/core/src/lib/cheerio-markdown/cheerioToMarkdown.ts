@@ -11,8 +11,10 @@ export function cheerioToMarkdown(
   const copy = cheerio.load(html);
 
   if (keepLinks) {
-    copy("a").each((i, elt) => {
-      copy(elt).text(`[${copy(elt).text()}](${copy(elt).attr("href")})`);
+    copy("a").each((i, linkElt) => {
+      copy(linkElt).text(
+        `[${copy(linkElt).text()}](${copy(linkElt).attr("href")})`
+      );
     });
   }
 

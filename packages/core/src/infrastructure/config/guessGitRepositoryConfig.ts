@@ -6,9 +6,14 @@ import { GitRepositoryConfig, Log4brainsConfig, gitProviders } from "./schema";
 type GitRemoteConfig = {
   url: string;
 };
-function isGitRemoteConfig(remoteConfig: any): remoteConfig is GitRemoteConfig {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  return typeof remoteConfig === "object" && remoteConfig.url !== undefined;
+function isGitRemoteConfig(
+  remoteConfig: unknown
+): remoteConfig is GitRemoteConfig {
+  return (
+    typeof remoteConfig === "object" &&
+    remoteConfig !== null &&
+    "url" in remoteConfig
+  );
 }
 
 export function guessGitRepositoryConfig(

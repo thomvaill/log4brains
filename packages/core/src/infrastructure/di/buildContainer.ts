@@ -37,7 +37,7 @@ export function buildContainer(
   Object.values(repositories).forEach((Repository) => {
     container.register(
       lowerCaseFirstLetter(Repository.name),
-      asClass<any>(Repository).singleton()
+      asClass<unknown>(Repository).singleton()
     );
   });
 

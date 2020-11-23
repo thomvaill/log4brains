@@ -1,5 +1,5 @@
 import { ValueObject } from "@src/domain";
-import { Adr } from "./Adr";
+import type { Adr } from "./Adr";
 import { MarkdownAdrLink } from "./MarkdownAdrLink";
 
 type Props = {

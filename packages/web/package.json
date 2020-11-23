@@ -17,8 +17,8 @@
     "serve": "serve .log4brains/out",
     "typescript": "tsc",
     "test": "jest",
-    "lint": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/out/' --max-warnings=0 --fix",
+    "lint": "eslint . --ext ts,tsx --ignore-pattern '/dist/' --max-warnings=0",
+    "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/dist/' --max-warnings=0 --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
