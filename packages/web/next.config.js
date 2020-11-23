@@ -1,8 +1,13 @@
+const path = require("path");
+const fs = require("fs");
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true"
 });
 
-const packageJson = require("./package.json");
+const packageJson = require(`${
+  fs.existsSync(path.join(__dirname, "package.json")) ? "./" : "../"
+}package.json`);
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
