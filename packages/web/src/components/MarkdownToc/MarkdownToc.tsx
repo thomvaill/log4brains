@@ -6,6 +6,7 @@ import {
   Toc as TocModel,
   TocBuilder as TocModelBuilder
 } from "../../lib/toc-utils";
+import { MarkdownHeading, MarkdownHeadingProps } from "../MarkdownHeading";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,14 +30,19 @@ function variantToLevel(variant: string): number {
   return parseInt(variant.replace("h", ""), 10);
 }
 
+function isMarkdownHeadingElement(
+  element: JSX.Element
+): element is React.ReactElement<MarkdownHeadingProps> {
+  return typeof element.type === "function" && element.type === MarkdownHeading;
+}
+
 function buildTocModelFromContent(
-  content: JSX.Element[] | JSX.Element,
+  content: React.ReactElement,
   levelStart = 1
 ): TocModel {
   const builder = new TocModelBuilder();
-  (Array.isArray(content) ? content : [content]).forEach((element) => {
-    // Ugly hack to be able to identity headings
-    if (typeof element.type === "function" && element.type.LOG4BRAINS_HEADING) {
+  React.Children.forEach(content, (element) => {
+    if (isMarkdownHeadingElement(element)) {
       builder.addSection(
         variantToLevel(element.props.variant) - levelStart + 1,
         element.props.children,
@@ -49,7 +55,6 @@ function buildTocModelFromContent(
 }
 
 type TocSectionProps = {
-  className?: string;
   children: React.ReactNode;
   title: string;
   id: string;
@@ -68,7 +73,7 @@ function TocSection({ title, id, children }: TocSectionProps) {
 
 export type MarkdownTocProps = {
   className?: string;
-  content?: JSX.Element[] | JSX.Element;
+  content?: React.ReactElement;
   levelStart?: number;
 };
 

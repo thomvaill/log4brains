@@ -1,11 +1,11 @@
 import React from "react";
 import { AdrDtoStatus } from "@log4brains/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Link as MuiLink } from "@material-ui/core";
 import Link from "next/link";
 import clsx from "clsx";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     // TODO: refactor with AdrMenu.tsx
     draftLink: {},
@@ -26,18 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
 type AdrLinkProps = {
   slug: string;
   status: AdrDtoStatus;
+  // eslint-disable-next-line react/no-unused-prop-types
   package?: string;
   title?: string;
   customLabel?: string;
 };
 
-export function AdrLink({
-  slug,
-  status,
-  package: packageName,
-  title,
-  customLabel
-}: AdrLinkProps) {
+export function AdrLink({ slug, status, title, customLabel }: AdrLinkProps) {
   const classes = useStyles();
 
   return (

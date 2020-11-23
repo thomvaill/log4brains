@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Alert } from "@material-ui/lab";
 import { CustomTheme } from "../../mui";
 import { Markdown, MarkdownToc, TwoColContent } from "../../components";
+// eslint-disable-next-line import/no-cycle
 import { ConnectedAdrBrowserLayout } from "../../layouts";
 import { AdrHeader } from "./components";
 import {
@@ -64,7 +65,7 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
   const adrNav = React.useContext(AdrNavContext);
 
   const [mdContent, setMdContent] = React.useState<
-    JSX.Element[] | JSX.Element | undefined
+    React.ReactElement | undefined
   >(undefined);
 
   if (!currentAdr) {

@@ -1,12 +1,12 @@
 import React from "react";
 import {
   AppBar,
-  Divider,
+  // Divider,
   Drawer,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
+  // ListItem,
+  // ListItemIcon,
+  // ListItemText,
   Toolbar,
   Link as MuiLink,
   Typography,
@@ -17,10 +17,10 @@ import {
   Fade
 } from "@material-ui/core";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import {
-  ChevronRight as ChevronRightIcon,
-  PlaylistAddCheck as PlaylistAddCheckIcon
-} from "@material-ui/icons";
+// import {
+//   ChevronRight as ChevronRightIcon,
+//   PlaylistAddCheck as PlaylistAddCheckIcon
+// } from "@material-ui/icons";
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
@@ -191,7 +191,6 @@ export type AdrBrowserLayoutProps = {
   currentAdr?: AdrLight;
   children: React.ReactNode;
   routing?: boolean;
-  backlog?: boolean;
   l4bVersion: string;
 };
 
@@ -201,7 +200,6 @@ export function AdrBrowserLayout({
   currentAdr,
   children,
   routing = false,
-  backlog = false,
   l4bVersion
 }: AdrBrowserLayoutProps) {
   const classes = useStyles();
@@ -298,7 +296,7 @@ export function AdrBrowserLayout({
             style={{ transformOrigin: "center left" }}
           >
             <AdrMenu
-              adrs={adrs!}
+              adrs={adrs}
               currentAdrSlug={currentAdr?.slug}
               className={classes.adrMenu}
             />

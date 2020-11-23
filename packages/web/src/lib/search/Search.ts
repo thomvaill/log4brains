@@ -7,7 +7,7 @@ type AdrForSearch = {
   verbatim: string; // body without Markdown or HTML tags, without recurring headers
 };
 
-type SerializedIndex = {
+export type SerializedIndex = {
   lunr: object;
   adrs: [string, AdrForSearch][];
 };
@@ -46,10 +46,13 @@ export class Search {
   search(query: string): SearchResult[] {
     return this.index.search(`${query}*`).map((result) => {
       const adr = this.adrs.get(result.ref);
+      if (!adr) {
+        throw new Error(`Invalid Search instance: missing ADR "${result.ref}"`);
+      }
       return {
         slug: result.ref,
         href: `/adr/${result.ref}`,
-        title: adr!.title,
+        title: adr.title,
         score: result.score
       };
     });
@@ -74,6 +77,7 @@ export class Search {
       builder.ref("slug");
       builder.field("title", { boost: 1000 });
       builder.field("verbatim");
+      // eslint-disable-next-line no-param-reassign
       builder.metadataWhitelist = ["position"];
 
       adrsForSearch.forEach((adr, slug) => {

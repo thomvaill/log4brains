@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta } from "@storybook/react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
-import { MarkdownHeading } from "../Markdown/components/MarkdownHeading";
+import { MarkdownHeading } from "../MarkdownHeading";
 import { MarkdownToc } from "./MarkdownToc";
 
 const markdown = `# Header 1
@@ -44,7 +44,9 @@ const options = {
   }
 };
 
-const content = mdCompiler(markdown, options);
+const content = mdCompiler(markdown, options) as React.ReactElement<{
+  children: React.ReactElement;
+}>;
 
 export default {
   title: "MarkdownToc",

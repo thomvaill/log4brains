@@ -28,7 +28,8 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-default-export": "error",
     "@typescript-eslint/restrict-template-expressions": "off",
-    "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }]
+    "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
+    "sonarjs/no-duplicate-string": "off"
   },
   overrides: [
     // Specific rules for Jest tests only
@@ -38,7 +39,6 @@ module.exports = {
         "max-classes-per-file": "off",
         "import/no-extraneous-dependencies": "off",
         "no-new": "off",
-        "sonarjs/no-duplicate-string": "off",
         "no-empty": "off"
       }
     }

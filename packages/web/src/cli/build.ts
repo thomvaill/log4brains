@@ -13,6 +13,7 @@ export async function buildCommand(outPath: string): Promise<void> {
   logger.info("Building 🧠 log4brains static website...");
 
   const nextDir = getNextJsDir();
+  // eslint-disable-next-line global-require,import/no-dynamic-require,@typescript-eslint/no-var-requires
   const nextConfig = require(path.join(nextDir, "next.config.js")) as Record<
     string,
     unknown
@@ -33,6 +34,7 @@ export async function buildCommand(outPath: string): Promise<void> {
   };
 
   logger.debug("Running `next build`...");
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await build(nextDir, nextCustomConfig);
 

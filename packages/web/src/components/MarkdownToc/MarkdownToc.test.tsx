@@ -1,7 +1,7 @@
 import React from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
 import TestRenderer from "react-test-renderer";
-import { MarkdownHeading } from "../Markdown/components/MarkdownHeading";
+import { MarkdownHeading } from "../MarkdownHeading";
 import { MarkdownToc } from "./MarkdownToc";
 
 const markdown = `# Header 1
@@ -48,9 +48,7 @@ describe("Toc", () => {
   const content = mdCompiler(markdown, options);
 
   it("renders correctly", () => {
-    const tree = TestRenderer.create(
-      <MarkdownToc content={content.props.children} />
-    );
+    const tree = TestRenderer.create(<MarkdownToc content={content} />);
     expect(tree.toJSON()).toMatchSnapshot();
   });
 });

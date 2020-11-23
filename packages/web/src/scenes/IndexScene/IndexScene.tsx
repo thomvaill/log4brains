@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { Markdown, TwoColContent } from "../../components";
+// eslint-disable-next-line import/no-cycle
 import { ConnectedAdrBrowserLayout } from "../../layouts";
 
 export type IndexSceneProps = {

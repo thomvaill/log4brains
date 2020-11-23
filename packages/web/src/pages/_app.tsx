@@ -5,10 +5,14 @@ import { NextComponentType, NextPageContext } from "next";
 import { MuiDecorator } from "../mui";
 import { Log4brainsMode, Log4brainsModeContext } from "../contexts";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentWithLayout<P> = NextComponentType<NextPageContext, any, P> & {
-  getLayout?: (page: JSX.Element, layoutProps: any) => JSX.Element;
+  getLayout?: (
+    page: JSX.Element,
+    layoutProps: Record<string, unknown>
+  ) => JSX.Element;
 };
-type AppPropsWithLayout<P = {}> = AppProps<P> & {
+type AppPropsWithLayout<P = Record<string, unknown>> = AppProps<P> & {
   Component: ComponentWithLayout<P>;
 };
 

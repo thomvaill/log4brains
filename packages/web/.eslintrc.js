@@ -32,8 +32,14 @@ module.exports = {
         unnamedComponents: "arrow-function"
       }
     ],
+    // defaultProps are deprecated for functional components (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md)
+    "react/require-default-props": [2, { ignoreFunctionalComponents: true }],
     // [Project-specific] we allow props spreading because we have too many HOC
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    // [Project-specific] allow void for floating Promises (for React.useEffect() with async functions)
+    "no-void": [2, { allowAsStatement: true }],
+    // React functions are usually more complex than regular functions
+    "sonarjs/cognitive-complexity": [2, 18]
   },
   overrides: [
     // Specific rules for TSX only

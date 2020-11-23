@@ -20,8 +20,9 @@ export async function previewCommand(port: number): Promise<void> {
    * In fact, we trigger a page re-render every time an ADR changes and we absolutely need up-to-date data on every render.
    * The "serve stale data while revalidating" Next.JS policy is not suitable for us.
    */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  app.incrementalCache.incrementalOptions.dev = true;
+  app.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 
   await app.prepare();
 

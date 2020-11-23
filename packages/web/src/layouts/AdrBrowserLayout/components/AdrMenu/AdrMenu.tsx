@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-  adrs: AdrLight[];
+  adrs?: AdrLight[];
   currentAdrSlug?: string;
   className?: string;
 };
@@ -115,7 +115,7 @@ export function AdrMenu({ adrs, currentAdrSlug, className, ...props }: Props) {
   const classes = useStyles();
 
   if (adrs === undefined) {
-    return null; // Specific case during Next.js pre-rendering
+    return null; // Because inside a <Grow>
   }
 
   let lastDateString = "";

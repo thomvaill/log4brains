@@ -1,7 +1,6 @@
 import { Log4brainsError } from "@log4brains/core";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getLog4brainsInstance, logger } from "../../../lib";
-import { toAdr } from "../../../types";
 
 export default async (
   req: NextApiRequest,

@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import cheerio from "cheerio";
 import MarkdownIt from "markdown-it";
 import { markdownItSourceMap } from "./markdown-it-source-map-plugin";

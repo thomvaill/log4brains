@@ -5,12 +5,14 @@ import type { FileWatcherEvent } from "@log4brains/core";
 import { Adr, AdrLight } from "../../types";
 import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
 import { AdrBrowserLayout, AdrBrowserLayoutProps } from "./AdrBrowserLayout";
+// eslint-disable-next-line import/no-cycle
 import {
   AdrScene,
   AdrSceneProps,
   IndexScene,
   IndexSceneProps
 } from "../../scenes";
+import { debug } from "../../lib/debug";
 
 function isReactElement(
   component: React.ReactNode
@@ -51,6 +53,7 @@ async function hotReloadCurrentPage(): Promise<void> {
    * In fact, we trigger a page re-render every time an ADR changes and we absolutely need up-to-date data on every render.
    * So we force a new request to the server.
    */
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   Router.router.sdc = {};
 
@@ -95,7 +98,7 @@ export function ConnectedAdrBrowserLayout(
   }, [mode]);
 
   React.useEffect(() => {
-    updateAdrsList();
+    void updateAdrsList();
   }, [updateAdrsList]);
 
   // Routing progress bar
@@ -111,9 +114,7 @@ export function ConnectedAdrBrowserLayout(
 
     const socket = io();
     socket.on("FileWatcher", async (event: FileWatcherEvent) => {
-      if (process.env.NODE_ENV === "development") {
-        console.log(`[FileWatcher] ${event.type} - ${event.relativePath}`);
-      }
+      debug(`[FileWatcher] ${event.type} - ${event.relativePath}`);
 
       const child = React.Children.only(latestProps.current.children);
       const isMdFile = event.relativePath.toLowerCase().endsWith(".md");

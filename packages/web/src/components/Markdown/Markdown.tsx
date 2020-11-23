@@ -1,9 +1,14 @@
 import React, { useEffect, useMemo } from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Typography, Link as MuiLink } from "@material-ui/core";
+import {
+  Typography,
+  Link as MuiLink,
+  TypographyProps
+} from "@material-ui/core";
 import { CustomTheme } from "../../mui";
-import { AdrLink, MarkdownHeading } from "./components";
+import { AdrLink } from "./components";
+import { MarkdownHeading } from "../MarkdownHeading";
 import { slugify } from "../../lib/slugify";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
@@ -14,7 +19,7 @@ const useStyles = makeStyles((theme: CustomTheme) =>
   })
 );
 
-function Li(props: any) {
+function Li(props: TypographyProps) {
   const classes = useStyles();
   return (
     <li className={classes.listItem}>
@@ -52,18 +57,24 @@ const options = {
 type MarkdownProps = {
   className?: string;
   children: string;
-  onCompiled?: (content: JSX.Element[] | JSX.Element) => void;
+  onCompiled?: (content: React.ReactElement) => void;
 };
+
+function isReactElementWithChildren(
+  obj: JSX.Element
+): obj is React.ReactElement<{ children: React.ReactElement }> {
+  return "children" in obj.props; // TODO: improve tests here
+}
 
 export function Markdown({ className, children, onCompiled }: MarkdownProps) {
   const renderedMarkdown = useMemo(() => mdCompiler(children, options), [
     children
   ]);
   useEffect(() => {
-    if (onCompiled) {
+    if (onCompiled && isReactElementWithChildren(renderedMarkdown)) {
       onCompiled(renderedMarkdown.props.children);
     }
-  }, [children, renderedMarkdown.props.children, onCompiled]);
+  }, [children, renderedMarkdown, onCompiled]);
 
   return <div className={className}>{renderedMarkdown}</div>;
 }
