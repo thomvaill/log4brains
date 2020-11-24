@@ -28,6 +28,13 @@ describe("SearchAdrsQueryHandler", () => {
 
   const handler = new SearchAdrsQueryHandler({ adrRepository });
 
+  beforeAll(() => {
+    Adr.setTz("Etc/UTC");
+  });
+  afterAll(() => {
+    Adr.clearTz();
+  });
+
   beforeEach(() => {
     mockClear(adrRepository);
   });

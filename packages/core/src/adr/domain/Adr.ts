@@ -1,4 +1,5 @@
-import { AggregateRoot } from "@src/domain";
+import moment from "moment-timezone";
+import { AggregateRoot, Log4brainsError } from "@src/domain";
 import { AdrFile } from "./AdrFile";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
@@ -6,6 +7,9 @@ import type { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 import { AdrRelation } from "./AdrRelation";
 import { Author } from "./Author";
+
+// TODO: make this configurable
+const dateFormats = ["YYYY-MM-DD", "DD/MM/YYYY"];
 
 type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -20,6 +24,14 @@ type Props = {
 };
 
 export class Adr extends AggregateRoot<Props> {
+  /**
+   * Global TimeZone.
+   * This static property must be set at startup with Adr.setTz(), otherwise it will throw an Error.
+   * This dirty behavior is temporary, until we get a better vision on how to deal with timezones in the project.
+   * TODO: refactor
+   */
+  private static tz?: string;
+
   constructor(
     props: WithOptional<
       Props,
@@ -32,6 +44,26 @@ export class Adr extends AggregateRoot<Props> {
       lastEditAuthor: props.lastEditAuthor || Author.createAnonymous(),
       ...props
     });
+  }
+
+  /**
+   * @see Adr.tz
+   */
+  static setTz(tz: string): void {
+    if (Adr.tz) {
+      throw new Log4brainsError("Adr.setTz() must be called only once!");
+    }
+    if (!moment.tz.zone(tz)) {
+      throw new Log4brainsError("Unknown timezone", Adr.tz);
+    }
+    Adr.tz = tz;
+  }
+
+  /**
+   * For test purposes only
+   */
+  static clearTz(): void {
+    Adr.tz = undefined;
   }
 
   get slug(): AdrSlug {
@@ -92,21 +124,29 @@ export class Adr extends AggregateRoot<Props> {
   }
 
   get publicationDate(): Date | undefined {
+    if (!Adr.tz) {
+      throw new Log4brainsError("Adr.setTz() must be called at startup!");
+    }
+
     const dateStr = this.body.getHeaderMetadata("date");
     if (!dateStr) {
       return undefined;
     }
-    const date = new Date(dateStr);
-    if (!date) {
-      return undefined;
+
+    // We set hours on 23:59:59 local time for sorting reasons:
+    // Because an ADR without a publication date is sorted based on its creationDate.
+    // And usually, ADRs created on the same publicationDate of another ADR are older than this one.
+    // This enables us to have a consistent behavior in sorting.
+    const date = moment.tz(
+      `${dateStr} 23:59:59`,
+      dateFormats.map((format) => `${format} HH:mm:ss`),
+      true,
+      Adr.tz
+    );
+    if (!date.isValid()) {
+      return undefined; // TODO: warning
     }
-
-    // For sorting purpose:
-    // An ADR without a publication date is sorted based on its creationDate.
-    // Usually, ADRs created on the same publicationDate of another ADR are older than this one.
-    date.setHours(23, 59, 59);
-
-    return date;
+    return date.toDate();
   }
 
   get tags(): string[] {

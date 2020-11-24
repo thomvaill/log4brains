@@ -7,6 +7,13 @@ import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 
 describe("MarkdownAdrLink", () => {
+  beforeAll(() => {
+    Adr.setTz("Etc/UTC");
+  });
+  afterAll(() => {
+    Adr.clearTz();
+  });
+
   it("works with relative paths", () => {
     const from = new Adr({
       slug: new AdrSlug("from"),

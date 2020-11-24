@@ -32,6 +32,7 @@
     "markdown-it": "^11.0.1",
     "markdown-it-source-map": "^0.1.1",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
     "neverthrow": "^2.7.1",
     "open": "^7.3.0",
     "parse-git-config": "^3.0.0",

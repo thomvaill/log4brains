@@ -1,6 +1,7 @@
 ---
 project:
   name: log4brains-tests-rw
+  tz: Europe/Paris
   adrFolder: ./docs/adr
 
   packages:

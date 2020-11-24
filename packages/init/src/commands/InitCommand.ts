@@ -9,7 +9,7 @@ import mkdirp from "mkdirp";
 import yaml from "yaml";
 import path from "path";
 import editJsonFile from "edit-json-file";
-import moment from "moment";
+import moment from "moment-timezone";
 import { Console } from "../console";
 import { FailureExit } from "./FailureExit";
 
@@ -30,6 +30,7 @@ type L4bYmlPackageConfig = {
 type L4bYmlConfig = {
   project: {
     name: string;
+    tz: string;
     adrFolder: string;
     packages?: L4bYmlPackageConfig[];
   };
@@ -240,6 +241,7 @@ export class InitCommand {
     return {
       project: {
         name,
+        tz: moment.tz.guess(),
         adrFolder,
         packages
       }

@@ -46,6 +46,9 @@ export class Log4brains {
     this.commandBus = this.container.resolve<CommandBus>("commandBus");
     this.queryBus = this.container.resolve<QueryBus>("queryBus");
     this.adrRepository = this.container.resolve<AdrRepository>("adrRepository");
+
+    // @see Adr.tz
+    Adr.setTz(config.project.tz);
   }
 
   /**

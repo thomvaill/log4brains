@@ -1,3 +1,4 @@
+import moment from "moment-timezone";
 import { Adr } from "./Adr";
 import { AdrSlug } from "./AdrSlug";
 import { AdrStatus } from "./AdrStatus";
@@ -5,6 +6,13 @@ import { MarkdownAdrLink } from "./MarkdownAdrLink";
 import { MarkdownBody } from "./MarkdownBody";
 
 describe("Adr", () => {
+  beforeAll(() => {
+    Adr.setTz("Etc/UTC");
+  });
+  afterAll(() => {
+    Adr.clearTz();
+  });
+
   describe("get title()", () => {
     it("returns the title", () => {
       const adr = new Adr({
@@ -397,5 +405,36 @@ Link to an URL: [lorem ipsum](https://www.google.com/).
         expect([one, two].sort(Adr.compare)).toEqual([one, two]);
       });
     });
+  });
+});
+
+describe("Adr - timezones", () => {
+  it("fails when not calling setTz() before getting publicationDate", () => {
+    expect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      new Adr({
+        slug: new AdrSlug("test"),
+        body: new MarkdownBody(`# Lorem Ipsum`)
+      }).publicationDate;
+    }).toThrow();
+  });
+
+  test("timezone works", () => {
+    Adr.setTz("Europe/Paris");
+
+    const expectedDate = moment.tz("2020-01-01 23:59:59", "Europe/Paris");
+    const adr = new Adr({
+      slug: new AdrSlug("test"),
+      body: new MarkdownBody(`# Lorem Ipsum
+
+ - Date: ${expectedDate.format("YYYY-MM-DD")}
+`)
+    });
+
+    expect(adr.publicationDate?.toJSON()).toEqual(
+      expectedDate.toDate().toJSON()
+    );
+
+    Adr.clearTz();
   });
 });

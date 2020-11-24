@@ -1,9 +1,17 @@
+import { Adr } from "./Adr";
 import { AdrSlug } from "./AdrSlug";
 import { AdrTemplate } from "./AdrTemplate";
 import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 
 describe("AdrTemplate", () => {
+  beforeAll(() => {
+    Adr.setTz("Etc/UTC");
+  });
+  afterAll(() => {
+    Adr.clearTz();
+  });
+
   const tplMarkdown = `# [short title of solved problem and solution]
 
   - Status: [draft | proposed | rejected | accepted | deprecated | … | superseded by [ADR-0005](0005-example.md)] <!-- optional -->

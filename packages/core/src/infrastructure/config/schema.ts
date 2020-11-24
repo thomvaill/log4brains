@@ -35,6 +35,7 @@ const gitRepositorySchema = Joi.object({
 
 type ProjectConfig = Readonly<{
   name: string;
+  tz: string;
   adrFolder: string;
   packages?: ProjectPackageConfig[];
   repository?: GitRepositoryConfig;
@@ -42,6 +43,7 @@ type ProjectConfig = Readonly<{
 
 const projectSchema = Joi.object({
   name: Joi.string().hostname().required(),
+  tz: Joi.string().required(),
   adrFolder: Joi.string().required(),
   packages: Joi.array().items(projectPackageSchema),
   repository: gitRepositorySchema

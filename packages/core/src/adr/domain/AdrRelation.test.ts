@@ -7,6 +7,13 @@ import { MarkdownBody } from "./MarkdownBody";
 import { PackageRef } from "./PackageRef";
 
 describe("AdrRelation", () => {
+  beforeAll(() => {
+    Adr.setTz("Etc/UTC");
+  });
+  afterAll(() => {
+    Adr.clearTz();
+  });
+
   it("correctly prints to markdown", () => {
     const from = new Adr({
       slug: new AdrSlug("from"),
