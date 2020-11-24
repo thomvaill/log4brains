@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import fs, { promises as fsP } from "fs";
 import path from "path";
-import simpleGit, { CheckRepoActions, SimpleGit } from "simple-git";
+import simpleGit, { SimpleGit } from "simple-git";
 import { AdrRepository as IAdrRepository } from "@src/adr/application";
 import {
   Adr,
