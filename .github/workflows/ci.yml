@@ -114,8 +114,11 @@ jobs:
       #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
       #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
 
-      - name: link packages for @log4brains/init tests
-        run: yarn links
+      # We have to build all the packages before the tests
+      # Because @log4brains/init's integration tests use @log4brains/cli, which uses @log4brains/core
+      # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
+      - name: build
+        run: yarn build && yarn links
 
       - name: test changed packages
         if: ${{ steps.yarn-lock.outcome == 'success' }}
@@ -124,9 +127,6 @@ jobs:
       - name: test all packages
         if: ${{ steps.yarn-lock.outcome == 'failure' }}
         run: yarn test
-
-      - name: build
-        run: yarn build
 
       - name: E2E tests
         run: yarn e2e
