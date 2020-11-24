@@ -11,8 +11,8 @@ jobs:
     strategy:
       # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
-        node-version: [14.x]
         os: [ubuntu-latest]
+        node-version: [14.x]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -64,8 +64,8 @@ jobs:
     needs: quality
     strategy:
       matrix:
-        node-version: [14.x, 12.x, 10.x]
         os: [ubuntu-latest, windows-latest]
+        node-version: [14.x, 12.x, 10.x]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
