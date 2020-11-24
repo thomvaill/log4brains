@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import fs, { promises as fsP } from "fs";
 import path from "path";
-import simpleGit, { SimpleGit } from "simple-git";
+import simpleGit, { CheckRepoActions, SimpleGit } from "simple-git";
 import { AdrRepository as IAdrRepository } from "@src/adr/application";
 import {
   Adr,
@@ -35,7 +35,9 @@ export class AdrRepository implements IAdrRepository {
 
   private readonly packageRepository: PackageRepository;
 
-  private readonly git?: SimpleGit;
+  private readonly git: SimpleGit;
+
+  private gitAvailable?: boolean;
 
   private readonly markdownAdrLinkResolver: MarkdownAdrLinkResolver;
 
@@ -43,12 +45,21 @@ export class AdrRepository implements IAdrRepository {
     this.config = config;
     this.workdir = workdir;
     this.packageRepository = packageRepository;
-    if (fs.existsSync(path.join(workdir, ".git"))) {
-      this.git = simpleGit({ baseDir: workdir });
-    }
+    this.git = simpleGit({ baseDir: workdir });
     this.markdownAdrLinkResolver = new MarkdownAdrLinkResolver({
       adrRepository: this
     });
+  }
+
+  private async isGitAvailable(): Promise<boolean> {
+    if (this.gitAvailable === undefined) {
+      try {
+        this.gitAvailable = await this.git.checkIsRepo();
+      } catch (e) {
+        this.gitAvailable = false;
+      }
+    }
+    return this.gitAvailable;
   }
 
   async find(slug: AdrSlug): Promise<Adr> {
@@ -97,7 +108,7 @@ export class AdrRepository implements IAdrRepository {
   private async getCreationDateFromGit(
     file: AdrFile
   ): Promise<Date | undefined> {
-    if (!this.git) {
+    if (!(await this.isGitAvailable())) {
       return undefined;
     }
     const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
@@ -111,7 +122,7 @@ export class AdrRepository implements IAdrRepository {
   private async getLastEditDateAndAuthorFromGit(
     file: AdrFile
   ): Promise<DateAndAuthor | undefined> {
-    if (!this.git) {
+    if (!(await this.isGitAvailable())) {
       return undefined;
     }
     const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
@@ -126,7 +137,7 @@ export class AdrRepository implements IAdrRepository {
   }
 
   private async getAuthorFromGitConfig(): Promise<Author> {
-    if (this.git) {
+    if (await this.isGitAvailable()) {
       const config = await this.git.listConfig();
       if (config?.all["user.name"]) {
         return new Author(
