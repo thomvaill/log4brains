@@ -11,8 +11,8 @@
   "license": "Apache-2.0",
   "private": false,
   "scripts": {
-    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json watch",
-    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json",
+    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node watch",
+    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "test": "jest",
@@ -24,6 +24,7 @@
     "awilix": "^4.2.6",
     "cheerio": "^1.0.0-rc.3",
     "chokidar": "^3.4.3",
+    "core-js": "^3.7.0",
     "git-url-parse": "^11.4.0",
     "joi": "^17.2.1",
     "launch-editor": "^2.2.1",

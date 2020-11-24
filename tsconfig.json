@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2019", // Transpiled later by Next.js or microbundle with Babel
+    "target": "ES2018", // Transpiled later by Next.js or microbundle with Babel
     "module": "esnext", // Microbundle/rollup will also generate a commonJS-compatible package
     "moduleResolution": "node",
     "resolveJsonModule": true,

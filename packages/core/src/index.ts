@@ -1,3 +1,5 @@
+import "./polyfills";
+
 export * from "./infrastructure/api";
 export * from "./infrastructure/file-watcher";
 export { Log4brainsError } from "./domain";
