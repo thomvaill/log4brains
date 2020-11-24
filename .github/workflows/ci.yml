@@ -114,6 +114,9 @@ jobs:
       #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
       #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
 
+      - name: link packages for @log4brains/init tests
+        run: yarn links
+
       - name: test changed packages
         if: ${{ steps.yarn-lock.outcome == 'success' }}
         run: yarn test --since origin/master
@@ -126,4 +129,4 @@ jobs:
         run: yarn build
 
       - name: E2E tests
-        run: yarn links && yarn e2e
+        run: yarn e2e
