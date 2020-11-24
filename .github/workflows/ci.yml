@@ -123,4 +123,4 @@ jobs:
         run: yarn build
 
       - name: E2E tests
-        run: yarn link && yarn e2e
+        run: yarn links && yarn e2e
