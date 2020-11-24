@@ -73,6 +73,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # fetch all history to make Jest snapshot tests work
+
       - name: fetch branch master
         run: git fetch origin master
 
