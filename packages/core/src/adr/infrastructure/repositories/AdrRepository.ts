@@ -111,8 +111,7 @@ export class AdrRepository implements IAdrRepository {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
-    const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
-      .all;
+    const logs = (await this.git.log([file.path.pathRelativeToCwd])).all;
     if (!logs || logs.length === 0) {
       return undefined;
     }
@@ -125,8 +124,7 @@ export class AdrRepository implements IAdrRepository {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
-    const logs = (await this.git.log({ file: file.path.pathRelativeToCwd }))
-      .all;
+    const logs = (await this.git.log([file.path.pathRelativeToCwd])).all;
     if (!logs || logs.length === 0) {
       return undefined;
     }

@@ -32,7 +32,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
   },
-  "creationDate": "2020-10-28T09:56:38.000Z",
+  "creationDate": "2020-11-19T11:33:33.000Z",
   "deciders": Array [
     "John Doe",
     "Foo bar",
@@ -65,9 +65,6 @@ Array [
   "20200102-adr-without-status",
   "20200102-adr-without-title",
   "adr_with_a_WeIrd-filename",
-  "20201028-adr-with-no-metadata",
-  "20201028-adr-without-date",
-  "package1/20201028-adr-without-date",
   "20201028-links",
   "package1/20201028-links-in-package",
   "package2/20201028-links-to-another-package",
@@ -77,7 +74,10 @@ Array [
   "20201029-rejected-adr",
   "20201029-superseder",
   "20201030-draft-adr",
+  "20201028-adr-with-no-metadata",
   "20201028-adr-with-no-metadata-no-title",
+  "20201028-adr-without-date",
+  "package1/20201028-adr-without-date",
 ]
 `;
 
@@ -167,7 +167,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -213,7 +213,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20200102-adr-only-with-date.md",
@@ -312,7 +312,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [
       "John Doe",
     ],
@@ -359,7 +359,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -406,7 +406,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/adr_with_a_WeIrd-filename.md",
@@ -421,148 +421,6 @@ Lorem ipsum.
     "supersededBy": null,
     "tags": Array [],
     "title": "ADR with a weird filename",
-  },
-  Object {
-    "body": Object {
-      "enhancedMdx": "
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-      "rawMarkdown": "# ADR with no metadata
-
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-    },
-    "creationDate": "2020-10-28T09:56:38.000Z",
-    "deciders": Array [],
-    "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
-      "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
-    },
-    "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-11-19T11:33:33.000Z",
-    "package": null,
-    "publicationDate": null,
-    "slug": "20201028-adr-with-no-metadata",
-    "status": "accepted",
-    "supersededBy": null,
-    "tags": Array [],
-    "title": "ADR with no metadata",
-  },
-  Object {
-    "body": Object {
-      "enhancedMdx": "
-Technical Story: lorem ipsum
-
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-      "rawMarkdown": "# ADR without date
-
-- Status: accepted
-- Deciders: John Doe, Foo bar
-- Tags: foo, bar
-
-Technical Story: lorem ipsum
-
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-    },
-    "creationDate": "2020-10-28T09:56:38.000Z",
-    "deciders": Array [
-      "John Doe",
-      "Foo bar",
-    ],
-    "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-without-date.md",
-      "relativePath": "docs/adr/20201028-adr-without-date.md",
-    },
-    "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-11-19T11:33:33.000Z",
-    "package": null,
-    "publicationDate": null,
-    "slug": "20201028-adr-without-date",
-    "status": "accepted",
-    "supersededBy": null,
-    "tags": Array [
-      "foo",
-      "bar",
-    ],
-    "title": "ADR without date",
-  },
-  Object {
-    "body": Object {
-      "enhancedMdx": "
-Technical Story: lorem ipsum
-
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-      "rawMarkdown": "# ADR without date (in package 1)
-
-- Status: accepted
-- Deciders: John Doe, Foo bar
-- Tags: foo, bar
-
-Technical Story: lorem ipsum
-
-## Context and Problem Statement
-
-Lorem ipsum.
-
-## Decision Outcome
-
-Lorem ipsum.
-",
-    },
-    "creationDate": "2020-10-28T09:56:38.000Z",
-    "deciders": Array [
-      "John Doe",
-      "Foo bar",
-    ],
-    "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-adr-without-date.md",
-      "relativePath": "packages/package1/adr/20201028-adr-without-date.md",
-    },
-    "lastEditAuthor": "Thomas Vaillant",
-    "lastEditDate": "2020-11-19T11:33:33.000Z",
-    "package": "package1",
-    "publicationDate": null,
-    "slug": "package1/20201028-adr-without-date",
-    "status": "accepted",
-    "supersededBy": null,
-    "tags": Array [
-      "foo",
-      "bar",
-    ],
-    "title": "ADR without date (in package 1)",
   },
   Object {
     "body": Object {
@@ -590,7 +448,7 @@ Lorem ipsum.
 - Link to a package: [package1/20200101-first-adr](../../packages/package1/adr/20200101-first-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-links.md",
@@ -634,7 +492,7 @@ Test link with partial slug: [20200101-first-adr](20200101-first-adr.md)
 - Relates to [package1/20201028-links-to-global](20201028-links-to-global.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-in-package.md",
@@ -668,7 +526,7 @@ Test link: [package1/20200101-first-adr](../../package1/adr/20200101-first-adr.m
 [Custom text](../../package1/adr/20200101-first-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package2/adr/20201028-links-to-another-package.md",
@@ -708,7 +566,7 @@ Lorem ipsum. Test link: [20200101-first-adr](../../docs/adr/20200101-first-adr.m
 - Relates to [20201028-links](../../docs/adr/20201028-links.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-to-global.md",
@@ -749,7 +607,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-superseded-adr.md",
@@ -790,7 +648,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-proposed-adr.md",
@@ -880,7 +738,7 @@ Lorem ipsum.
 - Supersedes [20201028-superseded-adr](20201028-superseded-adr.md)
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-superseder.md",
@@ -939,6 +797,44 @@ Lorem ipsum.
   },
   Object {
     "body": Object {
+      "enhancedMdx": "
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR with no metadata
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-11-19T11:33:33.000Z",
+    "deciders": Array [],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-11-19T11:33:33.000Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-with-no-metadata",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [],
+    "title": "ADR with no metadata",
+  },
+  Object {
+    "body": Object {
       "enhancedMdx": "## Context and Problem Statement
 
 Lorem ipsum.
@@ -971,6 +867,110 @@ Lorem ipsum.
     "supersededBy": null,
     "tags": Array [],
     "title": null,
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR without date
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-11-19T11:33:33.000Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-without-date.md",
+      "relativePath": "docs/adr/20201028-adr-without-date.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-11-19T11:33:33.000Z",
+    "package": null,
+    "publicationDate": null,
+    "slug": "20201028-adr-without-date",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "ADR without date",
+  },
+  Object {
+    "body": Object {
+      "enhancedMdx": "
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+      "rawMarkdown": "# ADR without date (in package 1)
+
+- Status: accepted
+- Deciders: John Doe, Foo bar
+- Tags: foo, bar
+
+Technical Story: lorem ipsum
+
+## Context and Problem Statement
+
+Lorem ipsum.
+
+## Decision Outcome
+
+Lorem ipsum.
+",
+    },
+    "creationDate": "2020-11-19T11:33:33.000Z",
+    "deciders": Array [
+      "John Doe",
+      "Foo bar",
+    ],
+    "file": Object {
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-adr-without-date.md",
+      "relativePath": "packages/package1/adr/20201028-adr-without-date.md",
+    },
+    "lastEditAuthor": "Thomas Vaillant",
+    "lastEditDate": "2020-11-19T11:33:33.000Z",
+    "package": "package1",
+    "publicationDate": null,
+    "slug": "package1/20201028-adr-without-date",
+    "status": "accepted",
+    "supersededBy": null,
+    "tags": Array [
+      "foo",
+      "bar",
+    ],
+    "title": "ADR without date (in package 1)",
   },
 ]
 `;
