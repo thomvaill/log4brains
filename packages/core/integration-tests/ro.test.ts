@@ -12,6 +12,8 @@ function prepareDataForSnapshot(data: any): any {
 }
 
 describe("E2E tests / RO", () => {
+  jest.setTimeout(1000 * 15);
+
   const instance = Log4brains.create(path.join(__dirname, "ro-project"));
 
   describe("searchAdrs()", () => {

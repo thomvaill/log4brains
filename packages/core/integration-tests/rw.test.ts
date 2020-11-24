@@ -13,6 +13,8 @@ function clean(): void {
 }
 
 describe("E2E tests / RW", () => {
+  jest.setTimeout(1000 * 15);
+
   beforeAll(clean);
   afterAll(clean);
 
