@@ -54,6 +54,10 @@ jobs:
         run: yarn install --frozen-lockfile
       # End of yarn setup
 
+      # TODO: make dev & test work without having to build core (inspiration: https://github.com/Izhaki/mono.ts)
+      - name: build core
+        run: yarn build --scope @log4brains/core
+
       - name: format
         run: yarn format
 
@@ -107,14 +111,6 @@ jobs:
       #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
       #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
 
-      - name: build changed packages
-        if: ${{ steps.yarn-lock.outcome == 'success' }}
-        run: yarn build --since origin/master
-
-      - name: build all packages
-        if: ${{ steps.yarn-lock.outcome == 'failure' }}
-        run: yarn build
-
       - name: test changed packages
         if: ${{ steps.yarn-lock.outcome == 'success' }}
         run: yarn test --since origin/master
@@ -122,6 +118,9 @@ jobs:
       - name: test all packages
         if: ${{ steps.yarn-lock.outcome == 'failure' }}
         run: yarn test
+
+      - name: build
+        run: yarn build
 
       - name: E2E tests
         run: yarn link && yarn e2e
