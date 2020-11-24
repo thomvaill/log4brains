@@ -65,7 +65,7 @@ Array [
   "20200102-adr-without-status",
   "20200102-adr-without-title",
   "adr_with_a_WeIrd-filename",
-  "20201028-adr-with-no-metadata-no-title",
+  "20201028-adr-with-no-metadata",
   "20201028-adr-without-date",
   "package1/20201028-adr-without-date",
   "20201028-links",
@@ -77,7 +77,7 @@ Array [
   "20201029-rejected-adr",
   "20201029-superseder",
   "20201030-draft-adr",
-  "20201028-adr-with-no-metadata",
+  "20201028-adr-with-no-metadata-no-title",
 ]
 `;
 
@@ -114,7 +114,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -264,7 +264,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [
       "John Doe",
       "Foo bar",
@@ -424,7 +424,8 @@ Lorem ipsum.
   },
   Object {
     "body": Object {
-      "enhancedMdx": "## Context and Problem Statement
+      "enhancedMdx": "
+## Context and Problem Statement
 
 Lorem ipsum.
 
@@ -432,7 +433,9 @@ Lorem ipsum.
 
 Lorem ipsum.
 ",
-      "rawMarkdown": "## Context and Problem Statement
+      "rawMarkdown": "# ADR with no metadata
+
+## Context and Problem Statement
 
 Lorem ipsum.
 
@@ -444,18 +447,18 @@ Lorem ipsum.
     "creationDate": "2020-10-28T09:56:38.000Z",
     "deciders": Array [],
     "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata-no-title.md",
-      "relativePath": "docs/adr/20201028-adr-with-no-metadata-no-title.md",
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
     "lastEditDate": "2020-11-19T11:33:33.000Z",
     "package": null,
     "publicationDate": null,
-    "slug": "20201028-adr-with-no-metadata-no-title",
+    "slug": "20201028-adr-with-no-metadata",
     "status": "accepted",
     "supersededBy": null,
     "tags": Array [],
-    "title": null,
+    "title": "ADR with no metadata",
   },
   Object {
     "body": Object {
@@ -705,7 +708,7 @@ Lorem ipsum. Test link: [20200101-first-adr](../../docs/adr/20200101-first-adr.m
 - Relates to [20201028-links](../../docs/adr/20201028-links.md)
 ",
     },
-    "creationDate": "2020-11-19T11:33:33.000Z",
+    "creationDate": "2020-10-28T09:56:38.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/packages/package1/adr/20201028-links-to-global.md",
@@ -828,7 +831,7 @@ Lorem ipsum.
 Lorem ipsum.
 ",
     },
-    "creationDate": "2020-10-28T09:56:38.000Z",
+    "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
       "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201029-rejected-adr.md",
@@ -936,8 +939,7 @@ Lorem ipsum.
   },
   Object {
     "body": Object {
-      "enhancedMdx": "
-## Context and Problem Statement
+      "enhancedMdx": "## Context and Problem Statement
 
 Lorem ipsum.
 
@@ -945,9 +947,7 @@ Lorem ipsum.
 
 Lorem ipsum.
 ",
-      "rawMarkdown": "# ADR with no metadata
-
-## Context and Problem Statement
+      "rawMarkdown": "## Context and Problem Statement
 
 Lorem ipsum.
 
@@ -959,18 +959,18 @@ Lorem ipsum.
     "creationDate": "2020-11-19T11:33:33.000Z",
     "deciders": Array [],
     "file": Object {
-      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata.md",
-      "relativePath": "docs/adr/20201028-adr-with-no-metadata.md",
+      "absolutePath": "/ABSOLUTE-PATH/ro-project/docs/adr/20201028-adr-with-no-metadata-no-title.md",
+      "relativePath": "docs/adr/20201028-adr-with-no-metadata-no-title.md",
     },
     "lastEditAuthor": "Thomas Vaillant",
     "lastEditDate": "2020-11-19T11:33:33.000Z",
     "package": null,
     "publicationDate": null,
-    "slug": "20201028-adr-with-no-metadata",
+    "slug": "20201028-adr-with-no-metadata-no-title",
     "status": "accepted",
     "supersededBy": null,
     "tags": Array [],
-    "title": "ADR with no metadata",
+    "title": null,
   },
 ]
 `;
