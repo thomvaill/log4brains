@@ -45,10 +45,14 @@ const options = {
 };
 
 describe("Toc", () => {
-  const content = mdCompiler(markdown, options);
+  const content = mdCompiler(markdown, options) as React.ReactElement<{
+    children: React.ReactElement;
+  }>;
 
   it("renders correctly", () => {
-    const tree = TestRenderer.create(<MarkdownToc content={content} />);
+    const tree = TestRenderer.create(
+      <MarkdownToc content={content.props.children} />
+    );
     expect(tree.toJSON()).toMatchSnapshot();
   });
 });
