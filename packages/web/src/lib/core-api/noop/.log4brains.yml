@@ -3,4 +3,5 @@
 # When we want to create a noop instance of Log4brains
 project:
   name: noop
+  tz: Etc/UTC
   adrFolder: ./noop-adrs
