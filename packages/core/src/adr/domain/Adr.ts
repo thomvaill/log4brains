@@ -50,9 +50,6 @@ export class Adr extends AggregateRoot<Props> {
    * @see Adr.tz
    */
   static setTz(tz: string): void {
-    if (Adr.tz) {
-      throw new Log4brainsError("Adr.setTz() must be called only once!");
-    }
     if (!moment.tz.zone(tz)) {
       throw new Log4brainsError("Unknown timezone", Adr.tz);
     }
