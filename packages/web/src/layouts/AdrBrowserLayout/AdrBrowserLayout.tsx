@@ -22,7 +22,6 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 //   PlaylistAddCheck as PlaylistAddCheckIcon
 // } from "@material-ui/icons";
 import Link from "next/link";
-import Image from "next/image";
 import clsx from "clsx";
 import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
@@ -215,7 +214,7 @@ export function AdrBrowserLayout({
           <Link href="/">
             <div className={classes.appBarTitle}>
               <div>
-                <Image
+                <img
                   src="/Log4brains-logo-dark.png"
                   alt="Log4brains logo"
                   width={50}
