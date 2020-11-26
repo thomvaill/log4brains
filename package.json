@@ -22,7 +22,8 @@
     "log4brains-web": "./packages/web/dist/bin/log4brains-web",
     "serve": "serve .log4brains/out",
     "links": "lerna exec --parallel --scope @log4brains/{cli,web} -- yarn link",
-    "e2e": "node e2e-tests/e2e-launcher.js"
+    "e2e": "node e2e-tests/e2e-launcher.js",
+    "lerna": "lerna"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",
