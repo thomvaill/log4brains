@@ -13,7 +13,7 @@
 </p>
 
 Log4brains is a 100% docs-as-code knowledge base for your development and infrastructure projects.
-It allows you to create Architecture Decision Records right from your IDE, and publish them automatically as a static website.
+It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
 
 ## Table of contents <!-- omit in toc -->
 
