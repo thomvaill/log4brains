@@ -1,11 +1,28 @@
 {
   "name": "@log4brains/web",
-  "version": "0.0.0",
-  "description": "Preview and publish your Architecture Decision Records (ADR) with log4brains",
-  "repository": "git@github.com:log4brains/log4brains.git",
-  "author": "Thomas Vaillant <thomas+github@bluebricks.dev>",
+  "version": "1.0.0-alpha.1",
+  "description": "Log4brains architecture knowledge base web UI and static site generator",
+  "keywords": [
+    "log4brains"
+  ],
+  "author": "Thomas Vaillant <thomas@bluebricks.dev>",
   "license": "Apache-2.0",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/web"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
   "bin": {
     "log4brains-web": "./dist/bin/log4brains-web"
   },

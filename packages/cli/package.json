@@ -1,11 +1,28 @@
 {
   "name": "@log4brains/cli",
-  "version": "0.0.0",
-  "description": "Manage your Architecture Decision Records (ADR) with log4brains",
-  "repository": "git@github.com:log4brains/log4brains.git",
-  "author": "Thomas Vaillant <thomas+github@bluebricks.dev>",
+  "version": "1.0.0-alpha.1",
+  "description": "Log4brains architecture knowledge base CLI",
+  "keywords": [
+    "log4brains"
+  ],
+  "author": "Thomas Vaillant <thomas@bluebricks.dev>",
   "license": "Apache-2.0",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/cli"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
   "bin": {
     "log4brains": "./dist/log4brains"
   },

@@ -1,11 +1,38 @@
 {
   "name": "@log4brains/init",
-  "version": "0.0.0",
-  "description": "Manage your Architecture Decision Records (ADR) with log4brains",
-  "repository": "git@github.com:log4brains/log4brains.git",
-  "author": "Thomas Vaillant <thomas+github@bluebricks.dev>",
+  "version": "1.0.0-alpha.1",
+  "description": "Install and initialize the Log4brains architecture knowledge base in your project",
+  "keywords": [
+    "log4brains",
+    "architecture decision records",
+    "architecture",
+    "knowledge base",
+    "documentation",
+    "docs-as-code",
+    "markdown",
+    "static site generator",
+    "documentation generator",
+    "tooling"
+  ],
+  "author": "Thomas Vaillant <thomas@bluebricks.dev>",
   "license": "Apache-2.0",
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/init"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "assets",
+    "dist"
+  ],
   "bin": "./dist/log4brains-init",
   "scripts": {
     "dev": "nodemon",
