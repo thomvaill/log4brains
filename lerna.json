@@ -2,7 +2,11 @@
   "version": "1.0.0-alpha.2",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"],
+  "command": {
+    "version": {
+      "message": "chore(release): publish %s",
+      "allowBranch": "dev"
+    }
+  }
 }
