@@ -3,11 +3,15 @@
 import moment from "moment";
 import path from "path";
 import { Log4brains } from "../src/infrastructure/api/Log4brains";
+import { forceUnixPath } from "../src/lib/paths";
 
 function prepareDataForSnapshot(data: any): any {
   const json = JSON.stringify(data);
   return JSON.parse(
-    json.replace(new RegExp(path.resolve(__dirname), "g"), "/ABSOLUTE-PATH")
+    json.replace(
+      new RegExp(forceUnixPath(path.resolve(__dirname)), "g"),
+      "/ABSOLUTE-PATH"
+    )
   );
 }
 

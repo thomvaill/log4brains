@@ -3,8 +3,9 @@ import globby from "globby";
 import rimraf from "rimraf";
 import moment from "moment";
 import { Log4brains } from "../src/infrastructure/api";
+import { forceUnixPath } from "../src/lib/paths";
 
-const PROJECT_PATH = path.join(__dirname, "rw-project");
+const PROJECT_PATH = forceUnixPath(path.join(__dirname, "rw-project"));
 
 function clean(): void {
   globby

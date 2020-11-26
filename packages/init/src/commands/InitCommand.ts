@@ -18,6 +18,10 @@ const docLink = "https://github.com/log4brains/log4brains";
 const cliBinPath = "@log4brains/cli/dist/log4brains";
 const webBinPath = "@log4brains/web/dist/bin/log4brains-web";
 
+function forceUnixPath(p: string): string {
+  return p.replace(/\\/g, "/");
+}
+
 export type InitCommandOpts = {
   defaults: boolean;
 };
@@ -227,8 +231,8 @@ export class InitCommand {
         await mkdirp(path.join(cwd, pkgAdrFolder));
         packages.push({
           name: pkgName,
-          path: pkgCodeFolder,
-          adrFolder: pkgAdrFolder
+          path: forceUnixPath(pkgCodeFolder),
+          adrFolder: forceUnixPath(pkgAdrFolder)
         });
         oneMorePackage = await this.console.askYesNoQuestion(
           `We are done with package #${packageNumber}. Do you want to add another one?`,
@@ -242,7 +246,7 @@ export class InitCommand {
       project: {
         name,
         tz: moment.tz.guess(),
-        adrFolder,
+        adrFolder: forceUnixPath(adrFolder),
         packages
       }
     };
@@ -263,7 +267,7 @@ export class InitCommand {
           "new",
           "--quiet",
           "--from",
-          path.join(assetsPath, source),
+          forceUnixPath(path.join(assetsPath, source)),
           `"${title}"`
         ],
         { cwd }
@@ -280,7 +284,7 @@ export class InitCommand {
         [
           "-i",
           `s/${replacement[0]}/${replacement[1]}/g`,
-          path.join(cwd, adrFolder, `${slug}.md`)
+          forceUnixPath(path.join(cwd, adrFolder, `${slug}.md`))
         ],
         {
           cwd

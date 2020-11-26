@@ -1,5 +1,6 @@
 import path from "path";
 import { Log4brainsError, ValueObject } from "@src/domain";
+import { forceUnixPath } from "@src/lib/paths";
 
 type Props = {
   cwdAbsolutePath: string;
@@ -8,7 +9,10 @@ type Props = {
 
 export class FilesystemPath extends ValueObject<Props> {
   constructor(cwdAbsolutePath: string, pathRelativeToCwd: string) {
-    super({ cwdAbsolutePath, pathRelativeToCwd });
+    super({
+      cwdAbsolutePath: forceUnixPath(cwdAbsolutePath),
+      pathRelativeToCwd: forceUnixPath(pathRelativeToCwd)
+    });
 
     if (!path.isAbsolute(cwdAbsolutePath)) {
       throw new Log4brainsError("CWD path is not absolute", cwdAbsolutePath);
@@ -24,11 +28,13 @@ export class FilesystemPath extends ValueObject<Props> {
   }
 
   get absolutePath(): string {
-    return path.join(this.props.cwdAbsolutePath, this.pathRelativeToCwd);
+    return forceUnixPath(
+      path.join(this.props.cwdAbsolutePath, this.pathRelativeToCwd)
+    );
   }
 
   get basename(): string {
-    return path.basename(this.pathRelativeToCwd);
+    return forceUnixPath(path.basename(this.pathRelativeToCwd));
   }
 
   get extension(): string {
@@ -57,7 +63,7 @@ export class FilesystemPath extends ValueObject<Props> {
     const from = amIaDirectory
       ? this.absolutePath
       : path.dirname(this.absolutePath);
-    return path.relative(from, to.absolutePath);
+    return forceUnixPath(path.relative(from, to.absolutePath));
   }
 
   public equals(vo?: ValueObject<Props>): boolean {
