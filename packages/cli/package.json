@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "private": false,
   "bin": {
-    "log4brains": "./dist/bin/log4brains"
+    "log4brains": "./dist/log4brains"
   },
   "scripts": {
     "dev": "nodemon",
