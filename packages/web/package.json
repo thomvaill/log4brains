@@ -1,6 +1,6 @@
 {
   "name": "@log4brains/web",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "Log4brains architecture knowledge base web UI and static site generator",
   "keywords": [
     "log4brains"
@@ -40,7 +40,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@log4brains/core": "^1.0.0-alpha.0",
+    "@log4brains/core": "^1.0.0-alpha.1",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
