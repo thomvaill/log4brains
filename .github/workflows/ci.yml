@@ -1,9 +1,6 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
 name: CI
 on:
-  push:
-    branches:
-      - dev # TODO: remove
   pull_request:
 
 jobs:
