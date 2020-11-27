@@ -114,6 +114,7 @@ jobs:
       # We have to build all the packages before the tests
       # Because @log4brains/init's integration tests use @log4brains/cli, which uses @log4brains/core
       # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
+      # Once it's done, we should add "yarn test" in each package's preVersion script
       - name: build
         run: yarn build && yarn links
 

@@ -32,7 +32,8 @@
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix"
+    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@log4brains/core": "^1.0.0-alpha.1",

@@ -37,7 +37,8 @@
     "lint": "eslint . --ext ts,tsx --ignore-pattern '/dist/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts,tsx --ignore-pattern '/dist/' --max-warnings=0 --fix",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@log4brains/core": "^1.0.0-alpha.1",

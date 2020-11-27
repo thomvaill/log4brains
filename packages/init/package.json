@@ -42,7 +42,8 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix"
+    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "chalk": "^4.1.0",

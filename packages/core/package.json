@@ -35,7 +35,8 @@
     "test": "jest",
     "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
-    "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts"
+    "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "awilix": "^4.2.6",
