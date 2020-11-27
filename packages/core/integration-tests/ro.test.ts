@@ -20,6 +20,16 @@ describe("E2E tests / RO", () => {
 
   const instance = Log4brains.create(path.join(__dirname, "ro-project"));
 
+  // Debug
+  // TODO: remove
+  // TODO: delete debug code in packages/core/src/adr/infrastructure/repositories/AdrRepository.ts
+  beforeAll(() => {
+    process.env.LOG4BRAINS_DEBUG_GIT = "1";
+  });
+  afterAll(() => {
+    process.env.LOG4BRAINS_DEBUG_GIT = "0";
+  });
+
   describe("searchAdrs()", () => {
     test("all", async () => {
       const adrs = await instance.searchAdrs();

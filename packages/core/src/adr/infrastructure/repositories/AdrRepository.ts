@@ -111,7 +111,7 @@ export class AdrRepository implements IAdrRepository {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
-    const logs = (await this.git.log([file.path.pathRelativeToCwd])).all;
+    const logs = (await this.git.log([file.path.absolutePath])).all;
     if (!logs || logs.length === 0) {
       return undefined;
     }
@@ -124,8 +124,24 @@ export class AdrRepository implements IAdrRepository {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
-    const logs = (await this.git.log([file.path.pathRelativeToCwd])).all;
+    const logs = (await this.git.log([file.path.absolutePath])).all;
     if (!logs || logs.length === 0) {
+      // Debug
+      // TODO: remove
+      if (process.env.LOG4BRAINS_DEBUG_GIT === "1") {
+        // eslint-disable-next-line no-console
+        console.error(
+          `*** IMPOSSIBLE DE RETREIVE GIT LOGS for: ${file.path.absolutePath}`
+        );
+        console.error("* First try:"); // eslint-disable-line no-console
+        console.error(logs); // eslint-disable-line no-console
+        console.error("* Second try:"); // eslint-disable-line no-console
+        console.error(await this.git.log([file.path.absolutePath])); // eslint-disable-line no-console
+        // console.error("* All repo:"); // eslint-disable-line no-console
+        // console.error(await this.git.log()); // eslint-disable-line no-console
+        console.error("*** END"); // eslint-disable-line no-console
+      }
+
       return undefined;
     }
     return {
