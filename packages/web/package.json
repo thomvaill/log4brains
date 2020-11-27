@@ -1,6 +1,6 @@
 {
   "name": "@log4brains/web",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "Log4brains architecture knowledge base web UI and static site generator",
   "keywords": [
     "log4brains"
