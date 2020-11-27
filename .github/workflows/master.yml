@@ -1,13 +1,63 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
-name: Master build and deploy
+# See ci.yml for info on `quality` and `tests` stages
+name: Master CI and publish
 on:
   push:
     branches:
       - master
-      - dev # TODO: remove. For debug
+      - dev # debug. TODO: remove
 
 jobs:
-  "build-deploy":
+  quality:
+    strategy:
+      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
+      - name: use node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: cache all node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
+      - name: find location of global yarn cache
+        id: yarn-cache
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: cache global yarn cache
+        uses: actions/cache@v2
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: yarn install
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      # End of yarn setup
+
+      # TODO: make dev & test work without having to build core (inspiration: https://github.com/Izhaki/mono.ts)
+      - name: build core
+        run: yarn build --scope @log4brains/core
+
+      - name: format
+        run: yarn format
+
+      - name: lint
+        run: yarn lint
+
+  tests:
+    needs: quality
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -46,16 +96,12 @@ jobs:
         run: yarn install --frozen-lockfile
       # End of yarn setup
 
+      # We have to build all the packages before the tests
+      # Because @log4brains/init's integration tests use @log4brains/cli, which uses @log4brains/core
+      # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
+      # Once it's done, we should add "yarn test" in each package's preVersion script
       - name: build
         run: yarn build && yarn links
-
-      # TODO: make format & lint work before build (see ci.yml)
-      - name: format
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
-        run: yarn format
-      - name: lint
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
-        run: yarn lint
 
       - name: test
         run: yarn test
@@ -63,8 +109,49 @@ jobs:
       - name: E2E tests
         run: yarn e2e
 
+  publish:
+    needs: tests
+    strategy:
+      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
+      - name: use node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: cache all node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
+      - name: find location of global yarn cache
+        id: yarn-cache
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: cache global yarn cache
+        uses: actions/cache@v2
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: yarn install
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
+      # End of yarn setup
+
+      # Build is done by each package's prepublishOnly script
+
       - name: publish
-        if: matrix.os == 'ubuntu-latest' && matrix.node-version == '14.x'
-        run: yarn lerna publish from-package --yes --dist-tag alpha --conventional-commits --conventional-prerelease # TODO: change when going stable
+        # TODO: change when going beta or stable
+        run: yarn lerna publish from-package --yes --dist-tag alpha --conventional-commits --conventional-prerelease
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

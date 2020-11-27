@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS]
+      # TODO: create a dedicated composite GitHub Action to avoid copy/pastes everywhere
       - name: use node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
