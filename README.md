@@ -101,6 +101,8 @@ Finally, do not forget to set up your CI/CD pipeline to automatically publish yo
 
 ## 🤔 What is an ADR and why should you use them
 
+Lorem
+
 ## ❓ FAQ
 
 ### What are the prerequisites?
