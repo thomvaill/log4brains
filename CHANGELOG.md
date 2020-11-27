@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.2](https://github.com/Thomvaill/log4brains/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2020-11-27)
+
+
+### Bug Fixes
+
+* trigger a release ([ee035ea](https://github.com/Thomvaill/log4brains/commit/ee035ea87ac946616f15e2b27b21c640f30923d0))
+* **web:** default port ([e5d263c](https://github.com/Thomvaill/log4brains/commit/e5d263c349ee7ba20c524b17de7591bcc99d9fc0))
+
+
+
+
+
 # 1.0.0-alpha.1 (2020-11-26)
 
 
