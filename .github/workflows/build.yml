@@ -1,6 +1,6 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
 # See ci.yml for info on `quality` and `tests` stages
-name: Master CI and publish
+name: Build
 on:
   push:
     branches:
