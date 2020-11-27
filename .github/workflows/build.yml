@@ -152,6 +152,6 @@ jobs:
 
       - name: publish
         # TODO: change when going beta or stable
-        run: yarn lerna publish from-package --yes --dist-tag alpha --conventional-commits --conventional-prerelease
+        run: yarn lerna publish --yes --dist-tag alpha --conventional-commits --conventional-prerelease
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
