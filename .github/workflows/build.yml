@@ -163,11 +163,8 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: npm token
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-
       - name: publish
         # TODO: change when going beta or stable
         run: yarn lerna publish --yes --dist-tag alpha --conventional-commits --conventional-prerelease
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
