@@ -1,7 +1,7 @@
 {
   "name": "@log4brains/init",
   "version": "1.0.0-alpha.1",
-  "description": "Install and initialize the Log4brains architecture knowledge base in your project",
+  "description": "Install and configure the Log4brains architecture knowledge base in your project",
   "keywords": [
     "log4brains",
     "architecture decision records",

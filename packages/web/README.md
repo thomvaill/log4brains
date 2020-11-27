@@ -1,30 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# @log4brains/web
 
-## Getting Started
+This package provides the web UI of the [Log4brains](https://github.com/thomvaill/log4brains) architecture knowledge base and its static site generation capabilities.
 
-First, run the development server:
+## Installation
+
+You should use `@log4brains/init` as described in the [Log4brains README](https://github.com/thomvaill/log4brains/blob/master/README.md), which will install all the required dependencies in your project, including this one, and set up the right scripts in your `package.json`.
+
+You can also install this package manually via npm or yarn:
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install --save-dev @log4brains/web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+yarn add --dev @log4brains/web
+```
 
-## Learn More
+And add these scripts to your `package.json`:
 
-To learn more about Next.js, take a look at the following resources:
+```json
+{
+  [...]
+  "scripts": {
+    [...]
+    "log4brains-preview": "log4brains-web preview",
+    "log4brains-build": "log4brains-web build",
+  }
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You should have a look at the main [Log4brains README](https://github.com/thomvaill/log4brains/blob/master/README.md) to get more context.
 
-## Deploy on Vercel
+### Preview
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This command will start the web UI in preview mode locally on <http://localhost:4004/>.
+You can define another port with the `-p` option.
+In this mode, the Hot Reload feature is enabled: any change you make to the markdown files is applied live in the UI.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm run log4brains-preview
+```
+
+or
+
+```bash
+yarn log4brains-preview
+```
+
+### Build
+
+This command should be used in your CI/CD pipeline. It creates a static version of your knowledge base, ready to be deployed
+on a static website hosting service like GitHub or GitLab pages.
+
+```bash
+npm run log4brains-build
+```
+
+or
+
+```bash
+yarn log4brains-build
+```
+
+The default output directory is `.log4brains/out`. You can change it with the `-o` option.
+
+## Documentation
+
+- [Log4brains README](https://github.com/thomvaill/log4brains/blob/master/README.md)
