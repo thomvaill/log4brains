@@ -120,7 +120,7 @@ In the case of a multi-packages project, you have two options:
 
 Here is an example of file structure for each case:
 
-#### Simple project <!-- omit in toc -->
+**Simple project:**
 
 ```
 project
@@ -133,7 +133,7 @@ project
 [...]
 ```
 
-#### Multi-packages project in a mono-repository <!-- omit in toc -->
+**Multi-packages project in a mono-repository:**
 
 ```
 project
@@ -158,7 +158,7 @@ project
 [...]
 ```
 
-#### Multi-packages with one repository per package <!-- omit in toc -->
+**Multi-packages with one repository per package:**
 
 For the moment, the same as above, in a dedicated central repository.
 
