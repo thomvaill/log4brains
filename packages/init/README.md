@@ -1,4 +1,4 @@
-# @log4brains/init
+# init-log4brains
 
 This interactive CLI lets you install and configure the [Log4brains](https://github.com/thomvaill/log4brains) architecture knowledge base in your project.
 
@@ -9,7 +9,7 @@ You should have a look at the main [Log4brains README](https://github.com/thomva
 Start the interactive CLI by running this command in your project root directory:
 
 ```bash
-npx @log4brains/init
+npx init-log4brains
 ```
 
 It will:

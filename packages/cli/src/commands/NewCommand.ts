@@ -78,7 +78,7 @@ export class NewCommand {
 
     const adrDto = await this.l4bInstance.createAdrFromTemplate(slug, title);
 
-    // --from option (used by @log4brains/init to create the starter ADRs)
+    // --from option (used by init-log4brains to create the starter ADRs)
     // Since this is a private use case, we don't include it in CORE for now
     if (opts.from) {
       if (!fs.existsSync(opts.from)) {

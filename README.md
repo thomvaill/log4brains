@@ -68,7 +68,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project git repository, for example in `<your project>/docs/adr`. It is recommended to install Log4brains as a dev dependency of your project. To do so, go the root directory of your project and run our interactive setup CLI:
 
 ```bash
-npx @log4brains/init
+npx init-log4brains
 ```
 
 ... it will ask you several questions to get your knowledge base installed and configured properly.
@@ -141,7 +141,7 @@ Just having Node.js >= v10.23 installed locally with either npm or yarn.
 
 ### What about multi-packages projects?
 
-Log4brains supports both mono and multi packages projects. The `@log4brains/init` command will prompt you regarding this.
+Log4brains supports both mono and multi packages projects. The `npx init-log4brains` command will prompt you regarding this.
 
 In the case of a multi-packages project, you have two options:
 
