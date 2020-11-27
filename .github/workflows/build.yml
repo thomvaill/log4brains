@@ -119,6 +119,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # fetch all history for Lerna (https://stackoverflow.com/a/60184319/9285308)
+
+      - name: fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
       - name: use node.js ${{ matrix.node-version }}
@@ -149,6 +154,11 @@ jobs:
       # End of yarn setup
 
       # Build is done by each package's prepublishOnly script
+
+      - name: git identity
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: publish
         # TODO: change when going beta or stable
