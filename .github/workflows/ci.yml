@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/ # needed for auth when publishing
 
       # Cache every node_modules folder inside the monorepo
       - name: cache all node_modules
@@ -82,6 +83,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org/
       - name: cache all node_modules
         id: cache-modules
         uses: actions/cache@v2
