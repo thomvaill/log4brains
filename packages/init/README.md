@@ -15,6 +15,7 @@ npx @log4brains/init
 It will:
 
 - Install `@log4brains/cli` and `@log4brains/web` as development dependencies in your project (it detects automatically whether you use npm or yarn)
+- Add some entries in your `package.json`'s scripts: `adr`, `log4brains-preview`, `log4brains-build`
 - Prompt you some questions in order to create the `.log4brains.yml` config file for you
 - Import your existing Architecture Decision Records (ADR), or create a first one if you don't have any yet
 

@@ -39,7 +39,7 @@ You should have a look at the main [Log4brains README](https://github.com/thomva
 
 This command will start the web UI in preview mode locally on <http://localhost:4004/>.
 You can define another port with the `-p` option.
-In this mode, the Hot Reload feature is enabled: any change you make to the markdown files is applied live in the UI.
+In this mode, the Hot Reload feature is enabled: any changes you make to the markdown files are applied live in the UI.
 
 ```bash
 npm run log4brains-preview
