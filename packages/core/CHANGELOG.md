@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2020-11-27)
+
+
+### Bug Fixes
+
+* **core:** git issues + debug ([614d26b](https://github.com/thomvaill/log4brains/commit/614d26b38bd245bc595574e0872e1538be34979e))
+
+
+
+
+
 # [1.0.0-alpha.4](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2020-11-27)
 
 **Note:** Version bump only for package @log4brains/core
