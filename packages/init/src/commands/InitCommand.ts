@@ -361,7 +361,7 @@ export class InitCommand {
     }
 
     // Install NPM packages
-    this.console.startSpinner("Installing Log4brains CLI & web packages");
+    this.console.startSpinner("Installing Log4brains cli & web packages...");
     await this.installNpmPackages(cwd);
     this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
 
