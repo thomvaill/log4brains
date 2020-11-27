@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2020-11-27)
+
+
+### Bug Fixes
+
+* **init:** typo ([41b8633](https://github.com/thomvaill/log4brains/commit/41b86330b0c73726573a965483e64006c31568eb))
+
+
+
+
+
 # [1.0.0-alpha.6](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2020-11-27)
 
 
