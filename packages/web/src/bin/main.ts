@@ -21,7 +21,7 @@ function createCli(version: string): commander.Command {
   program
     .command("preview")
     .description("Start log4brains locally to preview your changes")
-    .option("-p, --port <port>", "Port to listen on", "3000")
+    .option("-p, --port <port>", "Port to listen on", "4004")
     .action(
       (opts: StartEditorCommandOpts): Promise<void> => {
         return previewCommand(parseInt(opts.port, 10));
