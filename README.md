@@ -7,8 +7,17 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/log4brains/log4brains/blob/master/LICENSE">
+  <a href="https://github.com/thomvaill/log4brains/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202-blue" alt="License" />
+  </a>
+  <a href="https://github.com/thomvaill/log4brains/actions?query=workflow%3ABuild">
+    <img src="https://github.com/thomvaill/log4brains/workflows/Build/badge.svg" alt="Build Status" />
+  </a>
+  <a href="https://github.com/thomvaill/log4brains/releases">
+    <img src="https://img.shields.io/npm/v/@log4brains/web?label=%40log4brains%2Fweb" alt="@log4brains/web latest version" />
+  </a>
+  <a href="https://github.com/thomvaill/log4brains/releases">
+    <img src="https://img.shields.io/npm/v/@log4brains/cli?label=%40log4brains%2Fcli" alt="@log4brains/cli latest version" />
   </a>
 </p>
 
