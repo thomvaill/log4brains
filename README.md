@@ -24,13 +24,40 @@
 Log4brains is a 100% docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
 
+### Features: <!-- omit in toc -->
+
+- Docs-as-code chronological knowledge base from Architecture Decision Records (ADR)
+- ADRs are written in markdown, stored in your git repository, close to your code
+- Does not enforce a specific numbering for files (ie. `adr-0001.md`, `adr-0002.md`...) to avoid git merge issues
+- Does not enforce a common structure, you are free to write however you want
+  - Log4brains is able to create metadata for each ADR, just by parsing its text
+  - Also guesses metadata from the git logs (last edit date, contributors...)
+  - You can also provide a template of your choice (default: [MADR](https://adr.github.io/madr/))
+- Local preview of the knowledge base
+  - Hot Reload: any changes made in the markdown files are applied live
+- Static site generation to automatically publish the knowledge base on a service like GitHub or GitLab pages from your CI/CD pipeline
+- Supports multi-packages projects (mono or multi repo): global and package-specific ADRs
+- CLI to:
+  - Create a new ADR interactively
+  - Manage links between ADRs easily
+
+**In a near future**:
+
+- RSS feed / notifications for new ADRs
+- Diagrams
+- Decision backlog
+- ADR reference annotation from the code: each ADR will display the code snippets that reference it
+- ADR creation / edition from the knowledge base UI
+- Create a new GitHub / GitLab issue from the knowledge base UI
+- ... let's [create an issue](https://github.com/thomvaill/log4brains/issues/new/choose) if you have other needs!
+
 ## Table of contents <!-- omit in toc -->
 
 - [🚀 Getting started](#-getting-started)
+- [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
+- [❓ FAQ](#-faq)
+  - [What are the prerequisites?](#what-are-the-prerequisites)
   - [What about multi-packages projects?](#what-about-multi-packages-projects)
-    - [Simple project](#simple-project)
-    - [Multi-packages project in a mono-repository](#multi-packages-project-in-a-mono-repository)
-    - [Multi-packages with one repository per package](#multi-packages-with-one-repository-per-package)
   - [What about non-JS projects?](#what-about-non-js-projects)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
@@ -38,15 +65,13 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project git repository, for example in `<your project>/docs/adr`.
-
-It is recommended to install Log4brains as a development dependency of your project. To do so, go the root directory of your project and run our interactive setup CLI:
+According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project git repository, for example in `<your project>/docs/adr`. It is recommended to install Log4brains as a dev dependency of your project. To do so, go the root directory of your project and run our interactive setup CLI:
 
 ```bash
 npx @log4brains/init
 ```
 
-... it will ask you several questions to get your knowledge base installed and configured.
+... it will ask you several questions to get your knowledge base installed and configured properly.
 
 Then, you can start the web UI in local preview mode:
 
@@ -74,6 +99,14 @@ Just add the `--help` option for more information on this command.
 
 Finally, do not forget to set up your CI/CD pipeline to automatically publish your knowledge base on a static website service like GitHub or GitLab pages.
 
+## 🤔 What is an ADR and why should you use them
+
+## ❓ FAQ
+
+### What are the prerequisites?
+
+Just having Node.js >= v10.23 installed locally with either npm or yarn.
+
 ### What about multi-packages projects?
 
 Log4brains supports both mono and multi packages projects. The `@log4brains/init` command will prompt you regarding this.
@@ -85,7 +118,7 @@ In the case of a multi-packages project, you have two options:
 
 Here is an example of file structure for each case:
 
-#### Simple project
+#### Simple project <!-- omit in toc -->
 
 ```
 project
@@ -98,7 +131,7 @@ project
 [...]
 ```
 
-#### Multi-packages project in a mono-repository
+#### Multi-packages project in a mono-repository <!-- omit in toc -->
 
 ```
 project
@@ -123,7 +156,7 @@ project
 [...]
 ```
 
-#### Multi-packages with one repository per package
+#### Multi-packages with one repository per package <!-- omit in toc -->
 
 For the moment, the same as above, in a dedicated central repository.
 
