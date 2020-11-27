@@ -101,7 +101,37 @@ Finally, do not forget to set up your CI/CD pipeline to automatically publish yo
 
 ## 🤔 What is an ADR and why should you use them
 
-Lorem
+The term ADR become popular in 2011 with Michael Nygard's article: [documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). He aimed at reconciling Agile methods with software documentation by creating a very concise template
+to record functional or non-functional "architecturally significant" decisions, in a lightweight format like markdown.
+The original template had only a few parts:
+
+- **Title**: Which sums up the solved problem and its solution
+- **Context**: Probably the most important part, which describes "the forces at play, including technological, political, social, and project local"
+- **Decision**
+- **Status**: Proposed, accepted, deprecated, superseded...
+- **Consequences**: The positive and negative ones for the future of the project
+
+Today, there are other ADR templates like [Y-Statements](https://medium.com/olzzio/y-statements-10eb07b5a177), or [MADR](https://adr.github.io/madr/), which is the default one that is configured in Log4brains.
+Anyway, be believe that there is no template that suits everyone's needs. You should adapt it according to your own situation.
+
+As you can guess from the template above, an ADR is immutable. Only its status can change.
+Thanks to this, your documentation is never out-of-date! Yes, an ADR can be deprecated or superseded by another one, but it was at least true one day!
+And even if it's not the case anymore, it is still a precious piece of information.
+
+This leads us to the main goals of this methodology:
+
+- Avoid blind acceptance and blind reversal when you face past decisions
+- Speed up the onboarding on new developers on a project
+- Formalize a collaborative decision making process
+
+The first goal was the very original one, intended by Michael Nygard in his article.
+I discovered the two others in my past experiences with ADRs, and this is why I decided to create Log4brains.
+
+To learn more on this topic, I recommend you to read these great resources:
+
+- [Documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), by Michael Nygard
+- [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by @boceckts and @koppor
+- [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
 
 ## ❓ FAQ
 
@@ -186,7 +216,11 @@ Lorem ipsum.
 
 ## Acknowledgments
 
+- Michael Nygard for all his work on [Architecture Decision Records](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
+- @boceckts and @koppor for the [MADR](https://adr.github.io/madr/) template
 - [Tippawan Sookruay](https://thenounproject.com/wanny4/) for the Log4brains logo
+- @npryce, who inspired me for the CLI part with his [adr-tools](https://github.com/npryce/adr-tools) bash CLI
+- @mrwilson, who inspired me for the static site generation part with his [adr-viewer](https://github.com/mrwilson/adr-viewer)
 
 ## License
 
