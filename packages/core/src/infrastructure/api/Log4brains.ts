@@ -54,7 +54,7 @@ export class Log4brains {
   /**
    * Returns the ADRs which match the given search filters.
    * Returns all the ADRs of the project if no filter is given.
-   * The results are sorted with this order priority:
+   * The results are sorted with this order priority (ASC):
    *  1. By the Date field from the markdown file (if available)
    *  2. By the Git creation date (does not follow renames)
    *  3. By slug

@@ -85,15 +85,15 @@ export function ConnectedAdrBrowserLayout(
   // ADRs list for the navigation
   const updateAdrsList = React.useCallback(async () => {
     setAdrsLoadingState(true);
-    setAdrsState(
-      await (
-        await fetch(
-          mode === Log4brainsMode.preview
-            ? "/api/adr"
-            : `/data/${process.env.NEXT_BUILD_ID}/adrs.json`
-        )
-      ).json()
-    );
+    const adrsRes = (await (
+      await fetch(
+        mode === Log4brainsMode.preview
+          ? "/api/adr"
+          : `/data/${process.env.NEXT_BUILD_ID}/adrs.json`
+      )
+    ).json()) as AdrLight[];
+    adrsRes.reverse(); // @see Log4brains.searchAdrs(): they are returned by chronological order ASC. We display them DESC in the UI
+    setAdrsState(adrsRes);
     setAdrsLoadingState(false);
   }, [mode]);
 
