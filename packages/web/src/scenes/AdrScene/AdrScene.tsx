@@ -106,7 +106,7 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
     <>
       <Head>
         <title>
-          {currentAdr.title || "Untitled"} | {projectName} architecture
+          {currentAdr.title || "Untitled"} - {projectName} architecture
           Knowledge Base
         </title>
       </Head>
