@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2020-11-30)
+
+
+### Bug Fixes
+
+* doc link ([1ddf396](https://github.com/thomvaill/log4brains/commit/1ddf396fd98c3a2c6240a0bfd7f5bb8439393835))
+
+
+
+
+
 # [1.0.0-alpha.7](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2020-11-27)
 
 

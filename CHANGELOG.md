@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/Thomvaill/log4brains/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2020-11-30)
+
+
+### Bug Fixes
+
+* **web:** nextJS dir ([e1e25d6](https://github.com/Thomvaill/log4brains/commit/e1e25d62318cbe8155549f6a6e0c83c13270c884))
+* **web:** title ([2a1c885](https://github.com/Thomvaill/log4brains/commit/2a1c885397452554d79f83a201600a2754c8d106))
+* ADR display order ([a35c775](https://github.com/Thomvaill/log4brains/commit/a35c775b04f18092578e62e8afa1f522edb94f3d))
+* doc link ([1ddf396](https://github.com/Thomvaill/log4brains/commit/1ddf396fd98c3a2c6240a0bfd7f5bb8439393835))
+
+
+
+
+
 # [1.0.0-alpha.7](https://github.com/Thomvaill/log4brains/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2020-11-27)
 
 
