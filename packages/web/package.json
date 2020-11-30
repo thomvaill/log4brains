@@ -27,9 +27,11 @@
     "log4brains-web": "./dist/bin/log4brains-web"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. LOG4BRAINS_DEV=1 ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
+    "dev": "yarn build && nodemon",
+    "dev-old": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
-    "build": "yarn clean && tsc --noEmit false && copyfiles next.config.js public/**/* dist && copyfiles --up 1 src/bin/log4brains-web src/lib/core-api/noop/.log4brains.yml src/lib/core-api/noop/**/.* src/lib/core-api/default-index.md dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
+    "build-ts": "tsc --noEmit false",
+    "build": "yarn clean && yarn build-ts && copyfiles next.config.js public/**/* dist && copyfiles --up 1 src/bin/log4brains-web src/lib/core-api/noop/.log4brains.yml src/lib/core-api/noop/**/.* src/lib/core-api/default-index.md dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
     "clean": "rimraf ./dist",
     "serve": "serve .log4brains/out",
     "typescript": "tsc",

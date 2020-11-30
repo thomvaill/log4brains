@@ -8,7 +8,7 @@
     "packages/**"
   ],
   "scripts": {
-    "dev": "lerna run --parallel --ignore @log4brains/web dev",
+    "dev": "lerna run --parallel dev",
     "build": "lerna run build",
     "clean": "lerna run clean",
     "typescript": "lerna run typescript",
