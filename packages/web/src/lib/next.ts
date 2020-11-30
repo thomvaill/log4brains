@@ -1,19 +1,9 @@
 import path from "path";
-import fs from "fs";
 import getNextConfig from "next/config";
 
-let nextJsDir: string | null = null;
 export function getNextJsDir(): string {
-  if (!nextJsDir) {
-    // Because when built, the src/ directory is removed
-    nextJsDir = path.resolve(
-      path.join(
-        __dirname,
-        fs.existsSync(path.join(__dirname, "../../src")) ? "../.." : ".."
-      )
-    );
-  }
-  return nextJsDir;
+  // When built, there is no more "src/" directory
+  return path.resolve(path.join(__dirname, ".."));
 }
 
 export type L4bNextConfig = {
