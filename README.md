@@ -212,7 +212,7 @@ And use these global commands inside your project directory:
 
 ## Contributing
 
-Lorem ipsum.
+Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
 
 ## Acknowledgments
 
