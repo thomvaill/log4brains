@@ -34,7 +34,7 @@ The "Log4brains patch" performs the following modifications to the original temp
 
 - Change the ADR filenames format (`NNN-adr-name` becomes `YYYYMMDD-adr-name`), to avoid conflicts during Git merges.
 - Add a `draft` status, to enable collaborative writing.
-- Remove the `Tags`.
+- Add a `Tags` field.
 
 ## Links
 
