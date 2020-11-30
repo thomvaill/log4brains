@@ -43,7 +43,8 @@
     "test-watch": "jest --watch",
     "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
     "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "link": "npm link && rm -f ./package-lock.json"
   },
   "dependencies": {
     "chalk": "^4.1.0",
