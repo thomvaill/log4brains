@@ -1,4 +1,4 @@
-# CORE is responsible for enhancing ADR markdown body
+# The core API is responsible for enhancing the ADR markdown body with MDX
 
 - Status: accepted
 - Date: 2020-10-26
@@ -12,17 +12,17 @@ The markdown body of ADRs cannot be used as is, because:
 
 ## Decision Drivers <!-- optional -->
 
-- Potential future development of a vscode extension
+- Potential future development of a VSCode extension
 
 ## Considered Options
 
 - Option 1: the UI is responsible
-- Option 2: CORE is responsible
+- Option 2: the core API is responsible (with MDX)
 
 ## Decision Outcome
 
-Chosen option: "Option 2: CORE is responsible".
-Because if we develop the vscode extension, it is better to add more business logic into the CORE package, and it is better tested.
+Chosen option: "Option 2: the core API is responsible (with MDX)".
+Because if we develop the VSCode extension, it is better to add more business logic into the core package, and it is better tested.
 
 ### Positive Consequences <!-- optional -->
 

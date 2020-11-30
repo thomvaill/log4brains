@@ -1,4 +1,4 @@
-# Inter-ADR links resolution
+# ADR link resolver in the domain
 
 - Status: accepted
 - Date: 2020-10-27
@@ -18,4 +18,4 @@ We cannot deduce the slug easily from the paths because of the "path / package" 
 
 Chosen option: "Option 2: we introduce an "ADR link resolver" in the domain".
 Because option 3 is too restrictive and option 1 seems too hacky.
-And this solution is compatible with [0002-markdown-parsing-in-the-domain](0002-markdown-parsing-in-the-domain.md).
+And this solution is compatible with [20201003-markdown-parsing-is-part-of-the-domain](20201003-markdown-parsing-is-part-of-the-domain.md).

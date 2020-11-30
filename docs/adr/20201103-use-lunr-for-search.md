@@ -12,7 +12,7 @@ We have to provide a search bar to perform full-text search on ADRs.
 - Works in preview mode AND in the statically built version
 - Provides good fuzzy search and stemming capabilities
 - Is fast enough to be able to show results while typing
-- Does not consume too much CPU and RAM on the client side, especially for the statically built version
+- Does not consume too much CPU and RAM on the client-side, especially for the statically built version
 
 ## Considered Options
 

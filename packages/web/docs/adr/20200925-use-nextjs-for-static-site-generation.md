@@ -101,23 +101,6 @@ Chosen option: "Option 5: Next.js", because
 - No obvious way to develop the `edit mode` without some hacks
 - Every markdown file require a [Front Matter](https://jekyllrb.com/docs/front-matter/) header
 
-### Option 3: Docusaurus 2
-
-<https://v2.docusaurus.io/>
-
-#### Pros
-
-- Already powered by Markdown
-- Possible to create React pages as well -> good for extensibility
-- Very popular and actively maintained (19.1k stars on Github on 2020-09-22), even if the V2 is still in beta
-- Live-reload already implemented
-- Typescript support
-
-#### Cons
-
-- No obvious way to develop the `edit mode` without some hacks to Docusaurus
-- Every markdown file require a [Front Matter](https://jekyllrb.com/docs/front-matter/) header
-
 ### Option 4: Gatsby
 
 <https://www.gatsbyjs.com/>

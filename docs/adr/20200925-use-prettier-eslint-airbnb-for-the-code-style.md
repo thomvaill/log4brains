@@ -1,6 +1,7 @@
 # Use Prettier-ESLint Airbnb for the code style
 
 - Status: accepted
+- Date: 2020-09-25
 
 ## Context and Problem Statement
 
