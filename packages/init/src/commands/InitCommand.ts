@@ -14,7 +14,7 @@ import { Console } from "../console";
 import { FailureExit } from "./FailureExit";
 
 const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
-const docLink = "https://github.com/log4brains/log4brains";
+const docLink = "https://github.com/thomvaill/log4brains";
 const cliBinPath = "@log4brains/cli/dist/log4brains";
 const webBinPath = "@log4brains/web/dist/bin/log4brains-web";
 

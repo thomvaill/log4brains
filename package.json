@@ -21,7 +21,7 @@
     "adr": "./packages/cli/dist/log4brains adr",
     "log4brains-web": "./packages/web/dist/bin/log4brains-web",
     "serve": "serve .log4brains/out",
-    "links": "lerna exec --parallel --scope @log4brains/{cli,web} -- yarn link",
+    "links": "lerna exec --parallel --scope @log4brains/{cli,web} --scope init-log4brains -- yarn link",
     "e2e": "node e2e-tests/e2e-launcher.js",
     "lerna": "lerna"
   },
