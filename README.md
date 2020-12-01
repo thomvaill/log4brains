@@ -173,6 +173,7 @@ jobs:
         run: |
           npm ci
           npm run log4brains-build -- --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+      # OR:
       # - name: Install and Build Log4brains (Yarn)
       #   run: |
       #     yarn install --frozen-lockfile
