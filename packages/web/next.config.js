@@ -31,6 +31,16 @@ module.exports = withBundleAnalyzer({
       })
     );
 
+    // Webpack issue: treeshaking does not seem to work correctly when using Log4brains from NPM
+    // Unfortunately we can't reproduce this bug locally
+    // TODO: to investigate. We should not have to write this hotfix:
+    if (!isServer) {
+      config.node = {
+        fs: "empty",
+        child_process: "empty"
+      };
+    }
+
     return config;
   },
   future: {
