@@ -16,12 +16,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14"
+
+      - name: Dump github context
+        run: echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
       - name: Install and Build Log4brains
         run: |
+          echo ${{ github.repository.name }}
           yarn install --frozen-lockfile
           yarn build
           yarn links
-          yarn log4brains-build --basePath /log4brains/adr
+          yarn log4brains-build --basePath /${{ github.repository.name }}/adr
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
