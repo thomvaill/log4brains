@@ -37,7 +37,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
   - You can also provide a template of your choice (default: [MADR](https://adr.github.io/madr/))
 - Local preview of the knowledge base
   - Hot Reload: any changes made in the markdown files are applied live
-- Static site generation to automatically publish the knowledge base on a service like GitHub or GitLab pages from your CI/CD pipeline
+- Static site generation to automatically publish the knowledge base on a service like GitHub or GitLab Pages from your CI/CD pipeline
 - Supports multi-packages projects (mono or multi repo): global and package-specific ADRs
 - CLI to:
   - Create a new ADR interactively
@@ -58,7 +58,9 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
 - [📨 CI/CD configuration examples](#-cicd-configuration-examples)
-  - [GitHub pages with GitHub actions](#github-pages-with-github-actions)
+  - [Publish to GitHub Pages with GitHub Actions](#publish-to-github-pages-with-github-actions)
+  - [Publish to GitLab Pages with GitLab CI](#publish-to-gitlab-pages-with-gitlab-ci)
+  - [Publish to S3](#publish-to-s3)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
   - [What about multi-packages projects?](#what-about-multi-packages-projects)
@@ -101,7 +103,7 @@ yarn adr new
 
 Just add the `--help` option for more information on this command.
 
-Finally, do not forget to set up your CI/CD pipeline to automatically publish your knowledge base on a static website service like GitHub or GitLab pages.
+Finally, do not forget to set up your CI/CD pipeline to automatically publish your knowledge base on a static website service like GitHub or GitLab Pages.
 
 ## 🤔 What is an ADR and why should you use them
 
@@ -142,11 +144,11 @@ To learn more on this topic, I recommend you to read these great resources:
 Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice thanks to the `log4brains-web build` command.
 Here are some configuration examples for the most common hosting services / CI runners.
 
-### GitHub pages with GitHub actions
+### Publish to GitHub Pages with GitHub Actions
 
-In this example we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page, accessible on `https://<username>.github.io/<repository>/log4brains/`.
+In this example, we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page, accessible on `https://<username>.github.io/<repository>/log4brains/`.
 
-First, create `.github/workflows/publish-log4brains.yml`:
+First, create `.github/workflows/publish-log4brains.yml` and adapt it to your case:
 
 ```yml
 name: Publish Log4brains
@@ -161,15 +163,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
         with:
-          persist-credentials: false
+          persist-credentials: false # required by JamesIves/github-pages-deploy-action
+          fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
       - name: Install Node
         uses: actions/setup-node@v1
         with:
           node-version: "14"
-      - name: Install and Build Log4brains
+      - name: Install and Build Log4brains (NPM)
         run: |
-          yarn install --frozen-lockfile
-          yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+          npm ci
+          npm run log4brains-build -- --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+      # - name: Install and Build Log4brains (Yarn)
+      #   run: |
+      #     yarn install --frozen-lockfile
+      #     yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -198,6 +205,46 @@ git push
 
 You should now be able to see your knowledge base at `https://<username>.github.io/<repository>/log4brains/`.
 It will be re-built and published every time you push on `master`.
+
+### Publish to GitLab Pages with GitLab CI
+
+TODO
+
+### Publish to S3
+
+First, create a bucket with the "Static website hosting" feature enabled:
+
+```bash
+# This is an example, replace with the bucket name of your choice
+export BUCKET_NAME=yourcompany-yourproject-log4brains
+
+aws s3api create-bucket --acl public-read --bucket ${BUCKET_NAME}
+read -r -d '' BUCKET_POLICY << EOP
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::${BUCKET_NAME}/*"
+    }
+  ]
+}
+EOP
+aws s3api put-bucket-policy --bucket ${BUCKET_NAME} --policy "$BUCKET_POLICY"
+aws s3 website s3://${BUCKET_NAME} --index-document index.html
+```
+
+Then, configure your CI to run these commands:
+
+- Install Node and the AWS CLI
+- Checkout your Git repository **with the full history**, otherwise, Log4brains won't work correctly (see examples above)
+- `npm ci` or `yarn install --frozen-lockfile` to install the dev dependencies
+- `npm run log4brains-build` or `yarn log4brains-build`
+- `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
+
+Your knowledge base will be available on `http://<YOUR BUCKET>.s3-website-<YOUR REGION>.amazonaws.com/`.
+You can get some inspiration on how to implement this workflow for GitHub Actions or GitLab CI by looking at the examples above.
 
 ## ❓ FAQ
 
