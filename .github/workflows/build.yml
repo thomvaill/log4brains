@@ -123,6 +123,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # fetch all history for Lerna (https://stackoverflow.com/a/60184319/9285308)
+          persist-credentials: false # required by JamesIves/github-pages-deploy-action
 
       - name: fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -159,12 +160,24 @@ jobs:
       - name: build
         run: yarn build
 
+      # We build & publish our self knowledge base here
+      # so it's one more test before releasing
+      - name: build self knowledge base
+        run: yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/adr
+      - name: publish self knowledge base
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .log4brains/out
+          TARGET_FOLDER: adr
+
       - name: git identity
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: publish
+      - name: publish to NPM
         # TODO: change when going beta or stable
         run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --force-publish --create-release github
         env:
