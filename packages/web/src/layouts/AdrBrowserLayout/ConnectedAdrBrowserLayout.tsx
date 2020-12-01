@@ -1,5 +1,5 @@
 import React from "react";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 // import io from "socket.io-client"; // loaded by _document.tsx so that we don't add this lib in the static mode bundle
 import type { FileWatcherEvent } from "@log4brains/core";
 import { Adr, AdrLight } from "../../types";
@@ -68,6 +68,7 @@ type ConnectedAdrBrowserLayoutProps = Omit<
 export function ConnectedAdrBrowserLayout(
   props: ConnectedAdrBrowserLayoutProps
 ) {
+  const router = useRouter();
   const mode = React.useContext(Log4brainsModeContext);
   const [adrs, setAdrsState] = React.useState<AdrLight[]>();
   const [adrsLoading, setAdrsLoadingState] = React.useState(false);
@@ -88,14 +89,14 @@ export function ConnectedAdrBrowserLayout(
     const adrsRes = (await (
       await fetch(
         mode === Log4brainsMode.preview
-          ? "/api/adr"
-          : `/data/${process.env.NEXT_BUILD_ID}/adrs.json`
+          ? `/api/adr`
+          : `${router.basePath}/data/${process.env.NEXT_BUILD_ID}/adrs.json`
       )
     ).json()) as AdrLight[];
     adrsRes.reverse(); // @see Log4brains.searchAdrs(): they are returned by chronological order ASC. We display them DESC in the UI
     setAdrsState(adrsRes);
     setAdrsLoadingState(false);
-  }, [mode]);
+  }, [mode, router.basePath]);
 
   React.useEffect(() => {
     void updateAdrsList();

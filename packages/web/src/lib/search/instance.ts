@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { Log4brainsMode } from "../../contexts";
 import { Search, SerializedIndex } from "./Search";
 
@@ -17,8 +18,8 @@ export async function createSearchInstance(
   const index = (await (
     await fetch(
       mode === Log4brainsMode.preview
-        ? "/api/search-index"
-        : `/data/${process.env.NEXT_BUILD_ID}/search-index.json`
+        ? `/api/search-index`
+        : `${Router.basePath}/data/${process.env.NEXT_BUILD_ID}/search-index.json`
     )
   ).json()) as unknown;
   if (!isSerializedIndex(index)) {

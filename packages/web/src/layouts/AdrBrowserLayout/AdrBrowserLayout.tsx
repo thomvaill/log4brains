@@ -22,6 +22,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 //   PlaylistAddCheck as PlaylistAddCheckIcon
 // } from "@material-ui/icons";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import clsx from "clsx";
 import { AdrMenu } from "./components/AdrMenu";
 import { CustomTheme } from "../../mui";
@@ -202,6 +203,7 @@ export function AdrBrowserLayout({
   l4bVersion
 }: AdrBrowserLayoutProps) {
   const classes = useStyles();
+  const router = useRouter();
 
   const [searchOpen, setSearchOpenState] = React.useState(false);
   const [searchReallyOpen, setSearchReallyOpenState] = React.useState(false);
@@ -215,7 +217,7 @@ export function AdrBrowserLayout({
             <div className={classes.appBarTitle}>
               <div>
                 <img
-                  src="/Log4brains-logo-dark.png"
+                  src={`${router.basePath}/Log4brains-logo-dark.png`}
                   alt="Log4brains logo"
                   width={50}
                   height={50}

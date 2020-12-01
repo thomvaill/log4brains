@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { NextComponentType, NextPageContext } from "next";
 import { MuiDecorator } from "../mui";
 import { Log4brainsMode, Log4brainsModeContext } from "../contexts";
@@ -26,6 +27,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Persistent Layout Pattern (https://adamwathan.me/2019/10/17/persistent-layout-patterns-in-nextjs/)
   const getLayout = Component.getLayout || ((page) => page);
 
+  const router = useRouter();
   const mode = process.env.NEXT_PUBLIC_LOG4BRAINS_STATIC
     ? Log4brainsMode.static
     : Log4brainsMode.preview;
@@ -37,6 +39,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href={`${router.basePath}/favicon.ico`}
         />
       </Head>
       <Log4brainsModeContext.Provider value={mode}>
