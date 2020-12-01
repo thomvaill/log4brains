@@ -1,5 +1,6 @@
 import { GetStaticProps } from "next";
-import { getIndexPageMarkdown, getLog4brainsInstance, getConfig } from "../lib";
+import { getIndexPageMarkdown, getLog4brainsInstance } from "../lib/core-api";
+import { getConfig } from "../lib/next";
 import { IndexScene, IndexSceneProps } from "../scenes";
 
 export default IndexScene;

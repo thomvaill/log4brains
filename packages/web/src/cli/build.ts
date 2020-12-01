@@ -5,7 +5,10 @@ import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
 import path from "path";
 import mkdirp from "mkdirp";
 import { promises as fsP } from "fs";
-import { getLog4brainsInstance, getNextJsDir, logger, Search } from "../lib";
+import { getLog4brainsInstance } from "../lib/core-api";
+import { getNextJsDir } from "../lib/next";
+import { logger } from "../lib/logger";
+import { Search } from "../lib/search";
 import { toAdrLight } from "../types";
 
 export async function buildCommand(

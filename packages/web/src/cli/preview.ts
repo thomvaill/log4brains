@@ -2,7 +2,9 @@ import next from "next";
 import { createServer } from "http";
 import SocketIO from "socket.io";
 import chalk from "chalk";
-import { getLog4brainsInstance, getNextJsDir, logger } from "../lib";
+import { getLog4brainsInstance } from "../lib/core-api";
+import { getNextJsDir } from "../lib/next";
+import { logger } from "../lib/logger";
 
 export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";

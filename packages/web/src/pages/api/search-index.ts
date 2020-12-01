@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getLog4brainsInstance, Search } from "../../lib";
+import { getLog4brainsInstance } from "../../lib/core-api";
+import { Search } from "../../lib/search";
 
 export default async (
   req: NextApiRequest,

@@ -1,5 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from "next";
-import { getLog4brainsInstance, getConfig } from "../../lib";
+import { getLog4brainsInstance } from "../../lib/core-api";
+import { getConfig } from "../../lib/next";
 import { AdrScene, AdrSceneProps } from "../../scenes";
 import { toAdr } from "../../types";
 

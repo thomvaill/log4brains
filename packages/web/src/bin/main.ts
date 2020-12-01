@@ -1,6 +1,6 @@
 import commander from "commander";
 import { previewCommand, buildCommand } from "../cli";
-import { logger } from "../lib";
+import { logger } from "../lib/logger";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,global-require,@typescript-eslint/no-var-requires
 const pkgVersion = require("../../package.json").version as string;

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getLog4brainsInstance } from "../../lib";
+import { getLog4brainsInstance } from "../../lib/core-api";
 import { toAdrLight } from "../../types";
 
 export default async (
