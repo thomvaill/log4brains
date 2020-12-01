@@ -20,6 +20,7 @@
     "typedoc": "lerna run typedoc",
     "adr": "./packages/cli/dist/log4brains adr",
     "log4brains-preview": "./packages/web/dist/bin/log4brains-web preview",
+    "log4brains-preview-dev": "cross-env NODE_ENV=development yarn log4brains-preview",
     "log4brains-build": "./packages/web/dist/bin/log4brains-web build",
     "serve": "serve .log4brains/out",
     "links": "lerna run --parallel link",
