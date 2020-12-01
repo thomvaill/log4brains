@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.11](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2020-12-01)
+
+
+### Bug Fixes
+
+* **core:** multipe calls to `git log` per adr ([1d459a9](https://github.com/thomvaill/log4brains/commit/1d459a9835f58f9a68129974316eb0eeaa3844ee))
+* **web:** remove .nojekyll ([f1ae6db](https://github.com/thomvaill/log4brains/commit/f1ae6dbc6f59c7b4d06a5de680c06f90c183d387))
+
+
+
+
+
 # [1.0.0-alpha.10](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2020-12-01)
 
 
