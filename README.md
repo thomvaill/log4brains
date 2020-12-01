@@ -24,6 +24,8 @@
 Log4brains is a 100% docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
 
+⚡ **Demo**: Log4brains uses Log4brains to generate its [architecture knowledge base](https://thomvaill.github.io/log4brains/adr/).
+
 ### Features: <!-- omit in toc -->
 
 - Docs-as-code chronological knowledge base from Architecture Decision Records (ADR)
@@ -55,7 +57,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
-- [📨 CI/CD configuration examples for publication](#-cicd-configuration-examples-for-publication)
+- [📨 CI/CD configuration examples](#-cicd-configuration-examples)
   - [GitHub pages with GitHub actions](#github-pages-with-github-actions)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
@@ -135,10 +137,10 @@ To learn more on this topic, I recommend you to read these great resources:
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by @boceckts and @koppor
 - [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
 
-## 📨 CI/CD configuration examples for publication
+## 📨 CI/CD configuration examples
 
 Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice thanks to the `log4brains-web build` command.
-Here are some configuration examples for the most common hosting services.
+Here are some configuration examples for the most common hosting services / CI runners.
 
 ### GitHub pages with GitHub actions
 
