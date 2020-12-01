@@ -8,7 +8,10 @@ import { promises as fsP } from "fs";
 import { getLog4brainsInstance, getNextJsDir, logger, Search } from "../lib";
 import { toAdrLight } from "../types";
 
-export async function buildCommand(outPath: string): Promise<void> {
+export async function buildCommand(
+  outPath: string,
+  basePath: string
+): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
   logger.info("Building 🧠 log4brains static website...");
 
@@ -25,6 +28,7 @@ export async function buildCommand(outPath: string): Promise<void> {
   const nextCustomConfig = {
     ...nextConfig,
     distDir,
+    basePath,
     env: {
       ...(nextConfig.env && typeof nextConfig.env === "object"
         ? nextConfig.env

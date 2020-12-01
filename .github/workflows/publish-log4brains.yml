@@ -1,0 +1,29 @@
+name: Publish Log4brains
+on:
+  push:
+    branches:
+      - master
+      - dev # debug. TODO: remove
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3
+        with:
+          persist-credentials: false
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - name: Install and Build Log4brains
+        run: |
+          yarn install --frozen-lockfile
+          yarn log4brains-build --basePath /thomvaill/log4brains/adr
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .log4brains/out
+          TARGET_FOLDER: adr

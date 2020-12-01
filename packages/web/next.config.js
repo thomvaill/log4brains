@@ -11,7 +11,6 @@ const packageJson = require(`${
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
-  // basePath: "", // TODO: make this customizable
   target: "serverless",
   poweredByHeader: false,
   serverRuntimeConfig: {

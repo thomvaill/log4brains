@@ -10,6 +10,7 @@ type StartEditorCommandOpts = {
 };
 type BuildCommandOpts = {
   out: string;
+  basePath: string;
 };
 
 function createCli(version: string): commander.Command {
@@ -32,9 +33,10 @@ function createCli(version: string): commander.Command {
     .command("build")
     .description("Build the deployable static website")
     .option("-o, --out <path>", "Output path", ".log4brains/out")
+    .option("--basePath <path>", "Custom base path", "")
     .action(
       (opts: BuildCommandOpts): Promise<void> => {
-        return buildCommand(opts.out);
+        return buildCommand(opts.out, opts.basePath);
       }
     );
 
