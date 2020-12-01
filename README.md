@@ -142,22 +142,49 @@ Here are some configuration examples for the most common hosting services.
 
 ### GitHub pages with GitHub actions
 
-In this example we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page: `https://<username>.github.io/<repository>/log4brains/`.
+In this example we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page, accessible on `https://<username>.github.io/<repository>/log4brains/`.
 
-Create `.github/workflows/publish-log4brains.yml`:
+First, create `.github/workflows/publish-log4brains.yml`:
 
 ```yml
-
+name: Publish Log4brains
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          persist-credentials: false
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14"
+      - name: Install and Build Log4brains
+        run: |
+          yarn install --frozen-lockfile
+          yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: .log4brains/out
+          TARGET_FOLDER: log4brains
 ```
 
 After the first run, this workflow will create a `gh-pages` branch in your repository containing the generated static files to serve.
 Then, you have to [enable your GitHub page](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site):
 
-- Go to `Settings > GitHub Pages`
-- Select the `gh-pages` branch as the Source
-- Select `/ (root)` folder
+- On GitHub, go to `Settings > GitHub Pages`
+- Select the `gh-pages` branch as the "Source"
+- Then, select the `/ (root)` folder
 
-The last thing to do is to tell GitHub that we [don't want to use Jekyll](https://github.com/vercel/next.js/issues/2029), otherwise, you will get a 404 error:
+Finally, the last thing to do is to tell GitHub that we [don't want to use Jekyll](https://github.com/vercel/next.js/issues/2029), otherwise, you will get a 404 error:
 
 ```bash
 git checkout gh-pages
@@ -168,7 +195,7 @@ git push
 ```
 
 You should now be able to see your knowledge base at `https://<username>.github.io/<repository>/log4brains/`.
-It will be published every time you push on `master`.
+It will be re-built and published every time you push on `master`.
 
 ## ❓ FAQ
 

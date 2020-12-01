@@ -16,10 +16,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14"
-
-      - name: Github repo
-        run: echo "${GITHUB_REPOSITORY#*/}"
-
       - name: Install and Build Log4brains
         run: |
           echo ${{ github.repository.name }}
