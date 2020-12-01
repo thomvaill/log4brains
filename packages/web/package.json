@@ -5,7 +5,7 @@
   "keywords": [
     "log4brains"
   ],
-  "author": "Thomas Vaillant <thomas@bluebricks.dev>",
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
   "license": "Apache-2.0",
   "private": false,
   "publishConfig": {
