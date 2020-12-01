@@ -55,7 +55,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
-- [📨 CI/CD setup for publication](#-cicd-setup-for-publication)
+- [📨 CI/CD configuration examples for publication](#-cicd-configuration-examples-for-publication)
   - [GitHub pages with GitHub actions](#github-pages-with-github-actions)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
@@ -135,14 +135,40 @@ To learn more on this topic, I recommend you to read these great resources:
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by @boceckts and @koppor
 - [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
 
-## 📨 CI/CD setup for publication
+## 📨 CI/CD configuration examples for publication
 
-Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice.
-Here is the documentation for the most common ones.
+Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice thanks to the `log4brains-web build` command.
+Here are some configuration examples for the most common hosting services.
 
 ### GitHub pages with GitHub actions
 
-TODO
+In this example we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page: `https://<username>.github.io/<repository>/log4brains/`.
+
+Create `.github/workflows/publish-log4brains.yml`:
+
+```yml
+
+```
+
+After the first run, this workflow will create a `gh-pages` branch in your repository containing the generated static files to serve.
+Then, you have to [enable your GitHub page](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site):
+
+- Go to `Settings > GitHub Pages`
+- Select the `gh-pages` branch as the Source
+- Select `/ (root)` folder
+
+The last thing to do is to tell GitHub that we [don't want to use Jekyll](https://github.com/vercel/next.js/issues/2029), otherwise, you will get a 404 error:
+
+```bash
+git checkout gh-pages
+touch .nojekyll
+git add .nojekyll
+git commit -m "Add .nojekyll for Log4brains"
+git push
+```
+
+You should now be able to see your knowledge base at `https://<username>.github.io/<repository>/log4brains/`.
+It will be published every time you push on `master`.
 
 ## ❓ FAQ
 
