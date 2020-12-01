@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.9](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2020-12-01)
+
+
+### Bug Fixes
+
+* **ci:** deploy log4brains ([e770c83](https://github.com/thomvaill/log4brains/commit/e770c83fa1a94ed57f0909e57aa93a0c110801b2))
+* **web:** previous/next ADRs ([5d1707d](https://github.com/thomvaill/log4brains/commit/5d1707de90fc0353ba33a18f708979d4fae4a00f))
+
+
+
+
+
 # [1.0.0-alpha.8](https://github.com/Thomvaill/log4brains/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2020-11-30)
 
 
