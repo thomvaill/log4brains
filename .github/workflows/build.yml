@@ -160,6 +160,8 @@ jobs:
       - name: build
         run: yarn build
 
+      # TODO: use lerna to bump the version temporarily here so the correct version is displayed in Log4brains
+
       - name: build self knowledge base
         run: yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/adr
 
