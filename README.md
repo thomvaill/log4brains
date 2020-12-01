@@ -55,6 +55,8 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
+- [📨 CI/CD setup for publication](#-cicd-setup-for-publication)
+  - [GitHub pages with GitHub actions](#github-pages-with-github-actions)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
   - [What about multi-packages projects?](#what-about-multi-packages-projects)
@@ -132,6 +134,15 @@ To learn more on this topic, I recommend you to read these great resources:
 - [Documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), by Michael Nygard
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by @boceckts and @koppor
 - [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
+
+## 📨 CI/CD setup for publication
+
+Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice.
+Here is the documentation for the most common ones.
+
+### GitHub pages with GitHub actions
+
+TODO
 
 ## ❓ FAQ
 
