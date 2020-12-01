@@ -17,9 +17,10 @@ import { Log4brainsError } from "@src/domain";
 import { PackageRepository } from "./PackageRepository";
 import { MarkdownAdrLinkResolver } from "../MarkdownAdrLinkResolver";
 
-type DateAndAuthor = {
-  date: Date;
-  author: Author;
+type GitMetadata = {
+  creationDate: Date;
+  lastEditDate: Date;
+  lastEditAuthor: Author;
 };
 
 type Deps = {
@@ -38,6 +39,8 @@ export class AdrRepository implements IAdrRepository {
   private readonly git: SimpleGit;
 
   private gitAvailable?: boolean;
+
+  private anonymousAuthor?: Author;
 
   private readonly markdownAdrLinkResolver: MarkdownAdrLinkResolver;
 
@@ -105,62 +108,42 @@ export class AdrRepository implements IAdrRepository {
       .sort(Adr.compare);
   }
 
-  private async getCreationDateFromGit(
+  private async getGitMetadata(
     file: AdrFile
-  ): Promise<Date | undefined> {
+  ): Promise<GitMetadata | undefined> {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
     const logs = (await this.git.log([file.path.absolutePath])).all;
     if (!logs || logs.length === 0) {
-      return undefined;
-    }
-    return new Date(logs[logs.length - 1].date);
-  }
-
-  private async getLastEditDateAndAuthorFromGit(
-    file: AdrFile
-  ): Promise<DateAndAuthor | undefined> {
-    if (!(await this.isGitAvailable())) {
-      return undefined;
-    }
-    const logs = (await this.git.log([file.path.absolutePath])).all;
-    if (!logs || logs.length === 0) {
-      // Debug
-      // TODO: remove
-      if (process.env.LOG4BRAINS_DEBUG_GIT === "1") {
-        // eslint-disable-next-line no-console
-        console.error(
-          `*** IMPOSSIBLE DE RETREIVE GIT LOGS for: ${file.path.absolutePath}`
-        );
-        console.error("* First try:"); // eslint-disable-line no-console
-        console.error(logs); // eslint-disable-line no-console
-        console.error("* Second try:"); // eslint-disable-line no-console
-        console.error(await this.git.log([file.path.absolutePath])); // eslint-disable-line no-console
-        // console.error("* All repo:"); // eslint-disable-line no-console
-        // console.error(await this.git.log()); // eslint-disable-line no-console
-        console.error("*** END"); // eslint-disable-line no-console
-      }
-
       return undefined;
     }
     return {
-      date: new Date(logs[0].date),
-      author: new Author(logs[0].author_name, logs[0].author_email)
+      creationDate: new Date(logs[logs.length - 1].date),
+      lastEditDate: new Date(logs[0].date),
+      lastEditAuthor: new Author(logs[0].author_name, logs[0].author_email)
     };
   }
 
-  private async getAuthorFromGitConfig(): Promise<Author> {
-    if (await this.isGitAvailable()) {
-      const config = await this.git.listConfig();
-      if (config?.all["user.name"]) {
-        return new Author(
-          config.all["user.name"] as string,
-          config.all["user.email"] as string | undefined
-        );
+  /**
+   * In preview mode, we set the Anonymous author as the current Git `user.name` global config.
+   * It should not append in CI. But if this is the case, it will appear as "Anonymous".
+   * Response is cached.
+   */
+  private async getAnonymousAuthor(): Promise<Author> {
+    if (!this.anonymousAuthor) {
+      this.anonymousAuthor = Author.createAnonymous();
+      if (await this.isGitAvailable()) {
+        const config = await this.git.listConfig();
+        if (config?.all["user.name"]) {
+          this.anonymousAuthor = new Author(
+            config.all["user.name"] as string,
+            config.all["user.email"] as string | undefined
+          );
+        }
       }
     }
-    return Author.createAnonymous();
+    return this.anonymousAuthor;
   }
 
   private async getLastEditDateFromFilesystem(file: AdrFile): Promise<Date> {
@@ -214,27 +197,36 @@ export class AdrRepository implements IAdrRepository {
               encoding: "utf8"
             })
             .then(async (markdown) => {
-              const creationGitDate = await this.getCreationDateFromGit(
-                adrFile
-              );
-              const lastEditGit = await this.getLastEditDateAndAuthorFromGit(
-                adrFile
-              );
-              return new Adr({
+              const baseAdrProps = {
                 slug,
                 package: packageRef,
                 body: new MarkdownBody(markdown).setAdrLinkResolver(
                   this.markdownAdrLinkResolver
                 ),
-                file: adrFile,
-                creationDate:
-                  creationGitDate ||
-                  (await this.getLastEditDateFromFilesystem(adrFile)),
-                lastEditDate:
-                  lastEditGit?.date ||
-                  (await this.getLastEditDateFromFilesystem(adrFile)),
-                lastEditAuthor:
-                  lastEditGit?.author || (await this.getAuthorFromGitConfig())
+                file: adrFile
+              };
+
+              // The file is versionned in Git
+              const gitMetadata = await this.getGitMetadata(adrFile);
+              if (gitMetadata) {
+                return new Adr({
+                  ...baseAdrProps,
+                  creationDate: gitMetadata.creationDate,
+                  lastEditDate: gitMetadata.lastEditDate,
+                  lastEditAuthor: gitMetadata.lastEditAuthor
+                });
+              }
+
+              // The file is not versionned in Git yet
+              // So we rely on filesystem's last edit date and global git config
+              const lastEditDate = await this.getLastEditDateFromFilesystem(
+                adrFile
+              );
+              return new Adr({
+                ...baseAdrProps,
+                creationDate: lastEditDate,
+                lastEditDate,
+                lastEditAuthor: await this.getAnonymousAuthor()
               });
             });
         })
