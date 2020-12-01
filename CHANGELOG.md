@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2020-12-01)
+
+
+### Bug Fixes
+
+* **web:** basePath ([e8e877b](https://github.com/thomvaill/log4brains/commit/e8e877b6169d079cef51c119ddc5b5f109d37fe9))
+
+
+
+
+
 # [1.0.0-alpha.9](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2020-12-01)
 
 
