@@ -170,13 +170,13 @@ function buildAdrNav(currentAdr: AdrLight, adrs: AdrLight[]): AdrNav {
     .map((adr, index) => (adr.slug === currentAdr.slug ? index : undefined))
     .filter((adr) => adr !== undefined)
     .pop();
-  const previousAdr =
-    currentIndex !== undefined && currentIndex > 0
-      ? adrs[currentIndex - 1]
-      : undefined;
-  const nextAdr =
+    const previousAdr =
     currentIndex !== undefined && currentIndex < adrs.length - 1
       ? adrs[currentIndex + 1]
+      : undefined;
+  const nextAdr =
+    currentIndex !== undefined && currentIndex > 0
+      ? adrs[currentIndex - 1]
       : undefined;
   return {
     previousAdr,
