@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.13](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2020-12-01)
+
+
+### Bug Fixes
+
+* **web:** use babel in dist ([6eea967](https://github.com/thomvaill/log4brains/commit/6eea9672991148ca0d01715e268bb4c7c9a76eef))
+* **web:** webpack issues with treeshaking ([5159f8b](https://github.com/thomvaill/log4brains/commit/5159f8bbef332e1917166d9909f792223eed3570))
+
+
+
+
+
 # [1.0.0-alpha.12](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2020-12-01)
 
 
