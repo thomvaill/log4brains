@@ -187,13 +187,7 @@ jobs:
 ```
 
 After the first run, this workflow will create a `gh-pages` branch in your repository containing the generated static files to serve.
-Then, you have to [enable your GitHub page](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site):
-
-- On GitHub, go to `Settings > GitHub Pages`
-- Select the `gh-pages` branch as the "Source"
-- Then, select the `/ (root)` folder
-
-Finally, the last thing to do is to tell GitHub that we [don't want to use Jekyll](https://github.com/vercel/next.js/issues/2029), otherwise, you will get a 404 error:
+Then, we have to tell GitHub that we [don't want to use Jekyll](https://github.com/vercel/next.js/issues/2029), otherwise, you will get a 404 error:
 
 ```bash
 git checkout gh-pages
@@ -202,6 +196,12 @@ git add .nojekyll
 git commit -m "Add .nojekyll for Log4brains"
 git push
 ```
+
+Finally, you can [enable your GitHub page](https://docs.github.com/en/free-pro-team@latest/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site):
+
+- On GitHub, go to `Settings > GitHub Pages`
+- Select the `gh-pages` branch as the "Source"
+- Then, select the `/ (root)` folder
 
 You should now be able to see your knowledge base at `https://<username>.github.io/<repository>/log4brains/`.
 It will be re-built and published every time you push on `master`.
