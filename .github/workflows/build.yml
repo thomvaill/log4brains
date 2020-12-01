@@ -61,8 +61,11 @@ jobs:
     needs: quality
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        node-version: [14.x, 12.x, 10.x]
+        # TODO: reduced for now during DEV
+        # os: [ubuntu-latest, windows-latest]
+        # node-version: [14.x, 12.x, 10.x]
+        os: [ubuntu-latest]
+        node-version: [14.x]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
