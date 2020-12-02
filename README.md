@@ -146,8 +146,6 @@ Here are some configuration examples for the most common hosting services / CI r
 
 ### Publish to GitHub Pages with GitHub Actions
 
-In this example, we will deploy Log4brains in a `log4brains` subfolder of your project GitHub page, accessible on `https://<username>.github.io/<repository>/log4brains/`.
-
 First, create `.github/workflows/publish-log4brains.yml` and adapt it to your case:
 
 ```yml
@@ -169,11 +167,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14"
+      # NPM:
+      # (unfortunately we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558)
       - name: Install and Build Log4brains (NPM)
         run: |
-          npm ci
+          npm install
           npm run log4brains-build -- --basePath /${GITHUB_REPOSITORY#*/}/log4brains
-      # OR:
+      # Yarn:
       # - name: Install and Build Log4brains (Yarn)
       #   run: |
       #     yarn install --frozen-lockfile
@@ -209,7 +209,31 @@ It will be re-built and published every time you push on `master`.
 
 ### Publish to GitLab Pages with GitLab CI
 
-TODO
+Create your `.gitlab-ci.yml` and adapt it to your case:
+
+```yml
+image: node:14-alpine3.12
+pages:
+  stage: deploy
+  variables:
+    GIT_DEPTH: 0 # required by Log4brains to work correctly (needs the whole Git history)
+  script:
+    - mkdir -p public
+    # NPM:
+    - npm install # unfortunately we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558
+    - npm run log4brains-build -- --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
+    # Yarn:
+    # - yarn install --frozen-lockfile
+    # - yarn log4brains-build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+```
+
+You should now be able to see your knowledge base at `https://<username>.gitlab.io/<repository>/log4brains/`.
+It will be re-built and published every time you push on `master`.
 
 ### Publish to S3
 
@@ -240,7 +264,7 @@ Then, configure your CI to run these commands:
 
 - Install Node and the AWS CLI
 - Checkout your Git repository **with the full history**, otherwise, Log4brains won't work correctly (see examples above)
-- `npm ci` or `yarn install --frozen-lockfile` to install the dev dependencies
+- `npm install` or `yarn install --frozen-lockfile` to install the dev dependencies (unfortunately we cannot use `npm ci` for now because of this [bug](https://github.com/npm/cli/issues/558))
 - `npm run log4brains-build` or `yarn log4brains-build`
 - `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
 
