@@ -330,6 +330,7 @@ Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.
 
 ## Acknowledgments
 
+- [Next.js](https://github.com/vercel/next.js/), which is used under the hood to provide the web UI and the static site generation capability
 - Michael Nygard for all his work on [Architecture Decision Records](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
 - @boceckts and @koppor for the [MADR](https://adr.github.io/madr/) template
 - [Tippawan Sookruay](https://thenounproject.com/wanny4/) for the Log4brains logo
