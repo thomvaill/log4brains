@@ -31,15 +31,14 @@ module.exports = withBundleAnalyzer({
       })
     );
 
-    // Webpack issue: treeshaking does not seem to work correctly when using Log4brains from NPM
-    // Unfortunately we can't reproduce this bug locally
-    // TODO: to investigate. We should not have to write this hotfix:
-    if (!isServer) {
-      config.node = {
-        fs: "empty",
-        child_process: "empty"
-      };
-    }
+    // Fix when the app is running inside `node_modules` (https://github.com/vercel/next.js/issues/19739)
+    const originalExcludeMethod = config.module.rules[0].exclude;
+    config.module.rules[0].exclude = (excludePath) => {
+      if (!originalExcludeMethod(excludePath)) {
+        return false;
+      }
+      return /node_modules/.test(excludePath.replace(config.context, ""));
+    };
 
     return config;
   },
