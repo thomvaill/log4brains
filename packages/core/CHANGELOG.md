@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.16](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2020-12-02)
+
+**Note:** Version bump only for package @log4brains/core
+
+
+
+
+
 # [1.0.0-alpha.15](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2020-12-02)
 
 **Note:** Version bump only for package @log4brains/core
