@@ -17,7 +17,7 @@ module.exports = withBundleAnalyzer({
     PROJECT_ROOT: __dirname, // https://github.com/vercel/next.js/issues/8251
     VERSION: packageJson.version
   },
-  webpack: function (config, { webpack, buildId, isServer }) {
+  webpack: function (config, { webpack, buildId }) {
     // Only used to load default-index.md
     config.module.rules.push({
       test: /\.md$/,
@@ -32,6 +32,7 @@ module.exports = withBundleAnalyzer({
     );
 
     // Fix when the app is running inside `node_modules` (https://github.com/vercel/next.js/issues/19739)
+    // TODO: remove this fix when this PR is merged: https://github.com/vercel/next.js/pull/19749
     const originalExcludeMethod = config.module.rules[0].exclude;
     config.module.rules[0].exclude = (excludePath) => {
       if (!originalExcludeMethod(excludePath)) {
