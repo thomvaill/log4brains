@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       zIndex: theme.zIndex.modal - 1,
       width: "100%",
       [theme.breakpoints.up("md")]: {
-        width: "40%"
+        width: "70%"
       },
       transition: theme.transitions.create("width", {
         duration: searchTransitionDuration
