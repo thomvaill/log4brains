@@ -18,11 +18,7 @@ import {
   Hidden,
   IconButton
 } from "@material-ui/core";
-import {
-  Menu as MenuIcon,
-  HomeOutlined as HomeIcon,
-  Close as CloseIcon
-} from "@material-ui/icons";
+import { Menu as MenuIcon, Close as CloseIcon } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 // import {
 //   ChevronRight as ChevronRightIcon,
@@ -275,11 +271,17 @@ export function AdrBrowserLayout({
         <div />
         <Link href="/" passHref>
           <IconButton
+            size="small"
             color="inherit"
             aria-label="go to homepage"
             title="Go to homepage"
           >
-            <HomeIcon />
+            <img
+              src={`${router?.basePath}/Log4brains-logo.png`}
+              alt="Log4brains logo"
+              width={40}
+              height={40}
+            />
           </IconButton>
         </Link>
         <IconButton
