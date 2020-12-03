@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: CustomTheme) =>
         flexBasis: theme.custom.layout.centerColBasis,
         paddingLeft: theme.custom.layout.centerColPadding,
         paddingRight: theme.custom.layout.centerColPadding
+      },
+      "& img": {
+        maxWidth: "100%"
       }
     },
     layoutRightCol: {
