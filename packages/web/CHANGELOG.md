@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.18](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2020-12-03)
+
+
+### Bug Fixes
+
+* **web:** alert spacing ([f840a2e](https://github.com/thomvaill/log4brains/commit/f840a2eb1f40945eb2fbb167f75563166249db47))
+* **web:** basePath in storybook ([50ac037](https://github.com/thomvaill/log4brains/commit/50ac0378dde4b62920f74ae9afba7136c42bb8a1))
+* **web:** build ([bffed64](https://github.com/thomvaill/log4brains/commit/bffed6497bfcf8eef40747e3b2ccca38e22d1587))
+* **web:** style md ([eeefd97](https://github.com/thomvaill/log4brains/commit/eeefd973d1011c7a4a0fee669fe0833986915c91))
+
+
+### Features
+
+* **web:** code highlight ([c69c790](https://github.com/thomvaill/log4brains/commit/c69c79087ff9138add9034b0c5bf6c84d41867e7))
+* **web:** responsive ([7aae731](https://github.com/thomvaill/log4brains/commit/7aae73195d459d78cc53e693cce291a5ee940512))
+
+
+
+
+
 # [1.0.0-alpha.17](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2020-12-02)
 
 **Note:** Version bump only for package @log4brains/web
