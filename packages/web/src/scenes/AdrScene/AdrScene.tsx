@@ -6,7 +6,8 @@ import {
   Button,
   Divider,
   Tooltip,
-  Link as MuiLink
+  Link as MuiLink,
+  Hidden
 } from "@material-ui/core";
 import {
   ArrowBack as ArrowBackIcon,
@@ -141,7 +142,11 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
                 title={adrNav.previousAdr.title || ""}
                 aria-label="previous"
               >
-                <Button startIcon={<ArrowBackIcon />}>Previous</Button>
+                <Button startIcon={<ArrowBackIcon />}>
+                  <Hidden xsDown implementation="css">
+                    Previous
+                  </Hidden>
+                </Button>
               </Tooltip>
             </Link>
           ) : (
@@ -159,7 +164,11 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
           {adrNav.nextAdr ? (
             <Link href={buildAdrUrl(adrNav.nextAdr)} passHref>
               <Tooltip title={adrNav.nextAdr.title || ""} aria-label="next">
-                <Button endIcon={<ArrowForwardIcon />}>Next</Button>
+                <Button endIcon={<ArrowForwardIcon />}>
+                  <Hidden xsDown implementation="css">
+                    Next
+                  </Hidden>
+                </Button>
               </Tooltip>
             </Link>
           ) : (
