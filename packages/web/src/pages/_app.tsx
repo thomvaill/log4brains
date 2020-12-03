@@ -37,7 +37,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
-        <title>Log4brains Architecture knowledge base</title>
+        <title>Architecture knowledge base</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -46,6 +46,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           rel="shortcut icon"
           type="image/x-icon"
           href={`${router.basePath}/favicon.ico`}
+        />
+        <meta
+          name="og:image"
+          content={`${router.basePath}/Log4brains-og.png`}
         />
       </Head>
       <Log4brainsModeContext.Provider value={mode}>

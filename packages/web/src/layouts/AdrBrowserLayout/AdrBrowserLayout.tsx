@@ -227,6 +227,7 @@ function buildAdrNav(currentAdr: AdrLight, adrs: AdrLight[]): AdrNav {
 }
 
 export type AdrBrowserLayoutProps = {
+  projectName: string;
   adrs?: AdrLight[]; // undefined -> loading, empty -> empty
   adrsReloading?: boolean;
   currentAdr?: AdrLight;
@@ -236,6 +237,7 @@ export type AdrBrowserLayoutProps = {
 };
 
 export function AdrBrowserLayout({
+  projectName,
   adrs,
   adrsReloading = false,
   currentAdr,
@@ -272,7 +274,7 @@ export function AdrBrowserLayout({
             size="small"
             color="inherit"
             aria-label="go to homepage"
-            title="Go to homepage"
+            title={`Architecture knowledge base of ${projectName}`}
           >
             <img
               src={`${router?.basePath}/Log4brains-logo.png`}
@@ -371,7 +373,7 @@ export function AdrBrowserLayout({
                     noWrap
                     className={classes.appBarTitleLink}
                   >
-                    Log4brains
+                    {projectName}
                   </MuiLink>
                 </Link>
                 <Link href="/" passHref>
