@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.22](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.21...v1.0.0-alpha.22) (2020-12-03)
+
+
+### Bug Fixes
+
+* **web:** img max width ([9d74a21](https://github.com/thomvaill/log4brains/commit/9d74a21393904c4501520fa5f710d9f5b3c132b0))
+
+
+
+# [1.0.0-alpha.20](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.19...v1.0.0-alpha.20) (2020-12-03)
+
+
+
+
+
 # [1.0.0-alpha.21](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.20...v1.0.0-alpha.21) (2020-12-03)
 
 **Note:** Version bump only for package @log4brains/web
