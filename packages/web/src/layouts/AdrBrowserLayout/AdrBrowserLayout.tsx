@@ -217,7 +217,7 @@ export function AdrBrowserLayout({
             <div className={classes.appBarTitle}>
               <div>
                 <img
-                  src={`${router.basePath}/Log4brains-logo-dark.png`}
+                  src={`${router?.basePath}/Log4brains-logo-dark.png`}
                   alt="Log4brains logo"
                   width={50}
                   height={50}
