@@ -63,14 +63,23 @@ async function hotReloadCurrentPage(): Promise<void> {
 type ConnectedAdrBrowserLayoutProps = Omit<
   AdrBrowserLayoutProps,
   "adrs" | "adrsReloading" | "routing"
->;
+> & {
+  // Defined for IndexScene to speed up the 1st load and for SEO. Not defined for AdrScenes to avoid a full-rebuild for each change.
+  // Will load them asynchronously if undefined
+  adrs?: AdrLight[];
+};
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export function ConnectedAdrBrowserLayout(
   props: ConnectedAdrBrowserLayoutProps
 ) {
+  const { adrs: preloadedAdrs } = props;
+
   const router = useRouter();
   const mode = React.useContext(Log4brainsModeContext);
-  const [adrs, setAdrsState] = React.useState<AdrLight[]>();
+  const [adrs, setAdrsState] = React.useState<AdrLight[] | undefined>(
+    preloadedAdrs ? [...preloadedAdrs].reverse() : preloadedAdrs
+  );
   const [adrsLoading, setAdrsLoadingState] = React.useState(false);
   const [routing, setRoutingState] = React.useState(false);
 
@@ -99,8 +108,10 @@ export function ConnectedAdrBrowserLayout(
   }, [mode, router.basePath]);
 
   React.useEffect(() => {
-    void updateAdrsList();
-  }, [updateAdrsList]);
+    if (!adrs) {
+      void updateAdrsList();
+    }
+  }, [updateAdrsList, adrs]);
 
   // Routing progress bar
   Router.events.on("routeChangeStart", () => setRoutingState(true));
