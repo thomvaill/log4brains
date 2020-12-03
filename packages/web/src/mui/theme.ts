@@ -5,6 +5,7 @@ export type CustomTheme = Theme & {
   custom: {
     layout: {
       centerColBasis: number;
+      centerColPadding: number;
       rightColBasis: number;
     };
   };
@@ -75,8 +76,9 @@ export const theme: CustomTheme = {
   }),
   custom: {
     layout: {
-      centerColBasis: 750,
-      rightColBasis: 180
+      centerColBasis: 750 + 4*8,
+      centerColPadding: 4*8,
+      rightColBasis: 180,
     }
   }
 };

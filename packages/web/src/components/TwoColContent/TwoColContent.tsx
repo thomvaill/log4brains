@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme: CustomTheme) =>
     layoutCenterCol: {
       flexGrow: 0,
       flexShrink: 0,
-      flexBasis: theme.custom.layout.centerColBasis
+      flexBasis: theme.custom.layout.centerColBasis,
+      paddingLeft: theme.custom.layout.centerColPadding,
+      paddingRight: theme.custom.layout.centerColPadding
     },
     layoutRightCol: {
       flexGrow: 1,
@@ -24,7 +26,11 @@ const useStyles = makeStyles((theme: CustomTheme) =>
       position: "sticky",
       top: theme.spacing(14), // TODO: calculate it based on AdrBrowserLayout's topSpace var
       alignSelf: "flex-start",
-      paddingLeft: theme.spacing(6)
+      paddingLeft: theme.spacing(2),
+      minWidth: "20ch",
+      [theme.breakpoints.down("md")]: {
+        display: "none"
+      }
     }
   })
 );

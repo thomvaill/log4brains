@@ -46,7 +46,9 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     layoutCenterCol: {
       flexGrow: 0,
       flexShrink: 0,
-      flexBasis: theme.custom.layout.centerColBasis
+      flexBasis: theme.custom.layout.centerColBasis,
+      paddingLeft: theme.custom.layout.centerColPadding,
+      paddingRight: theme.custom.layout.centerColPadding
     },
     layoutRightCol: {
       flexGrow: 1,
@@ -60,7 +62,9 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       [theme.breakpoints.up("sm")]: {
         display: "flex",
         alignItems: "center",
-        width: drawerWidth,
+        width: drawerWidth - theme.spacing(3),
+        flexGrow: 0,
+        flexShrink: 0,
         cursor: "pointer"
       }
     },
