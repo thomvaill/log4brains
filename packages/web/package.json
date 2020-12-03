@@ -56,6 +56,7 @@
     "commander": "^6.1.0",
     "copy-text-to-clipboard": "^2.2.0",
     "esm": "^3.2.25",
+    "highlight.js": "^10.4.0",
     "lunr": "^2.3.9",
     "markdown-to-jsx": "^7.0.1",
     "mkdirp": "^1.0.4",

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
+import hljs from "highlight.js";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
   Typography,
@@ -13,9 +14,12 @@ import { slugify } from "../../lib/slugify";
 
 const useStyles = makeStyles((theme: CustomTheme) =>
   createStyles({
-    listItem: {
-      marginTop: theme.spacing(1)
-    }
+    code: {
+      backgroundColor: "#F8F8F8",
+      borderRadius: theme.shape.borderRadius,
+      padding: 3
+    },
+    listItem: {}
   })
 );
 
@@ -26,6 +30,12 @@ function Li(props: TypographyProps) {
       <Typography component="span" {...props} />
     </li>
   );
+}
+
+function Code(props: { children: React.ReactNode }) {
+  const classes = useStyles();
+  const { children } = props;
+  return <code className={classes.code}>{children}</code>;
 }
 
 const options = {
@@ -49,13 +59,13 @@ const options = {
     p: { component: Typography, props: { paragraph: true } },
     a: { component: MuiLink },
     li: { component: Li },
-    AdrLink: { component: AdrLink }
+    AdrLink: { component: AdrLink },
+    code: { component: Code }
   },
   slugify
 };
 
 type MarkdownProps = {
-  className?: string;
   children: string;
   onCompiled?: (content: React.ReactElement) => void;
 };
@@ -66,15 +76,28 @@ function isReactElementWithChildren(
   return "children" in obj.props; // TODO: improve tests here
 }
 
-export function Markdown({ className, children, onCompiled }: MarkdownProps) {
+export function Markdown({ children, onCompiled }: MarkdownProps) {
+  const rootRef = React.useRef<HTMLDivElement>(null);
+
   const renderedMarkdown = useMemo(() => mdCompiler(children, options), [
     children
   ]);
+
   useEffect(() => {
     if (onCompiled && isReactElementWithChildren(renderedMarkdown)) {
       onCompiled(renderedMarkdown.props.children);
     }
   }, [children, renderedMarkdown, onCompiled]);
 
-  return <div className={className}>{renderedMarkdown}</div>;
+  useEffect(() => {
+    if (isReactElementWithChildren(renderedMarkdown)) {
+      rootRef.current
+        ?.querySelectorAll<HTMLElement>("pre code")
+        .forEach((block) => {
+          hljs.highlightBlock(block);
+        });
+    }
+  }, [children, renderedMarkdown]);
+
+  return <div ref={rootRef}>{renderedMarkdown}</div>;
 }
