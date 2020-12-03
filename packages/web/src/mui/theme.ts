@@ -72,6 +72,12 @@ export const theme: CustomTheme = {
             body: {
               padding: "0 !important", // for storybook
               maxWidth: "100%"
+            },
+            blockquote: {
+              margin: 0,
+              padding: "0 1em",
+              borderLeft: "0.25em solid #F8F8F8",
+              color: "#9e9e9e"
             }
           }
         },
