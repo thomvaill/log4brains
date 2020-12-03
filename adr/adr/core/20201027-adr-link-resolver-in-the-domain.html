@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta name="theme-color" content="#2176AE"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&amp;display=swap"/><meta charSet="utf-8"/><meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/><link rel="shortcut icon" type="image/x-icon" href="/log4brains/adr/favicon.ico"/><title>ADR link resolver in the domain - Log4brains architecture Knowledge Base</title><link rel="preload" href="/log4brains/adr/_next/static/css/95a1a0c2b8da51864a06.css" as="style"/><link rel="stylesheet" href="/log4brains/adr/_next/static/css/95a1a0c2b8da51864a06.css" data-n-g=""/><noscript data-n-css="true"></noscript><link rel="preload" href="/log4brains/adr/_next/static/chunks/main-4afd04f97d72182f372d.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/framework.84a6d28cd31e2ab5b4ad.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/commons.09a5a7f02916edff1fdf.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/a3e17150ead73d62fba7a33a50672ae3f72841a5.fc9100b3b85447aa2ad1.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/pages/_app-f54881006320b0634d1e.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/858546a3.5d2706d5bb98a3ef9561.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/580d9fe8.aeb21476cad4608682d4.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/d4b94cf0.81e37e7fdebf6cf6663a.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/7ede4f97.f2c483fe565918f0513d.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/45d2d314fc8da5e3d79852782e4a432ad4da6771.517a5b4853cff8558122.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/pages/adr/%5B...slug%5D-463c1f50fd6b7b1e0d3d.js" as="script"/><style id="jss-server-side">html {
+<!DOCTYPE html><html lang="en"><head><meta name="theme-color" content="#2176AE"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;700&amp;display=swap"/><meta charSet="utf-8"/><meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/><link rel="shortcut icon" type="image/x-icon" href="/log4brains/adr/favicon.ico"/><meta name="og:image" content="/log4brains/adr/Log4brains-og.png"/><title>ADR link resolver in the domain ADR - Architecture knowledge base of Log4brains</title><link rel="preload" href="/log4brains/adr/_next/static/css/95a1a0c2b8da51864a06.css" as="style"/><link rel="stylesheet" href="/log4brains/adr/_next/static/css/95a1a0c2b8da51864a06.css" data-n-g=""/><noscript data-n-css="true"></noscript><link rel="preload" href="/log4brains/adr/_next/static/chunks/main-4afd04f97d72182f372d.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/framework.84a6d28cd31e2ab5b4ad.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/commons.09a5a7f02916edff1fdf.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/a3e17150ead73d62fba7a33a50672ae3f72841a5.fc9100b3b85447aa2ad1.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/pages/_app-6ed94bbdcae5ab0fd00a.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/858546a3.5d2706d5bb98a3ef9561.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/580d9fe8.aeb21476cad4608682d4.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/d4b94cf0.81e37e7fdebf6cf6663a.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/7ede4f97.f2c483fe565918f0513d.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/45d2d314fc8da5e3d79852782e4a432ad4da6771.10e9943770bf8f9cf994.js" as="script"/><link rel="preload" href="/log4brains/adr/_next/static/chunks/pages/adr/%5B...slug%5D-463c1f50fd6b7b1e0d3d.js" as="script"/><style id="jss-server-side">html {
   max-width: 100%;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
@@ -29,6 +29,12 @@ body {
 }
 body::backdrop {
   background-color: #fff;
+}
+blockquote {
+  color: #9e9e9e;
+  margin: 0;
+  padding: 0 1em;
+  border-left: 0.25em solid #F8F8F8;
 }
 .MuiSvgIcon-root {
   fill: currentColor;
@@ -440,6 +446,81 @@ body::backdrop {
   .MuiButton-iconSizeLarge > *:first-child {
     font-size: 22px;
   }
+@media (min-width:0px) and (max-width:899.95px) {
+  .jss27 {
+    display: none;
+  }
+}
+@media (min-width:0px) {
+  .jss28 {
+    display: none;
+  }
+}
+@media (max-width:899.95px) {
+  .jss29 {
+    display: none;
+  }
+}
+@media (min-width:900px) and (max-width:1059.95px) {
+  .jss30 {
+    display: none;
+  }
+}
+@media (min-width:900px) {
+  .jss31 {
+    display: none;
+  }
+}
+@media (max-width:1059.95px) {
+  .jss32 {
+    display: none;
+  }
+}
+@media (min-width:1060px) and (max-width:1279.95px) {
+  .jss33 {
+    display: none;
+  }
+}
+@media (min-width:1060px) {
+  .jss34 {
+    display: none;
+  }
+}
+@media (max-width:1279.95px) {
+  .jss35 {
+    display: none;
+  }
+}
+@media (min-width:1280px) and (max-width:1919.95px) {
+  .jss36 {
+    display: none;
+  }
+}
+@media (min-width:1280px) {
+  .jss37 {
+    display: none;
+  }
+}
+@media (max-width:1919.95px) {
+  .jss38 {
+    display: none;
+  }
+}
+@media (min-width:1920px) {
+  .jss39 {
+    display: none;
+  }
+}
+@media (min-width:1920px) {
+  .jss40 {
+    display: none;
+  }
+}
+@media (min-width:0px) {
+  .jss41 {
+    display: none;
+  }
+}
   .MuiDivider-root {
     border: none;
     height: 1px;
@@ -504,47 +585,137 @@ body::backdrop {
     text-transform: uppercase;
   }
   .MuiTypography-h1 {
-    font-size: 6rem;
+    font-size: 3.5rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 300;
     line-height: 1.167;
     letter-spacing: -0.01562em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h1 {
+    font-size: 5.3556rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h1 {
+    font-size: 5.5698rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h1 {
+    font-size: 5.9983rem;
+  }
+}
   .MuiTypography-h2 {
-    font-size: 3.75rem;
+    font-size: 2.375rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 300;
     line-height: 1.2;
     letter-spacing: -0.00833em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h2 {
+    font-size: 3.3333rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h2 {
+    font-size: 3.5417rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h2 {
+    font-size: 3.75rem;
+  }
+}
   .MuiTypography-h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h3 {
+    font-size: 2.7273rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h3 {
+    font-size: 2.7273rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h3 {
+    font-size: 2.9545rem;
+  }
+}
   .MuiTypography-h4 {
-    font-size: 2.125rem;
+    font-size: 1.5625rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 400;
     line-height: 1.235;
     letter-spacing: 0.00735em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h4 {
+    font-size: 2.0243rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h4 {
+    font-size: 2.0243rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h4 {
+    font-size: 2.0243rem;
+  }
+}
   .MuiTypography-h5 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 400;
     line-height: 1.334;
     letter-spacing: 0em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h5 {
+    font-size: 1.4993rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h5 {
+    font-size: 1.4993rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h5 {
+    font-size: 1.4993rem;
+  }
+}
   .MuiTypography-h6 {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-family: "Roboto Slab", "Noto Serif", "Times New Roman", serif;
     font-weight: 500;
     line-height: 1.6;
     letter-spacing: 0.0075em;
   }
+@media (min-width:900px) {
+  .MuiTypography-h6 {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width:1060px) {
+  .MuiTypography-h6 {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width:1280px) {
+  .MuiTypography-h6 {
+    font-size: 1.25rem;
+  }
+}
   .MuiTypography-subtitle1 {
     font-size: 1rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -1161,6 +1332,124 @@ body::backdrop {
   .MuiChip-deleteIconOutlinedColorSecondary:hover, .MuiChip-deleteIconOutlinedColorSecondary:active {
     color: #FF007B;
   }
+  .MuiCircularProgress-root {
+    display: inline-block;
+  }
+  .MuiCircularProgress-static {
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+  .MuiCircularProgress-indeterminate {
+    animation: MuiCircularProgress-keyframes-circular-rotate 1.4s linear infinite;
+  }
+  .MuiCircularProgress-colorPrimary {
+    color: #2176AE;
+  }
+  .MuiCircularProgress-colorSecondary {
+    color: #FF007B;
+  }
+  .MuiCircularProgress-svg {
+    display: block;
+  }
+  .MuiCircularProgress-circle {
+    stroke: currentColor;
+  }
+  .MuiCircularProgress-circleStatic {
+    transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+  .MuiCircularProgress-circleIndeterminate {
+    animation: MuiCircularProgress-keyframes-circular-dash 1.4s ease-in-out infinite;
+    stroke-dasharray: 80px, 200px;
+    stroke-dashoffset: 0px;
+  }
+@keyframes MuiCircularProgress-keyframes-circular-rotate {
+  0% {
+    transform-origin: 50% 50%;
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes MuiCircularProgress-keyframes-circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}
+  .MuiCircularProgress-circleDisableShrink {
+    animation: none;
+  }
+  .MuiDrawer-docked {
+    flex: 0 0 auto;
+  }
+  .MuiDrawer-paper {
+    top: 0;
+    flex: 1 0 auto;
+    height: 100%;
+    display: flex;
+    outline: 0;
+    z-index: 1200;
+    position: fixed;
+    overflow-y: auto;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+  }
+  .MuiDrawer-paperAnchorLeft {
+    left: 0;
+    right: auto;
+  }
+  .MuiDrawer-paperAnchorRight {
+    left: auto;
+    right: 0;
+  }
+  .MuiDrawer-paperAnchorTop {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    height: auto;
+    max-height: 100%;
+  }
+  .MuiDrawer-paperAnchorBottom {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    max-height: 100%;
+  }
+  .MuiDrawer-paperAnchorDockedLeft {
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .MuiDrawer-paperAnchorDockedTop {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .MuiDrawer-paperAnchorDockedRight {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .MuiDrawer-paperAnchorDockedBottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  .MuiList-root {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    list-style: none;
+  }
+  .MuiList-padding {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .MuiList-subheader {
+    padding-top: 0;
+  }
   .MuiSnackbar-root {
     left: 8px;
     right: 8px;
@@ -1267,88 +1556,88 @@ body::backdrop {
   .MuiToolbar-dense {
     min-height: 48px;
   }
-  .jss42 {
+  .jss79 {
     height: 18px;
     font-size: 0.74rem;
     font-weight: 500;
     vertical-align: text-bottom;
   }
-  .jss43 {
+  .jss80 {
     padding: 0 6px;
   }
-  .jss44 {
+  .jss81 {
     color: #424242;
   }
-  .jss45 {
+  .jss82 {
     color: #283593;
   }
-  .jss46 {
+  .jss83 {
     color: #d84315;
   }
-  .jss47 {
+  .jss84 {
     color: #558b2f;
   }
-  .jss48 {
+  .jss85 {
     color: #6d4c41;
   }
-  .jss49 {
+  .jss86 {
     color: #6d4c41;
   }
-  .jss57 {
+  .jss94 {
     text-decoration: line-through;
   }
-  .jss58 {
+  .jss95 {
     text-decoration: line-through;
   }
-  .jss59 {
+  .jss96 {
     text-decoration: line-through;
   }
-  .jss50:hover .jss51 {
+  .jss87:hover .jss88 {
     visibility: visible;
   }
-  .jss51 {
+  .jss88 {
     color: inherit;
     visibility: hidden;
     margin-left: 0.3ch;
   }
-  .jss51:hover {
+  .jss88:hover {
     color: #2176AE;
   }
-  .jss52 {
+  .jss89 {
     padding: 3px;
     border-radius: 4px;
     background-color: #F8F8F8;
   }
-  .jss60 > ul {
+  .jss97 > ul {
     padding: 0 !important;
   }
-  .jss61 {
+  .jss98 {
     font-weight: 700;
     padding-bottom: 8px;
   }
-  .jss62 {
+  .jss99 {
     padding-left: 1rem;
     list-style-type: none;
   }
-  .jss33 {
+  .jss70 {
     display: flex;
   }
-  .jss34 {
+  .jss71 {
     flex-grow: 0.5;
   }
 @media (max-width:1279.95px) {
-  .jss34 {
+  .jss71 {
     display: none;
   }
 }
-  .jss35 {
+  .jss72 {
     flex-grow: 1;
     padding-left: 16px;
     overflow-wrap: anywhere;
     padding-right: 16px;
   }
 @media (min-width:1060px) {
-  .jss35 {
+  .jss72 {
     flex-grow: 0;
     flex-basis: 782px;
     flex-shrink: 0;
@@ -1356,21 +1645,87 @@ body::backdrop {
     padding-right: 32px;
   }
 }
-  .jss36 {
+  .jss73 {
     flex-grow: 1;
     flex-basis: 180px;
   }
 @media (max-width:1279.95px) {
-  .jss36 {
+  .jss73 {
     display: none;
   }
 }
-  .jss37 {
+  .jss74 {
     top: 112px;
     position: sticky;
     min-width: 20ch;
     align-self: flex-start;
     padding-left: 16px;
+  }
+  .jss43 {
+    color: #9e9e9e;
+    margin-top: 24px;
+    margin-left: 6ch;
+  }
+  .jss44 {
+    padding: 0;
+  }
+  .jss45 {
+    display: block;
+  }
+  .jss46:hover .jss56 {
+    background-color: #2176AE;
+  }
+  .jss47 .jss56 {
+    background-color: #FF007B;
+  }
+  .jss47 .jss45 {
+    color: #FF007B;
+  }
+  .jss47 .jss45:hover {
+    color: #FF007B;
+  }
+  .jss47:hover .jss56 {
+    background-color: #FF007B;
+  }
+  .jss48 {
+    flex: 0 0 12ch;
+  }
+  .jss49 {
+    color: #9e9e9e;
+    font-size: 0.8rem;
+  }
+  .jss50 {
+    margin-left: -1ch;
+  }
+  .jss51 {
+    vertical-align: middle;
+  }
+  .jss52 {
+    margin-right: 0.5ch;
+  }
+  .jss53 {
+    color: #616161;
+    font-size: 0.8rem;
+    white-space: pre;
+    vertical-align: text-top;
+  }
+  .jss54 {
+    flex: 0 0 calc(12ch - 12px);
+  }
+  .jss55 {
+    padding-bottom: 16px;
+  }
+  .jss57 {
+    background-color: #FF007B;
+  }
+  .jss61 {
+    text-decoration: line-through;
+  }
+  .jss62 {
+    text-decoration: line-through;
+  }
+  .jss63 {
+    text-decoration: line-through;
   }
   .jss1 {
     display: flex;
@@ -1523,6 +1878,9 @@ body::backdrop {
     padding-top: 48px;
   }
 }
+  .jss22 {
+    min-height: calc(100vh - 35px - 72px);
+  }
 @media (min-width:900px) {
   .jss22 {
     min-height: calc(100vh - 35px - 112px);
@@ -1531,14 +1889,9 @@ body::backdrop {
   .jss23 {
     color: #9e9e9e;
     height: 35px;
-    display: none;
+    display: flex;
     background-color: #f5f5f5;
   }
-@media (min-width:900px) {
-  .jss23 {
-    display: flex;
-  }
-}
   .jss24 {
     font-size: 0.77rem;
   }
@@ -1554,51 +1907,51 @@ body::backdrop {
     flex-direction: column;
     justify-content: center;
   }
-  .jss38 {
+  .jss75 {
     color: #616161;
     display: flex;
     justify-content: space-between;
   }
-  .jss39 {
+  .jss76 {
     display: flex;
   }
-  .jss39 > * {
+  .jss76 > * {
     margin-left: 4px;
     margin-right: 4px;
   }
-  .jss39 > *:first-child {
+  .jss76 > *:first-child {
     margin-left: 0;
   }
-  .jss39 > *:last-child {
+  .jss76 > *:last-child {
     margin-right: 0;
   }
-  .jss40 {
+  .jss77 {
     vertical-align: middle;
   }
-  .jss41 {
+  .jss78 {
     color: #757575;
   }
-  .jss27 {
+  .jss64 {
     margin-top: 8px;
     margin-bottom: 32px;
   }
-  .jss28 {
+  .jss65 {
     margin-bottom: 24px;
   }
-  .jss29 {
+  .jss66 {
     margin-top: 96px;
   }
-  .jss30 {
+  .jss67 {
     display: flex;
     margin-top: 8px;
     margin-bottom: 48px;
     justify-content: space-between;
   }
-  .jss32 {
+  .jss69 {
     color: #757575;
     font-size: 0.77rem;
     text-align: center;
-  }</style></head><body><div id="__next"><div class="jss1"><header class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary jss5 mui-fixed MuiPaper-elevation4"><div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"><button class="MuiButtonBase-root MuiIconButton-root jss6 MuiIconButton-colorInherit MuiIconButton-edgeStart" tabindex="0" type="button" aria-label="open drawer"><span class="MuiIconButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg></span></button><div class="jss7"><div><img src="/log4brains/adr/Log4brains-logo-dark.png" alt="Log4brains logo" width="50" height="50"/></div><div><a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss8 MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-noWrap" href="/log4brains/adr">Log4brains</a><a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss8 MuiTypography-body2 MuiTypography-colorPrimary MuiTypography-noWrap" href="/log4brains/adr">Architecture knowledge base</a></div></div><div class="jss2"></div><div class="jss3"><div class="MuiBackdrop-root jss9" aria-hidden="true" style="opacity:0;visibility:hidden"></div></div><div class="jss4"></div></div></header><nav class="jss12" aria-label="architecture decision records list"></nav><div class="jss21"><div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"></div><main class="jss22"><div class="jss33"><div class="jss34"></div><div class="jss35"><h3 class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom">ADR link resolver in the domain</h3><hr class="MuiDivider-root"/><div class="jss27 jss38"><div><div class="jss39"><p class="MuiTypography-root MuiTypography-body2" title="Package"><svg class="MuiSvgIcon-root jss40 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"></path></svg> <!-- -->core</p><p class="MuiTypography-root MuiTypography-body2" title="Publication date"><svg class="MuiSvgIcon-root jss40 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg> <!-- -->Oct 27, 2020</p><div title="Status"><div class="MuiChip-root jss42 jss47 MuiChip-outlined MuiChip-sizeSmall"><span class="MuiChip-label MuiChip-labelSmall jss43">ACCEPTED</span></div></div></div><p class="MuiTypography-root MuiTypography-body2" title="Author"><svg class="MuiSvgIcon-root jss40 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg> <!-- -->Thomas Vaillant</p></div><div><div><div role="group" class="MuiButtonGroup-root"><button class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined" tabindex="0" type="button" title="Copy link"><span class="MuiButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></svg></span></button><a class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined" tabindex="0" aria-disabled="false" href="https://github.com/thomvaill/log4brains/blob/master/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md" target="_blank" rel="noopener" title="View/edit on Github"><span class="MuiButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path></svg></svg></span></a></div></div></div></div><div><div><h2 class="MuiTypography-root jss50 MuiTypography-h4 MuiTypography-gutterBottom" id="context-and-problem-statement">Context and Problem Statement<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss51 MuiTypography-colorPrimary" href="#context-and-problem-statement" title="Permanent link">¶</a></h2><p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">We have to translate markdown links between ADRs to static site links.
-We cannot deduce the slug easily from the paths because of the &quot;path / package&quot; mapping, which is only known from the config.</p><h2 class="MuiTypography-root jss50 MuiTypography-h4 MuiTypography-gutterBottom" id="considered-options">Considered Options<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss51 MuiTypography-colorPrimary" href="#considered-options" title="Permanent link">¶</a></h2><ul><li class="jss53"><span class="MuiTypography-root MuiTypography-body1">Option 1: the ADR repository sets a Map on the ADR (<code class="jss52">path -&gt; slug</code>) for every link discovered in the Markdown</span></li><li class="jss53"><span class="MuiTypography-root MuiTypography-body1">Option 2: we introduce an &quot;ADR link resolver&quot; in the domain</span></li><li class="jss53"><span class="MuiTypography-root MuiTypography-body1">Option 3: we don&#x27;t rely on link paths, but only on link labels (ie label must === slug)</span></li></ul><h2 class="MuiTypography-root jss50 MuiTypography-h4 MuiTypography-gutterBottom" id="decision-outcome">Decision Outcome<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss51 MuiTypography-colorPrimary" href="#decision-outcome" title="Permanent link">¶</a></h2><p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">Chosen option: &quot;Option 2: we introduce an &quot;ADR link resolver&quot; in the domain&quot;.
+  }</style></head><body><div id="__next"><div class="jss1"><header class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary jss5 mui-fixed MuiPaper-elevation4"><div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"><button class="MuiButtonBase-root MuiIconButton-root jss6 MuiIconButton-colorInherit MuiIconButton-edgeStart" tabindex="0" type="button" aria-label="open drawer"><span class="MuiIconButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg></span></button><div class="jss7"><div><img src="/log4brains/adr/Log4brains-logo-dark.png" alt="Log4brains logo" width="50" height="50"/></div><div><a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss8 MuiTypography-h6 MuiTypography-colorPrimary MuiTypography-noWrap" href="/log4brains/adr">Log4brains</a><a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss8 MuiTypography-body2 MuiTypography-colorPrimary MuiTypography-noWrap" href="/log4brains/adr">Architecture knowledge base</a></div></div><div class="jss2"></div><div class="jss3"><div class="MuiBackdrop-root jss9" aria-hidden="true" style="opacity:0;visibility:hidden"></div></div><div class="jss4"></div></div></header><nav class="jss12" aria-label="architecture decision records list"><div class="jss31"></div><div class="jss29"><div class="MuiDrawer-root MuiDrawer-docked"><div class="MuiPaper-root MuiDrawer-paper jss13 MuiDrawer-paperAnchorLeft MuiDrawer-paperAnchorDockedLeft MuiPaper-elevation0"><div class="jss14"><div class="MuiToolbar-root MuiToolbar-regular jss15 MuiToolbar-gutters"><div></div><a class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall" tabindex="0" aria-disabled="false" aria-label="go to homepage" title="Architecture knowledge base of Log4brains" href="/log4brains/adr"><span class="MuiIconButton-label"><img src="/log4brains/adr/Log4brains-logo.png" alt="Log4brains logo" width="40" height="40"/></span></a><button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall" tabindex="0" type="button" aria-label="close drawer" title="Close"><span class="MuiIconButton-label"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span></button></div><div class="jss18"><h6 class="MuiTypography-root jss19 MuiTypography-subtitle2">Decisions log</h6><div class="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate" style="width:13px;height:13px;opacity:0;visibility:hidden" role="progressbar"><svg class="MuiCircularProgress-svg" viewBox="22 22 44 44"><circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate" cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"></circle></svg></div></div><div class="MuiCircularProgress-root jss20 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate" style="width:30px;height:30px" role="progressbar"><svg class="MuiCircularProgress-svg" viewBox="22 22 44 44"><circle class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate" cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"></circle></svg></div><ul class="MuiList-root jss17 MuiList-padding"></ul></div></div></div></div></nav><div class="jss21"><div class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"></div><main class="jss22"><div class="jss70"><div class="jss71"></div><div class="jss72"><h3 class="MuiTypography-root MuiTypography-h3 MuiTypography-gutterBottom">ADR link resolver in the domain</h3><hr class="MuiDivider-root"/><div class="jss64 jss75"><div><div class="jss76"><p class="MuiTypography-root MuiTypography-body2" title="Package"><svg class="MuiSvgIcon-root jss77 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zm0-16h-4v2h4v4h2V5c0-1.1-.9-2-2-2z"></path></svg> <!-- -->core</p><p class="MuiTypography-root MuiTypography-body2" title="Publication date"><svg class="MuiSvgIcon-root jss77 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg> <!-- -->Oct 27, 2020</p><div title="Status"><div class="MuiChip-root jss79 jss84 MuiChip-outlined MuiChip-sizeSmall"><span class="MuiChip-label MuiChip-labelSmall jss80">ACCEPTED</span></div></div></div><p class="MuiTypography-root MuiTypography-body2" title="Author"><svg class="MuiSvgIcon-root jss77 MuiSvgIcon-fontSizeInherit" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg> <!-- -->Thomas Vaillant</p></div><div><div><div role="group" class="MuiButtonGroup-root"><button class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined" tabindex="0" type="button" title="Copy link"><span class="MuiButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></svg></span></button><a class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedOutlined MuiButtonGroup-groupedOutlinedHorizontal MuiButtonGroup-groupedOutlined" tabindex="0" aria-disabled="false" href="https://github.com/thomvaill/log4brains/blob/master/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md" target="_blank" rel="noopener" title="View/edit on Github"><span class="MuiButton-label"><svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0 1 38.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path></svg></svg></span></a></div></div></div></div><div><div><h2 class="MuiTypography-root jss87 MuiTypography-h4 MuiTypography-gutterBottom" id="context-and-problem-statement">Context and Problem Statement<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss88 MuiTypography-colorPrimary" href="#context-and-problem-statement" title="Permanent link">¶</a></h2><p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">We have to translate markdown links between ADRs to static site links.
+We cannot deduce the slug easily from the paths because of the &quot;path / package&quot; mapping, which is only known from the config.</p><h2 class="MuiTypography-root jss87 MuiTypography-h4 MuiTypography-gutterBottom" id="considered-options">Considered Options<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss88 MuiTypography-colorPrimary" href="#considered-options" title="Permanent link">¶</a></h2><ul><li class="jss90"><span class="MuiTypography-root MuiTypography-body1">Option 1: the ADR repository sets a Map on the ADR (<code class="jss89">path -&gt; slug</code>) for every link discovered in the Markdown</span></li><li class="jss90"><span class="MuiTypography-root MuiTypography-body1">Option 2: we introduce an &quot;ADR link resolver&quot; in the domain</span></li><li class="jss90"><span class="MuiTypography-root MuiTypography-body1">Option 3: we don&#x27;t rely on link paths, but only on link labels (ie label must === slug)</span></li></ul><h2 class="MuiTypography-root jss87 MuiTypography-h4 MuiTypography-gutterBottom" id="decision-outcome">Decision Outcome<a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss88 MuiTypography-colorPrimary" href="#decision-outcome" title="Permanent link">¶</a></h2><p class="MuiTypography-root MuiTypography-body1 MuiTypography-paragraph">Chosen option: &quot;Option 2: we introduce an &quot;ADR link resolver&quot; in the domain&quot;.
 Because option 3 is too restrictive and option 1 seems too hacky.
-And this solution is compatible with <a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss56 MuiTypography-colorPrimary" href="/log4brains/adr/adr/core/20201003-markdown-parsing-is-part-of-the-domain">Markdown parsing is part of the domain</a>.</p></div></div><hr class="MuiDivider-root jss29"/><nav class="jss30"><div></div><div class="jss31"><p class="MuiTypography-root jss32 MuiTypography-body1">Last edited by <!-- -->Thomas Vaillant</p><p class="MuiTypography-root jss32 MuiTypography-body1">on <!-- -->Nov 30, 2020 4:58 PM</p></div><div></div></nav></div><div class="jss36 jss37"></div></div></main><footer class="jss23"><div class="jss2"></div><div class="jss3 jss26"><p class="MuiTypography-root jss24 MuiTypography-body1">Powered by<!-- --> <a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss25 MuiTypography-colorPrimary" href="https://github.com/thomvaill/log4brains" target="_blank" rel="noopener">Log4brains</a> <span style="font-size:0.8em">(v<!-- -->1.0.0-alpha.18<!-- -->)</span></p></div><div class="jss4"></div></footer></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"projectName":"Log4brains","currentAdr":{"slug":"core/20201027-adr-link-resolver-in-the-domain","package":"core","title":"ADR link resolver in the domain","status":"accepted","supersededBy":null,"tags":[],"deciders":[],"body":{"enhancedMdx":"\n## Context and Problem Statement\n\nWe have to translate markdown links between ADRs to static site links.\nWe cannot deduce the slug easily from the paths because of the \"path / package\" mapping, which is only known from the config.\n\n## Considered Options\n\n- Option 1: the ADR repository sets a Map on the ADR (`path -\u003e slug`) for every link discovered in the Markdown\n- Option 2: we introduce an \"ADR link resolver\" in the domain\n- Option 3: we don't rely on link paths, but only on link labels (ie label must === slug)\n\n## Decision Outcome\n\nChosen option: \"Option 2: we introduce an \"ADR link resolver\" in the domain\".\nBecause option 3 is too restrictive and option 1 seems too hacky.\nAnd this solution is compatible with \u003cAdrLink slug=\"core/20201003-markdown-parsing-is-part-of-the-domain\" status=\"accepted\" title=\"Markdown parsing is part of the domain\" package=\"core\" /\u003e.\n"},"creationDate":"2020-11-30T16:58:02.000Z","lastEditDate":"2020-11-30T16:58:02.000Z","lastEditAuthor":"Thomas Vaillant","publicationDate":"2020-10-27T22:59:59.000Z","file":{"relativePath":"packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md","absolutePath":"/home/runner/work/log4brains/log4brains/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md"},"repository":{"provider":"github","viewUrl":"https://github.com/thomvaill/log4brains/blob/master/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md"}},"l4bVersion":"1.0.0-alpha.18"},"__N_SSG":true},"page":"/adr/[...slug]","query":{"slug":["core","20201027-adr-link-resolver-in-the-domain"]},"buildId":"5amvwGd7Y9E4jozv70K3p","assetPrefix":"/log4brains/adr","runtimeConfig":{},"nextExport":false,"isFallback":false,"gsp":true,"head":[["meta",{"charSet":"utf-8"}],["meta",{"name":"viewport","content":"minimum-scale=1, initial-scale=1, width=device-width"}],["link",{"rel":"shortcut icon","type":"image/x-icon","href":"/log4brains/adr/favicon.ico"}],["title",{"children":"ADR link resolver in the domain - Log4brains architecture Knowledge Base"}]]}</script><script nomodule="" src="/log4brains/adr/_next/static/chunks/polyfills-6df34755c4c25dd2c71f.js"></script><script src="/log4brains/adr/_next/static/chunks/main-4afd04f97d72182f372d.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/framework.84a6d28cd31e2ab5b4ad.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/commons.09a5a7f02916edff1fdf.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/a3e17150ead73d62fba7a33a50672ae3f72841a5.fc9100b3b85447aa2ad1.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/pages/_app-f54881006320b0634d1e.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/858546a3.5d2706d5bb98a3ef9561.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/580d9fe8.aeb21476cad4608682d4.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/d4b94cf0.81e37e7fdebf6cf6663a.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/7ede4f97.f2c483fe565918f0513d.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/45d2d314fc8da5e3d79852782e4a432ad4da6771.517a5b4853cff8558122.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/pages/adr/%5B...slug%5D-463c1f50fd6b7b1e0d3d.js" async=""></script><script src="/log4brains/adr/_next/static/5amvwGd7Y9E4jozv70K3p/_buildManifest.js" async=""></script><script src="/log4brains/adr/_next/static/5amvwGd7Y9E4jozv70K3p/_ssgManifest.js" async=""></script></body></html>
+And this solution is compatible with <a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss93 MuiTypography-colorPrimary" href="/log4brains/adr/adr/core/20201003-markdown-parsing-is-part-of-the-domain">Markdown parsing is part of the domain</a>.</p></div></div><hr class="MuiDivider-root jss66"/><nav class="jss67"><div></div><div class="jss68"><p class="MuiTypography-root jss69 MuiTypography-body1">Last edited by <!-- -->Thomas Vaillant</p><p class="MuiTypography-root jss69 MuiTypography-body1">on <!-- -->Nov 30, 2020 4:58 PM</p></div><div></div></nav></div><div class="jss73 jss74"></div></div></main><footer class="jss23"><div class="jss2"></div><div class="jss3 jss26"><p class="MuiTypography-root jss24 MuiTypography-body1">Powered by<!-- --> <a class="MuiTypography-root MuiLink-root MuiLink-underlineNone jss25 MuiTypography-colorPrimary" href="https://github.com/thomvaill/log4brains" target="_blank" rel="noopener">Log4brains</a> <span style="font-size:0.8em">(v<!-- -->1.0.0-alpha.19<!-- -->)</span></p></div><div class="jss4"></div></footer></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"projectName":"Log4brains","currentAdr":{"slug":"core/20201027-adr-link-resolver-in-the-domain","package":"core","title":"ADR link resolver in the domain","status":"accepted","supersededBy":null,"tags":[],"deciders":[],"body":{"enhancedMdx":"\n## Context and Problem Statement\n\nWe have to translate markdown links between ADRs to static site links.\nWe cannot deduce the slug easily from the paths because of the \"path / package\" mapping, which is only known from the config.\n\n## Considered Options\n\n- Option 1: the ADR repository sets a Map on the ADR (`path -\u003e slug`) for every link discovered in the Markdown\n- Option 2: we introduce an \"ADR link resolver\" in the domain\n- Option 3: we don't rely on link paths, but only on link labels (ie label must === slug)\n\n## Decision Outcome\n\nChosen option: \"Option 2: we introduce an \"ADR link resolver\" in the domain\".\nBecause option 3 is too restrictive and option 1 seems too hacky.\nAnd this solution is compatible with \u003cAdrLink slug=\"core/20201003-markdown-parsing-is-part-of-the-domain\" status=\"accepted\" title=\"Markdown parsing is part of the domain\" package=\"core\" /\u003e.\n"},"creationDate":"2020-11-30T16:58:02.000Z","lastEditDate":"2020-11-30T16:58:02.000Z","lastEditAuthor":"Thomas Vaillant","publicationDate":"2020-10-27T22:59:59.000Z","file":{"relativePath":"packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md","absolutePath":"/home/runner/work/log4brains/log4brains/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md"},"repository":{"provider":"github","viewUrl":"https://github.com/thomvaill/log4brains/blob/master/packages/core/docs/adr/20201027-adr-link-resolver-in-the-domain.md"}},"l4bVersion":"1.0.0-alpha.19"},"__N_SSG":true},"page":"/adr/[...slug]","query":{"slug":["core","20201027-adr-link-resolver-in-the-domain"]},"buildId":"VnnJplfzNfn0Ex_n6yUU6","assetPrefix":"/log4brains/adr","runtimeConfig":{},"nextExport":false,"isFallback":false,"gsp":true,"head":[["meta",{"charSet":"utf-8"}],["meta",{"name":"viewport","content":"minimum-scale=1, initial-scale=1, width=device-width"}],["link",{"rel":"shortcut icon","type":"image/x-icon","href":"/log4brains/adr/favicon.ico"}],["meta",{"name":"og:image","content":"/log4brains/adr/Log4brains-og.png"}],["title",{"children":"ADR link resolver in the domain ADR - Architecture knowledge base of Log4brains"}]]}</script><script nomodule="" src="/log4brains/adr/_next/static/chunks/polyfills-6df34755c4c25dd2c71f.js"></script><script src="/log4brains/adr/_next/static/chunks/main-4afd04f97d72182f372d.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/framework.84a6d28cd31e2ab5b4ad.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/commons.09a5a7f02916edff1fdf.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/a3e17150ead73d62fba7a33a50672ae3f72841a5.fc9100b3b85447aa2ad1.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/pages/_app-6ed94bbdcae5ab0fd00a.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/858546a3.5d2706d5bb98a3ef9561.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/580d9fe8.aeb21476cad4608682d4.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/d4b94cf0.81e37e7fdebf6cf6663a.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/7ede4f97.f2c483fe565918f0513d.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/45d2d314fc8da5e3d79852782e4a432ad4da6771.10e9943770bf8f9cf994.js" async=""></script><script src="/log4brains/adr/_next/static/chunks/pages/adr/%5B...slug%5D-463c1f50fd6b7b1e0d3d.js" async=""></script><script src="/log4brains/adr/_next/static/VnnJplfzNfn0Ex_n6yUU6/_buildManifest.js" async=""></script><script src="/log4brains/adr/_next/static/VnnJplfzNfn0Ex_n6yUU6/_ssgManifest.js" async=""></script></body></html>
