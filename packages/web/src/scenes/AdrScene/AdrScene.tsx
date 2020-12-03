@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme: CustomTheme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(4)
     },
+    alert: {
+      marginBottom: theme.spacing(3)
+    },
     bottomNavDivider: {
       marginTop: theme.spacing(12)
     },
@@ -75,7 +78,7 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
   let alert;
   if (currentAdr.status === "superseded") {
     alert = (
-      <Alert severity="warning">
+      <Alert severity="warning" className={classes.alert}>
         This ADR is <strong>superseded</strong>
         {currentAdr.supersededBy ? (
           <>
@@ -90,13 +93,13 @@ export function AdrScene({ projectName, currentAdr }: AdrSceneProps) {
     );
   } else if (currentAdr.status === "deprecated") {
     alert = (
-      <Alert severity="warning">
+      <Alert severity="warning" className={classes.alert}>
         This ADR is <strong>deprecated</strong>.
       </Alert>
     );
   } else if (currentAdr.status === "rejected") {
     alert = (
-      <Alert severity="error">
+      <Alert severity="error" className={classes.alert}>
         This ADR was <strong>rejected</strong>.
       </Alert>
     );

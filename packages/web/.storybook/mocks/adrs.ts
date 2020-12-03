@@ -81,7 +81,7 @@ The "log4brains patch" performs the following modifications to the original temp
     supersededBy: "20200404-a-new-decision",
     tags: [],
     deciders: [],
-    body: { enhancedMdx: "" },
+    body: { enhancedMdx: "Test" },
     creationDate: new Date(2020, 1, 6).toJSON(),
     lastEditDate: new Date(2020, 1, 7).toJSON(),
     lastEditAuthor: "John Doe",
