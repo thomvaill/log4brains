@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.20](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.19...v1.0.0-alpha.20) (2020-12-03)
+
+
+### Bug Fixes
+
+* **web:** footer ([f1b2fb1](https://github.com/thomvaill/log4brains/commit/f1b2fb1f9140cae3eae5a5a37da9d64123b390e1))
+* **web:** index page ([710166d](https://github.com/thomvaill/log4brains/commit/710166dba8d1d04989638b596b70a21fc1cae3dc))
+* **web:** menu ([aa223f5](https://github.com/thomvaill/log4brains/commit/aa223f541d9f6fa7add6936bbd6a2709d0963312))
+* **web:** mobile logo ([d1c4bfa](https://github.com/thomvaill/log4brains/commit/d1c4bfa7be4c01bd6f0c2ab774aabd7839343666))
+* **web:** nav buttons in xs ([5c860f2](https://github.com/thomvaill/log4brains/commit/5c860f28371d82073318317f1d4a81b43275c4a8))
+* **web:** responsive font size ([78740cf](https://github.com/thomvaill/log4brains/commit/78740cfd5243d5842ab799a2ca571686b1145213))
+* **web:** SSG for the menu on IndexScene ([f87554d](https://github.com/thomvaill/log4brains/commit/f87554df65367a53567b1d30761d19c13097a1cc))
+* **web:** titles and OG image ([32b31a2](https://github.com/thomvaill/log4brains/commit/32b31a27095b77e8c00c71c1a315337651698137))
+
+
+
+
+
 # [1.0.0-alpha.19](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.18...v1.0.0-alpha.19) (2020-12-03)
 
 
