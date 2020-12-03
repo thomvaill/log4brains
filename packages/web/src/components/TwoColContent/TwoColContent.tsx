@@ -9,28 +9,37 @@ const useStyles = makeStyles((theme: CustomTheme) =>
       display: "flex"
     },
     layoutLeftCol: {
-      flexGrow: 1
+      flexGrow: 0.5,
+      [theme.breakpoints.down("md")]: {
+        display: "none"
+      }
     },
     layoutCenterCol: {
-      flexGrow: 0,
-      flexShrink: 0,
-      flexBasis: theme.custom.layout.centerColBasis,
-      paddingLeft: theme.custom.layout.centerColPadding,
-      paddingRight: theme.custom.layout.centerColPadding
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      flexGrow: 1,
+      overflowWrap: "anywhere",
+      [theme.breakpoints.up("md")]: {
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: theme.custom.layout.centerColBasis,
+        paddingLeft: theme.custom.layout.centerColPadding,
+        paddingRight: theme.custom.layout.centerColPadding
+      }
     },
     layoutRightCol: {
       flexGrow: 1,
-      flexBasis: theme.custom.layout.rightColBasis
+      flexBasis: theme.custom.layout.rightColBasis,
+      [theme.breakpoints.down("md")]: {
+        display: "none"
+      }
     },
     rightCol: {
       position: "sticky",
       top: theme.spacing(14), // TODO: calculate it based on AdrBrowserLayout's topSpace var
       alignSelf: "flex-start",
       paddingLeft: theme.spacing(2),
-      minWidth: "20ch",
-      [theme.breakpoints.down("md")]: {
-        display: "none"
-      }
+      minWidth: "20ch"
     }
   })
 );

@@ -14,8 +14,11 @@ import {
   NoSsr,
   CircularProgress,
   Grow,
-  Fade
+  Fade,
+  Hidden,
+  IconButton
 } from "@material-ui/core";
+import { Menu as MenuIcon } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 // import {
 //   ChevronRight as ChevronRightIcon,
@@ -31,7 +34,7 @@ import { AdrLight } from "../../types";
 import { AdrNav, AdrNavContext } from "../../contexts";
 import { RoutingProgress } from "./components/RoutingProgress";
 
-const drawerWidth = 450;
+const drawerWidth = 380;
 const searchTransitionDuration = 300;
 
 const useStyles = makeStyles((theme: CustomTheme) => {
@@ -41,21 +44,35 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       display: "flex"
     },
     layoutLeftCol: {
-      flexGrow: 1
+      flexGrow: 0.5,
+      [theme.breakpoints.down("md")]: {
+        display: "none"
+      }
     },
     layoutCenterCol: {
-      flexGrow: 0,
-      flexShrink: 0,
-      flexBasis: theme.custom.layout.centerColBasis,
       paddingLeft: theme.custom.layout.centerColPadding,
-      paddingRight: theme.custom.layout.centerColPadding
+      paddingRight: theme.custom.layout.centerColPadding,
+      flexGrow: 1,
+      [theme.breakpoints.up("md")]: {
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: theme.custom.layout.centerColBasis
+      }
     },
     layoutRightCol: {
       flexGrow: 1,
-      flexBasis: theme.custom.layout.rightColBasis
+      flexBasis: theme.custom.layout.rightColBasis,
+      [theme.breakpoints.down("md")]: {
+        display: "none"
+      }
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1
+    },
+    appBarMenuButton: {
+      [theme.breakpoints.up("sm")]: {
+        display: "none"
+      }
     },
     appBarTitle: {
       display: "none",
@@ -81,7 +98,10 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     },
     searchBox: {
       zIndex: theme.zIndex.modal - 1,
-      width: "40%",
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: "40%"
+      },
       transition: theme.transitions.create("width", {
         duration: searchTransitionDuration
       })
@@ -90,8 +110,10 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       width: "100%"
     },
     drawer: {
-      width: drawerWidth,
-      flexShrink: 0
+      [theme.breakpoints.up("sm")]: {
+        width: drawerWidth,
+        flexShrink: 0
+      }
     },
     drawerPaper: {
       width: drawerWidth
@@ -100,7 +122,9 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       height: "100%",
       display: "flex",
       flexDirection: "column",
-      paddingTop: topSpace
+      [theme.breakpoints.up("sm")]: {
+        paddingTop: topSpace
+      }
     },
     adrMenu: {
       flexGrow: 1,
@@ -139,16 +163,24 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     },
     container: {
       flexGrow: 1,
-      paddingTop: topSpace
+      paddingTop: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        paddingTop: topSpace
+      }
     },
     content: {
-      minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
+      [theme.breakpoints.up("sm")]: {
+        minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
+      }
     },
     footer: {
       backgroundColor: theme.palette.grey[100],
       color: theme.palette.grey[500],
       height: 35,
-      display: "flex"
+      display: "none",
+      [theme.breakpoints.up("sm")]: {
+        display: "flex"
+      }
       // alignItems: "flex-start"
     },
     footerText: {
@@ -209,14 +241,80 @@ export function AdrBrowserLayout({
   const classes = useStyles();
   const router = useRouter();
 
+  const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
+
+  const handleMobileDrawerToggle = () => {
+    setMobileDrawerOpen(!mobileDrawerOpen);
+  };
+
   const [searchOpen, setSearchOpenState] = React.useState(false);
   const [searchReallyOpen, setSearchReallyOpenState] = React.useState(false);
+
+  const drawer = (
+    <div className={classes.drawerContainer}>
+      <Toolbar />
+
+      <div className={classes.adlTitleAndSpinner}>
+        <Typography variant="subtitle2" className={classes.adlTitle}>
+          Decisions log
+        </Typography>
+
+        <Fade in={adrsReloading}>
+          <CircularProgress size={13} />
+        </Fade>
+      </div>
+
+      <Grow in={adrs !== undefined} style={{ transformOrigin: "center left" }}>
+        <AdrMenu
+          adrs={adrs}
+          currentAdrSlug={currentAdr?.slug}
+          className={classes.adrMenu}
+        />
+      </Grow>
+
+      {adrs === undefined && (
+        <CircularProgress size={30} className={classes.adrMenuSpinner} />
+      )}
+
+      <List className={classes.bottomMenuList}>
+        {/* <Divider />
+      <ListItem button>
+        <ListItemIcon>
+          <ChevronRightIcon />
+        </ListItemIcon>
+        <ListItemText>
+          <Badge badgeContent={0} color="primary">
+            <Typography>Filters</Typography>
+          </Badge>
+        </ListItemText>
+      </ListItem> */}
+        {/* <Divider />
+      <Link href="/decision-backlog" passHref>
+        <ListItem button selected={backlog} component="a">
+          <ListItemIcon>
+            <PlaylistAddCheckIcon />
+          </ListItemIcon>
+          <ListItemText primary="Decision backlog" />
+        </ListItem>
+      </Link> */}
+      </List>
+    </div>
+  );
 
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         {routing && <RoutingProgress />}
         <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleMobileDrawerToggle}
+            className={classes.appBarMenuButton}
+          >
+            <MenuIcon />
+          </IconButton>
           <Link href="/">
             <div className={classes.appBarTitle}>
               <div>
@@ -276,65 +374,40 @@ export function AdrBrowserLayout({
           <div className={classes.layoutRightCol} />
         </Toolbar>
       </AppBar>
-      <Drawer
+
+      <nav
         className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
+        aria-label="architecture decision records list"
       >
-        <div className={classes.drawerContainer}>
-          <Toolbar />
-
-          <div className={classes.adlTitleAndSpinner}>
-            <Typography variant="subtitle2" className={classes.adlTitle}>
-              Decisions log
-            </Typography>
-
-            <Fade in={adrsReloading}>
-              <CircularProgress size={13} />
-            </Fade>
-          </div>
-
-          <Grow
-            in={adrs !== undefined}
-            style={{ transformOrigin: "center left" }}
+        <Hidden smUp implementation="js">
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={mobileDrawerOpen}
+            onClose={handleMobileDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
           >
-            <AdrMenu
-              adrs={adrs}
-              currentAdrSlug={currentAdr?.slug}
-              className={classes.adrMenu}
-            />
-          </Grow>
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="js">
+          <Drawer
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
 
-          {adrs === undefined && (
-            <CircularProgress size={30} className={classes.adrMenuSpinner} />
-          )}
-
-          <List className={classes.bottomMenuList}>
-            {/* <Divider />
-            <ListItem button>
-              <ListItemIcon>
-                <ChevronRightIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <Badge badgeContent={0} color="primary">
-                  <Typography>Filters</Typography>
-                </Badge>
-              </ListItemText>
-            </ListItem> */}
-            {/* <Divider />
-            <Link href="/decision-backlog" passHref>
-              <ListItem button selected={backlog} component="a">
-                <ListItemIcon>
-                  <PlaylistAddCheckIcon />
-                </ListItemIcon>
-                <ListItemText primary="Decision backlog" />
-              </ListItem>
-            </Link> */}
-          </List>
-        </div>
-      </Drawer>
       <div className={classes.container}>
         <Toolbar />
         <main className={classes.content}>

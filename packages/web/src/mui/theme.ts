@@ -60,8 +60,12 @@ export const theme: CustomTheme = {
     overrides: {
       MuiCssBaseline: {
         "@global": {
+          html: {
+            maxWidth: "100%"
+          },
           body: {
-            padding: "0 !important" // for storybook
+            padding: "0 !important", // for storybook
+            maxWidth: "100%"
           }
         }
       },
@@ -72,13 +76,22 @@ export const theme: CustomTheme = {
           }
         }
       }
+    },
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 900,
+        md: 1060,
+        lg: 1280,
+        xl: 1920
+      }
     }
   }),
   custom: {
     layout: {
-      centerColBasis: 750 + 4*8,
-      centerColPadding: 4*8,
-      rightColBasis: 180,
+      centerColBasis: 750 + 4 * 8,
+      centerColPadding: 4 * 8,
+      rightColBasis: 180
     }
   }
 };
