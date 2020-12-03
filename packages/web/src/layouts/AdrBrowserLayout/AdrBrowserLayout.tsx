@@ -418,7 +418,7 @@ export function AdrBrowserLayout({
         className={classes.drawer}
         aria-label="architecture decision records list"
       >
-        <Hidden smUp implementation="js">
+        <Hidden smUp implementation="css">
           <Drawer
             variant="temporary"
             anchor="left"
@@ -434,7 +434,7 @@ export function AdrBrowserLayout({
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="js">
+        <Hidden xsDown implementation="css">
           <Drawer
             variant="permanent"
             open
