@@ -3,7 +3,7 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import "highlight.js/styles/github.css";
-import "../components/Markdown/hljs.css"
+import "../components/Markdown/hljs.css";
 import { NextComponentType, NextPageContext } from "next";
 import { MuiDecorator } from "../mui";
 import { Log4brainsMode, Log4brainsModeContext } from "../contexts";

@@ -69,5 +69,5 @@ Chosen option: "[option 1]", because [justification. e.g., only option, which me
 
 ## Links <!-- optional -->
 
-- [Link type] [Link to ADR] <!-- example: Refined by [xxx](yyyymmdd-xxx.md) -->
+- [Link type][link to adr] <!-- example: Refined by [xxx](yyyymmdd-xxx.md) -->
 - … <!-- numbers of links can vary -->
