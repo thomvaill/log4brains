@@ -176,6 +176,9 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       }
     },
     content: {
+      minHeight: `calc(100vh - 35px - ${
+        theme.spacing(1) + theme.spacing(8)
+      }px)`, // TODO: calc AppBar height more precisely
       [theme.breakpoints.up("sm")]: {
         minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
       }
@@ -184,14 +187,9 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       backgroundColor: theme.palette.grey[100],
       color: theme.palette.grey[500],
       height: 35,
-      display: "none",
-      [theme.breakpoints.up("sm")]: {
-        display: "flex"
-      }
-      // alignItems: "flex-start"
+      display: "flex"
     },
     footerText: {
-      // marginTop: theme.spacing(2),
       fontSize: "0.77rem"
     },
     footerLink: {
