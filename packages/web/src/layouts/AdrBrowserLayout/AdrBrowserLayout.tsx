@@ -18,7 +18,11 @@ import {
   Hidden,
   IconButton
 } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import {
+  Menu as MenuIcon,
+  HomeOutlined as HomeIcon,
+  Close as CloseIcon
+} from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 // import {
 //   ChevronRight as ChevronRightIcon,
@@ -125,6 +129,13 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       [theme.breakpoints.up("sm")]: {
         paddingTop: topSpace
       }
+    },
+    drawerToolbar: {
+      visibility: "visible",
+      [theme.breakpoints.up("sm")]: {
+        visibility: "hidden"
+      },
+      justifyContent: "space-between"
     },
     adrMenu: {
       flexGrow: 1,
@@ -247,12 +258,40 @@ export function AdrBrowserLayout({
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
+  React.useEffect(() => {
+    const closeMobileDrawer = () => setMobileDrawerOpen(false);
+    router.events.on("routeChangeStart", closeMobileDrawer);
+    return () => {
+      router.events.off("routeChangeStart", closeMobileDrawer);
+    };
+  }, [router]);
+
   const [searchOpen, setSearchOpenState] = React.useState(false);
   const [searchReallyOpen, setSearchReallyOpenState] = React.useState(false);
 
   const drawer = (
     <div className={classes.drawerContainer}>
-      <Toolbar />
+      <Toolbar className={classes.drawerToolbar}>
+        <div />
+        <Link href="/" passHref>
+          <IconButton
+            color="inherit"
+            aria-label="go to homepage"
+            title="Go to homepage"
+          >
+            <HomeIcon />
+          </IconButton>
+        </Link>
+        <IconButton
+          size="small"
+          color="inherit"
+          aria-label="close drawer"
+          title="Close"
+          onClick={handleMobileDrawerToggle}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Toolbar>
 
       <div className={classes.adlTitleAndSpinner}>
         <Typography variant="subtitle2" className={classes.adlTitle}>
