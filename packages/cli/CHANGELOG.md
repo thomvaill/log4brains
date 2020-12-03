@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.19](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.18...v1.0.0-alpha.19) (2020-12-03)
+
+**Note:** Version bump only for package @log4brains/cli
+
+
+
+
+
 # [1.0.0-alpha.18](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2020-12-03)
 
 **Note:** Version bump only for package @log4brains/cli

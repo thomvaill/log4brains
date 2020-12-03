@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.19](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.18...v1.0.0-alpha.19) (2020-12-03)
+
+
+### Bug Fixes
+
+* **web:** mobile menu behavior ([311df5e](https://github.com/thomvaill/log4brains/commit/311df5e58a44ea53d026a6c41ab9937096caf42d))
+* **web:** search width ([e4c9f24](https://github.com/thomvaill/log4brains/commit/e4c9f248801c00d5a4be093970f950571794094d))
+
+
+
+
+
 # [1.0.0-alpha.18](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2020-12-03)
 
 
