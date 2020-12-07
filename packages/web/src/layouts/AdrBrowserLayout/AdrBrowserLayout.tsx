@@ -257,9 +257,9 @@ export function AdrBrowserLayout({
 
   React.useEffect(() => {
     const closeMobileDrawer = () => setMobileDrawerOpen(false);
-    router.events.on("routeChangeStart", closeMobileDrawer);
+    router?.events.on("routeChangeStart", closeMobileDrawer);
     return () => {
-      router.events.off("routeChangeStart", closeMobileDrawer);
+      router?.events.off("routeChangeStart", closeMobileDrawer);
     };
   }, [router]);
 
