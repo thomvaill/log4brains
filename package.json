@@ -13,6 +13,7 @@
     "clean": "lerna run clean",
     "typescript": "lerna run typescript",
     "test": "lerna run --stream test",
+    "test:changed": "lerna run --stream --since HEAD test",
     "lint": "lerna run --stream lint",
     "format": "prettier-eslint \"$PWD/**/{.,}*.{js,jsx,ts,tsx,json,md}\" --list-different",
     "format-fix": "yarn format --write",
@@ -46,9 +47,11 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "eslint-plugin-sonarjs": "^0.5.0",
     "execa": "^4.1.0",
+    "husky": "^4.3.5",
     "jest": "^26.4.2",
     "jest-mock-extended": "^1.0.10",
     "lerna": "^3.22.1",
+    "lint-staged": "^10.5.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
     "prettier-eslint-cli": "^5.0.0",
@@ -57,5 +60,14 @@
     "ts-jest": "^26.4.0",
     "typedoc": "0.17.0-3",
     "typescript": "^4.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --max-warnings=0",
+    "*.{js,jsx,ts,tsx,json,md}": "prettier-eslint --list-different"
   }
 }
