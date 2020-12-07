@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.23](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.22...v1.0.0-alpha.23) (2020-12-07)
+
+
+### Bug Fixes
+
+* **core:** strange `git log` bug ([1700c40](https://github.com/thomvaill/log4brains/commit/1700c40b8a923e8c1256279aa487cd7cb4269428))
+
+
+
+
+
 # [1.0.0-alpha.22](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.21...v1.0.0-alpha.22) (2020-12-03)
 
 **Note:** Version bump only for package @log4brains/core

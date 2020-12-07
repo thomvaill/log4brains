@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.23](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.22...v1.0.0-alpha.23) (2020-12-07)
+
+
+### Bug Fixes
+
+* **core:** strange `git log` bug ([1700c40](https://github.com/thomvaill/log4brains/commit/1700c40b8a923e8c1256279aa487cd7cb4269428))
+* **web:** decision ([3c8a69c](https://github.com/thomvaill/log4brains/commit/3c8a69c69b59dfa938fc11f8715e905795f32cc8))
+* **web:** footer margin ([512783c](https://github.com/thomvaill/log4brains/commit/512783c562821612549dae059ff8f20ed66245a8))
+* **web:** image paths with basePath ([9fb08b7](https://github.com/thomvaill/log4brains/commit/9fb08b73c27badb657cf83a35ba1ce321f3b5e7b))
+
+
+### Features
+
+* **init:** index and readme ([00bf894](https://github.com/thomvaill/log4brains/commit/00bf894a2f5886129131637ec0b5d36d93165a38))
+
+
+
+
+
 # [1.0.0-alpha.22](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.21...v1.0.0-alpha.22) (2020-12-03)
 
 
