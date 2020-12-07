@@ -11,9 +11,7 @@ module.exports = {
     },
     project: path.join(__dirname, "tsconfig.dev.json")
   },
-  extends: [
-    "../../.eslintrc"
-  ],
+  extends: ["../../.eslintrc"],
   overrides: [
     {
       files: ["src/pages/**/*.tsx", "src/pages/api/**/*.ts"], // Next.js pages and api routes

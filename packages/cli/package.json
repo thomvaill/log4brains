@@ -32,7 +32,6 @@
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
-    "lint-fix": "eslint . --max-warnings=0 --fix",
     "prepublishOnly": "yarn build",
     "link": "yarn link"
   },

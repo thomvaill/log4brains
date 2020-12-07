@@ -37,7 +37,6 @@
     "typescript": "tsc",
     "test": "jest",
     "lint": "eslint . --max-warnings=0",
-    "lint-fix": "eslint . --max-warnings=0 --fix",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepublishOnly": "yarn build",

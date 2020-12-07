@@ -34,7 +34,6 @@
     "typescript": "tsc --noEmit",
     "test": "jest",
     "lint": "eslint . --max-warnings=0",
-    "lint-fix": "eslint . --max-warnings=0 --fix",
     "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts",
     "prepublishOnly": "yarn build"
   },

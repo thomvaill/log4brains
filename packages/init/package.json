@@ -42,7 +42,6 @@
     "test": "jest",
     "test-watch": "jest --watch",
     "lint": "eslint . --max-warnings=0",
-    "lint-fix": "eslint . --max-warnings=0 --fix",
     "prepublishOnly": "yarn build",
     "link": "npm link && rm -f ./package-lock.json"
   },
