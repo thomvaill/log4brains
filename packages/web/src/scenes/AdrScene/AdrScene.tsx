@@ -44,8 +44,7 @@ const useStyles = makeStyles((theme: CustomTheme) =>
     bottomNav: {
       display: "flex",
       justifyContent: "space-between",
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(6)
+      marginTop: theme.spacing(1)
     },
     bottomInfo: {},
     bottomInfoText: {

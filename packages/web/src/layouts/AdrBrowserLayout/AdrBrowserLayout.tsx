@@ -187,7 +187,8 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       backgroundColor: theme.palette.grey[100],
       color: theme.palette.grey[500],
       height: 35,
-      display: "flex"
+      display: "flex",
+      marginTop: theme.spacing(6)
     },
     footerText: {
       fontSize: "0.77rem"
