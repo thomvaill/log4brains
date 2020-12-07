@@ -31,7 +31,7 @@ yarn serve # serves the build output (`.log4brains/out`) locally
 # For the Next.js app, you can enable the Fast Refresh feature just by setting NODE_ENV to `development`
 NODE_ENV=development yarn log4brains-preview
 # Or you can run this more convenient command on the root project:
-yarn log4brains-preview-dev
+yarn log4brains-preview:dev
 # Or if you want to debug only the Next.js app without the Log4brains custom part, you can run:
 cd packages/web && yarn next dev # (in this case `yarn dev` is not needed before running this command)
 
