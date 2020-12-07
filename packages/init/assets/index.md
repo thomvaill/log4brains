@@ -2,7 +2,7 @@
 
 # Architecture knowledge base
 
-Welcome 👋 to the architecture knowledge base of Log4brains.
+Welcome 👋 to the architecture knowledge base of {PROJECT_NAME}.
 You will find here all the Architecture Decision Records (ADR) of the project.
 
 ## Definition and purpose

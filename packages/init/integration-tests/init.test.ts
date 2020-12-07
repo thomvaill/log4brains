@@ -155,6 +155,11 @@ describe("Init", () => {
 
       expect(fs.existsSync(path.join(cwd, ".log4brains.yml"))).toBeTruthy(); // TODO: test its content
       expect(fs.existsSync(path.join(cwd, "docs/adr"))).toBeTruthy();
+      expect(
+        fs.existsSync(path.join(cwd, "docs/adr/template.md"))
+      ).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/adr/index.md"))).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/adr/README.md"))).toBeTruthy();
     });
   });
 

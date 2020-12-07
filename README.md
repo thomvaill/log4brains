@@ -89,7 +89,8 @@ npm run log4brains-preview
 yarn log4brains-preview
 ```
 
-In this mode, the Hot Reload feature is enabled: any changes you make to the markdown files are applied live in the UI.
+In this mode, the Hot Reload feature is enabled: any changes
+you make to a markdown file is applied live in the UI.
 
 You can use this command to easily create a new ADR interactively:
 

@@ -295,6 +295,25 @@ export class InitCommand {
     return slug;
   }
 
+  private async copyFileIfAbsent(
+    cwd: string,
+    adrFolder: string,
+    filename: string,
+    contentCb?: (content: string) => string
+  ): Promise<void> {
+    const outPath = path.join(cwd, adrFolder, filename);
+    if (!fs.existsSync(outPath)) {
+      let content = await fsP.readFile(
+        path.join(assetsPath, filename),
+        "utf-8"
+      );
+      if (contentCb) {
+        content = contentCb(content);
+      }
+      await fsP.writeFile(outPath, content);
+    }
+  }
+
   private printSuccess(): void {
     const runCmd = this.hasYarn() ? "yarn" : "npm run";
     const l4bCliCmdName = "adr";
@@ -395,11 +414,12 @@ export class InitCommand {
       "utf-8"
     );
 
-    // Copy template if not already created
-    const templatePath = path.join(cwd, adrFolder, "template.md");
-    if (!fs.existsSync(templatePath)) {
-      await fsP.copyFile(path.join(assetsPath, "template.md"), templatePath);
-    }
+    // Copy template, index and README if not already created
+    await this.copyFileIfAbsent(cwd, adrFolder, "template.md");
+    await this.copyFileIfAbsent(cwd, adrFolder, "index.md", (content) =>
+      content.replace(/{PROJECT_NAME}/g, config.project.name)
+    );
+    await this.copyFileIfAbsent(cwd, adrFolder, "README.md");
 
     // List existing ADRs
     const adrListRes = await execa(

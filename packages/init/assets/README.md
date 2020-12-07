@@ -2,7 +2,7 @@
 
 ADRs are automatically published to our Log4brains architecture knowledge base:
 
-🔗 **<https://thomvaill.github.io/log4brains/adr/>**
+🔗 **<http://INSERT-YOUR-LOG4BRAINS-URL>**
 
 Please use this link to browse them.
 

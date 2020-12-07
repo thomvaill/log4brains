@@ -18,12 +18,6 @@ module.exports = withBundleAnalyzer({
     VERSION: packageJson.version
   },
   webpack: function (config, { webpack, buildId }) {
-    // Only used to load default-index.md
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader"
-    });
-
     // For cache invalidation purpose (thanks https://github.com/vercel/next.js/discussions/14743)
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -31,6 +25,7 @@ module.exports = withBundleAnalyzer({
       })
     );
 
+    // #NEXTJS-HACK
     // Fix when the app is running inside `node_modules` (https://github.com/vercel/next.js/issues/19739)
     // TODO: remove this fix when this PR is merged: https://github.com/vercel/next.js/pull/19749
     const originalExcludeMethod = config.module.rules[0].exclude;

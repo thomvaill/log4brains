@@ -15,7 +15,9 @@ export async function getIndexPageMarkdown(): Promise<string> {
       encoding: "utf8"
     });
   } catch (e) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,global-require,@typescript-eslint/no-var-requires
-    return require("./default-index.md").default as string;
+    return `# Architecture knowledge base
+
+Please create \`${instance.config.project.adrFolder}/index.md\` to customize this homepage.
+`;
   }
 }
