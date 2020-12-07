@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.24](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.23...v1.0.0-alpha.24) (2020-12-07)
+
+
+### Bug Fixes
+
+* **web:** storybook ([18489b7](https://github.com/thomvaill/log4brains/commit/18489b7e8e0af039c2017276583fea72d9ec88e4))
+
+
+
+
+
 # [1.0.0-alpha.23](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.22...v1.0.0-alpha.23) (2020-12-07)
 
 
