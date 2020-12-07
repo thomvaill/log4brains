@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
+import { useRouter } from "next/router";
 import hljs from "highlight.js";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
@@ -79,9 +80,21 @@ function isReactElementWithChildren(
 export function Markdown({ children, onCompiled }: MarkdownProps) {
   const rootRef = React.useRef<HTMLDivElement>(null);
 
-  const renderedMarkdown = useMemo(() => mdCompiler(children, options), [
-    children
-  ]);
+  const router = useRouter();
+
+  const renderedMarkdown = useMemo(
+    () =>
+      mdCompiler(
+        children.replace(
+          // Fix for `index.md`'s adr-workflow.png image path
+          // TODO: support local images
+          /\((\/l4b-static\/[^)]+)\)/g,
+          `(${router?.basePath}$1)`
+        ),
+        options
+      ),
+    [children, router]
+  );
 
   useEffect(() => {
     if (onCompiled && isReactElementWithChildren(renderedMarkdown)) {

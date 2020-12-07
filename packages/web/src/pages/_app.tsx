@@ -49,7 +49,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         />
         <meta
           name="og:image"
-          content={`${router.basePath}/Log4brains-og.png`}
+          content={`${router.basePath}/l4b-static/Log4brains-og.png`}
         />
       </Head>
       <Log4brainsModeContext.Provider value={mode}>

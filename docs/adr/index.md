@@ -23,7 +23,7 @@ You can browse the ADRs by using the left menu or the search bar.
 
 The typical workflow of an ADR is the following:
 
-![ADR workflow](adr-workflow.png)
+![ADR workflow](/l4b-static/adr-workflow.png)
 
 <br /><br />
 
