@@ -297,7 +297,7 @@ export function AdrBrowserLayout({
 
       <div className={classes.adlTitleAndSpinner}>
         <Typography variant="subtitle2" className={classes.adlTitle}>
-          Decisions log
+          Decision log
         </Typography>
 
         <Fade in={adrsReloading}>
