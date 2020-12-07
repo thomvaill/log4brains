@@ -114,10 +114,25 @@ export class AdrRepository implements IAdrRepository {
     if (!(await this.isGitAvailable())) {
       return undefined;
     }
-    const logs = (await this.git.log([file.path.absolutePath])).all;
-    if (!logs || logs.length === 0) {
+
+    let logs;
+    let retry = 0;
+    do {
+      // eslint-disable-next-line no-await-in-loop
+      logs = (await this.git.log([file.path.absolutePath])).all;
+
+      // TODO: debug this strange bug
+      // Sometimes, especially during snapshot testing, the `git log` command retruns nothing.
+      // And after a second retry, it works.
+      // Impossible to find out why for now, and since it causes a lot of false positive in the integration tests,
+      // we had to implement this quickfix
+      retry += 1;
+    } while (logs.length === 0 && retry <= 1);
+
+    if (logs.length === 0) {
       return undefined;
     }
+
     return {
       creationDate: new Date(logs[logs.length - 1].date),
       lastEditDate: new Date(logs[0].date),
