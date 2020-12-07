@@ -16,7 +16,7 @@ export async function previewCommand(port: number): Promise<void> {
   });
 
   /**
-   * Ugly hack of Next.JS.
+   * #NEXTJS-HACK
    * We override this private property to set the incrementalCache in "dev" mode (ie. it disables it)
    * to make our Hot Reload feature work.
    * In fact, we trigger a page re-render every time an ADR changes and we absolutely need up-to-date data on every render.

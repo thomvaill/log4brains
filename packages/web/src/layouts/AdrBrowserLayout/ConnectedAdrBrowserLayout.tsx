@@ -48,7 +48,7 @@ function hasAdrMetadataChanged(previous: Adr, current: Adr): boolean {
 
 async function hotReloadCurrentPage(): Promise<void> {
   /**
-   * Ugly hack of Next.JS.
+   * #NEXTJS-HACK
    * We clear Next.JS Router's "static data cache" to make our Hot Reload feature work.
    * In fact, we trigger a page re-render every time an ADR changes and we absolutely need up-to-date data on every render.
    * So we force a new request to the server.

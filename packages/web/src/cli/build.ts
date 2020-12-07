@@ -41,6 +41,9 @@ export async function buildCommand(
   };
 
   logger.debug("Running `next build`...");
+  // #NEXTJS-HACK: build() is not meant to be called from the outside of Next.js
+  // And there is an error in their typings: `conf?` is typed as `null`, so we have to use @ts-ignore
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await build(nextDir, nextCustomConfig);
