@@ -31,8 +31,8 @@
     "build": "tsc --build tsconfig.build.json && copyfiles -u 1 src/log4brains dist",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
-    "lint": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0",
-    "lint-fix": "eslint . --ext ts --ignore-pattern '/dist/' --max-warnings=0 --fix",
+    "lint": "eslint . --max-warnings=0",
+    "lint-fix": "eslint . --max-warnings=0 --fix",
     "prepublishOnly": "yarn build",
     "link": "yarn link"
   },
