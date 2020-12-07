@@ -48,9 +48,9 @@ NODE_ENV=development npx init-log4brains
 ## Checks to run before pushing
 
 ```bash
-yarn format
-yarn lint
-yarn test
+yarn lint         # enforced automatically before every commit with husky+lint-staged
+yarn format:fix   # enforced automatically before every commit with husky+lint-staged
+yarn test:changed # (or `yarn test` to run all the tests)
 ```
 
 Please do not forget to add tests to your contribution if this is applicable!
