@@ -42,8 +42,8 @@
     "link": "yarn link"
   },
   "dependencies": {
-    "@log4brains/core": "^1.0.0-alpha.25",
     "@log4brains/cli-common": "^1.0.0-alpha.25",
+    "@log4brains/core": "^1.0.0-alpha.25",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -61,6 +61,7 @@
     "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
     "next": "10.0.1",
+    "open": "^7.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-icons": "^3.11.0",

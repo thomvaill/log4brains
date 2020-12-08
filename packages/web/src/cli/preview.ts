@@ -2,11 +2,15 @@ import next from "next";
 import { createServer } from "http";
 import SocketIO from "socket.io";
 import chalk from "chalk";
+import open from "open";
 import { getLog4brainsInstance } from "../lib/core-api";
 import { getNextJsDir } from "../lib/next";
 import { appConsole, execNext } from "../lib/console";
 
-export async function previewCommand(port: number): Promise<void> {
+export async function previewCommand(
+  port: number,
+  openBrowser: boolean
+): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
 
   appConsole.startSpinner("Log4brains is starting...");
@@ -80,4 +84,8 @@ export async function previewCommand(port: number): Promise<void> {
       `http://localhost:${port}/`
     )}`
   );
+
+  if (openBrowser) {
+    await open(`http://localhost:${port}/`);
+  }
 }

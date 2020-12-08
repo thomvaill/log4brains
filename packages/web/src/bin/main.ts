@@ -7,6 +7,7 @@ const pkgVersion = require("../../package.json").version as string;
 
 type StartEditorCommandOpts = {
   port: string;
+  open: boolean;
 };
 type BuildCommandOpts = {
   out: string;
@@ -23,9 +24,10 @@ function createCli(version: string): commander.Command {
     .command("preview")
     .description("Start log4brains locally to preview your changes")
     .option("-p, --port <port>", "Port to listen on", "4004")
+    .option("--no-open", "Do not open the browser automatically", false)
     .action(
       (opts: StartEditorCommandOpts): Promise<void> => {
-        return previewCommand(parseInt(opts.port, 10));
+        return previewCommand(parseInt(opts.port, 10), opts.open);
       }
     );
 
