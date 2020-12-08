@@ -95,6 +95,11 @@ export async function previewCommand(
       `http://localhost:${port}/`
     )}`
   );
+  appConsole.println(
+    chalk.dim(
+      "Hot Reload is enabled: any change you make to a markdown file is applied live"
+    )
+  );
 
   if (openBrowser) {
     await open(`http://localhost:${port}/${adrSlug ? `adr/${adrSlug}` : ""}`);
