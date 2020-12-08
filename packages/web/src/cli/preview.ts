@@ -4,11 +4,13 @@ import SocketIO from "socket.io";
 import chalk from "chalk";
 import { getLog4brainsInstance } from "../lib/core-api";
 import { getNextJsDir } from "../lib/next";
-import { appConsole } from "../lib/console";
+import { appConsole, execNext } from "../lib/console";
 
 export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
-  appConsole.println("Log4brains is starting...");
+
+  appConsole.startSpinner("Log4brains is starting...");
+  appConsole.debug("Run `next start`...");
 
   const app = next({
     dev: process.env.NODE_ENV === "development",
@@ -26,7 +28,9 @@ export async function previewCommand(port: number): Promise<void> {
   // @ts-ignore
   app.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 
-  await app.prepare();
+  await execNext(async () => {
+    await app.prepare();
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const srv = createServer(app.getRequestHandler());
@@ -42,19 +46,17 @@ export async function previewCommand(port: number): Promise<void> {
   fileWatcher.start();
 
   try {
-    await new Promise((resolve, reject) => {
-      // This code catches EADDRINUSE error if the port is already in use
-      srv.on("error", reject);
-      srv.on("listening", () => resolve());
-      srv.listen(port);
-    });
-
-    appConsole.println(
-      `Your Log4brains preview is now 🚀 on ${chalk.underline.blueBright(
-        `http://localhost:${port}/`
-      )}`
+    await execNext(
+      () =>
+        new Promise((resolve, reject) => {
+          // This code catches EADDRINUSE error if the port is already in use
+          srv.on("error", reject);
+          srv.on("listening", () => resolve());
+          srv.listen(port);
+        })
     );
   } catch (err) {
+    appConsole.stopSpinner();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (err.code === "EADDRINUSE") {
       appConsole.fatal(
@@ -71,4 +73,11 @@ export async function previewCommand(port: number): Promise<void> {
       throw err;
     }
   }
+
+  appConsole.stopSpinner();
+  appConsole.println(
+    `Your Log4brains preview is 🚀 on ${chalk.underline.blueBright(
+      `http://localhost:${port}/`
+    )}`
+  );
 }

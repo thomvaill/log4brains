@@ -47,6 +47,9 @@ const cli = createCli(pkgVersion);
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 cli.parseAsync(process.argv).catch((err) => {
+  if (appConsole.isSpinning()) {
+    appConsole.stopSpinner(true);
+  }
   appConsole.fatal(err);
   process.exit(1);
 });

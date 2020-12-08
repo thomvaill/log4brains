@@ -7,7 +7,7 @@ import mkdirp from "mkdirp";
 import { promises as fsP } from "fs";
 import { getLog4brainsInstance } from "../lib/core-api";
 import { getNextJsDir } from "../lib/next";
-import { appConsole } from "../lib/console";
+import { appConsole, execNext } from "../lib/console";
 import { Search } from "../lib/search";
 import { toAdrLight } from "../types";
 
@@ -16,7 +16,7 @@ export async function buildCommand(
   basePath: string
 ): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
-  appConsole.println("Building Log4brains static website...");
+  appConsole.println("Building Log4brains...");
 
   const nextDir = getNextJsDir();
   // eslint-disable-next-line global-require,import/no-dynamic-require,@typescript-eslint/no-var-requires
@@ -40,25 +40,28 @@ export async function buildCommand(
     }
   };
 
-  appConsole.debug("Running `next build`...");
-  // #NEXTJS-HACK: build() is not meant to be called from the outside of Next.js
-  // And there is an error in their typings: `conf?` is typed as `null`, so we have to use @ts-ignore
+  appConsole.debug("Run `next build`...");
+  await execNext(async () => {
+    // #NEXTJS-HACK: build() is not meant to be called from the outside of Next.js
+    // And there is an error in their typings: `conf?` is typed as `null`, so we have to use @ts-ignore
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  await build(nextDir, nextCustomConfig);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    await build(nextDir, nextCustomConfig);
+  });
 
-  appConsole.debug("Running `next export`...");
-  // TODO: fix output issues
-  await exportApp(
-    nextDir,
-    {
-      outdir: outPath
-    },
-    loadConfig(PHASE_EXPORT, nextDir, nextCustomConfig) // Configuration is not handled like in build() here
-  );
+  appConsole.debug("Run `next export`...");
+  await execNext(async () => {
+    await exportApp(
+      nextDir,
+      {
+        outdir: outPath
+      },
+      loadConfig(PHASE_EXPORT, nextDir, nextCustomConfig) // Configuration is not handled like in build() here
+    );
+  });
 
-  appConsole.debug("Generating ADR JSON data...");
+  appConsole.startSpinner("Generating ADR JSON data...");
   const buildId = await fsP.readFile(
     path.join(nextDir, distDir, "BUILD_ID"),
     "utf-8"
@@ -98,14 +101,17 @@ export async function buildCommand(
   ];
   await Promise.all(promises);
 
-  appConsole.debug("Generating search index...");
+  appConsole.updateSpinner("Generating search index...");
   await fsP.writeFile(
     path.join(outPath, "data", buildId, "search-index.json"),
     JSON.stringify(Search.createFromAdrs(adrs).serializeIndex()),
     "utf-8"
   );
 
+  appConsole.stopSpinner();
   appConsole.success(
-    `Finished! Your Log4brains static website was built in ${outPath}`
+    `Your Log4brains static website was successfully built in ${outPath}`
   );
+  appConsole.println();
+  process.exit(0); // otherwise Next.js's spinner keeps running
 }

@@ -4,6 +4,7 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import ora, { Ora } from "ora";
 import CliTable3, { Table } from "cli-table3";
+import { ConsoleCapturer } from "./ConsoleCapturer";
 
 export type AppConsoleOptions = {
   debug: boolean;
@@ -20,6 +21,8 @@ export class AppConsole {
   private readonly opts: AppConsoleOptions;
 
   private spinner?: Ora;
+
+  private spinnerConsoleCapturer = new ConsoleCapturer();
 
   constructor(opts: Partial<AppConsoleOptions> = {}) {
     this.opts = {
@@ -39,8 +42,18 @@ export class AppConsole {
     }
     this.spinner = ora({
       text: message,
-      spinner: "bouncingBar"
+      spinner: "bouncingBar",
+      stream: process.stdout
     }).start();
+
+    // Add capturing of console.log/warn/error to allow pausing
+    // the spinner before logging and then restarting spinner after
+    this.spinnerConsoleCapturer.onLog = (method, args) => {
+      this.spinner?.stop();
+      method(...args);
+      this.spinner?.start();
+    };
+    this.spinnerConsoleCapturer.start();
   }
 
   updateSpinner(message: string): void {
@@ -54,6 +67,9 @@ export class AppConsole {
     if (!this.spinner) {
       throw new Error("Spinner is not started");
     }
+
+    this.spinnerConsoleCapturer.stop();
+
     this.spinner.stopAndPersist({
       symbol: chalk.dim(withError ? "[==  ]" : "[====]"),
       text: `${this.spinner.text} ${withError ? chalk.red("Error") : "Done"}`
@@ -62,17 +78,20 @@ export class AppConsole {
     this.spinner = undefined;
   }
 
-  println(message?: string): void {
-    console.log(message ?? "");
+  println(message?: any, ...optionalParams: any[]): void {
+    console.log(message ?? "", ...optionalParams);
   }
 
-  printlnErr(message?: string): void {
-    console.error(message ?? "");
+  printlnErr(message?: any, ...optionalParams: any[]): void {
+    console.error(message ?? "", ...optionalParams);
   }
 
-  debug(messageOrErr: string | Error): void {
+  debug(message?: any, ...optionalParams: any[]): void {
     if (this.opts.debug) {
-      this.println(chalk.dim(messageOrErr));
+      this.println(
+        chalk.dim(message),
+        ...optionalParams.map((p) => chalk.dim(p))
+      );
     }
   }
 
