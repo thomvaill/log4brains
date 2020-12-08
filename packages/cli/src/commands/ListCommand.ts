@@ -1,10 +1,9 @@
-import Table from "cli-table3";
 import { Log4brains, SearchAdrsFilters, AdrDtoStatus } from "@log4brains/core";
-import { Console } from "../console";
+import type { AppConsole } from "@log4brains/cli-common";
 
 type Deps = {
   l4bInstance: Log4brains;
-  appConsole: Console;
+  appConsole: AppConsole;
 };
 
 export type ListCommandOpts = {
@@ -15,7 +14,7 @@ export type ListCommandOpts = {
 export class ListCommand {
   private readonly l4bInstance: Log4brains;
 
-  private readonly console: Console;
+  private readonly console: AppConsole;
 
   constructor({ l4bInstance, appConsole }: Deps) {
     this.l4bInstance = l4bInstance;
@@ -28,7 +27,9 @@ export class ListCommand {
       filters.statuses = opts.statuses.split(",") as AdrDtoStatus[];
     }
     const adrs = await this.l4bInstance.searchAdrs(filters);
-    const table = new Table({ head: ["Slug", "Status", "Package", "Title"] });
+    const table = this.console.createTable({
+      head: ["Slug", "Status", "Package", "Title"]
+    });
     adrs.forEach((adr) => {
       table.push([
         adr.slug,
@@ -37,6 +38,6 @@ export class ListCommand {
         adr.title || "Untitled"
       ]);
     });
-    this.console.table(table, opts.raw);
+    this.console.printTable(table, opts.raw);
   }
 }

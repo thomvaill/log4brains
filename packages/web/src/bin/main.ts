@@ -1,6 +1,6 @@
 import commander from "commander";
 import { previewCommand, buildCommand } from "../cli";
-import { logger } from "../lib/logger";
+import { appConsole } from "../lib/console";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,global-require,@typescript-eslint/no-var-requires
 const pkgVersion = require("../../package.json").version as string;
@@ -47,6 +47,6 @@ const cli = createCli(pkgVersion);
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 cli.parseAsync(process.argv).catch((err) => {
-  logger.fatal(err);
+  appConsole.fatal(err);
   process.exit(1);
 });

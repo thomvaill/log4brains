@@ -1,6 +1,6 @@
 import commander from "commander";
 import { Log4brains } from "@log4brains/core";
-import { Console } from "./console";
+import type { AppConsole } from "@log4brains/cli-common";
 import {
   ListCommand,
   ListCommandOpts,
@@ -10,7 +10,7 @@ import {
 
 type Deps = {
   l4bInstance: Log4brains;
-  appConsole: Console;
+  appConsole: AppConsole;
   version: string;
 };
 

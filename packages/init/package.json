@@ -46,23 +46,20 @@
     "link": "npm link && rm -f ./package-lock.json"
   },
   "dependencies": {
+    "@log4brains/cli-common": "^1.0.0-alpha.25",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "edit-json-file": "^1.5.0",
     "esm": "^3.2.25",
     "execa": "^4.1.0",
     "has-yarn": "^2.1.0",
-    "inquirer": "^7.3.3",
     "mkdirp": "^1.0.4",
     "moment-timezone": "^0.5.32",
-    "ora": "^5.1.0",
-    "signale": "^1.4.0",
     "terminal-link": "^2.1.1",
     "yaml": "^1.10.0"
   },
   "devDependencies": {
     "@types/edit-json-file": "^1.4.0",
-    "@types/inquirer": "^7.3.1",
     "copyfiles": "^2.4.0",
     "esm": "^3.2.25",
     "ts-node": "^9.0.0"

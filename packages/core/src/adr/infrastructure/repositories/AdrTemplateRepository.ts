@@ -45,7 +45,7 @@ export class AdrTemplateRepository implements IAdrTemplateRepository {
       }
       throw new Log4brainsError(
         "The template.md file does not exist",
-        adrFolderPath.pathRelativeToCwd
+        path.join(adrFolderPath.pathRelativeToCwd, "template.md")
       );
     }
 

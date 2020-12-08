@@ -1,9 +1,9 @@
 import commander from "commander";
+import type { AppConsole } from "@log4brains/cli-common";
 import { InitCommand, InitCommandOpts } from "./commands";
-import { Console } from "./console";
 
 type Deps = {
-  appConsole: Console;
+  appConsole: AppConsole;
   version: string;
   name: string;
 };

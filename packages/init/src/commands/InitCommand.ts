@@ -10,7 +10,7 @@ import yaml from "yaml";
 import path from "path";
 import editJsonFile from "edit-json-file";
 import moment from "moment-timezone";
-import { Console } from "../console";
+import type { AppConsole } from "@log4brains/cli-common";
 import { FailureExit } from "./FailureExit";
 
 const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
@@ -41,11 +41,11 @@ type L4bYmlConfig = {
 };
 
 type Deps = {
-  appConsole: Console;
+  appConsole: AppConsole;
 };
 
 export class InitCommand {
-  private readonly console: Console;
+  private readonly console: AppConsole;
 
   private hasYarnValue?: boolean;
 
@@ -111,15 +111,15 @@ export class InitCommand {
 
   private guessMainAdrFolderPath(cwd: string): string | undefined {
     const usualPaths = [
-      "docs/adr",
-      "docs/adrs",
-      "docs/architecture-decisions",
-      "doc/adr",
-      "doc/adrs",
-      "doc/architecture-decisions",
-      "adr",
-      "adrs",
-      "architecture-decisions"
+      "./docs/adr",
+      "./docs/adrs",
+      "./docs/architecture-decisions",
+      "./doc/adr",
+      "./doc/adrs",
+      "./doc/architecture-decisions",
+      "./adr",
+      "./adrs",
+      "./architecture-decisions"
     ];
     // eslint-disable-next-line no-restricted-syntax
     for (const possiblePath of usualPaths) {
@@ -135,6 +135,11 @@ export class InitCommand {
     cwd: string,
     noInteraction: boolean
   ): Promise<L4bYmlConfig> {
+    this.console.println(
+      `We will now help you to create your ${chalk.cyan(".log4brains.yml")}...`
+    );
+    this.console.println();
+
     // Name
     let name;
     try {
@@ -180,7 +185,7 @@ export class InitCommand {
     // Main ADR folder location
     let adrFolder = this.guessMainAdrFolderPath(cwd);
     if (adrFolder) {
-      this.console.info(
+      this.console.println(
         `We have detected a possible existing ADR folder: ${chalk.cyan(
           adrFolder
         )}`
@@ -193,28 +198,28 @@ export class InitCommand {
     }
     if (!adrFolder) {
       adrFolder = noInteraction
-        ? "docs/adr"
+        ? "./docs/adr"
         : await this.console.askInputQuestion(
             `In which directory do you plan to store your ${
               type === "multi" ? "global " : ""
             }ADRs? (will be automatically created)`,
-            "docs/adr"
+            "./docs/adr"
           );
     }
     await mkdirp(path.join(cwd, adrFolder));
-    this.console.print();
+    this.console.println();
 
     // Packages
     const packages = [];
     if (type === "multi") {
-      this.console.print("We will now define your packages...");
-      this.console.print();
+      this.console.println("We will now define your packages...");
+      this.console.println();
 
       let oneMorePackage = false;
       let packageNumber = 1;
       do {
-        this.console.print();
-        this.console.print(
+        this.console.println();
+        this.console.println(
           `  ${chalk.underline(`Package #${packageNumber}`)}:`
         );
         const pkgName = await this.console.askInputQuestion(
@@ -222,7 +227,8 @@ export class InitCommand {
         );
         const pkgCodeFolder = await this.askPathWhileNotFound(
           "Where is located the source code of this package?",
-          cwd
+          cwd,
+          `./packages/${pkgName}`
         );
         const pkgAdrFolder = await this.console.askInputQuestion(
           `In which directory do you plan to store the ADRs of this package? (will be automatically created)`,
@@ -319,31 +325,35 @@ export class InitCommand {
     const l4bCliCmdName = "adr";
 
     this.console.success("Log4brains is installed and configured! 🎉🎉🎉");
-    this.console.print();
-    this.console.print("You can now use the CLI to create a new ADR:");
-    this.console.print(`  ${chalk.cyan(`${runCmd} ${l4bCliCmdName} new`)}`);
-    this.console.print("");
-    this.console.print(
+    this.console.println();
+    this.console.println("You can now use the CLI to create a new ADR:");
+    this.console.println(`  ${chalk.cyan(`${runCmd} ${l4bCliCmdName} new`)}`);
+    this.console.println("");
+    this.console.println(
       "And start the web UI to preview your architecture knowledge base:"
     );
-    this.console.print(`  ${chalk.cyan(`${runCmd} log4brains-preview`)}`);
-    this.console.print();
-    this.console.print(
-      `Do not forget to check the ${terminalLink(
+    this.console.println(`  ${chalk.cyan(`${runCmd} log4brains-preview`)}`);
+    this.console.println();
+    this.console.println(
+      "Do not forget to set up your CI/CD to automatically publish your knowledge base"
+    );
+    this.console.println(
+      `Check out the ${terminalLink(
         "documentation",
         docLink
-      )} to learn how to set up your CI/CD to publish it`
+      )} to see some examples`
     );
   }
 
   private async askPathWhileNotFound(
     question: string,
-    cwd: string
+    cwd: string,
+    defaultValue?: string
   ): Promise<string> {
-    const p = await this.console.askInputQuestion(question);
-    if (!fs.existsSync(path.join(cwd, p))) {
+    const p = await this.console.askInputQuestion(question, defaultValue);
+    if (!p.trim() || !fs.existsSync(path.join(cwd, p))) {
       this.console.warn("This path does not exist. Please try again...");
-      return this.askPathWhileNotFound(question, cwd);
+      return this.askPathWhileNotFound(question, cwd, defaultValue);
     }
     return p;
   }
@@ -367,10 +377,10 @@ export class InitCommand {
     const packageJsonPath = path.join(cwd, "package.json");
     if (!fs.existsSync(packageJsonPath)) {
       this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
-      this.console.print(
+      this.console.printlnErr(
         "Are you sure to execute the command inside your project root directory?"
       );
-      this.console.print(
+      this.console.printlnErr(
         `Please refer to the ${terminalLink(
           "documentation",
           docLink
@@ -380,24 +390,31 @@ export class InitCommand {
     }
 
     // Install NPM packages
-    this.console.startSpinner("Installing Log4brains cli & web packages...");
+    this.console.startSpinner("Install Log4brains packages...");
     await this.installNpmPackages(cwd);
-    this.console.stopSpinnerSuccess("Log4brains CLI & web packages installed");
+    this.console.stopSpinner();
 
     // Setup package.json scripts
     this.setupPackageJsonScripts(packageJsonPath);
-    this.console.print(
+    this.console.println(
       `We have added the following scripts to your ${chalk.cyan(
         "package.json"
-      )}: adr, log4brains-preview, log4brains-build`
+      )}:`
     );
-    this.console.print();
+    this.console.println(" - adr");
+    this.console.println(" - log4brains-preview");
+    this.console.println(" - log4brains-init");
+    this.console.println();
 
     // Terminate now if already configured
     if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
-      this.console.info(
-        `${chalk.cyan(".log4brains.yml")} is already created. We stop there!`
+      this.console.warn(
+        `${chalk.bold(".log4brains.yml")} already exists. We won't override it`
       );
+      this.console.warn(
+        "Please remove it and execute this command again if you want to configure it interactively"
+      );
+      this.console.println();
       this.printSuccess();
       return;
     }
@@ -407,6 +424,8 @@ export class InitCommand {
       cwd,
       noInteraction
     );
+
+    this.console.startSpinner("Write config file...");
     const { adrFolder } = config.project;
     await fsP.writeFile(
       path.join(cwd, ".log4brains.yml"),
@@ -415,6 +434,7 @@ export class InitCommand {
     );
 
     // Copy template, index and README if not already created
+    this.console.updateSpinner("Copy template files...");
     await this.copyFileIfAbsent(cwd, adrFolder, "template.md");
     await this.copyFileIfAbsent(cwd, adrFolder, "index.md", (content) =>
       content.replace(/{PROJECT_NAME}/g, config.project.name)
@@ -422,6 +442,7 @@ export class InitCommand {
     await this.copyFileIfAbsent(cwd, adrFolder, "README.md");
 
     // List existing ADRs
+    this.console.updateSpinner("Create your first ADR...");
     const adrListRes = await execa(
       path.join(cwd, `node_modules/${cliBinPath}`),
       ["adr", "list", "--raw"],
@@ -448,6 +469,7 @@ export class InitCommand {
     }
 
     // End
+    this.console.stopSpinner();
     this.printSuccess();
   }
 }

@@ -4,11 +4,11 @@ import SocketIO from "socket.io";
 import chalk from "chalk";
 import { getLog4brainsInstance } from "../lib/core-api";
 import { getNextJsDir } from "../lib/next";
-import { logger } from "../lib/logger";
+import { appConsole } from "../lib/console";
 
 export async function previewCommand(port: number): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
-  logger.info("🧠 Log4brains is starting...");
+  appConsole.println("Log4brains is starting...");
 
   const app = next({
     dev: process.env.NODE_ENV === "development",
@@ -36,7 +36,7 @@ export async function previewCommand(port: number): Promise<void> {
 
   const { fileWatcher } = getLog4brainsInstance();
   getLog4brainsInstance().fileWatcher.subscribe((event) => {
-    logger.debug(`[FileWatcher] ${event.type} - ${event.relativePath}`);
+    appConsole.debug(`[FileWatcher] ${event.type} - ${event.relativePath}`);
     io.emit("FileWatcher", event);
   });
   fileWatcher.start();
@@ -49,7 +49,7 @@ export async function previewCommand(port: number): Promise<void> {
       srv.listen(port);
     });
 
-    logger.info(
+    appConsole.println(
       `Your Log4brains preview is now 🚀 on ${chalk.underline.blueBright(
         `http://localhost:${port}/`
       )}`
@@ -57,13 +57,13 @@ export async function previewCommand(port: number): Promise<void> {
   } catch (err) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (err.code === "EADDRINUSE") {
-      logger.fatal(
+      appConsole.fatal(
         `Port ${port} is already in use. Use the -p <PORT> option to select another one.`
       );
       process.exit(1);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     } else if (err.code === "EACCES") {
-      logger.fatal(
+      appConsole.fatal(
         `Impossible to use port ${port} (permission denied). Use the -p <PORT> option to select another one.`
       );
       process.exit(1);

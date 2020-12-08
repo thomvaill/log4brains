@@ -1,11 +1,12 @@
+/* eslint-disable no-await-in-loop */
 import path from "path";
 import { Log4brains, Log4brainsError } from "@log4brains/core";
 import fs, { promises as fsP } from "fs";
-import { Console } from "../console";
+import type { AppConsole } from "@log4brains/cli-common";
 
 type Deps = {
   l4bInstance: Log4brains;
-  appConsole: Console;
+  appConsole: AppConsole;
 };
 
 export type NewCommandOpts = {
@@ -17,7 +18,7 @@ export type NewCommandOpts = {
 export class NewCommand {
   private readonly l4bInstance: Log4brains;
 
-  private readonly console: Console;
+  private readonly console: AppConsole;
 
   constructor({ l4bInstance, appConsole }: Deps) {
     this.l4bInstance = l4bInstance;
@@ -37,6 +38,7 @@ export class NewCommand {
     return match?.name;
   }
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   async execute(opts: NewCommandOpts, titleArg?: string): Promise<void> {
     const { packages } = this.l4bInstance.config.project;
 
@@ -64,11 +66,17 @@ export class NewCommand {
     if (opts.quiet && !titleArg) {
       throw new Log4brainsError("<title> is required when using --quiet");
     }
-    const title =
-      titleArg ||
-      (await this.console.askInputQuestion(
-        "Please enter a short title of the solved problem and optionally its solution"
-      ));
+    let title;
+    do {
+      title =
+        titleArg ||
+        (await this.console.askInputQuestion(
+          "Title of the solved problem and its solution?"
+        ));
+      if (!title.trim()) {
+        this.console.warn("Please enter a title");
+      }
+    } while (!title.trim());
 
     // const slug = await this.console.askInputQuestion(
     //   "We pre-generated a slug to identify this ADR. Press [ENTER] or enter another one.",
@@ -93,7 +101,7 @@ export class NewCommand {
     }
 
     if (opts.quiet) {
-      this.console.print(adrDto.slug);
+      this.console.println(adrDto.slug);
       process.exit(0);
     }
 
@@ -119,20 +127,23 @@ export class NewCommand {
 
       if (supersededSlug !== "") {
         await this.l4bInstance.supersedeAdr(supersededSlug, slug);
-        this.console.info(`${supersededSlug} marked as superseded by ${slug}`);
+        this.console.debug(
+          `${supersededSlug} was marked as superseded by ${slug}`
+        );
       }
     }
 
+    this.console.println();
     this.console.success(`New ADR created: ${adrDto.file.relativePath}`);
+    this.console.println();
 
     const actionChoices = [
       {
-        name:
-          "Open file in default editor + open log4brains preview in browser",
+        name: "Edit and preview",
         value: "edit-and-preview"
       },
-      { name: "Open file in default editor", value: "edit" },
-      { name: "Do not edit now", value: "close" }
+      { name: "Edit", value: "edit" },
+      { name: "Later", value: "close" }
     ];
     const action = await this.console.askListQuestion(
       "How would you like to edit it?",

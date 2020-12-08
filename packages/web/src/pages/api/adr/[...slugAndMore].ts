@@ -1,7 +1,7 @@
 import { Log4brainsError } from "@log4brains/core";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getLog4brainsInstance } from "../../../lib/core-api";
-import { logger } from "../../../lib/logger";
+import { appConsole } from "../../../lib/console";
 
 export default async (
   req: NextApiRequest,
@@ -19,8 +19,8 @@ export default async (
     const slug = uri.replace(/\/_open-in-editor$/, "");
     try {
       await l4bInstance.openAdrInEditor(slug, () => {
-        logger.warn("We were not able to detect your preferred editor :(");
-        logger.warn(
+        appConsole.warn("We were not able to detect your preferred editor");
+        appConsole.warn(
           "You can define it by setting your $VISUAL or $EDITOR environment variable in ~/.zshenv or ~/.bashrc"
         );
       });

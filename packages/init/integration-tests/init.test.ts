@@ -130,7 +130,7 @@ describe("Init", () => {
       try {
         await run(cwd);
       } catch (e) {
-        expect((e as ExecaError).stdout).toMatch(
+        expect((e as ExecaError).stderr).toMatch(
           /Impossible to find package\.json/
         );
       }
