@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Alert } from "@material-ui/lab";
 import { Typography } from "@material-ui/core";
 import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
@@ -14,7 +14,7 @@ export type IndexSceneProps = {
   l4bVersion: string;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     previewAlert: {
       width: "38ch"
