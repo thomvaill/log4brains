@@ -9,7 +9,8 @@ import { appConsole, execNext } from "../lib/console";
 
 export async function previewCommand(
   port: number,
-  openBrowser: boolean
+  openBrowser: boolean,
+  adrSlug?: string
 ): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
 
@@ -63,6 +64,16 @@ export async function previewCommand(
     appConsole.stopSpinner();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (err.code === "EADDRINUSE") {
+      if (openBrowser && adrSlug) {
+        appConsole.println(
+          chalk.dim(
+            "Log4brains is already started. We open the browser and exit"
+          )
+        );
+        await open(`http://localhost:${port}/adr/${adrSlug}`);
+        process.exit(0);
+      }
+
       appConsole.fatal(
         `Port ${port} is already in use. Use the -p <PORT> option to select another one.`
       );
@@ -86,6 +97,6 @@ export async function previewCommand(
   );
 
   if (openBrowser) {
-    await open(`http://localhost:${port}/`);
+    await open(`http://localhost:${port}/${adrSlug ? `adr/${adrSlug}` : ""}`);
   }
 }

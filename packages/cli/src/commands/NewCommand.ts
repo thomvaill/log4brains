@@ -3,6 +3,7 @@ import path from "path";
 import { Log4brains, Log4brainsError } from "@log4brains/core";
 import fs, { promises as fsP } from "fs";
 import type { AppConsole } from "@log4brains/cli-common";
+import { previewAdr } from "../utils";
 
 type Deps = {
   l4bInstance: Log4brains;
@@ -151,22 +152,21 @@ export class NewCommand {
       "edit-and-preview"
     );
 
-    switch (action) {
-      case "edit-and-preview": // TODO
-      case "edit":
-        await this.l4bInstance.openAdrInEditor(slug, () => {
-          this.console.warn(
-            "We were not able to detect your preferred editor :("
-          );
-          this.console.warn(
-            "You can define it by setting your $VISUAL or $EDITOR environment variable in ~/.zshenv or ~/.bashrc"
-          );
-        });
-        break;
+    if (action === "edit-and-preview" || action === "edit") {
+      await this.l4bInstance.openAdrInEditor(slug, () => {
+        this.console.warn(
+          "We were not able to detect your preferred editor :("
+        );
+        this.console.warn(
+          "You can define it by setting your $VISUAL or $EDITOR environment variable in ~/.zshenv or ~/.bashrc"
+        );
+      });
 
-      default:
-        process.exit(0);
-        break;
+      if (action === "edit-and-preview") {
+        await previewAdr(slug);
+      }
     }
+
+    process.exit(0);
   }
 }

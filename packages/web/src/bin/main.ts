@@ -18,16 +18,17 @@ function createCli(version: string): commander.Command {
   const program = new commander.Command();
   program.version(version);
 
-  // TODO: open browser automatically
-  // TODO: add [file] argument to open browser directly to given ADR (used by the CLI). Do not start another process if already started.
   program
-    .command("preview")
-    .description("Start log4brains locally to preview your changes")
+    .command("preview [adr]")
+    .description("Start log4brains locally to preview your changes", {
+      adr:
+        "If provided, will automatically open your browser to this specific ADR"
+    })
     .option("-p, --port <port>", "Port to listen on", "4004")
     .option("--no-open", "Do not open the browser automatically", false)
     .action(
-      (opts: StartEditorCommandOpts): Promise<void> => {
-        return previewCommand(parseInt(opts.port, 10), opts.open);
+      (adr: string, opts: StartEditorCommandOpts): Promise<void> => {
+        return previewCommand(parseInt(opts.port, 10), opts.open, adr);
       }
     );
 

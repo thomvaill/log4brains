@@ -40,6 +40,8 @@
     "@log4brains/core": "^1.0.0-alpha.25",
     "commander": "^6.1.0",
     "esm": "^3.2.25",
+    "execa": "^5.0.0",
+    "has-yarn": "^2.1.0",
     "terminal-link": "^2.1.1"
   },
   "devDependencies": {
