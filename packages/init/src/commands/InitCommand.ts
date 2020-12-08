@@ -90,6 +90,14 @@ export class InitCommand {
         ],
         { cwd }
       );
+
+      this.console.println();
+      this.console.println(
+        `${chalk.bgBlue.white.bold(" DEV ")} ${chalk.blue(
+          "Local packages are linked!"
+        )}`
+      );
+      this.console.println();
     } else if (this.hasYarn()) {
       await execa(
         "yarn",

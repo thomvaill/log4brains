@@ -13,12 +13,13 @@ export async function previewCommand(
   adrSlug?: string
 ): Promise<void> {
   process.env.NEXT_TELEMETRY_DISABLED = "1";
+  const dev = process.env.NODE_ENV === "development";
 
   appConsole.startSpinner("Log4brains is starting...");
-  appConsole.debug("Run `next start`...");
+  appConsole.debug(`Run \`next ${dev ? "dev" : "start"}\`...`);
 
   const app = next({
-    dev: process.env.NODE_ENV === "development",
+    dev,
     dir: getNextJsDir()
   });
 
@@ -100,6 +101,16 @@ export async function previewCommand(
       "Hot Reload is enabled: any change you make to a markdown file is applied live"
     )
   );
+
+  if (dev) {
+    appConsole.println();
+    appConsole.println(
+      `${chalk.bgBlue.white.bold(" DEV ")} ${chalk.blue(
+        "Next.js' Fast Refresh is enabled"
+      )}`
+    );
+    appConsole.println();
+  }
 
   if (openBrowser) {
     await open(`http://localhost:${port}/${adrSlug ? `adr/${adrSlug}` : ""}`);
