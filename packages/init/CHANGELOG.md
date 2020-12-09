@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.26](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.25...v1.0.0-alpha.26) (2020-12-09)
+
+
+### Features
+
+* dev messages ([c7ae9da](https://github.com/thomvaill/log4brains/commit/c7ae9da66f2fe716f308317a8f7ef3bdc8ca6c6e))
+* shared AppConsole class ([e20d19f](https://github.com/thomvaill/log4brains/commit/e20d19fdf9d8c85321e03b79545f82aa9bb6896e))
+
+
+
+
+
 # [1.0.0-alpha.25](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.24...v1.0.0-alpha.25) (2020-12-08)
 
 **Note:** Version bump only for package init-log4brains
