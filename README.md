@@ -77,11 +77,11 @@ At this stage, Log4brains is just a few months old and was designed only based o
 But I am convinced that this project can benefit to a lot of teams.
 This is why it would be really precious for me to get your feedback on this beta version in order to improve it.
 
-To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏!
+To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside the git repository of your project, for example in `<your project>/docs/adr`. In case of a JS project, it is recommended to install Log4brains as a dev dependency. To do so, run our interactive setup CLI:
+According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside the git repository of your project, for example in `<your project>/docs/adr`. In case of a JS project, it is recommended to install Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project root directory:
 
 ```bash
 npx init-log4brains
@@ -326,28 +326,37 @@ In the case of a multi-packages project, you have two options:
 
 Here is an example of file structure for each case:
 
-**Simple project:**
+<details>
+<summary>Simple mono-package project</summary>
+<p>
 
 ```
-project
+project-root
 ├── docs
 |   └── adr
 |       ├── 20200101-your-first-adr.md
 |       ├── 20200115-your-second-adr.md
 |       ├── [...]
+|       ├── index.md
 |       └── template.md
 [...]
 ```
 
-**Multi-packages project in a mono-repository:**
+</p>
+</details>
+
+<details>
+<summary>Multi-packages project in a mono-repository</summary>
+<p>
 
 ```
-project
+project-root
 ├── docs
 |   └── adr
 |       ├── 20200101-your-first-global-adr.md
 |       ├── 20200115-your-second-global-adr.md
 |       ├── [...]
+|       ├── index.md
 |       └── template.md
 ├── packages
 |   ├── package1
@@ -358,15 +367,74 @@ project
 |   |   |       [...]
 |   |   [...]
 |   ├── package2
-|   |   ├── docs/adr [...]
+|   |   ├── docs
+|   |   |   └── adr
+|   |   |       ├── [...]
+|   |   |       [...]
 |   |   [...]
 |   [...]
 [...]
 ```
 
-**Multi-packages with one repository per package:**
+</p>
+</details>
 
-For the moment, the same as above, in a dedicated central repository.
+<details>
+<summary>Multi-packages with one repository per package</summary>
+<p>
+
+For the moment in one central repository (specific for the docs, or not):
+
+```
+project-docs
+├── adr
+|   ├── global
+|   |   ├── 20200101-your-first-global-adr.md
+|   |   ├── 20200115-your-second-global-adr.md
+|   |   ├── [...]
+|   |   ├── index.md
+|   |   └── template.md
+|   ├── package1
+|   |   ├── 20200102-your-first-package-specific-adr.md
+|   |   ├── 20200116-your-second-package-specific-adr.md
+|   |   [...]
+|   ├── package2
+|   |   ├── [...]
+|   |   [...]
+|   [...]
+[...]
+```
+
+In the future:
+
+```
+project-docs
+├── adr
+|   ├── 20200101-your-first-global-adr.md
+|   ├── 20200115-your-second-global-adr.md
+|   ├── [...]
+|   ├── index.md
+|   └── template.md
+[...]
+
+repo1
+├── docs
+|   └── adr
+|       ├── 20200102-your-first-package-specific-adr.md
+|       ├── 20200116-your-second-package-specific-adr.md
+|       [...]
+[...]
+
+repo2
+├── docs
+|   └── adr
+|       ├── [...]
+|       [...]
+[...]
+```
+
+</p>
+</details>
 
 ### What about non-JS projects?
 
@@ -378,9 +446,9 @@ For projects that do not have a `package.json` file, you have to install Log4bra
 npm install -g @log4brains-cli @log4brains-web
 ```
 
-Create the `.log4brains.yml` config file manually. See [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
+Create a `.log4brains.yml` file at the root of your project and [configure it](#how-to-configure-log4brainsyml).
 
-And use these global commands inside your project directory:
+You can now use these global commands inside your project:
 
 - Create a new ADR: `log4brains adr new`
 - Start the local web UI: `log4brains-web preview`
