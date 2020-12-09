@@ -1,6 +1,6 @@
 {
   "name": "@log4brains/cli",
-  "version": "1.0.0-alpha.29",
+  "version": "1.0.0-beta.0",
   "description": "Log4brains architecture knowledge base CLI",
   "keywords": [
     "log4brains"
@@ -36,8 +36,8 @@
     "link": "yarn link"
   },
   "dependencies": {
-    "@log4brains/cli-common": "^1.0.0-alpha.29",
-    "@log4brains/core": "^1.0.0-alpha.29",
+    "@log4brains/cli-common": "^1.0.0-beta.0",
+    "@log4brains/core": "^1.0.0-beta.0",
     "commander": "^6.1.0",
     "esm": "^3.2.25",
     "execa": "^5.0.0",
