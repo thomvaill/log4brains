@@ -27,7 +27,7 @@ function isObjectWithGivenProperties<K extends string>(
 function isL4bNextConfig(config: unknown): config is L4bNextConfig {
   return (
     isObjectWithGivenProperties(config, ["serverRuntimeConfig"]) &&
-    isObjectWithGivenProperties(config.serverRuntimeConfig, ["VERSION"])
+    isObjectWithGivenProperties(config.serverRuntimeConfig, ["PROJECT_ROOT"])
   );
 }
 

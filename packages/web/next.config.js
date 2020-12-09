@@ -15,7 +15,7 @@ module.exports = withBundleAnalyzer({
   poweredByHeader: false,
   serverRuntimeConfig: {
     PROJECT_ROOT: __dirname, // https://github.com/vercel/next.js/issues/8251
-    VERSION: packageJson.version
+    VERSION: process.env.HIDE_LOG4BRAINS_VERSION ? "" : packageJson.version
   },
   webpack: function (config, { webpack, buildId }) {
     // For cache invalidation purpose (thanks https://github.com/vercel/next.js/discussions/14743)

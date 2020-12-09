@@ -472,7 +472,9 @@ export function AdrBrowserLayout({
               >
                 Log4brains
               </MuiLink>{" "}
-              <span style={{ fontSize: "0.8em" }}>(v{l4bVersion})</span>
+              <span style={{ fontSize: "0.8em" }}>
+                {l4bVersion ? `(v${l4bVersion})` : null}
+              </span>
             </Typography>
           </div>
           <div className={classes.layoutRightCol} />
