@@ -38,7 +38,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 - Searchable
 - ADR metadata automatically guessed from its raw text and git logs
 - No enforced markdown structure: you are free to write however you want
-- No required file numbering schema (ie. `adr-0001.md`, `adr-0002.md`...): avoids git merge issues
+- No required file numbering schema (i.e., `adr-0001.md`, `adr-0002.md`...): avoids git merge issues
 - Customizable template (default: [MADR](https://adr.github.io/madr/))
 - Multi-packages projects support (mono or multi repo): notion of global and package-specific ADRs
 
@@ -64,7 +64,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 - [📨 CI/CD configuration examples](#-cicd-configuration-examples)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
-  - [What about multi-packages projects?](#what-about-multi-packages-projects)
+  - [What about multi-package projects?](#what-about-multi-package-projects)
   - [What about non-JS projects?](#what-about-non-js-projects)
   - [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
 - [Contributing](#contributing)
@@ -74,14 +74,14 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 ## 📣 BETA version: feedback is welcome!
 
 At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
-But I am convinced that this project can benefit to a lot of teams.
-This is why it would be really precious for me to get your feedback on this beta version in order to improve it.
+But I am convinced that this project can benefit a lot of teams.
+This is why it would be precious for me to get your feedback on this beta version in order to improve it.
 
 To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside the git repository of your project, for example in `<your project>/docs/adr`. In case of a JS project, it is recommended to install Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project root directory:
+According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project's git repository, for example in `<your project>/docs/adr`. In the case of a JS project, we recommend installing Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project root directory:
 
 ```bash
 npx init-log4brains
@@ -99,7 +99,7 @@ npm run log4brains-preview
 yarn log4brains-preview
 ```
 
-In this mode, the Hot Reload feature is enabled: any changes
+In this mode, the Hot Reload feature is enabled: any change
 you make to a markdown file is applied live in the UI.
 
 You can use this command to easily create a new ADR interactively:
@@ -118,18 +118,18 @@ Finally, do not forget to [set up your CI/CD pipeline](#-cicd-configuration-exam
 
 ## 🤔 What is an ADR and why should you use them
 
-The term ADR become popular in 2011 with Michael Nygard's article: [documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). He aimed at reconciling Agile methods with software documentation by creating a very concise template
-to record functional or non-functional "architecturally significant" decisions, in a lightweight format like markdown.
+The term ADR become popular in 2011 with Michael Nygard's article: [documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). He aimed to reconcile Agile methods with software documentation by creating a very concise template
+to record functional or non-functional "architecturally significant" decisions in a lightweight format like markdown.
 The original template had only a few parts:
 
 - **Title**: Which sums up the solved problem and its solution
-- **Context**: Probably the most important part, which describes "the forces at play, including technological, political, social, and project local"
+- **Context**: Probably the essential part, which describes "the forces at play, including technological, political, social, and project local"
 - **Decision**
 - **Status**: Proposed, accepted, deprecated, superseded...
 - **Consequences**: The positive and negative ones for the future of the project
 
 Today, there are other ADR templates like [Y-Statements](https://medium.com/olzzio/y-statements-10eb07b5a177), or [MADR](https://adr.github.io/madr/), which is the default one that is configured in Log4brains.
-Anyway, be believe that there is no template that suits everyone's needs. You should adapt it according to your own situation.
+Anyway, we believe that no template suits everyone's needs. You should adapt it according to your own situation.
 
 As you can guess from the template above, an ADR is immutable. Only its status can change.
 Thanks to this, your documentation is never out-of-date! Yes, an ADR can be deprecated or superseded by another one, but it was at least true one day!
@@ -138,8 +138,8 @@ And even if it's not the case anymore, it is still a precious piece of informati
 This leads us to the main goals of this methodology:
 
 - Avoid blind acceptance and blind reversal when you face past decisions
-- Speed up the onboarding on new developers on a project
-- Formalize a collaborative decision making process
+- Speed up the onboarding of new developers on a project
+- Formalize a collaborative decision-making process
 
 The first goal was the very original one, intended by Michael Nygard in his article.
 I discovered the two others in my past experiences with ADRs, and this is why I decided to create Log4brains.
@@ -152,17 +152,17 @@ To learn more on this topic, I recommend you to read these great resources:
 
 ## 💡 Why Log4brains
 
-I've been using ADRs for a long time and I often introduce this methodology to the teams I work with as a freelance developer.
-It's always the same scenario: first, no one had ever heard about ADRs, and after using them for a while, they realise [how useful, yet simple they are](#-what-is-an-adr-and-why-should-you-use-them). So one of the reasons I decided to start working on Log4brains was to popularize this methodology.
+I've been using ADRs for a long time and, I often introduce this methodology to the teams I work with as a freelance developer.
+It's always the same scenario: first, no one had ever heard about ADRs, and after using them for a while, they realize [how useful yet straightforward they are](#-what-is-an-adr-and-why-should-you-use-them). So one of the reasons I decided to start working on Log4brains was to popularize this methodology.
 
 On the other hand, I wanted to solve some issues I encountered with them, like improving their discoverability or the poor tooling around them.
-But above all, I am convinced that ADRs can have a broader impact than what they were intended for: speed up the onboarding on a project by becoming a training material, and become the support of a collaborative decision making process.
+But above all, I am convinced that ADRs can have a broader impact than what they were intended for: speed up the onboarding on a project by becoming a training material, and become the support of a collaborative decision-making process.
 
-In the long term, I see Log4brains as part of a global strategy that would let companies build and captialize on the technical knowledge of their teams, collaboratively.
+In the long term, I see Log4brains as part of a global strategy that would let companies build and capitalize their teams' technical knowledge collaboratively.
 
 ## 📨 CI/CD configuration examples
 
-Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice thanks to the `log4brains-web build` command.
+Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice, thanks to the `log4brains-web build` command.
 Here are some configuration examples for the most common hosting services / CI runners.
 
 <details>
@@ -191,7 +191,7 @@ jobs:
         with:
           node-version: "14"
       # NPM:
-      # (unfortunately we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558)
+      # (unfortunately, we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558)
       - name: Install and Build Log4brains (NPM)
         run: |
           npm install
@@ -273,7 +273,7 @@ It will be re-built and published every time you push on `master`.
 First, create a bucket with the "Static website hosting" feature enabled:
 
 ```bash
-# This is an example, replace with the bucket name of your choice
+# This is an example: replace with the bucket name of your choice
 export BUCKET_NAME=yourcompany-yourproject-log4brains
 
 aws s3api create-bucket --acl public-read --bucket ${BUCKET_NAME}
@@ -296,13 +296,13 @@ aws s3 website s3://${BUCKET_NAME} --index-document index.html
 Then, configure your CI to run these commands:
 
 - Install Node and the AWS CLI
-- Checkout your Git repository **with the full history**, otherwise, Log4brains won't work correctly (see examples above)
+- Checkout your Git repository **with the full history**. Otherwise, Log4brains won't work correctly (see previous examples)
 - `npm install` or `yarn install --frozen-lockfile` to install the dev dependencies (unfortunately we cannot use `npm ci` for now because of this [bug](https://github.com/npm/cli/issues/558))
 - `npm run log4brains-build` or `yarn log4brains-build`
 - `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
 
 Your knowledge base will be available on `http://<YOUR BUCKET>.s3-website-<YOUR REGION>.amazonaws.com/`.
-You can get some inspiration on how to implement this workflow for GitHub Actions or GitLab CI by looking at the previous examples.
+You can get some inspiration on implementing this workflow for GitHub Actions or GitLab CI by looking at the previous examples.
 
 </p>
 </details>
@@ -315,16 +315,16 @@ You can get some inspiration on how to implement this workflow for GitHub Action
 - NPM or Yarn
 - Your project versioned in Git ([not necessarily a JS project!](#what-about-non-js-projects))
 
-### What about multi-packages projects?
+### What about multi-package projects?
 
 Log4brains supports both mono and multi packages projects. The `npx init-log4brains` command will prompt you regarding this.
 
-In the case of a multi-packages project, you have two options:
+In the case of a multi-package project, you have two options:
 
-- Multi-packages in a mono-repository: in this case, just install Log4brains in the root folder. It will manage "global ADRs", for example in `docs/adr` and "package-specific ADRs", for example in `packages/<package name>/docs/adr`.
-- Multi-packages with one repository per package: in the future, Log4brains will be able to handle this case with a central repository for the "global ADRs", while fetching "package-specifics ADRs" directly from each package repository. For the moment, all the ADRs have to be stored in a central repository.
+- Mono-repository: in this case, just install Log4brains in the root folder. It will manage "global ADRs", for example in `docs/adr` and "package-specific ADRs", for example in `packages/<package name>/docs/adr`.
+- One repository per package: in the future, Log4brains will handle this case with a central repository for the "global ADRs" while fetching "package-specifics ADRs" directly from each package repository. For the moment, all the ADRs have to be stored in a central repository.
 
-Here is an example of file structure for each case:
+Here is an example of a typical file structure for each case:
 
 <details>
 <summary>Simple mono-package project</summary>
@@ -438,7 +438,7 @@ repo2
 
 ### What about non-JS projects?
 
-Even if Log4brains is developed in TypeScript and is part of the NPM ecosystem, it can be used for any kind of project, in any language.
+Even if Log4brains is developed with TypeScript and is part of the NPM ecosystem, it can be used for any kind of project, in any language.
 
 For projects that do not have a `package.json` file, you have to install Log4brains globally:
 
@@ -474,25 +474,25 @@ project:
   # [...]
   packages:
     - name: backend # The name (unique identifier) of the package
-      path: ./packages/backend # The location of its code base
+      path: ./packages/backend # The location of its codebase
       adrFolder: ./packages/backend/docs/adr # The location of its ADR files
 #   - ...
 ```
 
-Another optional field is `project.repository`, which is normally automatically guessed by Log4brains to be able to create links to GitHub, GitLab, etc. But in some cases, like for GitHub or GitLab enterprise, you have to configure it manually:
+Another optional field is `project.repository`, which is normally automatically guessed by Log4brains to create links to GitHub, GitLab, etc. But in some cases, like for GitHub or GitLab enterprise, you have to configure it manually:
 
 ```yaml
 project:
   #  [...]
   repository:
     url: https://github.com/foo/bar # Absolute URL of your repository
-    provider: github # Supported providers: github, gitlab, bitbucket. Use `generic` if yours is not in the list
+    provider: github # Supported providers: github, gitlab, bitbucket. Use `generic` if yours is not supported
     viewFileUriPattern: /blob/%branch/%path # Only required for `generic` providers
 ```
 
 ## Contributing
 
-Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details. You can also [create a new issue](https://github.com/thomvaill/log4brains/issues/new/choose), or [give your feedback](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback).
+Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details. You can also [create a new issue](https://github.com/thomvaill/log4brains/issues/new/choose) or [give your feedback](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback).
 
 ## Acknowledgments
 
@@ -505,4 +505,4 @@ Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.
 
 ## License
 
-This project is licensed under the Apache 2.0 license, Copyright (c) 2020 Thomas Vaillant. For more information see [LICENSE](LICENSE) file.
+This project is licensed under the Apache 2.0 license, Copyright (c) 2020 Thomas Vaillant. See the [LICENSE](LICENSE) file for more information.

@@ -10,7 +10,7 @@ You will find here all the Architecture Decision Records (ADR) of the project.
 > An Architectural Decision (AD) is a software design choice that addresses a functional or non-functional requirement that is architecturally significant.
 > An Architectural Decision Record (ADR) captures a single AD, such as often done when writing personal notes or meeting minutes; the collection of ADRs created and maintained in a project constitutes its decision log.
 
-An ADR is immutable, only its status can change (ie. become deprecated or superseded). That way, you can become familiar with the whole project history just by reading its decision log in chronological order.
+An ADR is immutable: only its status can change (i.e., become deprecated or superseded). That way, you can become familiar with the whole project history just by reading its decision log in chronological order.
 Moreover, maintaining this documentation aims at:
 
 - 🚀 Improving and speeding up the onboarding of a new team member
@@ -27,7 +27,7 @@ The typical workflow of an ADR is the following:
 
 ![ADR workflow](/l4b-static/adr-workflow.png)
 
-The decision process is fully collaborative and backed by pull requests.
+The decision process is entirely collaborative and backed by pull requests.
 
 ## More information
 
