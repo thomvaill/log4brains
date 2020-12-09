@@ -56,7 +56,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 <br />
 <p align="center">
   <a href="https://thomvaill.github.io/log4brains/adr/">
-    <img src="docs/demo.gif" alt="Log4brains demo" />
+    <img src="docs/demo.gif" alt="Log4brains demo" width="838" />
   </a>
 </p>
 <p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
