@@ -63,7 +63,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 ## Table of contents <!-- omit in toc -->
 
-- [📣 BETA version: feedback is welcome!](#-beta-version-feedback-is-welcome)
+- [📣 Beta version: your feedback is welcome!](#-beta-version-your-feedback-is-welcome)
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
 - [💡 Why Log4brains](#-why-log4brains)
@@ -77,7 +77,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
 
-## 📣 BETA version: feedback is welcome!
+## 📣 Beta version: your feedback is welcome!
 
 At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
 But I am convinced that this project can benefit a lot of teams.
