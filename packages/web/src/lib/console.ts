@@ -8,6 +8,12 @@ const dev = process.env.NODE_ENV === "development";
 
 export const appConsole = new AppConsole({ debug, traces: debug || dev });
 
+/**
+ * #NEXTJS-HACK
+ * We want to hide the output of Next.js when we execute CLI commands.
+ *
+ * @param fn The code which calls Next.js methods for which we want to capture the output
+ */
 export async function execNext(fn: () => Promise<void>): Promise<void> {
   const capturer = new ConsoleCapturer();
   if (debug) {
