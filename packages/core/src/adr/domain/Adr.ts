@@ -160,7 +160,11 @@ export class Adr extends AggregateRoot<Props> {
 
   get deciders(): string[] {
     const deciders = this.body.getHeaderMetadata("deciders");
-    if (!deciders || deciders.trim() === "") {
+    if (
+      !deciders ||
+      deciders.trim() === "" ||
+      deciders === "[list everyone involved in the decision] <!-- optional -->"
+    ) {
       return [];
     }
     return deciders.split(/\s*[,]{1}\s*/).map((decider) => decider.trim());
