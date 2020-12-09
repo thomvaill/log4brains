@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - dev # debug. TODO: remove
 
 jobs:
   quality:
@@ -61,11 +60,8 @@ jobs:
     needs: quality
     strategy:
       matrix:
-        # TODO: reduced for now during DEV
-        # os: [ubuntu-latest, windows-latest]
-        # node-version: [14.x, 12.x, 10.x]
-        os: [ubuntu-latest]
-        node-version: [14.x]
+        os: [ubuntu-latest, windows-latest]
+        node-version: [14.x, 12.x, 10.x]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -227,7 +223,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
       - name: release and publish to NPM
-        # TODO: change when going beta or stable
+        # TODO: change when going stable
         run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --force-publish --create-release github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
