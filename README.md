@@ -24,8 +24,6 @@
 Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
 
-⚡ **Demo**: [Log4brains' own architecture knowledge base](https://thomvaill.github.io/log4brains/adr/).
-
 <details>
 <summary>Features</summary>
 <p>
@@ -54,6 +52,14 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 </p>
 </details>
+
+<br />
+<p align="center">
+  <a href="https://thomvaill.github.io/log4brains/adr/">
+    <img src="docs/demo.gif" alt="Log4brains demo" width="838" height="471" />
+  </a>
+</p>
+<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
 
 ## Table of contents <!-- omit in toc -->
 
