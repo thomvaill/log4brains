@@ -65,8 +65,7 @@ async function run(file, arguments, cwd) {
       "E2E test ADR was not created"
     );
 
-    // TODO: log4brains-web preview
-    // TODO: log4brains-web build
+    // TODO: preview & build tests (https://github.com/thomvaill/log4brains/issues/2)
 
     console.log(chalk.bold.green("END"));
   });

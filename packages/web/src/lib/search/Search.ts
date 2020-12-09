@@ -23,7 +23,7 @@ export type SearchResult = {
    */
   score: number;
 
-  // TODO: add highlighted verbatim
+  // TODO: add highlighted verbatim (https://github.com/thomvaill/log4brains/issues/5)
 };
 
 function mapToJson<K, V>(map: Map<K, V>): [K, V][] {
@@ -68,7 +68,7 @@ export class Search {
         adr.slug,
         {
           title: adr.title || "Untitled",
-          verbatim: adr.body.enhancedMdx // TODO: remove tags
+          verbatim: adr.body.enhancedMdx // TODO: remove tags (https://github.com/thomvaill/log4brains/issues/5)
         }
       ])
     );

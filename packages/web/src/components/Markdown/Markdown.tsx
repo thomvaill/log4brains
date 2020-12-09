@@ -87,7 +87,7 @@ export function Markdown({ children, onCompiled }: MarkdownProps) {
       mdCompiler(
         children.replace(
           // Fix for `index.md`'s adr-workflow.png image path
-          // TODO: support local images
+          // TODO: support local images (https://github.com/thomvaill/log4brains/issues/4)
           /\((\/l4b-static\/[^)]+)\)/g,
           `(${router?.basePath}$1)`
         ),
