@@ -55,11 +55,11 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 <br />
 <p align="center">
-  <a href="https://thomvaill.github.io/log4brains/adr/">
+  <a href="https://thomvaill.github.io/log4brains/adr/" target="_blank">
     <img src="docs/demo.gif" alt="Log4brains demo" width="838" />
   </a>
 </p>
-<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
+<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/" target="_blank">Log4brains' own architecture knowledge base</a></p>
 
 ## Table of contents <!-- omit in toc -->
 
