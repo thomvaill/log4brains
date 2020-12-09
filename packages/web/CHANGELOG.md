@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.27](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.26...v1.0.0-alpha.27) (2020-12-09)
+
+**Note:** Version bump only for package @log4brains/web
+
+
+
+
+
 # [1.0.0-alpha.26](https://github.com/thomvaill/log4brains/compare/v1.0.0-alpha.25...v1.0.0-alpha.26) (2020-12-09)
 
 
