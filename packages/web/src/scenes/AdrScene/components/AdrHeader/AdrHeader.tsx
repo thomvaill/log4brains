@@ -168,7 +168,7 @@ export function AdrHeader({
             }
           >
             {decidersIcon}{" "}
-            {adr.deciders.length > 1
+            {adr.deciders.length > 0
               ? adr.deciders.join(", ")
               : adr.lastEditAuthor}
           </Typography>
