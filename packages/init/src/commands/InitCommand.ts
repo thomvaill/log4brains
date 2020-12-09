@@ -55,7 +55,7 @@ export class InitCommand {
 
   private hasYarn(): boolean {
     if (!this.hasYarnValue) {
-      this.hasYarnValue = hasYarn() || this.isDev();
+      this.hasYarnValue = hasYarn();
     }
     return this.hasYarnValue;
   }
@@ -183,7 +183,7 @@ export class InitCommand {
             },
             {
               name:
-                "Multi-packages project (a main ADR folder for global ones + an ADR folder per package for specific ones)",
+                "Multi-package project (one ADR folder per package + a global one)",
               value: "multi",
               short: "Multi-package project"
             }

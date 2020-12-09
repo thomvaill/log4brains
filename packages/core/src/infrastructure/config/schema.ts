@@ -42,7 +42,7 @@ type ProjectConfig = Readonly<{
 }>;
 
 const projectSchema = Joi.object({
-  name: Joi.string().hostname().required(),
+  name: Joi.string().required(),
   tz: Joi.string().required(),
   adrFolder: Joi.string().required(),
   packages: Joi.array().items(projectPackageSchema),

@@ -40,7 +40,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 - No enforced markdown structure: you are free to write however you want
 - No required file numbering schema (i.e., `adr-0001.md`, `adr-0002.md`...): avoids git merge issues
 - Customizable template (default: [MADR](https://adr.github.io/madr/))
-- Multi-packages projects support (mono or multi repo): notion of global and package-specific ADRs
+- Multi-package projects support (mono or multi repo): notion of global and package-specific ADRs
 
 **Coming soon**:
 
@@ -346,7 +346,7 @@ project-root
 </details>
 
 <details>
-<summary>Multi-packages project in a mono-repository</summary>
+<summary>Multi-package project in a mono-repository</summary>
 <p>
 
 ```
@@ -380,7 +380,7 @@ project-root
 </details>
 
 <details>
-<summary>Multi-packages with one repository per package</summary>
+<summary>Multi-package with one repository per package</summary>
 <p>
 
 For the moment in one central repository (specific for the docs, or not):
