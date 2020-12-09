@@ -23,7 +23,7 @@
     "log4brains-preview:dev": "cross-env NODE_ENV=development yarn log4brains-preview",
     "log4brains-build": "./packages/web/dist/bin/log4brains-web build",
     "serve": "serve .log4brains/out",
-    "links": "lerna run --parallel link",
+    "links": "lerna run --stream link",
     "e2e": "node e2e-tests/e2e-launcher.js",
     "lerna": "lerna"
   },
