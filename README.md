@@ -21,63 +21,73 @@
   </a>
 </p>
 
-Log4brains is a 100% docs-as-code knowledge base for your development and infrastructure projects.
+Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
 
-⚡ **Demo**: Log4brains uses Log4brains to generate its [architecture knowledge base](https://thomvaill.github.io/log4brains/adr/).
+⚡ **Demo**: [Log4brains' own architecture knowledge base](https://thomvaill.github.io/log4brains/adr/).
 
-### Features: <!-- omit in toc -->
+<details>
+<summary>Features</summary>
+<p>
 
-- Docs-as-code chronological knowledge base from Architecture Decision Records (ADR)
-- ADRs are written in markdown, stored in your git repository, close to your code
-- Does not enforce a specific numbering for files (ie. `adr-0001.md`, `adr-0002.md`...) to avoid git merge issues
-- Does not enforce a common structure, you are free to write however you want
-  - Log4brains is able to create metadata for each ADR, just by parsing its text
-  - Also guesses metadata from the git logs (last edit date, contributors...)
-  - You can also provide a template of your choice (default: [MADR](https://adr.github.io/madr/))
-- Local preview of the knowledge base
-  - Hot Reload: any changes made in the markdown files are applied live
-- Static site generation to automatically publish the knowledge base on a service like GitHub or GitLab Pages from your CI/CD pipeline
-- Supports multi-packages projects (mono or multi repo): global and package-specific ADRs
-- CLI to:
-  - Create a new ADR interactively
-  - Manage links between ADRs easily
+- Docs-as-code: ADRs are written in markdown, stored in your git repository, close to your code
+- Local preview with Hot Reload
+- Interactive ADR creation from the CLI
+- Static site generation to publish to GitHub/GitLab Pages or S3
+- Timeline menu
+- Searchable
+- ADR metadata automatically guessed from its raw text and git logs
+- No enforced markdown structure: you are free to write however you want
+- No required file numbering schema (ie. `adr-0001.md`, `adr-0002.md`...): avoids git merge issues
+- Customizable template (default: [MADR](https://adr.github.io/madr/))
+- Multi-packages projects support (mono or multi repo): notion of global and package-specific ADRs
 
-**In a near future**:
+**Coming soon**:
 
-- RSS feed / notifications for new ADRs
-- Diagrams
+- Local images and diagrams support
+- RSS feed to be notified of new ADRs
 - Decision backlog
-- ADR reference annotation from the code: each ADR will display the code snippets that reference it
-- ADR creation / edition from the knowledge base UI
-- Create a new GitHub / GitLab issue from the knowledge base UI
-- ... let's [create an issue](https://github.com/thomvaill/log4brains/issues/new/choose) if you have other needs!
+- `@adr` annotation to include code references in ADRs
+- ADR creation/edition from the UI
+- Create a new GitHub/GitLab issue from the UI
+- ... let's [suggest a new feature](https://github.com/thomvaill/log4brains/issues/new?labels=feature&template=feature.md) if you have other needs!
+
+</p>
+</details>
 
 ## Table of contents <!-- omit in toc -->
 
+- [📣 BETA version: feedback is welcome!](#-beta-version-feedback-is-welcome)
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
+- [💡 Why Log4brains](#-why-log4brains)
 - [📨 CI/CD configuration examples](#-cicd-configuration-examples)
-  - [Publish to GitHub Pages with GitHub Actions](#publish-to-github-pages-with-github-actions)
-  - [Publish to GitLab Pages with GitLab CI](#publish-to-gitlab-pages-with-gitlab-ci)
-  - [Publish to S3](#publish-to-s3)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
   - [What about multi-packages projects?](#what-about-multi-packages-projects)
   - [What about non-JS projects?](#what-about-non-js-projects)
+  - [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
 
+## 📣 BETA version: feedback is welcome!
+
+At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
+But I am convinced that this project can benefit to a lot of teams.
+This is why it would be really precious for me to get your feedback on this beta version in order to improve it.
+
+To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏!
+
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project git repository, for example in `<your project>/docs/adr`. It is recommended to install Log4brains as a dev dependency of your project. To do so, go the root directory of your project and run our interactive setup CLI:
+According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside the git repository of your project, for example in `<your project>/docs/adr`. In case of a JS project, it is recommended to install Log4brains as a dev dependency. To do so, run our interactive setup CLI:
 
 ```bash
 npx init-log4brains
 ```
 
-... it will ask you several questions to get your knowledge base installed and configured properly.
+... it will ask you several questions to get your knowledge base installed and configured properly. Click [here](#what-about-non-js-projects) for non-JS projects.
 
 Then, you can start the web UI in local preview mode:
 
@@ -104,7 +114,7 @@ yarn adr new
 
 Just add the `--help` option for more information on this command.
 
-Finally, do not forget to set up your CI/CD pipeline to automatically publish your knowledge base on a static website service like GitHub or GitLab Pages.
+Finally, do not forget to [set up your CI/CD pipeline](#-cicd-configuration-examples) to automatically publish your knowledge base on a static website service like GitHub/GitLab Pages or S3.
 
 ## 🤔 What is an ADR and why should you use them
 
@@ -140,12 +150,24 @@ To learn more on this topic, I recommend you to read these great resources:
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by @boceckts and @koppor
 - [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
 
+## 💡 Why Log4brains
+
+I've been using ADRs for a long time and I often introduce this methodology to the teams I work with as a freelance developer.
+It's always the same scenario: first, no one had ever heard about ADRs, and after using them for a while, they realise [how useful, yet simple they are](#-what-is-an-adr-and-why-should-you-use-them). So one of the reasons I decided to start working on Log4brains was to popularize this methodology.
+
+On the other hand, I wanted to solve some issues I encountered with them, like improving their discoverability or the poor tooling around them.
+But above all, I am convinced that ADRs can have a broader impact than what they were intended for: speed up the onboarding on a project by becoming a training material, and become the support of a collaborative decision making process.
+
+In the long term, I see Log4brains as part of a global strategy that would let companies build and captialize on the technical knowledge of their teams, collaboratively.
+
 ## 📨 CI/CD configuration examples
 
 Log4brains lets you publish automatically your knowledge base on the static hosting service of your choice thanks to the `log4brains-web build` command.
 Here are some configuration examples for the most common hosting services / CI runners.
 
-### Publish to GitHub Pages with GitHub Actions
+<details>
+<summary>Publish to GitHub Pages with GitHub Actions</summary>
+<p>
 
 First, create `.github/workflows/publish-log4brains.yml` and adapt it to your case:
 
@@ -208,7 +230,12 @@ Finally, you can [enable your GitHub page](https://docs.github.com/en/free-pro-t
 You should now be able to see your knowledge base at `https://<username>.github.io/<repository>/log4brains/`.
 It will be re-built and published every time you push on `master`.
 
-### Publish to GitLab Pages with GitLab CI
+</p>
+</details>
+
+<details>
+<summary>Publish to GitLab Pages with GitLab CI</summary>
+<p>
 
 Create your `.gitlab-ci.yml` and adapt it to your case:
 
@@ -236,7 +263,12 @@ pages:
 You should now be able to see your knowledge base at `https://<username>.gitlab.io/<repository>/log4brains/`.
 It will be re-built and published every time you push on `master`.
 
-### Publish to S3
+</p>
+</details>
+
+<details>
+<summary>Publish to S3</summary>
+<p>
 
 First, create a bucket with the "Static website hosting" feature enabled:
 
@@ -270,13 +302,18 @@ Then, configure your CI to run these commands:
 - `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
 
 Your knowledge base will be available on `http://<YOUR BUCKET>.s3-website-<YOUR REGION>.amazonaws.com/`.
-You can get some inspiration on how to implement this workflow for GitHub Actions or GitLab CI by looking at the examples above.
+You can get some inspiration on how to implement this workflow for GitHub Actions or GitLab CI by looking at the previous examples.
+
+</p>
+</details>
 
 ## ❓ FAQ
 
 ### What are the prerequisites?
 
-Just having Node.js >= v10.23 installed locally with either npm or yarn.
+- Node.js >= 10.23
+- NPM or Yarn
+- Your project versioned in Git ([not necessarily a JS project!](#what-about-non-js-projects))
 
 ### What about multi-packages projects?
 
@@ -341,7 +378,7 @@ For projects that do not have a `package.json` file, you have to install Log4bra
 npm install -g @log4brains-cli @log4brains-web
 ```
 
-Create the `.log4brains.yml` config file manually in the root directory of your project. See [this example](https://github.com/Thomvaill/log4brains/blob/master/.log4brains.yml).
+Create the `.log4brains.yml` config file manually. See [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
 
 And use these global commands inside your project directory:
 
@@ -349,9 +386,45 @@ And use these global commands inside your project directory:
 - Start the local web UI: `log4brains-web preview`
 - Build the static version: `log4brains-web build`
 
+### How to configure `.log4brains.yml`?
+
+This file is usually automatically created when you run `npx init-log4brains` (cf [getting started](#-getting-started)), but you may need to configure it manually.
+
+Here is an example with just the required fields:
+
+```yaml
+project:
+  name: Foo Bar # The name that should be displayed in the UI
+  tz: Europe/Paris # The timezone that you use for the dates in your ADR files
+  adrFolder: ./docs/adr # The location of your ADR files
+```
+
+If you have multiple packages in your project, you may want to support package-specific ADRs by setting the optional `project.packages` field:
+
+```yaml
+project:
+  # [...]
+  packages:
+    - name: backend # The name (unique identifier) of the package
+      path: ./packages/backend # The location of its code base
+      adrFolder: ./packages/backend/docs/adr # The location of its ADR files
+#   - ...
+```
+
+Another optional field is `project.repository`, which is normally automatically guessed by Log4brains to be able to create links to GitHub, GitLab, etc. But in some cases, like for GitHub or GitLab enterprise, you have to configure it manually:
+
+```yaml
+project:
+  #  [...]
+  repository:
+    url: https://github.com/foo/bar # Absolute URL of your repository
+    provider: github # Supported providers: github, gitlab, bitbucket. Use `generic` if yours is not in the list
+    viewFileUriPattern: /blob/%branch/%path # Only required for `generic` providers
+```
+
 ## Contributing
 
-Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for more details. You can also [create a new issue](https://github.com/thomvaill/log4brains/issues/new/choose), or [give your feedback](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback).
 
 ## Acknowledgments
 
