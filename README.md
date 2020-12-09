@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#readme">
-    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" />
+    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" width="276" />
   </a>
 </p>
 
