@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#readme">
-    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" width="276" height="349" />
+    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" />
   </a>
 </p>
 
@@ -56,7 +56,7 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 <br />
 <p align="center">
   <a href="https://thomvaill.github.io/log4brains/adr/">
-    <img src="docs/demo.gif" alt="Log4brains demo" width="838" height="471" />
+    <img src="docs/demo.gif" alt="Log4brains demo" />
   </a>
 </p>
 <p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
