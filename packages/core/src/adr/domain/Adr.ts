@@ -148,7 +148,11 @@ export class Adr extends AggregateRoot<Props> {
 
   get tags(): string[] {
     const tags = this.body.getHeaderMetadata("tags");
-    if (!tags || tags.trim() === "") {
+    if (
+      !tags ||
+      tags.trim() === "" ||
+      tags === "[space and/or comma separated list of tags] <!-- optional -->"
+    ) {
       return [];
     }
     return tags.split(/\s*[\s,]{1}\s*/).map((tag) => tag.trim().toLowerCase());
