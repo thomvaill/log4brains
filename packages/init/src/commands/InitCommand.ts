@@ -290,7 +290,7 @@ export class InitCommand {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const replacement of [
-      ["{DATE}", moment().format("YYYY-MM-DD")],
+      ["{DATE_YESTERDAY}", moment().subtract(1, "days").format("YYYY-MM-DD")], // we use yesterday's date so that we are sure new ADRs will appear on top
       ...replacements
     ]) {
       await execa(

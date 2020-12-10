@@ -1,7 +1,8 @@
 # Use Markdown Architectural Decision Records
 
 - Status: accepted
-- Date: {DATE}
+- Date: {DATE_YESTERDAY}
+- Tags: doc
 
 ## Context and Problem Statement
 

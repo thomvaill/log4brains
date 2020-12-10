@@ -2,7 +2,7 @@
 
 - Status: [draft | proposed | rejected | accepted | deprecated | … | superseded by [xxx](yyyymmdd-xxx.md)] <!-- optional -->
 - Deciders: [list everyone involved in the decision] <!-- optional -->
-- Date: [YYYY-MM-DD when the decision was last updated] <!-- optional. To customize the ordering without relying on last edit dates -->
+- Date: [YYYY-MM-DD when the decision was last updated] <!-- optional. To customize the ordering without relying on Git creation dates and filenames -->
 - Tags: [space and/or comma separated list of tags] <!-- optional -->
 
 Technical Story: [description | ticket/issue URL] <!-- optional -->

@@ -1,7 +1,8 @@
 # Use Log4brains to manage the ADRs
 
 - Status: accepted
-- Date: {DATE}
+- Date: {DATE_YESTERDAY}
+- Tags: dev-tools, doc
 
 ## Context and Problem Statement
 
