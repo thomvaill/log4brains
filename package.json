@@ -9,9 +9,9 @@
   ],
   "scripts": {
     "dev": "lerna run --parallel dev",
-    "build": "lerna run build",
+    "build": "lerna run --stream build",
     "clean": "lerna run clean",
-    "typescript": "lerna run typescript",
+    "typescript": "lerna run --stream typescript",
     "test": "lerna run --stream test",
     "test:changed": "lerna run --stream --since HEAD test",
     "lint": "lerna run --stream lint",
