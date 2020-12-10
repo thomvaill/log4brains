@@ -386,7 +386,7 @@ export class InitCommand {
     if (!fs.existsSync(packageJsonPath)) {
       this.console.fatal(`Impossible to find ${chalk.cyan("package.json")}`);
       this.console.printlnErr(
-        "Are you sure to execute the command inside your project root directory?"
+        "Are you sure to execute the command inside your project's root directory?"
       );
       this.console.printlnErr(
         `Please refer to the ${terminalLink(
