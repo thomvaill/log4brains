@@ -1,6 +1,6 @@
 {
   "name": "init-log4brains",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "Install and configure the Log4brains architecture knowledge base in your project",
   "keywords": [
     "log4brains",
@@ -46,7 +46,7 @@
     "link": "npm link @log4brains/cli-common && npm link && rm -f ./package-lock.json"
   },
   "dependencies": {
-    "@log4brains/cli-common": "^1.0.0-beta.0",
+    "@log4brains/cli-common": "^1.0.0-beta.1",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "edit-json-file": "^1.5.0",
