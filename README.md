@@ -86,13 +86,13 @@ At this stage, Log4brains is just a few months old and was designed only based o
 But I am convinced that this project can benefit a lot of teams.
 This is why it would be precious for me to get your feedback on this beta version in order to improve it.
 
-To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
+To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
 Disclaimer: during the beta, some releases can introduce breaking changes without any warning. Therefore, we recommend you to pin exact versions of Log4brains in your `package.json` to be safe.
 
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project's git repository, for example in `<your project>/docs/adr`. In the case of a JS project, we recommend installing Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project root directory:
+According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project's git repository, for example in `<your project>/docs/adr`. In the case of a JS project, we recommend installing Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project's root directory:
 
 ```bash
 npx init-log4brains
@@ -129,7 +129,7 @@ Finally, do not forget to [set up your CI/CD pipeline](#-cicd-configuration-exam
 
 ## 🤔 What is an ADR and why should you use them
 
-The term ADR become popular in 2011 with Michael Nygard's article: [documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). He aimed to reconcile Agile methods with software documentation by creating a very concise template
+The term ADR became popular in 2011 with Michael Nygard's article: [documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). He aimed to reconcile Agile methods with software documentation by creating a very concise template
 to record functional or non-functional "architecturally significant" decisions in a lightweight format like markdown.
 The original template had only a few parts:
 
