@@ -19,6 +19,9 @@
   <a href="https://github.com/thomvaill/log4brains/releases">
     <img src="https://img.shields.io/npm/v/@log4brains/cli?label=%40log4brains%2Fcli" alt="@log4brains/cli latest version" />
   </a>
+  <a href="https://thomvaill.github.io/log4brains/adr/">
+    <img src="https://thomvaill.github.io/log4brains/adr/badge.svg" alt="Log4brains ADRs" />
+  </a>
 </p>
 
 Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
@@ -55,11 +58,11 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 <br />
 <p align="center">
-  <a href="https://thomvaill.github.io/log4brains/adr/" target="_blank">
+  <a href="https://thomvaill.github.io/log4brains/adr/">
     <img src="docs/demo.gif" alt="Log4brains demo" width="838" />
   </a>
 </p>
-<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/" target="_blank">Log4brains' own architecture knowledge base</a></p>
+<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
 
 ## Table of contents <!-- omit in toc -->
 
@@ -314,6 +317,17 @@ You can get some inspiration on implementing this workflow for GitHub Actions or
 
 </p>
 </details>
+
+Finally, you can add the ADR badge to your `README.md`!
+
+<table>
+<tbody>
+<tr>
+<td><a href="https://thomvaill.github.io/log4brains/adr/"><img src="https://thomvaill.github.io/log4brains/adr/badge.svg" alt="Log4brains ADRs" /></a></td>
+<td><code>[![Log4brains ADRs](http://URL-of-your-knowledge base/badge.svg)](http://URL-of-your-knowledge base/)</code></td>
+</tr>
+</tbody>
+</table>
 
 ## ❓ FAQ
 
