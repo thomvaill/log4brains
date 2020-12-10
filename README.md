@@ -100,6 +100,8 @@ npx init-log4brains
 
 ... it will ask you several questions to get your knowledge base installed and configured properly. Click [here](#what-about-non-js-projects) for non-JS projects.
 
+Of course, you can still choose to store your ADRs in a dedicated repository. In this case, just run `npm init --yes` before running `npx init-log4brains`.
+
 Then, you can start the web UI in local preview mode:
 
 ```bash
