@@ -183,7 +183,7 @@ jobs:
           fetch-depth: 0 # fetch all history for Lerna (https://stackoverflow.com/a/60184319/9285308)
 
       - name: fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
 
       # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
       - name: use node.js ${{ matrix.node-version }}
