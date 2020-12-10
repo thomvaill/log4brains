@@ -324,7 +324,7 @@ Finally, you can add the ADR badge to your `README.md`!
 <tbody>
 <tr>
 <td><a href="https://thomvaill.github.io/log4brains/adr/"><img src="https://thomvaill.github.io/log4brains/adr/badge.svg" alt="Log4brains ADRs" /></a></td>
-<td><code>[![Log4brains ADRs](http://URL-of-your-knowledge base/badge.svg)](http://URL-of-your-knowledge base/)</code></td>
+<td><code>[![Log4brains ADRs](http://URL-of-your-knowledge-base/badge.svg)](http://URL-of-your-knowledge-base/)</code></td>
 </tr>
 </tbody>
 </table>
