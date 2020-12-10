@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toc renders correctly 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <h6
+    className="MuiTypography-root makeStyles-title-2 MuiTypography-subtitle2"
+  >
+    Table of contents
+  </h6>
+  <ul
+    className="makeStyles-tocUl-3"
+  >
+    <li>
+      <a
+        className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+        href="#header-1"
+        onBlur={[Function]}
+        onFocus={[Function]}
+      >
+        Header 1
+      </a>
+      <ul
+        className="makeStyles-tocUl-3"
+      >
+        <li>
+          <a
+            className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+            href="#header-11"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Header 1.1
+          </a>
+          <ul
+            className="makeStyles-tocUl-3"
+          >
+            <li>
+              <a
+                className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                href="#header-111"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                Header 1.1.1
+              </a>
+              <ul
+                className="makeStyles-tocUl-3"
+              />
+            </li>
+            <li>
+              <a
+                className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                href="#header-112"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                Header 1.1.2
+              </a>
+              <ul
+                className="makeStyles-tocUl-3"
+              />
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a
+            className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+            href="#header-12"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Header 1.2
+          </a>
+          <ul
+            className="makeStyles-tocUl-3"
+          >
+            <li>
+              <a
+                className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                href="#"
+                onBlur={[Function]}
+                onFocus={[Function]}
+              >
+                
+              </a>
+              <ul
+                className="makeStyles-tocUl-3"
+              >
+                <li>
+                  <a
+                    className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                    href="#subtitle-without-direct-parent"
+                    onBlur={[Function]}
+                    onFocus={[Function]}
+                  >
+                    Subtitle without direct parent
+                  </a>
+                  <ul
+                    className="makeStyles-tocUl-3"
+                  />
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a
+        className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+        href="#header-2"
+        onBlur={[Function]}
+        onFocus={[Function]}
+      >
+        Header 2
+      </a>
+      <ul
+        className="makeStyles-tocUl-3"
+      />
+    </li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,52 @@
+{
+  "name": "@log4brains/cli-common",
+  "version": "1.0.0-beta.0",
+  "description": "Log4brains architecture knowledge base common CLI features",
+  "keywords": [
+    "log4brains"
+  ],
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/cli-common"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node watch",
+    "dev:test": "nodemon",
+    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "prepublishOnly": "yarn build",
+    "link": "npm link && rm -f ./package-lock.json"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^7.3.1",
+    "esm": "^3.2.25",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.1.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cli-table3": "^0.6.0",
+    "inquirer": "^7.3.3",
+    "ora": "^5.1.0"
+  }
+}

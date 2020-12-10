@@ -1,0 +1,70 @@
+{
+  "name": "@log4brains/core",
+  "version": "1.0.0-beta.0",
+  "description": "Log4brains architecture knowledge base core API",
+  "keywords": [
+    "log4brains"
+  ],
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/core"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.module.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node watch",
+    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "test": "jest",
+    "lint": "eslint . --max-warnings=0",
+    "typedoc": "typedoc --mode library --includeVersion --readme none --theme minimal --excludePrivate --out docs/typedoc src/index.ts",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "awilix": "^4.2.6",
+    "cheerio": "^1.0.0-rc.3",
+    "chokidar": "^3.4.3",
+    "core-js": "^3.7.0",
+    "git-url-parse": "^11.4.0",
+    "joi": "^17.2.1",
+    "launch-editor": "^2.2.1",
+    "lodash": "^4.17.20",
+    "markdown-it": "^11.0.1",
+    "markdown-it-source-map": "^0.1.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
+    "neverthrow": "^2.7.1",
+    "open": "^7.3.0",
+    "parse-git-config": "^3.0.0",
+    "simple-git": "^2.21.0",
+    "slugify": "^1.4.5",
+    "yaml": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.22",
+    "@types/git-url-parse": "^9.0.0",
+    "@types/joi": "^14.3.4",
+    "@types/lodash": "^4.14.161",
+    "@types/markdown-it": "^10.0.2",
+    "@types/parse-git-config": "^3.0.0",
+    "globby": "^11.0.1",
+    "microbundle": "^0.12.4"
+  }
+}

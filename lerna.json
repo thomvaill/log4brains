@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0-beta.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "version": {
+      "message": "chore(release): publish %s",
+      "allowBranch": "dev"
+    }
+  }
+}
