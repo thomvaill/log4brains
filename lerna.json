@@ -8,7 +8,7 @@
   "command": {
     "version": {
       "message": "chore(release): publish %s",
-      "allowBranch": "dev"
+      "allowBranch": "master"
     }
   }
 }
