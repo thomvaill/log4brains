@@ -85,6 +85,8 @@ This is why it would be precious for me to get your feedback on this beta versio
 
 To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
+Disclaimer: during the beta, some releases can introduce breaking changes without any warning. Therefore, we recommend you to pin exact versions of Log4brains in your `package.json` to be safe.
+
 ## 🚀 Getting started
 
 According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project's git repository, for example in `<your project>/docs/adr`. In the case of a JS project, we recommend installing Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project root directory:
