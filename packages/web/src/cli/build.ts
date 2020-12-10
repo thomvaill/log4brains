@@ -4,6 +4,7 @@ import loadConfig from "next/dist/next-server/server/config";
 import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
 import path from "path";
 import mkdirp from "mkdirp";
+import { makeBadge } from "badge-maker";
 import { promises as fsP } from "fs";
 import { getLog4brainsInstance } from "../lib/core-api";
 import { getNextJsDir } from "../lib/next";
@@ -61,7 +62,7 @@ export async function buildCommand(
     );
   });
 
-  appConsole.startSpinner("Generating ADR JSON data...");
+  appConsole.startSpinner("Generating ADR data...");
   const buildId = await fsP.readFile(
     path.join(nextDir, distDir, "BUILD_ID"),
     "utf-8"
@@ -100,6 +101,16 @@ export async function buildCommand(
     )
   ];
   await Promise.all(promises);
+
+  // Badge
+  await fsP.writeFile(
+    path.join(outPath, "badge.svg"),
+    makeBadge({
+      label: "ADRs",
+      message: adrs.length.toString(),
+      color: "#FF007B"
+    })
+  );
 
   appConsole.updateSpinner("Generating search index...");
   await fsP.writeFile(
