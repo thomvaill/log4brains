@@ -161,7 +161,7 @@ To learn more on this topic, I recommend you to read these great resources:
 
 - [Documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), by Michael Nygard
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by [Oliver Kopp](https://github.com/koppor/) and [Olaf Zimmermann](https://ozimmer.ch/)
-- [Collection of ADR templates](https://github.com/joelparkerhenderson/architecture_decision_record) by @joelparkerhenderson
+- [Collection of ADR templates and examples](https://github.com/joelparkerhenderson/architecture_decision_record) by [Joel Parker Henderson](https://github.com/joelparkerhenderson)
 
 ## 💡 Why Log4brains
 
@@ -523,6 +523,7 @@ Pull Requests are more than welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.
 - [Next.js](https://github.com/vercel/next.js/), which is used under the hood to provide the web UI and the static site generation capability (look for `#NEXTJS-HACK` in the code to see the custom adaptations we had to make)
 - Michael Nygard for all his work on [Architecture Decision Records](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
 - [Oliver Kopp](https://github.com/koppor/) and [Olaf Zimmermann](https://ozimmer.ch/) for the [MADR](https://adr.github.io/madr/) template
+- [Joel Parker Henderson](https://github.com/joelparkerhenderson) for his [Collection of ADR templates and examples](https://github.com/joelparkerhenderson/architecture_decision_record) repository
 - [Tippawan Sookruay](https://thenounproject.com/wanny4/) for the Log4brains logo
 - @npryce, who inspired me for the CLI part with his [adr-tools](https://github.com/npryce/adr-tools) bash CLI
 - @mrwilson, who inspired me for the static site generation part with his [adr-viewer](https://github.com/mrwilson/adr-viewer)
