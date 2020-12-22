@@ -467,7 +467,7 @@ Even if Log4brains is developed with TypeScript and is part of the NPM ecosystem
 For projects that do not have a `package.json` file, you have to install Log4brains globally:
 
 ```bash
-npm install -g @log4brains-cli @log4brains-web
+npm install -g @log4brains/cli @log4brains/web
 ```
 
 Create a `.log4brains.yml` file at the root of your project and [configure it](#how-to-configure-log4brainsyml).
