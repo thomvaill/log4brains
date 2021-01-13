@@ -104,7 +104,10 @@ jobs:
       # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
       # Once it's done, we should add "yarn test" in each package's preVersion script
       - name: build
-        run: yarn build && yarn link-cli
+        run: |
+          yarn build
+          yarn link-cli
+          echo "$(yarn global bin)" >> $GITHUB_PATH
 
       - name: test
         run: yarn test
@@ -156,7 +159,10 @@ jobs:
       # End of yarn setup
 
       - name: build
-        run: yarn build && yarn link-cli
+        run: |
+          yarn build
+          yarn link-cli
+          echo "$(yarn global bin)" >> $GITHUB_PATH
 
       - name: build self knowledge base
         env:
