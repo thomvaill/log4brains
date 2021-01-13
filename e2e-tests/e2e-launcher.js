@@ -10,10 +10,6 @@ const fsP = fs.promises;
 
 process.env.NODE_ENV = "test";
 
-const initBin = path.resolve(
-  path.join(__dirname, "../packages/init/dist/log4brains-init")
-);
-
 // Inspired by Next.js's test/integration/create-next-app/index.test.js. Thank you!
 async function usingTempDir(fn) {
   const folder = await fsP.mkdtemp(path.join(os.tmpdir(), "log4brains-e2e-"));
@@ -37,21 +33,11 @@ async function run(file, arguments, cwd) {
 
 (async () => {
   await usingTempDir(async (cwd) => {
-    await run("npm", ["init", "--yes"], cwd);
-    await run("npm", ["install"], cwd);
-    await run(initBin, ["--defaults"], cwd);
+    await run("log4brains", ["init", "--defaults"], cwd);
 
-    await run(
-      "npm",
-      ["run", "adr", "--", "new", "--quiet", '"E2E test ADR"'],
-      cwd
-    );
+    await run("log4brains", ["adr", "new", "--quiet", '"E2E test ADR"'], cwd);
 
-    const adrListRes = await run(
-      "npm",
-      ["run", "adr", "--", "list", "--raw"],
-      cwd
-    );
+    const adrListRes = await run("log4brains", ["adr", "list", "--raw"], cwd);
     expect(adrListRes.stdout).to.contain(
       "use-log4brains-to-manage-the-adrs",
       "Log4brains ADR was not created by init"

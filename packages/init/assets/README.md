@@ -8,12 +8,16 @@ Please use this link to browse them.
 
 ## Development
 
+If not already done, install Log4brains:
+
+```bash
+npm install -g log4brains
+```
+
 To preview the knowledge base locally, run:
 
 ```bash
-npm run log4brains-preview
-# OR
-yarn log4brains-preview
+log4brains preview
 ```
 
 In preview mode, the Hot Reload feature is enabled: any change you make to a markdown file is applied live in the UI.
@@ -21,9 +25,7 @@ In preview mode, the Hot Reload feature is enabled: any change you make to a mar
 To create a new ADR interactively, run:
 
 ```bash
-npm run adr new
-# OR
-yarn adr new
+log4brains adr new
 ```
 
 ## More information

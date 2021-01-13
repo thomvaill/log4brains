@@ -4,19 +4,15 @@ import { InitCommand, InitCommandOpts } from "./commands";
 
 type Deps = {
   appConsole: AppConsole;
-  version: string;
-  name: string;
 };
 
-export function createCli({
-  appConsole,
-  name,
-  version
-}: Deps): commander.Command {
-  return new commander.Command(name)
-    .version(version)
+export function createInitCli({ appConsole }: Deps): commander.Command {
+  const program = new commander.Command();
+
+  program
+    .command("init")
     .arguments("[path]")
-    .description("Installs and configures Log4brains for your project", {
+    .description("Configures Log4brains for your project", {
       path: "Path of your project. Default: current directory"
     })
     .option(
@@ -29,4 +25,6 @@ export function createCli({
         return new InitCommand({ appConsole }).execute(options, path);
       }
     );
+
+  return program;
 }

@@ -15,35 +15,34 @@ Thank you so much! :clap:
 ## Development
 
 ```bash
+npm uninstall -g log4brains
 yarn install
-yarn links
+yarn link-cli
 yarn dev
 
 # You can now develop
 # `yarn dev` re-builds the changed packages live
 
 # You can test the different packages directly on the Log4brains project
-# All its scripts are linked to your local dev version
-yarn adr new
-yarn log4brains-build
-yarn serve # serves the build output (`.log4brains/out`) locally
+log4brains adr new
+log4brains preview
+log4brains build
+yarn serve-log4brains # serves the build output (`.log4brains/out`) locally
 
 # For the Next.js app, you can enable the Fast Refresh feature just by setting NODE_ENV to `development`
-NODE_ENV=development yarn log4brains-preview
-# Or you can run this more convenient command on the root project:
-yarn log4brains-preview:dev
+NODE_ENV=development log4brains preview
 # Or if you want to debug only the Next.js app without the Log4brains custom part, you can run:
 cd packages/web && yarn next dev # (in this case `yarn dev` is not needed before running this command)
 
 # To work on the UI, you probably would like to use the Storybook instead:
 cd packages/web && yarn storybook
 
-# You can also test the different packages on an empty project
-# `npx init-log4brains` is linked to your local dev version and will install
-# the dev version of each Log4brains package if you set NODE_ENV to `development`
-cd $(mktemp -d -t l4b-test-XXXX) && npm init --yes && npm install
-NODE_ENV=development npx init-log4brains
+# To test the init CLI, create an empty project
+cd $(mktemp -d -t l4b-test-XXXX)
+log4brains init
 ```
+
+When you are done, run `yarn unlink-cli && npm install -g log4brains` to use the official version again.
 
 ## Checks to run before pushing
 

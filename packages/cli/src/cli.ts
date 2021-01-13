@@ -1,6 +1,14 @@
+import fs from "fs";
+import path from "path";
 import commander from "commander";
-import { Log4brains } from "@log4brains/core";
-import type { AppConsole } from "@log4brains/cli-common";
+import terminalLink from "terminal-link";
+import { Log4brains, Log4brainsError } from "@log4brains/core";
+import {
+  AppConsole,
+  FailureExit,
+  Log4brainsConfigNotFound
+} from "@log4brains/cli-common";
+
 import {
   ListCommand,
   ListCommandOpts,
@@ -8,23 +16,61 @@ import {
   NewCommandOpts
 } from "./commands";
 
+const templateExampleUrl =
+  "https://raw.githubusercontent.com/thomvaill/log4brains/master/packages/init/assets/template.md";
+
+function findRootFolder(cwd: string): string {
+  if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
+    return cwd;
+  }
+  if (path.resolve(cwd) === "/") {
+    throw new Log4brainsConfigNotFound();
+  }
+  return findRootFolder(path.join(cwd, ".."));
+}
+
+let l4bInstance: Log4brains;
+function getL4bInstance(): Log4brains {
+  if (!l4bInstance) {
+    l4bInstance = Log4brains.create(
+      findRootFolder(process.env.LOG4BRAINS_CWD || ".")
+    );
+  }
+  return l4bInstance;
+}
+
+function execWithErrorHandler<T>(
+  promise: Promise<T>,
+  appConsole: AppConsole
+): Promise<T> {
+  promise.catch((err) => {
+    if (
+      err instanceof Log4brainsError &&
+      err.name === "The template.md file does not exist"
+    ) {
+      appConsole.error(err);
+      appConsole.printlnErr(
+        `You can use this ${terminalLink(
+          "template",
+          templateExampleUrl
+        )} as an example`
+      );
+      throw new FailureExit();
+    }
+  });
+  return promise;
+}
+
 type Deps = {
-  l4bInstance: Log4brains;
   appConsole: AppConsole;
-  version: string;
 };
 
-export function createCli({
-  l4bInstance,
-  appConsole,
-  version
-}: Deps): commander.Command {
+export function createCli({ appConsole }: Deps): commander.Command {
   const program = new commander.Command();
-  program.version(version);
 
   const adr = program
     .command("adr")
-    .description("Manage the Architecture Decision Records (ADR)");
+    .description("Group of commands to manage your ADRs...");
 
   adr
     .command("new [title]")
@@ -42,7 +88,11 @@ export function createCli({
     )
     .action(
       (title: string | undefined, opts: NewCommandOpts): Promise<void> => {
-        return new NewCommand({ l4bInstance, appConsole }).execute(opts, title);
+        const cmd = new NewCommand({
+          l4bInstance: getL4bInstance(),
+          appConsole
+        });
+        return execWithErrorHandler(cmd.execute(opts, title), appConsole);
       }
     );
 
@@ -65,7 +115,11 @@ export function createCli({
     .description("List ADRs")
     .action(
       (opts: ListCommandOpts): Promise<void> => {
-        return new ListCommand({ l4bInstance, appConsole }).execute(opts);
+        const cmd = new ListCommand({
+          l4bInstance: getL4bInstance(),
+          appConsole
+        });
+        return execWithErrorHandler(cmd.execute(opts), appConsole);
       }
     );
 

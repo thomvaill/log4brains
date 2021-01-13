@@ -23,23 +23,22 @@
   "files": [
     "dist"
   ],
-  "bin": {
-    "log4brains-web": "./dist/bin/log4brains-web"
-  },
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "yarn build && nodemon",
     "dev-old": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
-    "build:ts": "tsc --noEmit false",
-    "build": "yarn clean && yarn build:ts && copyfiles --all next.config.js .babelrc \"public/**/*\" dist && copyfiles --all --up 1 src/bin/log4brains-web \"src/lib/core-api/noop/**/*\" src/components/Markdown/hljs.css dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
+    "build:ts": "tsc --noEmit false --declaration true && find dist/pages -name \"*.d.ts\" -type f -exec rm -f {} +",
+    "build": "yarn clean && yarn build:ts && copyfiles --all next.config.js .babelrc \"public/**/*\" dist && copyfiles --all --up 1 \"src/lib/core-api/noop/**/*\" src/components/Markdown/hljs.css dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
     "clean": "rimraf ./dist",
     "serve": "serve .log4brains/out",
     "typescript": "tsc",
     "test": "jest",
     "lint": "eslint . --max-warnings=0",
     "storybook": "start-storybook -p 6006",
-    "prepublishOnly": "yarn build",
-    "link": "yarn link"
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@log4brains/cli-common": "^1.0.0-beta.4",
@@ -55,7 +54,6 @@
     "clsx": "^1.1.1",
     "commander": "^6.1.0",
     "copy-text-to-clipboard": "^2.2.0",
-    "esm": "^3.2.25",
     "highlight.js": "^10.4.0",
     "lunr": "^2.3.9",
     "markdown-to-jsx": "^7.0.1",

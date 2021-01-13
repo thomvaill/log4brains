@@ -1,2 +1,1 @@
-export * from "./preview";
-export * from "./build";
+export * from "./cli";

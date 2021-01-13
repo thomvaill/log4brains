@@ -1,0 +1,61 @@
+{
+  "name": "log4brains",
+  "version": "1.0.0-beta.4",
+  "description": "Log and publish your architecture decisions (ADR) with Log4brains",
+  "keywords": [
+    "log4brains",
+    "architecture decision records",
+    "adr",
+    "architecture",
+    "knowledge base",
+    "documentation",
+    "docs-as-code",
+    "markdown",
+    "static site generator",
+    "documentation generator",
+    "tooling"
+  ],
+  "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
+  "license": "Apache-2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/thomvaill/log4brains",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thomvaill/log4brains",
+    "directory": "packages/global-cli"
+  },
+  "engines": {
+    "node": ">=10.23.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "log4brains": "./dist/log4brains"
+  },
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc --build tsconfig.build.json && copyfiles -u 1 src/log4brains dist",
+    "clean": "rimraf ./dist",
+    "typescript": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "prepublishOnly": "cp ../../README.md . && yarn build",
+    "link": "yarn link",
+    "unlink": "yarn unlink"
+  },
+  "dependencies": {
+    "@log4brains/cli": "^1.0.0-beta.4",
+    "@log4brains/cli-common": "^1.0.0-beta.4",
+    "@log4brains/init": "^1.0.0-beta.4",
+    "@log4brains/web": "^1.0.0-beta.4",
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "esm": "^3.2.25"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.0"
+  }
+}

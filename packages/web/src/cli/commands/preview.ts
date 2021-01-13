@@ -3,11 +3,17 @@ import { createServer } from "http";
 import SocketIO from "socket.io";
 import chalk from "chalk";
 import open from "open";
-import { getLog4brainsInstance } from "../lib/core-api";
-import { getNextJsDir } from "../lib/next";
-import { appConsole, execNext } from "../lib/console";
+import type { AppConsole } from "@log4brains/cli-common";
+import { getLog4brainsInstance } from "../../lib/core-api";
+import { getNextJsDir } from "../../lib/next";
+import { execNext } from "../../lib/console";
+
+type Deps = {
+  appConsole: AppConsole;
+};
 
 export async function previewCommand(
+  { appConsole }: Deps,
   port: number,
   openBrowser: boolean,
   adrSlug?: string
