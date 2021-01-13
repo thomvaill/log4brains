@@ -53,9 +53,9 @@ jobs:
         run: yarn install --frozen-lockfile
       # End of yarn setup
 
-      # TODO: make dev & test work without having to build core & cli-common (inspiration: https://github.com/Izhaki/mono.ts)
-      - name: build core
-        run: yarn build --scope @log4brains/core --scope @log4brains/cli-common
+      # TODO: make dev & test work without having to build everything (inspiration: https://github.com/Izhaki/mono.ts)
+      - name: build
+        run: yarn build
 
       - name: format
         run: yarn format
