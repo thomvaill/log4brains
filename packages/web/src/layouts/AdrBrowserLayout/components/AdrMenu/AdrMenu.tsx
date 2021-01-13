@@ -154,9 +154,7 @@ export function AdrMenu({ adrs, currentAdrSlug, className, ...props }: Props) {
                 Run the following command in your terminal:
               </Typography>
               <pre>
-                <code className="hljs bash">
-                  npm run adr -- new{"\n"}# OR{"\n"}yarn adr new
-                </code>
+                <code className="hljs bash">log4brains adr new</code>
               </pre>
               <Typography>
                 This will create a new ADR from your template and will open it

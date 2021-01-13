@@ -4,15 +4,11 @@
 /* eslint-disable @typescript-eslint/prefer-regexp-exec */
 /* eslint-disable jest/no-conditional-expect */
 /* eslint-disable jest/no-try-expect */
-import execa, { ExecaError } from "execa";
+import execa from "execa";
 import path from "path";
 import os from "os";
 import fs, { promises as fsP } from "fs";
 import rimraf from "rimraf";
-
-type PackageJson = Record<string, unknown> & {
-  scripts: Record<string, string>;
-};
 
 // Source: https://shift.infinite.red/integration-testing-interactive-clis-93af3cc0d56f. Thanks!
 const keys = {
@@ -22,10 +18,11 @@ const keys = {
   space: "\x20"
 };
 
+// TODO: to rewrite completely. Because now we can just import the CLI and test it directly, not with execa (dirty!)
 // Inspired by Next.js's test/integration/create-next-app/index.test.js. Thank you!
-const cliPath = path.join(__dirname, "../src/main");
+const cliPath = path.join(__dirname, "fake-entrypoint.ts");
 const run = (cwd: string) =>
-  execa("node", ["-r", "esm", "-r", "ts-node/register", cliPath, cwd]);
+  execa("node", ["-r", "esm", "-r", "ts-node/register", cliPath, "init", cwd]);
 
 jest.setTimeout(1000 * 60);
 
@@ -34,7 +31,7 @@ async function usingTempDir(fn: (cwd: string) => void | Promise<void>) {
     path.join(os.tmpdir(), "log4brains-init-tests-")
   );
   try {
-    return await fn(folder);
+    await fn(folder);
   } finally {
     rimraf.sync(folder);
   }
@@ -67,8 +64,11 @@ function bindAnswers(
       throw new Error("CLI must have an stdin");
     }
 
-    if (!name && line.match(/What is the name of your project\?/)) {
+    if (!name && line.match(/Continue\?/)) {
       cli.stdin.write("\n");
+    }
+    if (!name && line.match(/What is the name of your project\?/)) {
+      cli.stdin.write("Test\n");
       name = true;
     }
     if (
@@ -123,35 +123,10 @@ function bindAnswers(
 }
 
 describe("Init", () => {
-  test("empty directory", async () => {
+  test("mono package project", async () => {
     await usingTempDir(async (cwd) => {
-      expect.assertions(1);
-
-      try {
-        await run(cwd);
-      } catch (e) {
-        expect((e as ExecaError).stderr).toMatch(
-          /Impossible to find package\.json/
-        );
-      }
-    });
-  });
-
-  test("fresh NPM mono project", async () => {
-    await usingTempDir(async (cwd) => {
-      await execa("npm", ["init", "--yes"], { cwd });
-      await execa("npm", ["install"], { cwd });
-
+      await execa("npm", ["init", "--yes"], { cwd }); // TODO: without this line, the test hangs! Find out why
       await bindAnswers(run(cwd));
-
-      const pkgJson = require(path.join(cwd, "package.json")) as PackageJson;
-      expect(pkgJson.scripts.adr).toEqual("log4brains adr");
-      expect(pkgJson.scripts["log4brains-preview"]).toEqual(
-        "log4brains-web preview"
-      );
-      expect(pkgJson.scripts["log4brains-build"]).toEqual(
-        "log4brains-web build"
-      );
 
       expect(fs.existsSync(path.join(cwd, ".log4brains.yml"))).toBeTruthy(); // TODO: test its content
       expect(fs.existsSync(path.join(cwd, "docs/adr"))).toBeTruthy();
@@ -163,28 +138,9 @@ describe("Init", () => {
     });
   });
 
-  test("fresh yarn mono project", async () => {
+  test("multi packages project", async () => {
     await usingTempDir(async (cwd) => {
-      await execa("npm", ["init", "--yes"], { cwd });
-      await execa("yarn", ["install"], { cwd });
-
-      await bindAnswers(run(cwd));
-
-      const pkgJson = require(path.join(cwd, "package.json")) as PackageJson;
-      expect(pkgJson.scripts.adr).toEqual("log4brains adr");
-      expect(pkgJson.scripts["log4brains-preview"]).toEqual(
-        "log4brains-web preview"
-      );
-      expect(pkgJson.scripts["log4brains-build"]).toEqual(
-        "log4brains-web build"
-      );
-    });
-  });
-
-  test("fresh NPM multi project", async () => {
-    await usingTempDir(async (cwd) => {
-      await execa("npm", ["init", "--yes"], { cwd });
-      await execa("npm", ["install"], { cwd });
+      await execa("npm", ["init", "--yes"], { cwd }); // TODO: without this line, the test hangs! Find out why
       await execa("mkdir", ["-p", "packages/package1"], { cwd });
 
       await bindAnswers(run(cwd), {

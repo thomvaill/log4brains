@@ -25,7 +25,15 @@
 </p>
 
 Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
-It enables you to write and manage [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE, and to publish them automatically as a static website.
+It enables you to log [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE and to publish them automatically as a static website.
+
+By logging your decisions with Log4brains, you will be able to:
+
+- Understand past technical decisions and their context
+- Take new decisions with confidence
+- Always have an up-to-date technical documentation and training material available
+- Onboard new developers quicker
+- Set up a collaborative decision process thanks to pull requests
 
 <details>
 <summary>Features</summary>
@@ -66,66 +74,49 @@ It enables you to write and manage [Architecture Decision Records](https://adr.g
 
 ## Table of contents <!-- omit in toc -->
 
-- [📣 Beta version: your feedback is welcome!](#-beta-version-your-feedback-is-welcome)
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
 - [💡 Why Log4brains](#-why-log4brains)
 - [📨 CI/CD configuration examples](#-cicd-configuration-examples)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
+  - [Is Log4brains only for JS projects?](#is-log4brains-only-for-js-projects)
   - [What about multi-package projects?](#what-about-multi-package-projects)
-  - [What about non-JS projects?](#what-about-non-js-projects)
   - [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
+- [📣 Beta version: your feedback is welcome!](#-beta-version-your-feedback-is-welcome)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
 
-## 📣 Beta version: your feedback is welcome!
-
-At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
-But I am convinced that this project can benefit a lot of teams.
-This is why it would be precious for me to get your feedback on this beta version in order to improve it.
-
-To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
-
-Disclaimer: during the beta, some releases can introduce breaking changes without any warning. Therefore, we recommend you to pin exact versions of Log4brains in your `package.json` to be safe.
-
 ## 🚀 Getting started
 
-According to the Log4brains philosophy, you should store your Architecture Decision Records (ADR) the closest to your code, which means ideally inside your project's git repository, for example in `<your project>/docs/adr`. In the case of a JS project, we recommend installing Log4brains as a dev dependency. To do so, run our interactive setup CLI inside your project's root directory:
+We recommend to store your Architecture Decision Records (ADR) next to the source code of your project,
+in the same git repository, to keep them in sync.
+
+To get started, run these commands inside your git repository's root folder:
 
 ```bash
-npx init-log4brains
+npm install -g log4brains
+log4brains init
 ```
 
-... it will ask you several questions to get your knowledge base installed and configured properly. Click [here](#what-about-non-js-projects) for non-JS projects.
-
-Of course, you can still choose to store your ADRs in a dedicated repository. In this case, just run `npm init --yes` before running `npx init-log4brains`.
-
-Then, you can start the web UI in local preview mode:
+It will ask you several questions to get Log4brains properly configured for your project.
+Then, you can start the web UI to preview your architecture knowledge base locally:
 
 ```bash
-npm run log4brains-preview
-
-# OR
-
-yarn log4brains-preview
+log4brains preview
 ```
 
 In this mode, the Hot Reload feature is enabled: any change
-you make to a markdown file is applied live in the UI.
+you make to a markdown file from your IDE is applied live in the UI.
 
-You can use this command to easily create a new ADR interactively:
+To create a new ADR from the template, run this command:
 
 ```bash
-npm run adr -- new
-
-# OR
-
-yarn adr new
+log4brains adr new
 ```
 
-Just add the `--help` option for more information on this command.
+Get all the available commands and options by running `log4brains --help`.
 
 Finally, do not forget to [set up your CI/CD pipeline](#-cicd-configuration-examples) to automatically publish your knowledge base on a static website service like GitHub/GitLab Pages or S3.
 
@@ -203,17 +194,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14"
-      # NPM:
-      # (unfortunately, we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558)
-      - name: Install and Build Log4brains (NPM)
+      - name: Install and Build Log4brains
         run: |
-          npm install
-          npm run log4brains-build -- --basePath /${GITHUB_REPOSITORY#*/}/log4brains
-      # Yarn:
-      # - name: Install and Build Log4brains (Yarn)
-      #   run: |
-      #     yarn install --frozen-lockfile
-      #     yarn log4brains-build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+          npm install -g log4brains
+          log4brains build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -260,12 +244,8 @@ pages:
     GIT_DEPTH: 0 # required by Log4brains to work correctly (needs the whole Git history)
   script:
     - mkdir -p public
-    # NPM:
-    - npm install # unfortunately we cannot use `npm ci` for now because of this bug: https://github.com/npm/cli/issues/558
-    - npm run log4brains-build -- --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
-    # Yarn:
-    # - yarn install --frozen-lockfile
-    # - yarn log4brains-build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
+    - npm install -g log4brains
+    - log4brains build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
   artifacts:
     paths:
       - public
@@ -310,8 +290,8 @@ Then, configure your CI to run these commands:
 
 - Install Node and the AWS CLI
 - Checkout your Git repository **with the full history**. Otherwise, Log4brains won't work correctly (see previous examples)
-- `npm install` or `yarn install --frozen-lockfile` to install the dev dependencies (unfortunately we cannot use `npm ci` for now because of this [bug](https://github.com/npm/cli/issues/558))
-- `npm run log4brains-build` or `yarn log4brains-build`
+- `npm install -g log4brains`
+- `log4brains build`
 - `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
 
 Your knowledge base will be available on `http://<YOUR BUCKET>.s3-website-<YOUR REGION>.amazonaws.com/`.
@@ -337,11 +317,16 @@ Finally, you can add the ADR badge to your `README.md`!
 
 - Node.js >= 10.23
 - NPM or Yarn
-- Your project versioned in Git ([not necessarily a JS project!](#what-about-non-js-projects))
+- Git
+
+### Is Log4brains only for JS projects?
+
+Of course not! Log4brains is developed with TypeScript and use NPM as a package manager.
+You need Node and NPM to be installed globally to run Log4brains, but it is designed to work for all kind of projects.
 
 ### What about multi-package projects?
 
-Log4brains supports both mono and multi packages projects. The `npx init-log4brains` command will prompt you regarding this.
+Log4brains supports both mono and multi packages projects. The `log4brains init` command will prompt you regarding this.
 
 In the case of a multi-package project, you have two options:
 
@@ -460,27 +445,9 @@ repo2
 </p>
 </details>
 
-### What about non-JS projects?
-
-Even if Log4brains is developed with TypeScript and is part of the NPM ecosystem, it can be used for any kind of project, in any language.
-
-For projects that do not have a `package.json` file, you have to install Log4brains globally:
-
-```bash
-npm install -g @log4brains/cli @log4brains/web
-```
-
-Create a `.log4brains.yml` file at the root of your project and [configure it](#how-to-configure-log4brainsyml).
-
-You can now use these global commands inside your project:
-
-- Create a new ADR: `log4brains adr new`
-- Start the local web UI: `log4brains-web preview`
-- Build the static version: `log4brains-web build`
-
 ### How to configure `.log4brains.yml`?
 
-This file is usually automatically created when you run `npx init-log4brains` (cf [getting started](#-getting-started)), but you may need to configure it manually.
+This file is automatically created when you run `log4brains init` (cf [getting started](#-getting-started)), but you may need to configure it manually.
 
 Here is an example with just the required fields:
 
@@ -513,6 +480,16 @@ project:
     provider: github # Supported providers: github, gitlab, bitbucket. Use `generic` if yours is not supported
     viewFileUriPattern: /blob/%branch/%path # Only required for `generic` providers
 ```
+
+## 📣 Beta version: your feedback is welcome!
+
+At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
+But I am convinced that this project can benefit a lot of teams.
+This is why it would be precious for me to get your feedback on this beta version in order to improve it.
+
+To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
+
+Disclaimer: during the beta, some releases can introduce breaking changes without any warning. Therefore, we recommend you to pin exact versions of Log4brains in your `package.json` to be safe.
 
 ## Contributing
 

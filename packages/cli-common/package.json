@@ -34,8 +34,7 @@
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
-    "prepublishOnly": "yarn build",
-    "link": "npm link && rm -f ./package-lock.json"
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "@types/inquirer": "^7.3.1",

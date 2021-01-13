@@ -172,6 +172,7 @@ export class AppConsole {
     question: string,
     defaultValue: boolean
   ): Promise<boolean> {
+    console.log("");
     const answer = await inquirer.prompt<{ q: boolean }>([
       { type: "confirm", name: "q", message: question, default: defaultValue }
     ]);
@@ -182,6 +183,7 @@ export class AppConsole {
     question: string,
     defaultValue?: string
   ): Promise<string> {
+    console.log("");
     const answer = await inquirer.prompt<{ q: string }>([
       {
         type: "input",
@@ -193,11 +195,42 @@ export class AppConsole {
     return answer.q;
   }
 
+  async askInputQuestionAndValidate(
+    question: string,
+    validationCb: (answer: string) => boolean | string,
+    defaultValue?: string
+  ): Promise<string> {
+    let answer: string;
+    let valid: boolean | string = true;
+    let i = 0;
+    do {
+      if (valid !== true) {
+        console.log(
+          chalk.red(
+            `✗ Please enter a correct value${
+              valid === false ? "" : `: ${valid}`
+            }`
+          )
+        );
+      }
+      if (i >= 10) {
+        throw new Error("Reached maximum number of retries (10)");
+      }
+
+      // eslint-disable-next-line no-await-in-loop
+      answer = await this.askInputQuestion(question, defaultValue);
+      valid = validationCb(answer);
+      i += 1;
+    } while (valid !== true);
+    return answer;
+  }
+
   async askListQuestion<V extends string>(
     question: string,
     choices: ChoiceDefinition<V>[],
     defaultValue?: V
   ): Promise<V> {
+    console.log("");
     const answer = await inquirer.prompt<{ q: V }>([
       {
         type: "list",

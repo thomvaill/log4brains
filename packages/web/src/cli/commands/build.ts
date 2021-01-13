@@ -6,13 +6,19 @@ import path from "path";
 import mkdirp from "mkdirp";
 import { makeBadge } from "badge-maker";
 import { promises as fsP } from "fs";
-import { getLog4brainsInstance } from "../lib/core-api";
-import { getNextJsDir } from "../lib/next";
-import { appConsole, execNext } from "../lib/console";
-import { Search } from "../lib/search";
-import { toAdrLight } from "../types";
+import type { AppConsole } from "@log4brains/cli-common";
+import { getLog4brainsInstance } from "../../lib/core-api";
+import { getNextJsDir } from "../../lib/next";
+import { Search } from "../../lib/search";
+import { toAdrLight } from "../../types";
+import { execNext } from "../../lib/console";
+
+type Deps = {
+  appConsole: AppConsole;
+};
 
 export async function buildCommand(
+  { appConsole }: Deps,
   outPath: string,
   basePath: string
 ): Promise<void> {
