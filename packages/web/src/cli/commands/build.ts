@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import build from "next/dist/build";
 import exportApp from "next/dist/export";
 import loadConfig from "next/dist/next-server/server/config";
@@ -127,7 +128,9 @@ export async function buildCommand(
 
   appConsole.stopSpinner();
   appConsole.success(
-    `Your Log4brains static website was successfully built in ${outPath}`
+    `Your Log4brains static site was successfully generated to ${chalk.cyan(
+      outPath
+    )} with a total of ${chalk.cyan(`${adrs.length} ADRs`)}`
   );
   appConsole.println();
   process.exit(0); // otherwise Next.js's spinner keeps running
