@@ -18,7 +18,7 @@ Log4brains (`v1.0.0-beta.4`) installation procedure is currently optimized for J
 
 For non-JS projects, you have to install manually the packages and the `npx init-log4brains` script does not work.
 
-Since Log4brains is intented for all projects, not especially JS ones, we have to make the installation procedure simpler and language-agnostic.
+Since Log4brains is intended for all projects, not especially JS ones, we have to make the installation procedure simpler and language-agnostic.
 
 ## Decision Drivers <!-- optional -->
 

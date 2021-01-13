@@ -27,11 +27,11 @@
 Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to log [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE and to publish them automatically as a static website.
 
-By logging your decisions with Log4brains, you will be able to:
+By logging your decisions, you will be able to:
 
 - Understand past technical decisions and their context
 - Take new decisions with confidence
-- Always have an up-to-date technical documentation and training material available
+- Always have a up-to-date technical documentation and training material available
 - Onboard new developers quicker
 - Set up a collaborative decision process thanks to pull requests
 
@@ -76,7 +76,6 @@ By logging your decisions with Log4brains, you will be able to:
 
 - [🚀 Getting started](#-getting-started)
 - [🤔 What is an ADR and why should you use them](#-what-is-an-adr-and-why-should-you-use-them)
-- [💡 Why Log4brains](#-why-log4brains)
 - [📨 CI/CD configuration examples](#-cicd-configuration-examples)
 - [❓ FAQ](#-faq)
   - [What are the prerequisites?](#what-are-the-prerequisites)
@@ -93,24 +92,24 @@ By logging your decisions with Log4brains, you will be able to:
 We recommend to store your Architecture Decision Records (ADR) next to the source code of your project,
 in the same git repository, to keep them in sync.
 
-To get started, run these commands inside your git repository's root folder:
+To get started, run these commands inside your project root folder:
 
 ```bash
 npm install -g log4brains
 log4brains init
 ```
 
-It will ask you several questions to get Log4brains properly configured for your project.
-Then, you can start the web UI to preview your architecture knowledge base locally:
+It will ask you several questions to get Log4brains properly configured. It will also create the required template files and your first ADR as well.
+Then, you can start the web UI to preview your knowledge base locally:
 
 ```bash
 log4brains preview
 ```
 
 In this mode, the Hot Reload feature is enabled: any change
-you make to a markdown file from your IDE is applied live in the UI.
+you make to a markdown file from your IDE is applied live.
 
-To create a new ADR from the template, run this command:
+To create a new ADR from your template, run this command:
 
 ```bash
 log4brains adr new
@@ -132,8 +131,7 @@ The original template had only a few parts:
 - **Status**: Proposed, accepted, deprecated, superseded...
 - **Consequences**: The positive and negative ones for the future of the project
 
-Today, there are other ADR templates like [Y-Statements](https://medium.com/olzzio/y-statements-10eb07b5a177), or [MADR](https://adr.github.io/madr/), which is the default one that is configured in Log4brains.
-Anyway, we believe that no template suits everyone's needs. You should adapt it according to your own situation.
+There are other ADR templates like [Y-Statements](https://medium.com/olzzio/y-statements-10eb07b5a177) or [MADR](https://adr.github.io/madr/), which is the default one that is shipped with Log4brains.
 
 As you can guess from the template above, an ADR is immutable. Only its status can change.
 Thanks to this, your documentation is never out-of-date! Yes, an ADR can be deprecated or superseded by another one, but it was at least true one day!
@@ -145,24 +143,11 @@ This leads us to the main goals of this methodology:
 - Speed up the onboarding of new developers on a project
 - Formalize a collaborative decision-making process
 
-The first goal was the very original one, intended by Michael Nygard in his article.
-I discovered the two others in my past experiences with ADRs, and this is why I decided to create Log4brains.
-
 To learn more on this topic, I recommend you to read these great resources:
 
 - [Documenting architecture decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions), by Michael Nygard
 - [ADR GitHub organization](https://adr.github.io/), home of the [MADR](https://adr.github.io/madr/) template, by [Oliver Kopp](https://github.com/koppor/) and [Olaf Zimmermann](https://ozimmer.ch/)
 - [Collection of ADR templates and examples](https://github.com/joelparkerhenderson/architecture_decision_record) by [Joel Parker Henderson](https://github.com/joelparkerhenderson)
-
-## 💡 Why Log4brains
-
-I've been using ADRs for a long time and, I often introduce this methodology to the teams I work with as a freelance developer.
-It's always the same scenario: first, no one had ever heard about ADRs, and after using them for a while, they realize [how useful yet straightforward they are](#-what-is-an-adr-and-why-should-you-use-them). So one of the reasons I decided to start working on Log4brains was to popularize this methodology.
-
-On the other hand, I wanted to solve some issues I encountered with them, like improving their discoverability or the poor tooling around them.
-But above all, I am convinced that ADRs can have a broader impact than what they were intended for: speed up the onboarding on a project by becoming a training material, and become the support of a collaborative decision-making process.
-
-In the long term, I see Log4brains as part of a global strategy that would let companies build and capitalize their teams' technical knowledge collaboratively.
 
 ## 📨 CI/CD configuration examples
 
@@ -489,7 +474,7 @@ This is why it would be precious for me to get your feedback on this beta versio
 
 To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
-Disclaimer: during the beta, some releases can introduce breaking changes without any warning. Therefore, we recommend you to pin exact versions of Log4brains in your `package.json` to be safe.
+Disclaimer: during the beta, some releases can introduce breaking changes without any warning.
 
 ## Contributing
 
