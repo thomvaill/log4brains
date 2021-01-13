@@ -32,7 +32,7 @@
     "build": "tsc --build tsconfig.build.json",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test-watch": "jest --watch",
     "lint": "eslint . --max-warnings=0",
     "prepublishOnly": "yarn build"
