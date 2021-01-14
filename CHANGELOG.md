@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-01-14)
+
+
+### Bug Fixes
+
+* **web:** update to react 17 to fix install bug in node 15 ([1a04aca](https://github.com/thomvaill/log4brains/commit/1a04aca75df66282e637a2dd12a93b3f9c061ce2))
+
+
+
+
+
 # [1.0.0-beta.5](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-01-13)
 
 
