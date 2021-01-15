@@ -27,7 +27,7 @@
 Log4brains is a docs-as-code knowledge base for your development and infrastructure projects.
 It enables you to log [Architecture Decision Records](https://adr.github.io/) (ADR) right from your IDE and to publish them automatically as a static website.
 
-By logging your decisions, you will be able to:
+By logging your decisions chronologically, you will be able to:
 
 - Understand past technical decisions and their context
 - Take new decisions with confidence
@@ -300,7 +300,7 @@ Finally, you can add the ADR badge to your `README.md`!
 
 ### What are the prerequisites?
 
-- Node.js >= 10.23
+- Node.js >= 12
 - NPM or Yarn
 - Git
 
@@ -475,6 +475,8 @@ This is why it would be precious for me to get your feedback on this beta versio
 To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
 Disclaimer: during the beta, some releases can introduce breaking changes without any warning.
+
+Compatibility issues: the project is heavily tested on Ubuntu / Google Chrome environments; It should also work on Windows, macOS and other browsers, but since this is a beta version, some bugs can occur. Please raise an issue if you encounter some!
 
 ## Contributing
 
