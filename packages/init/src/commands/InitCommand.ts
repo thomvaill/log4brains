@@ -10,7 +10,7 @@ import path from "path";
 import moment from "moment-timezone";
 import type { AppConsole } from "@log4brains/cli-common";
 import { FailureExit } from "@log4brains/cli-common";
-import { replaceAllInFile } from "@src/utils";
+import { replaceAllInFile } from "../utils";
 
 const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
 const docLink = "https://github.com/thomvaill/log4brains";
