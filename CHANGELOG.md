@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-01-19)
+
+
+### Bug Fixes
+
+* **init:** Typo in ADR template link ([c1629a4](https://github.com/thomvaill/log4brains/commit/c1629a4a692414642667749112b28943dedb3bd4))
+
+
+
+
+
 # [1.0.0-beta.6](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-01-14)
 
 
