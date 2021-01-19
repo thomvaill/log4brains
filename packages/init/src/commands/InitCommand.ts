@@ -10,6 +10,7 @@ import path from "path";
 import moment from "moment-timezone";
 import type { AppConsole } from "@log4brains/cli-common";
 import { FailureExit } from "@log4brains/cli-common";
+import { replaceAllInFile } from "@src/utils";
 
 const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
 const docLink = "https://github.com/thomvaill/log4brains";
@@ -230,7 +231,7 @@ export class InitCommand {
     adrFolder: string,
     title: string,
     source: string,
-    replacements: string[][] = []
+    replacements: [string, string][] = []
   ): Promise<string> {
     const slug = (
       await execa(
@@ -247,23 +248,13 @@ export class InitCommand {
       )
     ).stdout;
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const replacement of [
-      ["{DATE_YESTERDAY}", moment().subtract(1, "days").format("YYYY-MM-DD")], // we use yesterday's date so that we are sure new ADRs will appear on top
-      ...replacements
-    ]) {
-      await execa(
-        "sed",
-        [
-          "-i",
-          `s/${replacement[0]}/${replacement[1]}/g`,
-          forceUnixPath(path.join(cwd, adrFolder, `${slug}.md`))
-        ],
-        {
-          cwd
-        }
-      );
-    }
+    await replaceAllInFile(
+      forceUnixPath(path.join(cwd, adrFolder, `${slug}.md`)),
+      [
+        ["{DATE_YESTERDAY}", moment().subtract(1, "days").format("YYYY-MM-DD")], // we use yesterday's date so that we are sure new ADRs will appear on top
+        ...replacements
+      ]
+    );
 
     return slug;
   }
