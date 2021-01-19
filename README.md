@@ -14,10 +14,7 @@
     <img src="https://github.com/thomvaill/log4brains/workflows/Build/badge.svg" alt="Build Status" />
   </a>
   <a href="https://github.com/thomvaill/log4brains/releases">
-    <img src="https://img.shields.io/npm/v/@log4brains/web?label=%40log4brains%2Fweb" alt="@log4brains/web latest version" />
-  </a>
-  <a href="https://github.com/thomvaill/log4brains/releases">
-    <img src="https://img.shields.io/npm/v/@log4brains/cli?label=%40log4brains%2Fcli" alt="@log4brains/cli latest version" />
+    <img src="https://img.shields.io/npm/v/log4brains?label=log4brains" alt="log4brains latest version" />
   </a>
   <a href="https://thomvaill.github.io/log4brains/adr/">
     <img src="https://thomvaill.github.io/log4brains/adr/badge.svg" alt="Log4brains ADRs" />
