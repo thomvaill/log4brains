@@ -63,8 +63,17 @@ jobs:
     needs: quality
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: [15.x, 14.x, 12.x]
+        exclude: # these cases are tested after the release with E2E tests
+          - os: windows-latest
+            node-version: 15.x
+          - os: windows-latest
+            node-version: 12.x
+          - os: macos-latest
+            node-version: 15.x
+          - os: macos-latest
+            node-version: 12.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
