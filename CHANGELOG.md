@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.8](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-01-20)
+
+
+### Bug Fixes
+
+* build issue with fsevents on macOS ([9f2a25c](https://github.com/thomvaill/log4brains/commit/9f2a25c25120754d07b2b98e36eab8cd3f888854))
+* **init:** bad import ([e3b74be](https://github.com/thomvaill/log4brains/commit/e3b74be05964f8668610397cb62c15d519e581a3))
+* **init:** sed behavior on macOS ([132ef7c](https://github.com/thomvaill/log4brains/commit/132ef7caad3eb3ab0b1b5cdd1d873f40dcae0ca7))
+
+
+
+
+
 # [1.0.0-beta.7](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-01-19)
 
 
