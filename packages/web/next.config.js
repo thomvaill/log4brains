@@ -36,6 +36,9 @@ module.exports = withBundleAnalyzer({
       return /node_modules/.test(excludePath.replace(config.context, ""));
     };
 
+    // To avoid issues with fsevents during the build, especially on macOS
+    config.externals.push("chokidar");
+
     return config;
   },
   future: {
