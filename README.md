@@ -63,11 +63,11 @@ By logging your decisions chronologically, you will be able to:
 
 <br />
 <p align="center">
-  <a href="https://thomvaill.github.io/log4brains/adr/">
+  <a href="https://www.youtube.com/watch?v=HDEwOCn9T0w" title="Click to watch the full screencast">
     <img src="docs/demo.gif" alt="Log4brains demo" width="838" />
   </a>
 </p>
-<p align="center">⚡ <strong>Demo</strong>: <a href="https://thomvaill.github.io/log4brains/adr/">Log4brains' own architecture knowledge base</a></p>
+<p align="center"><a href="https://www.youtube.com/watch?v=HDEwOCn9T0w">🎞️ Watch the full screencast</a> - <a href="https://thomvaill.github.io/log4brains/adr/">⚡ See an example (Log4brains' own ADRs)</a></p>
 
 ## Table of contents <!-- omit in toc -->
 
