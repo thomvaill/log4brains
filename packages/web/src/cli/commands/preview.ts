@@ -38,7 +38,7 @@ export async function previewCommand(
    */
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  app.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+  app.incrementalCache?.incrementalOptions?.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 
   await execNext(async () => {
     await app.prepare();
