@@ -51,7 +51,11 @@ async function run(file, arguments, cwd) {
       "E2E test ADR was not created"
     );
 
-    // TODO: preview & build tests (https://github.com/thomvaill/log4brains/issues/2)
+    await run("log4brains", ["build"], cwd);
+    expect(fs.existsSync(path.join(cwd, ".log4brains", "out", "index.html"))).to
+      .be.true;
+
+    // TODO: preview tests (https://github.com/thomvaill/log4brains/issues/2)
 
     console.log(chalk.bold.green("END"));
   });
