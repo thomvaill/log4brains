@@ -1,9 +1,15 @@
 name: Post-release E2E
 on:
+  # Run after every release to NPM
   workflow_run:
     workflows: ["Build"]
     types:
       - completed
+
+  # Run on every Wednesday to check possible regressions caused by dependency updates
+  # Like this one: https://github.com/thomvaill/log4brains/issues/27
+  schedule:
+    - cron: "0 4 * * 3"
 
 jobs:
   e2e:
