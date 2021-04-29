@@ -9,6 +9,10 @@ on:
       - "packages/**"
       - ".github/workflows/build.yml"
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   quality:
     strategy:
