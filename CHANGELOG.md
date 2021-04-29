@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.9](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-04-29)
+
+
+### Bug Fixes
+
+* [#27](https://github.com/thomvaill/log4brains/issues/27) pin nextjs to a specific version ([320e1ba](https://github.com/thomvaill/log4brains/commit/320e1bac0c1d6942ae2bb00816693cce3ba1b122))
+
+
+
+
+
 # [1.0.0-beta.8](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-01-20)
 
 
