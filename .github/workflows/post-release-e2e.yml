@@ -1,5 +1,7 @@
 name: Post-release E2E
 on:
+  workflow_dispatch:
+
   # Run after every release to NPM
   workflow_run:
     workflows: ["Build"]

@@ -2,6 +2,7 @@
 # See ci.yml for info on `quality` and `tests` stages
 name: Build
 on:
+  workflow_dispatch:
   push:
     branches:
       - master

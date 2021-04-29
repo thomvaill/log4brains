@@ -1,6 +1,7 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
 name: CI
 on:
+  workflow_dispatch:
   pull_request:
 
 defaults:
