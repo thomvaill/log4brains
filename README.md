@@ -226,7 +226,7 @@ pages:
     GIT_DEPTH: 0 # required by Log4brains to work correctly (needs the whole Git history)
   script:
     - mkdir -p public
-    - npm install -g log4brains
+    - npm install -g --unsafe-perm log4brains
     - log4brains build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
   artifacts:
     paths:
