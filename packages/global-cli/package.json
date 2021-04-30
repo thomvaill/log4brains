@@ -1,6 +1,6 @@
 {
   "name": "log4brains",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "description": "Log and publish your architecture decisions (ADR) with Log4brains",
   "keywords": [
     "log4brains",
@@ -47,10 +47,10 @@
     "unlink": "yarn unlink"
   },
   "dependencies": {
-    "@log4brains/cli": "^1.0.0-beta.10",
-    "@log4brains/cli-common": "^1.0.0-beta.10",
-    "@log4brains/init": "^1.0.0-beta.10",
-    "@log4brains/web": "^1.0.0-beta.10",
+    "@log4brains/cli": "^1.0.0-beta.11",
+    "@log4brains/cli-common": "^1.0.0-beta.11",
+    "@log4brains/init": "^1.0.0-beta.11",
+    "@log4brains/web": "^1.0.0-beta.11",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "esm": "^3.2.25"

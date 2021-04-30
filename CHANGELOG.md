@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.11](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-04-30)
+
+
+### Bug Fixes
+
+* **cli:** print Next.js' stderr to improve debug ([8f88863](https://github.com/thomvaill/log4brains/commit/8f888634fd04c9ac5050be056eff98824d5996d4)), closes [#26](https://github.com/thomvaill/log4brains/issues/26)
+
+
+
+
+
 # [1.0.0-beta.10](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-04-30)
 
 
