@@ -1,6 +1,6 @@
 {
   "name": "@log4brains/init",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "description": "Log4brains architecture knowledge base initialization CLI",
   "keywords": [
     "log4brains"
@@ -38,7 +38,7 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@log4brains/cli-common": "^1.0.0-beta.9",
+    "@log4brains/cli-common": "^1.0.0-beta.10",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "execa": "^4.1.0",

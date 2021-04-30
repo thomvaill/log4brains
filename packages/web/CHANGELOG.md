@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.10](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-04-30)
+
+
+### Bug Fixes
+
+* **web:** caniuse-lite outdated warning ([7d61668](https://github.com/thomvaill/log4brains/commit/7d61668634d33cf4af5dfbff5bf8d529bb7a7c3f))
+
+
+
+
+
 # [1.0.0-beta.9](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-04-29)
 
 
