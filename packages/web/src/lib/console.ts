@@ -13,11 +13,12 @@ export async function execNext(fn: () => Promise<void>): Promise<void> {
   const debug = !!process.env.DEBUG;
 
   const capturer = new ConsoleCapturer();
-  if (debug) {
-    capturer.onLog = (method, args) => {
+  capturer.onLog = (method, args, stream) => {
+    if (stream === "stderr" || debug) {
       capturer.doPrintln(...["[Next] ", ...args].map((a) => chalk.dim(a)));
-    };
-  }
+    }
+  };
+
   capturer.start();
   await fn();
   capturer.stop();
