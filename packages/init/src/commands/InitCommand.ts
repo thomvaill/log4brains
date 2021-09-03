@@ -154,6 +154,11 @@ export class InitCommand {
               name: "English",
               value: "en",
               short: "English"
+            },
+            {
+              name: "Français",
+              value: "fr",
+              short: "Français"
             }
           ]
         );
