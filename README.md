@@ -79,6 +79,7 @@ By logging your decisions chronologically, you will be able to:
   - [Is Log4brains only for JS projects?](#is-log4brains-only-for-js-projects)
   - [What about multi-package projects?](#what-about-multi-package-projects)
   - [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
+  - [Is Log4brains also available as a Docker image?](#is-log4brains-also-available-as-a-docker-image)
 - [📣 Beta version: your feedback is welcome!](#-beta-version-your-feedback-is-welcome)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
@@ -462,6 +463,10 @@ project:
     provider: github # Supported providers: github, gitlab, bitbucket. Use `generic` if yours is not supported
     viewFileUriPattern: /blob/%branch/%path # Only required for `generic` providers
 ```
+
+### Is Log4brains also available as a Docker image?
+
+Yes! <https://hub.docker.com/r/thomvaill/log4brains>
 
 ## 📣 Beta version: your feedback is welcome!
 
