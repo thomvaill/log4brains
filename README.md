@@ -87,7 +87,7 @@ By logging your decisions chronologically, you will be able to:
 
 ## 🚀 Getting started
 
-We recommend to store your Architecture Decision Records (ADR) next to the source code of your project,
+We recommend storing your Architecture Decision Records (ADR) next to the source code of your project,
 in the same git repository, to keep them in sync.
 
 To get started, run these commands inside your project root folder:
