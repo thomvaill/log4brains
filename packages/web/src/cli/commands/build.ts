@@ -65,7 +65,7 @@ export async function buildCommand(
       {
         outdir: outPath
       },
-      loadConfig(PHASE_EXPORT, nextDir, nextCustomConfig) // Configuration is not handled like in build() here
+      await loadConfig(PHASE_EXPORT, nextDir, nextCustomConfig) // Configuration is not handled like in build() here
     );
   });
 
