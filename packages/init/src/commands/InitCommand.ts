@@ -193,7 +193,7 @@ export class InitCommand {
           (answer) => !!answer.trim()
         );
         const pkgCodeFolder = await this.askPathWhileNotFound(
-          "Where is located the source code of this package?",
+          "Where is the source code of this package located?",
           cwd,
           `./packages/${pkgName}`
         );
