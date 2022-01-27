@@ -362,7 +362,7 @@ export class InitCommand {
     await this.copyFileIfAbsent(cwd, adrFolder, "README.md");
 
     // List existing ADRs
-    this.console.updateSpinner("Creating your first ADR...");
+    this.console.updateSpinner("Creating your first ADRs...");
     const adrListRes = await execa("log4brains", ["adr", "list", "--raw"], {
       cwd
     });
