@@ -192,62 +192,9 @@ jobs:
           FOLDER: .log4brains/out
           TARGET_FOLDER: adr
 
-  release:
-    needs: publish-pages # we could perform this step in parallel but this acts as a last end-to-end test before releasing
-    strategy:
-      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [14.x]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # fetch all history for Lerna (https://stackoverflow.com/a/60184319/9285308)
-
-      - name: fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
-
-      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
-      - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: cache all node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
-      - name: find location of global yarn cache
-        id: yarn-cache
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: cache global yarn cache
-        uses: actions/cache@v2
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: yarn install
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-      # End of yarn setup
-
-      - name: build
-        run: yarn build
-
-      - name: git identity
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: release and publish to NPM
-        # TODO: change when going stable
-        run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --force-publish --create-release github
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # release:
+  #   [...]
+  #
+  # This part is now done manually after this pipeline is successful
+  # by running `yarn release`
+  # This enables to group multiple successive merges into a single release and to better control the changelog
