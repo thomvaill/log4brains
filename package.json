@@ -22,7 +22,8 @@
     "link-cli": "lerna run --stream link",
     "unlink-cli": "lerna run --stream unlink",
     "e2e": "node e2e-tests/e2e-launcher.js",
-    "lerna": "lerna"
+    "lerna": "lerna",
+    "release": "./scripts/release.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

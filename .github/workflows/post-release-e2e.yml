@@ -3,10 +3,9 @@ on:
   workflow_dispatch:
 
   # Run after every release to NPM
-  workflow_run:
-    workflows: ["Build"]
-    types:
-      - completed
+  push:
+    tags:
+      - v*
 
   # Run on every Wednesday to check possible regressions caused by dependency updates
   # Like this one: https://github.com/thomvaill/log4brains/issues/27
@@ -28,7 +27,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: install
-        run: npm install -g log4brains
+        run: npm install -g log4brains@$(cat lerna.json | jq -r .version)
 
       - name: test # TODO: test the preview add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
         run: |
