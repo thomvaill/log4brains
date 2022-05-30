@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.12](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2022-05-30)
+
+
+### Bug Fixes
+
+* **#74:** cheerio breaking change ([b021b42](https://github.com/thomvaill/log4brains/commit/b021b42385a115f6c1f6808a23b653d0efe3c20c)), closes [#74](https://github.com/thomvaill/log4brains/issues/74)
+* **build:** fix build error with adding await to loadConfig ([ba0dcb5](https://github.com/thomvaill/log4brains/commit/ba0dcb5e63b377690b90c217ecea9809e83431d1))
+* **web:** optional dependency sharp caused errors when missing ([73fe3e4](https://github.com/thomvaill/log4brains/commit/73fe3e4627a1edc83b8a6cd0542e7d009c8fd84d))
+
+
+
+
+
 # [1.0.0-beta.11](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-04-30)
 
 
