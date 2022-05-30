@@ -18,7 +18,10 @@ Thank you so much! :clap:
 npm uninstall -g log4brains
 yarn install
 yarn link-cli
+
 yarn dev
+# ... if it does not work, you may have to add this line to your ~/.bashrc (or similar):
+# export PATH="$PATH:$(yarn global bin)"
 
 # You can now develop
 # `yarn dev` re-builds the changed packages live
