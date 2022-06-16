@@ -29,6 +29,10 @@ export async function previewCommand(
     dir: getNextJsDir()
   });
 
+  await execNext(async () => {
+    await app.prepare();
+  });
+
   /**
    * #NEXTJS-HACK
    * We override this private property to set the incrementalCache in "dev" mode (ie. it disables it)
@@ -38,11 +42,7 @@ export async function previewCommand(
    */
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  app.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-
-  await execNext(async () => {
-    await app.prepare();
-  });
+  app.server.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const srv = createServer(app.getRequestHandler());
