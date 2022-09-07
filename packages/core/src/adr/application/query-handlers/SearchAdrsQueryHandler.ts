@@ -25,15 +25,10 @@ export class SearchAdrsQueryHandler implements QueryHandler {
       ) {
         return false;
       }
-      else if ( query.filters.tags )
-      {
-        for (var i in query.filters.tags){
-          var tag = query.filters.tags[i];
-          if (adr.tags.includes(tag)) {
-            return true;
-          }
-        }
-        return false;
+      if (query.filters.tags) {
+        return query.filters.tags.some((tag) => {
+          return adr.tags.includes(tag);
+        });
       }
       return true;
     });
