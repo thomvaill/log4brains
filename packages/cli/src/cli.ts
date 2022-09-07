@@ -112,6 +112,7 @@ export function createCli({ appConsole }: Deps): commander.Command {
       "Filter on the given statuses, comma-separated"
     ) // TODO: list available statuses
     .option("-r, --raw", "Use a raw format instead of a table", false)
+    .option("-t, --tags <tags>", "Filter on the given tags, comma-separated")
     .description("List ADRs")
     .action(
       (opts: ListCommandOpts): Promise<void> => {

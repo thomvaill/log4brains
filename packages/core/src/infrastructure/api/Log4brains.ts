@@ -23,6 +23,7 @@ import { FileWatcher } from "../file-watcher";
 
 export type SearchAdrsFilters = {
   statuses?: AdrDtoStatus[];
+  tags?: string[];
 };
 
 /**
@@ -70,6 +71,9 @@ export class Log4brains {
       appFilters.statuses = filters.statuses.map((status) =>
         AdrStatus.createFromName(status)
       );
+    }
+    if (filters?.tags) {
+      appFilters.tags = filters.tags;
     }
     const adrs = await this.queryBus.dispatch<Adr[]>(
       new SearchAdrsQuery(appFilters)
