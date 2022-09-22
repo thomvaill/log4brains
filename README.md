@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#readme">
-    <img src="docs/Log4brains-logo-full.png" alt="Log4brains logo" width="276" />
+    <img src="https://github.com/thomvaill/log4brains/raw/master/docs/Log4brains-logo-full.png" alt="Log4brains logo" width="276" />
   </a>
 </p>
 
@@ -64,7 +64,7 @@ By logging your decisions chronologically, you will be able to:
 <br />
 <p align="center">
   <a href="https://www.youtube.com/watch?v=HDEwOCn9T0w" title="Click to watch the full screencast">
-    <img src="docs/demo.gif" alt="Log4brains demo" width="838" />
+    <img src="https://github.com/thomvaill/log4brains/raw/master/docs/demo.gif" alt="Log4brains demo" width="838" />
   </a>
 </p>
 <p align="center"><a href="https://www.youtube.com/watch?v=HDEwOCn9T0w">🎞️ Watch the full screencast</a> - <a href="https://thomvaill.github.io/log4brains/adr/">⚡ See an example (Log4brains' own ADRs)</a></p>
@@ -80,7 +80,7 @@ By logging your decisions chronologically, you will be able to:
   - [What about multi-package projects?](#what-about-multi-package-projects)
   - [How to configure `.log4brains.yml`?](#how-to-configure-log4brainsyml)
   - [Is Log4brains also available as a Docker image?](#is-log4brains-also-available-as-a-docker-image)
-- [📣 Beta version: your feedback is welcome!](#-beta-version-your-feedback-is-welcome)
+- [📣 Your feedback is welcome!](#-your-feedback-is-welcome)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
@@ -468,17 +468,10 @@ project:
 
 Yes! <https://hub.docker.com/r/thomvaill/log4brains>
 
-## 📣 Beta version: your feedback is welcome!
+## 📣 Your feedback is welcome!
 
-At this stage, Log4brains is just a few months old and was designed only based on my needs and my past experiences with ADRs.
-But I am convinced that this project can benefit a lot of teams.
-This is why it would be precious for me to get your feedback on this beta version in order to improve it.
-
-To do so, you are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
-
-Disclaimer: during the beta, some releases can introduce breaking changes without any warning.
-
-Compatibility issues: the project is heavily tested on Ubuntu / Google Chrome environments; It should also work on Windows, macOS and other browsers, but since this is a beta version, some bugs can occur. Please raise an issue if you encounter some!
+I had the idea of Log4brains based on my needs and my past experiences with ADRs, but it is now constantly evolving with your precious feedback.
+You are very welcome to [create a new feedback in the Discussions](https://github.com/thomvaill/log4brains/discussions/new?category=Feedback) or to reach out to me at <thomvaill@bluebricks.dev>. Thanks a lot 🙏
 
 ## Contributing
 
