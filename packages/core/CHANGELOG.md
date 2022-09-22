@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.13...v1.0.0) (2022-09-22)
+
+
+### Reverts
+
+* Revert "chore(release): publish v1.0.0" ([7f9852e](https://github.com/thomvaill/log4brains/commit/7f9852ea48842aae3d45ac7466a829532a2fb3ce))
+* Revert "chore(release): publish v1.0.0" ([d89af64](https://github.com/thomvaill/log4brains/commit/d89af64b03d8eabbb5b660ba77eea800f991aa37))
+
+
+
+
+
 # [1.0.0-beta.13](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2022-07-08)
 
 **Note:** Version bump only for package @log4brains/core
