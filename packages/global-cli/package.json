@@ -1,6 +1,6 @@
 {
   "name": "log4brains",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Log and publish your architecture decisions (ADR) with Log4brains",
   "keywords": [
     "log4brains",
@@ -50,7 +50,7 @@
     "@log4brains/cli": "1.0.0",
     "@log4brains/cli-common": "1.0.0",
     "@log4brains/init": "1.0.0",
-    "@log4brains/web": "1.0.0",
+    "@log4brains/web": "1.0.1",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
     "esm": "^3.2.25"

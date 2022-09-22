@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/thomvaill/log4brains/compare/v1.0.0...v1.0.1) (2022-09-22)
+
+
+### Bug Fixes
+
+* ensure generated output works on s3 ([#84](https://github.com/thomvaill/log4brains/issues/84)) ([237bd1f](https://github.com/thomvaill/log4brains/commit/237bd1f5652704a076008c2d534f124f613b3641)), closes [#45](https://github.com/thomvaill/log4brains/issues/45)
+
+
+
+
+
 # [1.0.0](https://github.com/thomvaill/log4brains/compare/v1.0.0-beta.13...v1.0.0) (2022-09-22)
 
 
