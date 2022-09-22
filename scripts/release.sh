@@ -25,7 +25,11 @@ fi
 
 git pull
 
-echo "Please check that the last build pipeline was successful: https://github.com/thomvaill/log4brains/actions/workflows/build.yml"
+echo ""
+echo "Release checklist:"
+echo "  - the last build pipeline is successful: https://github.com/thomvaill/log4brains/actions/workflows/build.yml"
+echo "  - the example is working: https://thomvaill.github.io/log4brains/adr/"
+echo "  - manual smoketests are OK (log4brains adr new, log4brains adr list, log4brains preview)"
 read -rp "Press any key to continue or Ctrl+C to abort..."
 
 yarn lerna publish \
@@ -33,5 +37,6 @@ yarn lerna publish \
   --exact \
   --create-release github
 
+echo ""
 echo "Done!"
 echo "Please now monitor the Post-Release actions: https://github.com/thomvaill/log4brains/actions"
