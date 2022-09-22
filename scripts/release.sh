@@ -32,10 +32,10 @@ yarn lerna version \
   --exact \
   --no-push
 
-echo "You can now inspect the current release commit and amend it if you want (especially CHANGELOG.md)"
-echo " - To amend: git commit --amend --no-edit"
-echo " - To abort: git reset --hard origin/master"
-read -rp "Press any key to publish or Ctrl+C to abort..."
+echo "You can now inspect the current release commit before continuing (to abort: git reset --hard origin/master && git tag -d <VERSION>)"
+read -rp "Press any key to push & publish or Ctrl+C to abort..."
+
+git push
 
 yarn lerna publish from-git \
   --conventional-commits \
