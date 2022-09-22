@@ -13,6 +13,7 @@ then
 fi
 source "${SELF_PATH}/release-credentials.local.sh"
 npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}" # writes to ~/.npmrc
+npm config set registry https://registry.npmjs.org/
 
 cd "${ROOT_PATH}"
 
