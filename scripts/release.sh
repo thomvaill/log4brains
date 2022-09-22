@@ -12,6 +12,7 @@ then
   exit 1
 fi
 source "${SELF_PATH}/release-credentials.local.sh"
+npm config set '//registry.npmjs.org/:_authToken' "${NODE_AUTH_TOKEN}" # writes to ~/.npmrc
 
 cd "${ROOT_PATH}"
 
@@ -26,20 +27,8 @@ git pull
 echo "Please check that the last build pipeline was successful: https://github.com/thomvaill/log4brains/actions/workflows/build.yml"
 read -rp "Press any key to continue or Ctrl+C to abort..."
 
-yarn lerna version \
+yarn lerna publish \
   --conventional-commits \
-  --force-publish \
-  --exact \
-  --no-push
-
-echo "You can now inspect the current release commit before continuing (to abort: git reset --hard origin/master && git tag -d <VERSION>)"
-read -rp "Press any key to push & publish or Ctrl+C to abort..."
-
-git push
-
-yarn lerna publish from-git \
-  --conventional-commits \
-  --force-publish \
   --exact \
   --create-release github
 
