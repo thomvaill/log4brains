@@ -32,6 +32,7 @@ type L4bYmlConfig = {
   project: {
     name: string;
     tz: string;
+    lang: string;
     adrFolder: string;
     packages?: L4bYmlPackageConfig[];
   };
@@ -143,6 +144,25 @@ export class InitCommand {
           ]
         );
 
+    // Project type
+    const lang = noInteraction
+      ? "en"
+      : await this.console.askListQuestion(
+          "Which language do you want to use to generate base file?",
+          [
+            {
+              name: "English",
+              value: "en",
+              short: "English"
+            },
+            {
+              name: "Français",
+              value: "fr",
+              short: "Français"
+            }
+          ]
+        );
+
     // Main ADR folder location
     let adrFolder = this.guessMainAdrFolderPath(cwd);
     if (adrFolder) {
@@ -220,6 +240,7 @@ export class InitCommand {
       project: {
         name,
         tz: moment.tz.guess(),
+        lang: lang,
         adrFolder: forceUnixPath(adrFolder),
         packages
       }
@@ -262,13 +283,14 @@ export class InitCommand {
   private async copyFileIfAbsent(
     cwd: string,
     adrFolder: string,
+    lang: string,
     filename: string,
     contentCb?: (content: string) => string
   ): Promise<void> {
     const outPath = path.join(cwd, adrFolder, filename);
     if (!fs.existsSync(outPath)) {
       let content = await fsP.readFile(
-        path.join(assetsPath, filename),
+        path.join(assetsPath, lang, filename),
         "utf-8"
       );
       if (contentCb) {
@@ -355,11 +377,12 @@ export class InitCommand {
 
     // Copy template, index and README if not already created
     this.console.updateSpinner("Copying template files...");
-    await this.copyFileIfAbsent(cwd, adrFolder, "template.md");
-    await this.copyFileIfAbsent(cwd, adrFolder, "index.md", (content) =>
+    const { lang } = config.project;
+    await this.copyFileIfAbsent(cwd, adrFolder, lang, "template.md");
+    await this.copyFileIfAbsent(cwd, adrFolder, lang, "index.md", (content) =>
       content.replace(/{PROJECT_NAME}/g, config.project.name)
     );
-    await this.copyFileIfAbsent(cwd, adrFolder, "README.md");
+    await this.copyFileIfAbsent(cwd, adrFolder, lang, "README.md");
 
     // List existing ADRs
     this.console.updateSpinner("Creating your first ADRs...");
