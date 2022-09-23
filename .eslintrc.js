@@ -9,6 +9,9 @@ module.exports = {
     sourceType: "module",
     project: "./tsconfig.json"
   },
+  settings: {
+    jest: { version: 26 }
+  },
   ignorePatterns: ["**/*.js", "**/*.d.ts", "dist", "node_modules"],
   plugins: ["jest", "sonarjs", "promise", "@typescript-eslint", "react"],
   extends: [
