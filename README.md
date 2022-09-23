@@ -93,15 +93,14 @@ in the same git repository, to keep them in sync.
 To get started, run these commands inside your project root folder:
 
 ```bash
-npm install -g log4brains
-log4brains init
+npx log4brains init
 ```
 
 It will ask you several questions to get Log4brains properly configured. It will also create the required template files and your first ADR as well.
 Then, you can start the web UI to preview your knowledge base locally:
 
 ```bash
-log4brains preview
+npx log4brains preview
 ```
 
 In this mode, the Hot Reload feature is enabled: any change
@@ -110,7 +109,7 @@ you make to a markdown file from your IDE is applied live.
 To create a new ADR from your template, run this command:
 
 ```bash
-log4brains adr new
+npx log4brains adr new
 ```
 
 Get all the available commands and options by running `log4brains --help`.
@@ -179,8 +178,7 @@ jobs:
           node-version: "14"
       - name: Install and Build Log4brains
         run: |
-          npm install -g log4brains
-          log4brains build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
+          npx log4brains build --basePath /${GITHUB_REPOSITORY#*/}/log4brains
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -227,8 +225,7 @@ pages:
     GIT_DEPTH: 0 # required by Log4brains to work correctly (needs the whole Git history)
   script:
     - mkdir -p public
-    - npm install -g --unsafe-perm log4brains
-    - log4brains build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
+    - npx log4brains build --basePath /$CI_PROJECT_NAME/log4brains --out public/log4brains
   artifacts:
     paths:
       - public
@@ -273,8 +270,7 @@ Then, configure your CI to run these commands:
 
 - Install Node and the AWS CLI
 - Checkout your Git repository **with the full history**. Otherwise, Log4brains won't work correctly (see previous examples)
-- `npm install -g log4brains`
-- `log4brains build`
+- `npx log4brains build`
 - `aws s3 sync .log4brains/out s3://<YOUR BUCKET> --delete`
 
 Your knowledge base will be available on `http://<YOUR BUCKET>.s3-website-<YOUR REGION>.amazonaws.com/`.
