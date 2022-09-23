@@ -119,6 +119,9 @@ jobs:
       #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
       #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
 
+      - name: typescript checks
+        run: yarn typescript
+
       # We have to build all the packages before the tests
       # Because init-log4brains's integration tests use @log4brains/cli, which uses @log4brains/core
       # TODO: we should separate tests that require built packages of the others, to get a quicker feedback

@@ -52,6 +52,7 @@ When you are done, run `yarn unlink-cli && npm install -g log4brains` to use the
 ```bash
 yarn lint         # enforced automatically before every commit with husky+lint-staged
 yarn format:fix   # enforced automatically before every commit with husky+lint-staged
+yarn typescript   # enforced automatically before every commit with husky
 yarn test:changed # (or `yarn test` to run all the tests)
 ```
 
