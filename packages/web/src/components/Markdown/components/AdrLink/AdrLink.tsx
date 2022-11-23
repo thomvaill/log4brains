@@ -1,7 +1,7 @@
 import React from "react";
 import { AdrDtoStatus } from "@log4brains/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Link as MuiLink } from "@material-ui/core";
+import { makeStyles, createStyles } from "@mui/styles";
+import { Link as MuiLink } from "@mui/material";
 import Link from "next/link";
 import clsx from "clsx";
 

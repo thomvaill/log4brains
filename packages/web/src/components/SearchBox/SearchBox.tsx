@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React from "react";
 import {
-  Autocomplete,
   AutocompleteCloseReason,
   AutocompleteInputChangeReason,
-  AutocompleteProps
-} from "@material-ui/lab";
-import { CircularProgress, SvgIcon, Typography } from "@material-ui/core";
-import { useControlled } from "@material-ui/core/utils";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+  AutocompleteProps,
+  Autocomplete,
+  CircularProgress,
+  SvgIcon,
+  Typography
+} from "@mui/material";
+import { useControlled } from "@mui/material/utils";
+import { Theme } from "@mui/material/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 import { GrDocumentText as AdrIcon } from "react-icons/gr";
 import { useRouter } from "next/router";
 import { SearchBar } from "./components/SearchBar";

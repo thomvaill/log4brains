@@ -2,12 +2,8 @@ import React, { useEffect, useMemo } from "react";
 import { compiler as mdCompiler } from "markdown-to-jsx";
 import { useRouter } from "next/router";
 import hljs from "highlight.js";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Link as MuiLink,
-  TypographyProps
-} from "@material-ui/core";
+import { makeStyles, createStyles } from "@mui/styles";
+import { Typography, Link as MuiLink, TypographyProps } from "@mui/material";
 import { CustomTheme } from "../../mui";
 import { AdrLink } from "./components";
 import { MarkdownHeading } from "../MarkdownHeading";

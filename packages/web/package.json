@@ -41,11 +41,14 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@log4brains/cli-common": "1.0.0",
     "@log4brains/core": "1.0.0",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/lab": "^5.0.0-alpha.109",
+    "@mui/material": "^5.10.15",
+    "@mui/styles": "^5.10.15",
     "@next/bundle-analyzer": "^10.0.1",
     "babel-plugin-import": "^1.13.1",
     "badge-maker": "^3.3.0",

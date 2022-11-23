@@ -1,10 +1,7 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import {
-  Typography,
-  TypographyClassKey,
-  Link as MuiLink
-} from "@material-ui/core";
+import { Theme } from "@mui/material/styles";
+import { createStyles, makeStyles } from "@mui/styles";
+import { Typography, TypographyClassKey, Link as MuiLink } from "@mui/material";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme: Theme) =>

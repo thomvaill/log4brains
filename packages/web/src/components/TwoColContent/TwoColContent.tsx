@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@mui/styles";
 import clsx from "clsx";
 import { CustomTheme } from "../../mui";
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: CustomTheme) =>
     },
     layoutLeftCol: {
       flexGrow: 0.5,
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         display: "none"
       }
     },
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: CustomTheme) =>
     layoutRightCol: {
       flexGrow: 1,
       flexBasis: theme.custom.layout.rightColBasis,
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         display: "none"
       }
     },

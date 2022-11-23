@@ -1,7 +1,16 @@
 import React from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { CssBaseline } from "@material-ui/core";
+import {
+  ThemeProvider,
+  Theme,
+  StyledEngineProvider
+} from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
 import { theme } from "./theme";
+
+declare module "@mui/styles/defaultTheme" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 type Props = {
   children: React.ReactNode;
@@ -9,9 +18,11 @@ type Props = {
 
 export function MuiDecorator({ children }: Props) {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }

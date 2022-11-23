@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { TwoColContent } from "./TwoColContent";
 
 export default {

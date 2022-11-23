@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Alert } from "@material-ui/lab";
-import { Typography } from "@material-ui/core";
+import { makeStyles, createStyles } from "@mui/styles";
+import { Alert } from "@mui/lab";
+import { Typography } from "@mui/material";
 import { Log4brainsMode, Log4brainsModeContext } from "../../contexts";
 import { Markdown, TwoColContent } from "../../components";
 // eslint-disable-next-line import/no-cycle

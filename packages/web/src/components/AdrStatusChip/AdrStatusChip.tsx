@@ -1,13 +1,14 @@
 import React from "react";
-import { Chip } from "@material-ui/core";
+import { Chip } from "@mui/material";
 import {
   grey,
   indigo,
   deepOrange,
   lightGreen,
   brown
-} from "@material-ui/core/colors";
-import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+} from "@mui/material/colors";
+import { Theme } from "@mui/material/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 import type { AdrDtoStatus } from "@log4brains/core";
 import clsx from "clsx";
 

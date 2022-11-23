@@ -17,13 +17,13 @@ import {
   Fade,
   Hidden,
   IconButton
-} from "@material-ui/core";
-import { Menu as MenuIcon, Close as CloseIcon } from "@material-ui/icons";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { Menu as MenuIcon, Close as CloseIcon } from "@mui/icons-material";
+import { createStyles, makeStyles } from "@mui/styles";
 // import {
 //   ChevronRight as ChevronRightIcon,
 //   PlaylistAddCheck as PlaylistAddCheckIcon
-// } from "@material-ui/icons";
+// } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import clsx from "clsx";
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     },
     layoutLeftCol: {
       flexGrow: 0.5,
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         display: "none"
       }
     },
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
     layoutRightCol: {
       flexGrow: 1,
       flexBasis: theme.custom.layout.rightColBasis,
-      [theme.breakpoints.down("md")]: {
+      [theme.breakpoints.down("lg")]: {
         display: "none"
       }
     },
@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       [theme.breakpoints.up("sm")]: {
         display: "flex",
         alignItems: "center",
-        width: drawerWidth - theme.spacing(3),
+        width: theme.spacing(drawerWidth - 3),
         flexGrow: 0,
         flexShrink: 0,
         cursor: "pointer"
@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
         theme.spacing(1) + theme.spacing(8)
       }px)`, // TODO: calc AppBar height more precisely
       [theme.breakpoints.up("sm")]: {
-        minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)}px)` // TODO: calc AppBar height more precisely
+        minHeight: `calc(100vh - 35px - ${topSpace + theme.spacing(8)})` // TODO: calc AppBar height more precisely
       }
     },
     footer: {
@@ -354,6 +354,7 @@ export function AdrBrowserLayout({
             edge="start"
             onClick={handleMobileDrawerToggle}
             className={classes.appBarMenuButton}
+            size="large"
           >
             <MenuIcon />
           </IconButton>
@@ -437,7 +438,7 @@ export function AdrBrowserLayout({
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             variant="permanent"
             open

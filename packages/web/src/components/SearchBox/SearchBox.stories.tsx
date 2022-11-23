@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { AppBar, Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar } from "@mui/material";
 import { SearchBox, SearchBoxProps } from "./SearchBox";
 import { adrMocks } from "../../../.storybook/mocks";
 
