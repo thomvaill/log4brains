@@ -151,7 +151,7 @@ export class Adr extends AggregateRoot<Props> {
     if (
       !tags ||
       tags.trim() === "" ||
-      tags === "[space and/or comma separated list of tags] <!-- optional -->"
+      tags === "[space and/or comma separated list of tags]"
     ) {
       return [];
     }
@@ -163,7 +163,7 @@ export class Adr extends AggregateRoot<Props> {
     if (
       !deciders ||
       deciders.trim() === "" ||
-      deciders === "[list everyone involved in the decision] <!-- optional -->"
+      deciders === "[list everyone involved in the decision]"
     ) {
       return [];
     }
