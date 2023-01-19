@@ -106,6 +106,25 @@ Technical Story: [description | ticket/issue URL] <!-- optional -->
       );
       expect(body.getHeaderMetadata("Deciders")).toBeUndefined();
     });
+
+    it("ignores inline comments", () => {
+      const body = new MarkdownBody(
+        `# Hello World
+
+- Lorem Ipsum
+- Status: proposed <!-- [draft | proposed | rejected | accepted | deprecated | … | superseded by [xxx](yyyymmdd-xxx.md)] -->
+- DATE :   2020-01-01
+- Tags: test, blah <!-- optional -->
+
+Technical Story: [description | ticket/issue URL] <!-- optional -->
+## Subtitle
+## Subtitle
+# Second title`
+      );
+      expect(body.getHeaderMetadata("status")).toEqual("proposed");
+      expect(body.getHeaderMetadata("date")).toEqual("2020-01-01");
+      expect(body.getHeaderMetadata("tags")).toEqual("test, blah");
+    });
   });
 
   describe("setHeaderMetadata()", () => {

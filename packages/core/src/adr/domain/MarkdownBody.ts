@@ -82,7 +82,7 @@ export class MarkdownBody extends Entity<Props> {
     if (!ul) {
       return undefined;
     }
-    const regexp = new RegExp(`^(\\s*${key}\\s*:\\s*)(.*)$`, "i");
+    const regexp = new RegExp(`^(\\s*${key}\\s*:\\s*)(.*?)(<!--.*-->)?$`, "i");
     const result = ul
       .children()
       .map((i, li) => {
