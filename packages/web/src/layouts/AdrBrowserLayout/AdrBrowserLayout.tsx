@@ -16,7 +16,11 @@ import {
   Grow,
   Fade,
   Hidden,
-  IconButton
+  IconButton,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl
 } from "@material-ui/core";
 import { Menu as MenuIcon, Close as CloseIcon } from "@material-ui/icons";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
@@ -250,18 +254,37 @@ export function AdrBrowserLayout({
   const router = useRouter();
 
   const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
+  const [selectedPackage, setSelectedPackage] = React.useState("all");
+  const [packages, setPackages] = React.useState(["all"]);
+  const [adrsToDisplay, setAdrsToDisplay] =  React.useState(adrs);
 
   const handleMobileDrawerToggle = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handlePackageChange = (event: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+    const newValue = event.target.value
+    setSelectedPackage(newValue);
+    if(newValue === "all") {
+      setAdrsToDisplay(adrs)
+    } else if(newValue === "global") {
+      setAdrsToDisplay(adrs?.filter(adr => adr.package === null));
+    } else {
+      setAdrsToDisplay(adrs?.filter(adr => adr.package === newValue));
+    }
+  }
 
   React.useEffect(() => {
+    // get unique package names from the ADRs
+    setPackages(["all", ...new Set(adrs?.map(adr => adr.package ? adr.package : "global"))]);
     const closeMobileDrawer = () => setMobileDrawerOpen(false);
     router?.events.on("routeChangeStart", closeMobileDrawer);
     return () => {
       router?.events.off("routeChangeStart", closeMobileDrawer);
     };
-  }, [router]);
+  }, [router, setPackages, adrs]);
 
   const [searchOpen, setSearchOpenState] = React.useState(false);
   const [searchReallyOpen, setSearchReallyOpenState] = React.useState(false);
@@ -301,14 +324,31 @@ export function AdrBrowserLayout({
           Decision log
         </Typography>
 
+        <FormControl fullWidth>
+          <InputLabel id="package-select-label">Package</InputLabel>
+          <Select
+            labelId="package-select-label"
+            id="package-select"
+            value={selectedPackage}
+            label="Package"
+            onChange={handlePackageChange}
+          >
+            {packages?.map(p => {
+              return (
+                <MenuItem key={p} value={p}>{p}</MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+
         <Fade in={adrsReloading}>
           <CircularProgress size={13} />
         </Fade>
       </div>
 
-      <Grow in={adrs !== undefined} style={{ transformOrigin: "center left" }}>
+      <Grow in={adrsToDisplay !== undefined} style={{ transformOrigin: "center left" }}>
         <AdrMenu
-          adrs={adrs}
+          adrs={adrsToDisplay}
           currentAdrSlug={currentAdr?.slug}
           className={classes.adrMenu}
         />
