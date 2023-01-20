@@ -70,6 +70,7 @@ export function createCli({ appConsole }: Deps): commander.Command {
 
   const adr = program
     .command("adr")
+    .alias("decision")
     .description("Group of commands to manage your ADRs...");
 
   adr

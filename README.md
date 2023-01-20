@@ -110,7 +110,7 @@ you make to a markdown file from your IDE is applied live.
 To create a new ADR from your template, run this command:
 
 ```bash
-log4brains adr new
+log4brains decision new
 ```
 
 Get all the available commands and options by running `log4brains --help`.
@@ -313,7 +313,7 @@ Log4brains supports both mono and multi packages projects. The `log4brains init`
 
 In the case of a multi-package project, you have two options:
 
-- Mono-repository: in this case, just install Log4brains in the root folder. It will manage "global ADRs", for example in `docs/adr` and "package-specific ADRs", for example in `packages/<package name>/docs/adr`.
+- Mono-repository: in this case, just install Log4brains in the root folder. It will manage "global ADRs", for example in `docs/decisions` and "package-specific ADRs", for example in `packages/<package name>/docs/decisions`.
 - One repository per package: in the future, Log4brains will handle this case with a central repository for the "global ADRs" while fetching "package-specifics ADRs" directly from each package repository. For the moment, all the ADRs have to be stored in a central repository.
 
 Here is an example of a typical file structure for each case:
@@ -438,7 +438,7 @@ Here is an example with just the required fields:
 project:
   name: Foo Bar # The name that should be displayed in the UI
   tz: Europe/Paris # The timezone that you use for the dates in your ADR files
-  adrFolder: ./docs/adr # The location of your ADR files
+  adrFolder: ./docs/decisions # The location of your ADR files
 ```
 
 If you have multiple packages in your project, you may want to support package-specific ADRs by setting the optional `project.packages` field:
@@ -449,7 +449,7 @@ project:
   packages:
     - name: backend # The name (unique identifier) of the package
       path: ./packages/backend # The location of its codebase
-      adrFolder: ./packages/backend/docs/adr # The location of its ADR files
+      adrFolder: ./packages/backend/docs/decisions # The location of its ADR files
 #   - ...
 ```
 
