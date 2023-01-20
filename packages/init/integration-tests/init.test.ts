@@ -133,12 +133,12 @@ describe("Init", () => {
       await bindAnswers(run(cwd));
 
       expect(fs.existsSync(path.join(cwd, ".log4brains.yml"))).toBeTruthy(); // TODO: test its content
-      expect(fs.existsSync(path.join(cwd, "docs/adr"))).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/decisions"))).toBeTruthy();
       expect(
-        fs.existsSync(path.join(cwd, "docs/adr/template.md"))
+        fs.existsSync(path.join(cwd, "docs/decisions/template.md"))
       ).toBeTruthy();
-      expect(fs.existsSync(path.join(cwd, "docs/adr/index.md"))).toBeTruthy();
-      expect(fs.existsSync(path.join(cwd, "docs/adr/README.md"))).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/decisions/index.md"))).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/decisions/README.md"))).toBeTruthy();
     });
   });
 
@@ -150,13 +150,13 @@ describe("Init", () => {
       await bindAnswers(run(cwd), {
         name: "package1",
         path: "packages/package1",
-        adrFolder: "packages/package1/docs/adr"
+        adrFolder: "packages/package1/docs/decisions"
       });
 
       expect(fs.existsSync(path.join(cwd, ".log4brains.yml"))).toBeTruthy(); // TODO: test its content
-      expect(fs.existsSync(path.join(cwd, "docs/adr"))).toBeTruthy();
+      expect(fs.existsSync(path.join(cwd, "docs/decisions"))).toBeTruthy();
       expect(
-        fs.existsSync(path.join(cwd, "packages/package1/docs/adr"))
+        fs.existsSync(path.join(cwd, "packages/package1/docs/decisions"))
       ).toBeTruthy();
     });
   });
