@@ -23,11 +23,13 @@ export function toAdrLight(adr: AdrDto | Adr | AdrLight): AdrLight {
 
 export function toAdr(dto: AdrDto, superseder?: AdrLight): Adr {
   if (dto.supersededBy && !superseder) {
-    throw new Error("You forgot to pass the superseder");
+    throw new Error(
+      `The adr ${dto.slug} has a supersededBy reference that cannot be found: ${dto.supersededBy}`
+    );
   }
   if (superseder && superseder.slug !== dto.supersededBy) {
     throw new Error(
-      "The given superseder does not match the `supersededBy` field"
+      `The given superseder, ${superseder.slug}, does not match the 'supersededBy' field, ${dto.supersededBy}, for the adr ${dto.slug}`
     );
   }
 
