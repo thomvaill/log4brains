@@ -67,7 +67,8 @@ export async function previewCommand(
           srv.listen(port);
         })
     );
-  } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
     appConsole.stopSpinner();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (err.code === "EADDRINUSE") {
