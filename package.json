@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "lerna run --parallel dev",
-    "build": "lerna run --stream build",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && lerna run --stream build",
     "clean": "lerna run clean",
     "typescript": "lerna run --stream typescript",
     "test": "lerna run --stream test",
