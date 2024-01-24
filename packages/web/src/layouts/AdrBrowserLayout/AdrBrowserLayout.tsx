@@ -162,7 +162,7 @@ const useStyles = makeStyles((theme: CustomTheme) => {
       paddingRight: theme.spacing(3)
     },
     adlTitle: {
-      fontWeight: theme.typography.fontWeightBold
+      fontWeight: "bold"
     },
     adrMenuSpinner: {
       alignSelf: "center",

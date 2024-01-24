@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     title: {
-      fontWeight: theme.typography.fontWeightBold,
+      fontWeight: "bold",
       paddingBottom: theme.spacing(1)
     },
     tocUl: {

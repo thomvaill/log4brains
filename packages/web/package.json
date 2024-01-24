@@ -1,6 +1,6 @@
 {
   "name": "@log4brains/web",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Log4brains architecture knowledge base web UI and static site generator",
   "keywords": [
     "log4brains"
@@ -77,7 +77,7 @@
     "@storybook/react": "^6.1.9",
     "@types/lunr": "^2.3.3",
     "@types/mkdirp": "^1.0.1",
-    "@types/react": "^17.0.0",
+    "@types/react": "^17.0.25",
     "@types/react-test-renderer": "^16.9.3",
     "@types/signale": "^1.4.1",
     "@types/socket.io": "^2.1.11",
