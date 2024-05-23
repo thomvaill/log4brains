@@ -5,32 +5,24 @@
 
 ## Contexte et énoncé du problème
 
-Comment effectué le traitement de correspondance d'identité ?
+Il s'agit de réaliser une correspondance d'identité entre les données de l'INSEE (RNIP) et les données d'un système tiers métiers. Les critères de recherche sont limitées au nom, prénom, date de naissance et lieu de naissance.
+Le système n'est accessible qu'en interne de l'entreprise.
+
+volumétrie prévue 
+- plus de 300 000 changement d'identités.
+
+Comment effectué le traitement de correspondance d'identité ? faut-il intégrer des principes de recherches approximatives ou de scoring ? faut-il diffuser simplement  
 
 ## Options considérés
 
-- [MADR](https://adr.github.io/madr/) 2.1.2 with Log4brains patch
-- [MADR](https://adr.github.io/madr/) 2.1.2 – The original Markdown Architectural Decision Records
-- [Michael Nygard's template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions) – The first incarnation of the term "ADR"
-- [Sustainable Architectural Decisions](https://www.infoq.com/articles/sustainable-architectural-design-decisions) – The Y-Statements
-- Other templates listed at <https://github.com/joelparkerhenderson/architecture_decision_record>
-- Formless – No conventions for file format and structure
+- Compte tenu de la volumétrie, une recherche 
+- 
 
-## Decision Outcome
+## Decisions prises
 
-Chosen option: "MADR 2.1.2 with Log4brains patch", because
+### les avantages.
 
-- Implicit assumptions should be made explicit.
-  Design documentation is important to enable people understanding the decisions later on.
-  See also [A rational design process: How and why to fake it](https://doi.org/10.1109/TSE.1986.6312940).
-- The MADR format is lean and fits our development style.
-- The MADR structure is comprehensible and facilitates usage & maintenance.
-- The MADR project is vivid.
-- Version 2.1.2 is the latest one available when starting to document ADRs.
-- The Log4brains patch adds more features, like tags.
+### les inconvénients
 
-The "Log4brains patch" performs the following modifications to the original template:
 
-- Change the ADR filenames format (`NNN-adr-name` becomes `YYYYMMDD-adr-name`), to avoid conflicts during Git merges.
-- Add a `draft` status, to enable collaborative writing.
-- Add a `Tags` field.
+
