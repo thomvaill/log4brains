@@ -8,8 +8,8 @@
     "packages/**"
   ],
   "scripts": {
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && lerna run --parallel dev",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && lerna run --stream build",
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider lerna run --parallel dev",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider lerna run --stream build",
     "clean": "lerna run clean",
     "typescript": "lerna run --stream typescript",
     "test": "lerna run --stream test",
@@ -35,7 +35,7 @@
     "@typescript-eslint/parser": "^4.2.0",
     "chai": "^4.2.0",
     "chalk": "^4.1.0",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb-typescript": "^10.0.0",
