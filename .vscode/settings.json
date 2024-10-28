@@ -42,5 +42,6 @@
     "typedoc",
     "unversioned",
     "workdir"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
