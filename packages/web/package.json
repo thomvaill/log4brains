@@ -65,8 +65,7 @@
     "react-icons": "^3.11.0",
     "slugify": "^1.4.5",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.1",
-    "utf-8-validate": "^5.0.3"
+    "socket.io-client": "^2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
