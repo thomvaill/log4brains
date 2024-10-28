@@ -12,6 +12,11 @@ type Deps = {
   appConsole: AppConsole;
 };
 
+type SystemError = Error & { code?: string };
+function isSystemError(obj: unknown): obj is SystemError {
+  return obj instanceof Error && "code" in obj;
+}
+
 export async function previewCommand(
   { appConsole }: Deps,
   port: number,
@@ -69,8 +74,8 @@ export async function previewCommand(
     );
   } catch (err) {
     appConsole.stopSpinner();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (err.code === "EADDRINUSE") {
+
+    if (isSystemError(err) && err.code === "EADDRINUSE") {
       if (openBrowser && adrSlug) {
         appConsole.println(
           chalk.dim(
@@ -85,15 +90,14 @@ export async function previewCommand(
         `Port ${port} is already in use. Use the -p <PORT> option to select another one.`
       );
       process.exit(1);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    } else if (err.code === "EACCES") {
+    } else if (isSystemError(err) && err.code === "EACCES") {
       appConsole.fatal(
         `Impossible to use port ${port} (permission denied). Use the -p <PORT> option to select another one.`
       );
       process.exit(1);
-    } else {
-      throw err;
     }
+
+    throw err;
   }
 
   appConsole.stopSpinner();
