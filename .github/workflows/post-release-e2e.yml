@@ -18,9 +18,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version:
-          # - 18.x # Current version # TODO: broken https://github.com/thomvaill/log4brains/issues/85
-          - 16.x # Active LTS (https://github.com/nodejs/release)
-          - 14.x # Maintenance LTS
+          - 20.x # Active LTS (https://github.com/nodejs/release)
+          - 18.x # Maintenance LTS
     runs-on: ${{ matrix.os }}
     steps:
       - name: use node.js ${{ matrix.node-version }}

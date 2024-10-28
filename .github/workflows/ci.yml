@@ -14,7 +14,7 @@ jobs:
       # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x] # Active LTS (https://github.com/nodejs/release)
+        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -73,7 +73,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [16.x] # Active LTS (https://github.com/nodejs/release); we test other versions in the main Build workflow because it's too slow
+        node-version: [20.x] # Active LTS (https://github.com/nodejs/release); we test other versions in the main Build workflow because it's too slow
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2

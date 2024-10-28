@@ -20,7 +20,7 @@ jobs:
       # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x] # Active LTS (https://github.com/nodejs/release)
+        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -70,18 +70,17 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version:
-          # - 18.x # Current version # TODO: @log4brains/web does not build anymore on v18.x
-          - 16.x # Active LTS (https://github.com/nodejs/release)
-          - 14.x # Maintenance LTS
+          - 20.x # Active LTS (https://github.com/nodejs/release)
+          - 18.x # Maintenance LTS
         exclude: # these cases are tested after the release with E2E tests
           - os: windows-latest
             node-version: 18.x
           - os: windows-latest
-            node-version: 14.x
+            node-version: 18.x
           - os: macos-latest
             node-version: 18.x
           - os: macos-latest
-            node-version: 14.x
+            node-version: 18.x
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -142,7 +141,7 @@ jobs:
       # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x] # Active LTS (https://github.com/nodejs/release)
+        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -204,7 +203,7 @@ jobs:
       # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
         os: [ubuntu-latest]
-        node-version: [16.x] # Active LTS (https://github.com/nodejs/release)
+        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
