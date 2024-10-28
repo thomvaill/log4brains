@@ -1,5 +1,16 @@
 #!/usr/bin/env node
-require = require("esm")(module, {
-  mainFields: ["module", "main"]
-});
-module.exports = require("./main");
+const path = require("path");
+const { spawn } = require("child_process");
+
+// Temporary fix of https://github.com/thomvaill/log4brains/issues/85 (legacy md4 hash used by webpack4)
+// that enables us to force the --openssl-legacy-provider NODE_OPTIONS flag without asking the user to do it himself.
+// This is really hacky but will be removed  as soon as we manage to upgrade our dependencies.
+const child = spawn(
+  "node",
+  [path.join(__dirname, "index.js"), ...process.argv.slice(2)],
+  {
+    env: { ...process.env, NODE_OPTIONS: "--openssl-legacy-provider" },
+    cwd: process.cwd(),
+    stdio: "inherit"
+  }
+);
