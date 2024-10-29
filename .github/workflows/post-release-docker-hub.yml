@@ -20,4 +20,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: build and release the latest Docker image
-        run: make -C docker release version-tag latest-tag
+        run: make -C docker release version-tag branch-tag
