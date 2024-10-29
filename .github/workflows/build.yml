@@ -8,6 +8,8 @@ on:
       - develop
     paths:
       - "packages/**"
+      - "!packages/**/CHANGELOG.md" # filters out changes made by lerna
+      - "!packages/**/package.json" # filters out changes made by lerna
       - ".github/workflows/build.yml"
 
 defaults:

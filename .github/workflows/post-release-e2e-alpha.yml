@@ -2,10 +2,10 @@ name: Post-release E2E alpha
 on:
   workflow_dispatch:
 
-  # Run after every release to NPM
+  # Run after every alpha release to NPM
   push:
     tags:
-      - v*
+      - v*-alpha.*
 
 jobs:
   e2e:

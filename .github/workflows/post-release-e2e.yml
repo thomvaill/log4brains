@@ -6,6 +6,7 @@ on:
   push:
     tags:
       - v*
+      - "!v*-alpha.*"
 
   # Run on every Wednesday to check possible regressions caused by dependency updates
   # Like this one: https://github.com/thomvaill/log4brains/issues/27
