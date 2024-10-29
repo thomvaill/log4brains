@@ -251,7 +251,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       - name: release and publish to NPM
-        run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --exact --create-release github
+        run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --dist-tag alpha --exact --create-release github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,4 +1,4 @@
-FROM node:14.18-alpine3.14
+FROM node:lts-alpine
 
 ARG LOG4BRAINS_VERSION
 
