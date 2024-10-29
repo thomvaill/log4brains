@@ -31,7 +31,7 @@
     "dev-old": "cross-env NODE_ENV=development LOG4BRAINS_CWD=../.. ESM_DISABLE_CACHE=true node -r esm -r ts-node/register ./src/bin/main.ts",
     "next": "cross-env LOG4BRAINS_CWD=../.. next",
     "build:ts": "tsc --noEmit false --declaration true && del-cli \"dist/pages/**/*.d.ts\"",
-    "build": "yarn clean && yarn build:ts && copyfiles --all next.config.js .babelrc \"public/**/*\" dist && copyfiles --all --up 1 \"src/lib/core-api/noop/**/*\" src/components/Markdown/hljs.css dist && cross-env LOG4BRAINS_PHASE=initial-build next build dist",
+    "build": "yarn clean && yarn build:ts && copyfiles --all next.config.js .babelrc \"public/**/*\" dist && copyfiles --all --up 1 \"src/lib/core-api/noop/**/*\" src/components/Markdown/hljs.css dist && cross-env LOG4BRAINS_PHASE=initial-build NODE_OPTIONS=--openssl-legacy-provider next build dist",
     "clean": "rimraf ./dist",
     "serve": "serve .log4brains/out",
     "typescript": "tsc",

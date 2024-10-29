@@ -8,8 +8,8 @@
     "packages/**"
   ],
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider lerna run --parallel dev",
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider lerna run --stream build",
+    "dev": "lerna run --parallel dev",
+    "build": "lerna run --stream build",
     "clean": "lerna run clean",
     "typescript": "lerna run --stream typescript",
     "test": "lerna run --stream test",
