@@ -1,6 +1,5 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
-# See ci.yml for info on `quality` and `tests` stages
-name: Build
+name: On merge to develop (alpha releases)
 on:
   workflow_dispatch:
   push:

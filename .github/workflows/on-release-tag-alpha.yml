@@ -1,4 +1,4 @@
-name: Post-release Docker Hub alpha
+name: On release tag push (alpha only)
 on:
   workflow_dispatch:
 

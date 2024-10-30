@@ -1,4 +1,4 @@
-name: Scheduled E2E (stable version)
+name: Weekly E2E tests (stable only)
 on:
   workflow_dispatch:
 

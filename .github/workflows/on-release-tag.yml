@@ -1,4 +1,4 @@
-name: Post-release E2E
+name: On release tag push
 on:
   workflow_dispatch:
 

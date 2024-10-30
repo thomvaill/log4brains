@@ -1,5 +1,5 @@
 # Inspired from https://github.com/backstage/backstage/blob/master/.github/workflows/ci.yml. Thanks!
-name: CI
+name: Pull request checks
 on:
   workflow_dispatch:
   pull_request:
