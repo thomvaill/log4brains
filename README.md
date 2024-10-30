@@ -10,8 +10,8 @@
   <a href="https://github.com/thomvaill/log4brains/blob/develop/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202-blue" alt="License" />
   </a>
-  <a href="https://github.com/thomvaill/log4brains/actions?query=workflow%3ABuild">
-    <img src="https://github.com/thomvaill/log4brains/workflows/Build/badge.svg" alt="Build Status" />
+  <a href="https://github.com/thomvaill/log4brains/actions/workflows/on-merge-to-develop.yml">
+    <img src="https://github.com/thomvaill/log4brains/actions/workflows/on-merge-to-develop.yml/badge.svg" alt="Build Status" />
   </a>
   <a href="https://github.com/thomvaill/log4brains/releases">
     <img src="https://img.shields.io/npm/v/log4brains?label=log4brains" alt="log4brains latest version" />

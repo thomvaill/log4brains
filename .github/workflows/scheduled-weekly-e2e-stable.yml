@@ -7,17 +7,13 @@ on:
   schedule:
     - cron: "0 4 * * 3"
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   load-nodejs-supported-versions:
-    runs-on: ubuntu-latest
-    outputs:
-      node_versions: ${{ steps.get-versions.outputs.node_versions }}
-    steps:
-      - name: Get supported Node.js versions from JSON
-        id: get-versions
-        run: |
-          node_versions=$(cat .github/supported_nodejs_versions.json | jq -r '.versions | @json')
-          echo "::set-output name=node_versions::$node_versions"
+    uses: ./.github/workflows/reusable-load-nodejs-supported-versions.yml
 
   e2e:
     needs: load-nodejs-supported-versions
@@ -25,18 +21,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: ${{ fromJson(needs.load-supported-versions.outputs.node_versions) }}
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install -g log4brains
-      - name: Tests # TODO: test the preview and add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
-        run: |
-          log4brains --version
-          log4brains init --defaults
-          log4brains adr list
-          log4brains build
+    uses: ./.github/workflows/reusable-e2e-tests.yml
+    with:
+      npm-package-fullname: log4brains # stable version
+      os: ${{ matrix.os }}
+      node-version: ${{ matrix.node-version }}

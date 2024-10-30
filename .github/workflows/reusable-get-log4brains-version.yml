@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: "Log4brains current version"
+        value: ${{ jobs.get-log4brains-version.outputs.version }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  get-log4brains-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Get log4brains version from lerna.json
+        id: get-version
+        run: |
+          version="$(cat lerna.json | jq -r .version)"
+          echo "::set-output name=version::$version"

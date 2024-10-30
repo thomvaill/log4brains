@@ -1,0 +1,63 @@
+on:
+  workflow_call:
+    inputs:
+      only-changed-packages:
+        required: false
+        type: boolean
+        default: false # by default it will test all packages; also if only-changed-packages=true and yarn.lock has changed: it will test all packages too
+      os:
+        required: true
+        type: string
+      # Set only one of these two inputs:
+      node-version:
+        required: false
+        type: string
+      node-version-file:
+        required: false
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  tests:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all history to make Jest snapshot tests work
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ inputs.node-version-file }}
+          node-version: ${{ inputs.node-version }}
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
+
+      - name: Check for yarn.lock changes
+        id: yarn-lock
+        run: git diff --quiet origin/develop HEAD -- yarn.lock
+        continue-on-error: true
+      #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
+      #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
+
+      # We have to build all the packages before the tests
+      # Because init-log4brains's integration tests use @log4brains/cli, which uses @log4brains/core
+      # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
+      # Once it's done, we should add "yarn test" in each package's preVersion script
+      - run: yarn build
+
+      - name: Test only packages that have changed compared to the main branch
+        if: ${{ inputs.only-changed-packages && steps.yarn-lock.outcome == 'success' }}
+        run: yarn test --since origin/develop
+
+      - name: Test all packages (only-changed-packages=false or yarn.lock has changed)
+        if: ${{ !inputs.only-changed-packages || steps.yarn-lock.outcome == 'failure' }}
+        run: yarn test
+
+      - name: E2E tests
+        run: |
+          yarn link-cli
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+          yarn e2e

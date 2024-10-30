@@ -1,0 +1,43 @@
+on:
+  workflow_call:
+    inputs:
+      npm-package:
+        required: true
+        type: string
+      npm-version: # only exact versions allowed, not tags like "latest" or "alpha"
+        required: true
+        type: string
+      wait-minutes:
+        required: false
+        type: string
+        default: "10"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  wait-for-npm-version-to-be-published:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+      - name: Wait
+        run: |
+          echo "Checking if ${{ inputs.npm-package }}@${{ inputs.npm-version }} is available on NPM (waiting max ${{ inputs.wait-minutes }} min)..."
+          i=0
+          while ! npm view ${{ inputs.npm-package }} versions --json | jq -e 'index("${{ inputs.npm-version }}")' &> /dev/null
+          do
+            if [[ ${i} -gt ${{ inputs.wait-minutes }} ]]
+            then
+              echo "Failure for more than ${{ inputs.wait-minutes }} minutes"
+              echo "Available versions:"
+              npm view ${{ inputs.npm-package }} versions --json
+              echo "Abort"
+              exit 1
+            fi
+
+            echo "${{ inputs.npm-package }}@${{ inputs.npm-version }} is not available yet on NPM. Let's wait 60s..."
+            sleep 60
+            ((i=i+1))
+          done
+          echo "${{ inputs.npm-package }}@${{ inputs.npm-version }} is available"

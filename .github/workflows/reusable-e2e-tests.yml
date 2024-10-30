@@ -1,0 +1,42 @@
+on:
+  workflow_call:
+    inputs:
+      npm-package-fullname:
+        required: true
+        type: string
+      os:
+        required: true
+        type: string
+      # Set only one of these two inputs:
+      node-version:
+        required: false
+        type: string
+      node-version-file:
+        required: false
+        type: string
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  e2e-tests:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ inputs.node-version-file }}
+          node-version: ${{ inputs.node-version }}
+
+      - run: npm install -g ${{ inputs.npm-package-fullname }}
+
+      # TODO: test the preview and add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
+      - name: Tests
+        run: |
+          log4brains --version
+          log4brains init --defaults
+          log4brains adr list
+          log4brains build

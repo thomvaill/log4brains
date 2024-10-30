@@ -1,0 +1,22 @@
+on:
+  workflow_call:
+    outputs:
+      node_versions:
+        description: "Node.js versions officially supported by the project"
+        value: ${{ jobs.load-nodejs-supported-versions.outputs.node_versions }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  load-nodejs-supported-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      node_versions: ${{ steps.get-versions.outputs.node_versions }}
+    steps:
+      - name: Get supported Node.js versions from JSON file
+        id: get-versions
+        run: |
+          node_versions=$(cat .github/supported_nodejs_versions.json | jq -r '.versions | @json')
+          echo "::set-output name=node_versions::$node_versions"

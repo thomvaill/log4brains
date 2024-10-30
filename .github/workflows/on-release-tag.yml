@@ -7,52 +7,35 @@ on:
     tags:
       - v*
 
-jobs:
-  load-nodejs-supported-versions:
-    runs-on: ubuntu-latest
-    outputs:
-      node_versions: ${{ steps.get-versions.outputs.node_versions }}
-    steps:
-      - name: Get supported Node.js versions from JSON
-        id: get-versions
-        run: |
-          node_versions=$(cat .github/supported_nodejs_versions.json | jq -r '.versions | @json')
-          echo "::set-output name=node_versions::$node_versions"
+defaults:
+  run:
+    shell: bash
 
-  e2e:
-    needs: load-nodejs-supported-versions
+jobs:
+  get-log4brains-version:
+    uses: ./.github/workflows/reusable-get-log4brains-version.yml
+
+  wait-for-npm-version-to-be-published:
+    needs: get-log4brains-version
+    uses: ./.github/workflows/reusable-wait-for-npm-version-to-be-published.yml
+    with:
+      npm-package: log4brains
+      npm-version: ${{ needs.get-log4brains-version.outputs.version }}
+
+  load-nodejs-supported-versions:
+    uses: ./.github/workflows/reusable-load-nodejs-supported-versions.yml
+
+  e2e-tests:
+    needs:
+      - load-nodejs-supported-versions
+      - get-log4brains-version
+      - wait-for-npm-version-to-be-published
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node-version: ${{ fromJson(needs.load-supported-versions.outputs.node_versions) }}
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Run npm install
-        run: |
-          log4brains_version="$(cat lerna.json | jq -r .version)"
-
-          i=0
-          while ! npm install -g log4brains@${log4brains_version}
-          do
-            if [[ ${i} -gt 20 ]]
-            then
-              echo "Failure for more than 10 minutes -> abort"
-              exit 1
-            fi
-
-            echo "Maybe the package is not available yet on NPM. Let's wait 30s..."
-            sleep 30
-            ((i=i+1))
-          done
-      - name: Tests # TODO: test the preview and add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
-        run: |
-          log4brains --version
-          log4brains init --defaults
-          log4brains adr list
-          log4brains build
+    uses: ./.github/workflows/reusable-e2e-tests.yml
+    with:
+      npm-package-fullname: log4brains@${{ needs.get-log4brains-version.outputs.version }}
+      os: ${{ matrix.os }}
+      node-version: ${{ matrix.node-version }}

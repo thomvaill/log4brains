@@ -1,0 +1,24 @@
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc # current LTS
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
+
+      # TODO: make dev & test work without having to build everything (inspiration: https://github.com/Izhaki/mono.ts)
+      # - run: yarn typescript
+      - run: yarn build
+      - run: yarn format
+      - run: yarn lint

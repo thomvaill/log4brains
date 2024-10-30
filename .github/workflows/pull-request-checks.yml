@@ -9,62 +9,17 @@ defaults:
     shell: bash
 
 jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc # normally the current LTS
-          cache: yarn
-          cache-dependency-path: yarn.lock
-      - run: yarn install --frozen-lockfile
+  quality-checks:
+    uses: ./.github/workflows/reusable-quality-checks.yml
 
-      # TODO: make dev & test work without having to build everything (inspiration: https://github.com/Izhaki/mono.ts)
-      # - run: yarn typescript
-      - run: yarn build
-      - run: yarn format
-      - run: yarn lint
-
-  tests-per-os:
+  # We only test the LTS on all OSes for performance reasons
+  # Other versions will be tested on the main workflow after the merge
+  tests-LTS-per-os:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # fetch all history to make Jest snapshot tests work
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc # normally the current LTS; we test other versions in the main Build workflow because it's too slow
-          cache: yarn
-          cache-dependency-path: yarn.lock
-      - run: yarn install --frozen-lockfile
-
-      - name: Check for yarn.lock changes
-        id: yarn-lock
-        run: git diff --quiet origin/develop HEAD -- yarn.lock
-        continue-on-error: true
-      #  - steps.yarn-lock.outcome == 'success' --> yarn.lock was not changed
-      #  - steps.yarn-lock.outcome == 'failure' --> yarn.lock was changed
-
-      # We have to build all the packages before the tests
-      # Because init-log4brains's integration tests use @log4brains/cli, which uses @log4brains/core
-      # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
-      # Once it's done, we should add "yarn test" in each package's preVersion script
-      - run: yarn build
-
-      - name: Test changed packages
-        if: ${{ steps.yarn-lock.outcome == 'success' }}
-        run: yarn test --since origin/develop
-
-      - name: Test all packages (because yarn.lock has changed)
-        if: ${{ steps.yarn-lock.outcome == 'failure' }}
-        run: yarn test
-
-      - name: E2E tests
-        run: |
-          yarn link-cli
-          echo "$(yarn global bin)" >> $GITHUB_PATH
-          yarn e2e
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      only-changed-packages: true # for performance
+      os: ${{ matrix.os }}
+      node-version-file: .nvmrc # current LTS

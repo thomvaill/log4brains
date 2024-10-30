@@ -7,8 +7,23 @@ on:
     tags:
       - v*-alpha.*
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  get-log4brains-version:
+    uses: ./.github/workflows/reusable-get-log4brains-version.yml
+
+  wait-for-npm-version-to-be-published:
+    needs: get-log4brains-version
+    uses: ./.github/workflows/reusable-wait-for-npm-version-to-be-published.yml
+    with:
+      npm-package: log4brains
+      npm-version: ${{ needs.get-log4brains-version.outputs.version }}
+
   build-and-push:
+    needs: wait-for-npm-version-to-be-published
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,18 +32,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push the latest alpha Docker image
-        run: |
-          export MDF_BRANCH_TAG=alpha
-          i=0
-          while ! make -C docker release version-tag branch-tag
-          do
-            if [[ ${i} -gt 20 ]]
-            then
-              echo "Failure for more than 10 minutes -> abort"
-              exit 1
-            fi
-
-            echo "Maybe the package is not available yet on NPM. Let's wait 30s..."
-            sleep 30
-            ((i=i+1))
-          done
+        run: MDF_BRANCH_TAG=alpha make -C docker release version-tag branch-tag
