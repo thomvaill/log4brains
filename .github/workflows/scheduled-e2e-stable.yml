@@ -1,11 +1,11 @@
-name: Post-release E2E
+name: Scheduled E2E (stable version)
 on:
   workflow_dispatch:
 
-  # Run after every release to NPM (alpha and stable)
-  push:
-    tags:
-      - v*
+  # Run on every Wednesday to check possible regressions caused by dependency updates
+  # Like this one: https://github.com/thomvaill/log4brains/issues/27
+  schedule:
+    - cron: "0 4 * * 3"
 
 jobs:
   load-nodejs-supported-versions:
@@ -33,23 +33,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Run npm install
-        run: |
-          log4brains_version="$(cat lerna.json | jq -r .version)"
-
-          i=0
-          while ! npm install -g log4brains@${log4brains_version}
-          do
-            if [[ ${i} -gt 20 ]]
-            then
-              echo "Failure for more than 10 minutes -> abort"
-              exit 1
-            fi
-
-            echo "Maybe the package is not available yet on NPM. Let's wait 30s..."
-            sleep 30
-            ((i=i+1))
-          done
+      - run: npm install -g log4brains
       - name: Tests # TODO: test the preview and add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
         run: |
           log4brains --version

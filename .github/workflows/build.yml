@@ -18,180 +18,109 @@ defaults:
 
 jobs:
   quality:
-    strategy:
-      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
-      - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: cache all node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
-      - name: find location of global yarn cache
-        id: yarn-cache
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: cache global yarn cache
-        uses: actions/cache@v2
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: yarn install
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-      # End of yarn setup
+          node-version-file: .nvmrc # normally the current LTS
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
 
       # TODO: make dev & test work without having to build everything (inspiration: https://github.com/Izhaki/mono.ts)
-      - name: build
-        run: yarn build
+      # - run: yarn typescript
+      - run: yarn build
+      - run: yarn format
+      - run: yarn lint
 
-      - name: format
-        run: yarn format
+  load-nodejs-supported-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      node_versions: ${{ steps.get-versions.outputs.node_versions }}
+    steps:
+      - name: Get supported Node.js versions from JSON
+        id: get-versions
+        run: |
+          node_versions=$(cat .github/supported_nodejs_versions.json | jq -r '.versions | @json')
+          echo "::set-output name=node_versions::$node_versions"
 
-      - name: lint
-        run: yarn lint
-
-  tests:
-    needs: quality
+  # We test the current LTS on all OSes and other supported versions only on Ubuntu for performance reasons
+  # All the other os/version tuples will be tested in the post-release job
+  tests-per-nodejs-version:
+    needs: load-nodejs-supported-versions
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version:
-          - 20.x # Active LTS (https://github.com/nodejs/release)
-          - 18.x # Maintenance LTS
-        exclude: # these cases are tested after the release with E2E tests
-          - os: windows-latest
-            node-version: 18.x
-          - os: windows-latest
-            node-version: 18.x
-          - os: macos-latest
-            node-version: 18.x
-          - os: macos-latest
-            node-version: 18.x
-    runs-on: ${{ matrix.os }}
+        node-version: ${{ fromJson(needs.load-supported-versions.outputs.node_versions) }}
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # fetch all history to make Jest snapshot tests work
-
-      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
-      - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: cache all node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
-      - name: find location of global yarn cache
-        id: yarn-cache
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: cache global yarn cache
-        uses: actions/cache@v2
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: yarn install
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-      # End of yarn setup
-
-      # We have to build all the packages before the tests
-      # Because init-log4brains's integration tests use @log4brains/cli, which uses @log4brains/core
-      # TODO: we should separate tests that require built packages of the others, to get a quicker feedback
-      # Once it's done, we should add "yarn test" in each package's preVersion script
-      - name: build
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
+      - name: E2E tests
         run: |
-          yarn build
           yarn link-cli
           echo "$(yarn global bin)" >> $GITHUB_PATH
+          yarn e2e
 
-      - name: typescript checks
-        run: yarn typescript
-
-      - name: test
-        run: yarn test
-
-      - name: E2E tests
-        run: yarn e2e
-
-  publish-pages:
-    needs: tests
+  tests-per-other-os:
     strategy:
-      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
       matrix:
-        os: [ubuntu-latest]
-        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
+        os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all history to make Jest snapshot tests work
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc # normally the current LTS
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - run: yarn test
+      - name: E2E tests
+        run: |
+          yarn link-cli
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+          yarn e2e
+
+  publish-pages:
+    needs:
+      - quality
+      - tests-per-nodejs-version
+      - tests-per-other-os
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false # required by JamesIves/github-pages-deploy-action
           fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
-
-      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
-      - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: cache all node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
-      - name: find location of global yarn cache
-        id: yarn-cache
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: cache global yarn cache
-        uses: actions/cache@v2
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: yarn install
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-      # End of yarn setup
-
-      - name: build
+          node-version-file: .nvmrc # normally the current LTS
+          cache: yarn
+          cache-dependency-path: yarn.lock
+      - run: yarn install --frozen-lockfile
+      - name: Build and link
         run: |
           yarn build
           yarn link-cli
           echo "$(yarn global bin)" >> $GITHUB_PATH
-
-      - name: build self knowledge base
+      - name: Log4brains build
         env:
           HIDE_LOG4BRAINS_VERSION: "1" # TODO: use lerna to bump the version temporarily here so we don't have to hide it
         run: log4brains build --basePath /${GITHUB_REPOSITORY#*/}/adr
-
-      - name: publish self knowledge base
+      - name: Publish to Github pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -199,60 +128,29 @@ jobs:
           FOLDER: .log4brains/out
           TARGET_FOLDER: adr
 
-  release:
+  release-alpha:
     needs: publish-pages # we could perform this step in parallel but this acts as a last end-to-end test before releasing
-    strategy:
-      # We use a matrix even if it's not needed here to be able to re-use the same Yarn setup snippet everywhere
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [20.x] # Active LTS (https://github.com/nodejs/release)
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # fetch all history for Lerna (https://stackoverflow.com/a/60184319/9285308)
           ssh-key: ${{ secrets.LERNA_GITHUB_DEPLOY_KEY }} # so that Lerna is able to push to the protected branch (https://github.com/orgs/community/discussions/25305#discussioncomment-10728028)
-
-      - name: fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
+      - name: Fetch all git tags for Lerna # (https://stackoverflow.com/a/60184319/9285308)
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
-
-      # Beginning of yarn setup [KEEP IN SYNC BETWEEN ALL WORKFLOWS] (copy/paste of ci.yml's snippet)
-      - name: use node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org/
-      - name: cache all node_modules
-        id: cache-modules
-        uses: actions/cache@v2
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-v${{ matrix.node-version }}-node_modules-${{ hashFiles('yarn.lock', '**/package.json') }}
-      - name: find location of global yarn cache
-        id: yarn-cache
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: cache global yarn cache
-        uses: actions/cache@v2
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: yarn install
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
-      # End of yarn setup
-
-      - name: build
-        run: yarn build
-
-      - name: git identity
+          node-version-file: .nvmrc # normally the current LTS
+          cache: yarn
+          cache-dependency-path: yarn.lock
+          registry-url: https://registry.npmjs.org/ # needed by lerna to push to NPM
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - name: Git identity for github-actions[bot]
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - name: release and publish to NPM
+      - name: Run lerna publish
         run: yarn lerna publish --yes --conventional-commits --conventional-prerelease --force-publish --dist-tag alpha --exact --create-release github
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

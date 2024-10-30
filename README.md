@@ -168,15 +168,13 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v4
         with:
           persist-credentials: false # required by JamesIves/github-pages-deploy-action
           fetch-depth: 0 # required by Log4brains to work correctly (needs the whole Git history)
-      - name: Install Node
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
-          node-version: "14"
+          node-version: lts/*
       - name: Install and Build Log4brains
         run: |
           npm install -g log4brains
