@@ -296,7 +296,7 @@ Finally, you can add the ADR badge to your `README.md`!
 
 ### What are the prerequisites?
 
-- Node.js >= 12
+- Node.js: active or maintenance LTS version (see [Node.js release schedule](https://github.com/nodejs/release#release-schedule); versions outside of this range are not guaranteed to work; "current" version is supported in a best effort mode)
 - NPM or Yarn
 - Git
 

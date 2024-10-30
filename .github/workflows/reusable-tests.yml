@@ -5,6 +5,10 @@ on:
         required: false
         type: boolean
         default: false # by default it will test all packages; also if only-changed-packages=true and yarn.lock has changed: it will test all packages too
+      experimental:
+        required: false
+        type: boolean
+        default: false
       os:
         required: true
         type: string
@@ -23,6 +27,7 @@ defaults:
 jobs:
   tests:
     runs-on: ${{ inputs.os }}
+    continue-on-error: ${{ inputs.experimental }}
     steps:
       - uses: actions/checkout@v4
         with:

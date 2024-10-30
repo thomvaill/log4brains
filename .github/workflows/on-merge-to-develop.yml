@@ -43,6 +43,13 @@ jobs:
       os: ${{ matrix.os }}
       node-version-file: .nvmrc # current LTS
 
+  tests-nodejs-current:
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      os: ubuntu-latest
+      node-version: current
+      experimental: true # best effort mode
+
   publish-pages:
     needs:
       - quality-checks

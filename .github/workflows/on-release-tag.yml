@@ -39,3 +39,17 @@ jobs:
       npm-package-fullname: log4brains@${{ needs.get-log4brains-version.outputs.version }}
       os: ${{ matrix.os }}
       node-version: ${{ matrix.node-version }}
+
+  e2e-tests-nodejs-current:
+    needs:
+      - get-log4brains-version
+      - wait-for-npm-version-to-be-published
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    uses: ./.github/workflows/reusable-e2e-tests.yml
+    with:
+      npm-package-fullname: log4brains@${{ needs.get-log4brains-version.outputs.version }}
+      os: ${{ matrix.os }}
+      node-version: current
+      experimental: true # best effort mode

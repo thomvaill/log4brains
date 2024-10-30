@@ -23,3 +23,11 @@ jobs:
       only-changed-packages: true # for performance
       os: ${{ matrix.os }}
       node-version-file: .nvmrc # current LTS
+
+  tests-nodejs-current:
+    uses: ./.github/workflows/reusable-tests.yml
+    with:
+      only-changed-packages: true # for performance
+      os: ubuntu-latest
+      node-version: current
+      experimental: true # best effort mode

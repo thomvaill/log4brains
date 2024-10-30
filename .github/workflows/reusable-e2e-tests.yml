@@ -4,6 +4,10 @@ on:
       npm-package-fullname:
         required: true
         type: string
+      experimental:
+        required: false
+        type: boolean
+        default: false
       os:
         required: true
         type: string
@@ -22,6 +26,7 @@ defaults:
 jobs:
   e2e-tests:
     runs-on: ${{ inputs.os }}
+    continue-on-error: ${{ inputs.experimental }}
     steps:
       - uses: actions/checkout@v4
         with:
