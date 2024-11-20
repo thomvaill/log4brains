@@ -21,17 +21,17 @@ jobs:
       - name: Get latest Node.js LTS versions
         run: |
           curl -s https://nodejs.org/dist/index.json | jq '[.[] | select(.lts != false)] | .[0]' > latest-lts.json
-          CURRENT_LTS=$(jq -r '.version' latest-lts.json | sed 's/v//')
-          echo "Latest LTS version: $CURRENT_LTS"
+          CURRENT_LTS="$(jq -r '.version' latest-lts.json | sed 's/v//')"
+          echo "Latest LTS version: ${CURRENT_LTS}"
 
       - name: Compare with supported versions
         id: check-version
         run: |
           SUPPORTED_VERSIONS="${{ needs.load-nodejs-supported-versions.outputs.node_versions }}"
-          if [[ ! "$SUPPORTED_VERSIONS" =~ "$CURRENT_LTS" ]]
+          if [[ ! "${SUPPORTED_VERSIONS}" =~ "${CURRENT_LTS}" ]]
           then
-            echo "A new Node.js LTS version is available: $CURRENT_LTS"
-            echo "::set-output name=new_lts_version::$CURRENT_LTS"
+            echo "A new Node.js LTS version is available: ${CURRENT_LTS}"
+            echo "::set-output name=new_lts_version::${CURRENT_LTS}"
           else
             echo "No new Node.js LTS version detected"
           fi

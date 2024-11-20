@@ -22,22 +22,4 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
       - name: Wait
-        run: |
-          echo "Checking if ${{ inputs.npm-package }}@${{ inputs.npm-version }} is available on NPM (waiting max ${{ inputs.wait-minutes }} min)..."
-          i=0
-          while ! npm view ${{ inputs.npm-package }} versions --json | jq -e 'index("${{ inputs.npm-version }}")' &> /dev/null
-          do
-            if [[ ${i} -gt ${{ inputs.wait-minutes }} ]]
-            then
-              echo "Failure for more than ${{ inputs.wait-minutes }} minutes"
-              echo "Available versions:"
-              npm view ${{ inputs.npm-package }} versions --json
-              echo "Abort"
-              exit 1
-            fi
-
-            echo "${{ inputs.npm-package }}@${{ inputs.npm-version }} is not available yet on NPM. Let's wait 60s..."
-            sleep 60
-            ((i=i+1))
-          done
-          echo "${{ inputs.npm-package }}@${{ inputs.npm-version }} is available"
+        run: ./scripts/wait-for-npm-version-to-be-published.sh "${{ inputs.npm-package }}" "${{ inputs.npm-version }}" "${{ inputs.wait-minutes }}"
