@@ -6,6 +6,7 @@ A new Node.js LTS version has been detected: `{{ steps.check-version.outputs.new
 
 Please test the Log4brains project against this version and update the supported versions accordingly.
 
+- [ ] Update the LTS version in `.nvmrc`
 - [ ] Run `nvm use` and ensure `node -v` returns the new LTS version
 - [ ] Run `rm -rf node_modules && yarn install`
 - [ ] Run all the quality checks described in CONTRIBUTNG.md
