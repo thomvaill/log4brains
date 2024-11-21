@@ -18,6 +18,11 @@ jobs:
     needs: load-nodejs-supported-versions
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github
+
       - name: Compare supported versions with current active Node.js LTS
         id: check-version
         run: |
@@ -40,12 +45,20 @@ jobs:
           echo "> is NOT yet supported!"
           echo "new_lts_version=${active_lts}" >> "${GITHUB_OUTPUT}"
 
-      - name: Create an issue if new LTS
-        if: steps.check-version.outputs.new_lts_version
+      - name: Find the last open LTS issue
+        id: last-issue
+        uses: micalevisk/last-issue-action@v2
+        with:
+          state: open
+          labels: |
+            auto-node-lts
+
+      - name: Create an issue if new LTS and not yet opened
+        if: ${{ steps.check-version.outputs.new_lts_version != '' && steps.last-issue.outputs.has-found != 'true' }}
         uses: peter-evans/create-issue-from-file@v5
         with:
-          title: "New Node.js LTS version: ${{ steps.check-version.outputs.new_lts_version }}"
+          title: "Support new Node.js LTS version: ${{ steps.check-version.outputs.new_lts_version }}"
           content-filepath: .github/auto-issue-templates/new-node-lts.md
           labels: |
-            auto
+            auto-node-lts
             maintenance

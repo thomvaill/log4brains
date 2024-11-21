@@ -2,7 +2,7 @@
 
 _Issue created automatically by a Github action._
 
-A new Node.js LTS version has been detected: `{{ steps.check-version.outputs.new_lts_version }}`.
+A new active Node.js LTS version has been detected.
 
 Please test the Log4brains project against this version and update the supported versions accordingly.
 

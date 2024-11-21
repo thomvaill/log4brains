@@ -22,7 +22,7 @@ jobs:
       npm-package: log4brains
       npm-version: ${{ needs.get-log4brains-version.outputs.version }}
 
-  build-and-push:
+  docker-build-and-push:
     needs: wait-for-npm-version-to-be-published
     runs-on: ubuntu-latest
     steps:
