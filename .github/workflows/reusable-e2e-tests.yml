@@ -35,13 +35,16 @@ jobs:
         with:
           node-version-file: ${{ inputs.node-version-file }}
           node-version: ${{ inputs.node-version }}
+          cache: yarn
+          cache-dependency-path: yarn.lock
 
+      # We install project dependencies to be able to run e2e-launcher.js
+      - run: yarn install --frozen-lockfile
+
+      # But we do install log4brains from the registry
       - run: npm install -g ${{ inputs.npm-package-fullname }}
 
-      # TODO: test the preview and add some assertions :-) For now we just check the exit codes. Or manage to run e2e-tests/e2e-launcher.js from here
-      - name: Tests
-        run: |
-          log4brains --version
-          log4brains init --defaults
-          log4brains adr list
-          log4brains build
+      # We don't use "yarn e2e" directly so we are sure that we are using the global version of log4brains
+      - name: E2E Tests on the registry version
+        run: node e2e-launcher.js
+        working-directory: e2e-tests

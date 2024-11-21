@@ -33,6 +33,8 @@ async function run(file, arguments, cwd) {
 
 (async () => {
   await usingTempDir(async (cwd) => {
+    await run("log4brains", ["--version"], cwd);
+
     await run("log4brains", ["init", "--defaults"], cwd);
 
     await run("log4brains", ["adr", "new", "--quiet", '"E2E test ADR"'], cwd);
