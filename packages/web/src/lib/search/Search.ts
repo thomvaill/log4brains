@@ -4,7 +4,10 @@ import lunr from "lunr";
 
 type AdrForSearch = {
   title: string;
-  verbatim: string; // body without Markdown or HTML tags, without recurring headers
+  body: string; // body without Markdown or HTML tags, without recurring headers
+  status: string;
+  tags: string;
+  deciders: string;
 };
 
 export type SerializedIndex = {
@@ -68,7 +71,10 @@ export class Search {
         adr.slug,
         {
           title: adr.title || "Untitled",
-          verbatim: adr.body.enhancedMdx // TODO: remove tags (https://github.com/thomvaill/log4brains/issues/5)
+          body: adr.body.enhancedMdx, // TODO: remove tags (https://github.com/thomvaill/log4brains/issues/5)
+          status: adr.status || 'draft',
+          tags: (adr.tags || []).join(' '),
+          deciders: adr.lastEditAuthor + (adr.deciders || []).join(' ')
         }
       ])
     );
@@ -76,7 +82,10 @@ export class Search {
     const index = lunr((builder) => {
       builder.ref("slug");
       builder.field("title", { boost: 1000 });
-      builder.field("verbatim");
+      builder.field("body");
+      builder.field("status", {boost: 50});
+      builder.field("tags", {boost: 50});
+      builder.field("deciders");
       // eslint-disable-next-line no-param-reassign
       builder.metadataWhitelist = ["position"];
 
@@ -84,7 +93,10 @@ export class Search {
         builder.add({
           slug,
           title: adr.title,
-          verbatim: adr.verbatim
+          body: adr.body,
+          status: adr.status,
+          tags: adr.tags,
+          deciders: adr.deciders,
         });
       });
     });
