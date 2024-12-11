@@ -8,11 +8,10 @@ import mkdirp from "mkdirp";
 import { makeBadge } from "badge-maker";
 import { promises as fsP } from "fs";
 import type { AppConsole } from "@log4brains/cli-common";
-import { getLog4brainsInstance } from "../../lib/core-api";
 import { getNextJsDir } from "../../lib/next";
 import { Search } from "../../lib/search";
 import { toAdrLight } from "../../types";
-import { execNext } from "../utils";
+import { execNext, getL4bInstance } from "../utils";
 
 type Deps = {
   appConsole: AppConsole;
@@ -77,7 +76,7 @@ export async function buildCommand(
 
   // TODO: move to a dedicated module
   await mkdirp(path.join(outPath, "data", buildId));
-  const adrs = await getLog4brainsInstance().searchAdrs();
+  const adrs = await getL4bInstance().searchAdrs();
 
   // TODO: remove this dead code when we are sure we don't need a JSON file per ADR
 

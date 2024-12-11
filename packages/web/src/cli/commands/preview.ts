@@ -4,9 +4,8 @@ import SocketIO from "socket.io";
 import chalk from "chalk";
 import open from "open";
 import type { AppConsole } from "@log4brains/cli-common";
-import { getLog4brainsInstance } from "../../lib/core-api";
 import { getNextJsDir } from "../../lib/next";
-import { execNext } from "../utils";
+import { execNext, getL4bInstance } from "../utils";
 
 type Deps = {
   appConsole: AppConsole;
@@ -55,8 +54,8 @@ export async function previewCommand(
   // FileWatcher with Socket.io
   const io = SocketIO(srv);
 
-  const { fileWatcher } = getLog4brainsInstance();
-  getLog4brainsInstance().fileWatcher.subscribe((event) => {
+  const { fileWatcher } = getL4bInstance();
+  fileWatcher.subscribe((event) => {
     appConsole.debug(`[FileWatcher] ${event.type} - ${event.relativePath}`);
     io.emit("FileWatcher", event);
   });
