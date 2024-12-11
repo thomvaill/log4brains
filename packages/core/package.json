@@ -64,7 +64,6 @@
     "@types/lodash": "^4.14.161",
     "@types/markdown-it": "^10.0.2",
     "@types/parse-git-config": "^3.0.0",
-    "globby": "^11.0.1",
-    "microbundle": "^0.12.4"
+    "globby": "^11.0.1"
   }
 }

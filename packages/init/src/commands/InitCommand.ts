@@ -12,7 +12,7 @@ import type { AppConsole } from "@log4brains/cli-common";
 import { FailureExit } from "@log4brains/cli-common";
 import { replaceAllInFile } from "../utils";
 
-const assetsPath = path.resolve(path.join(__dirname, "../../assets"));
+const assetsPath = path.resolve(path.join(__dirname, "../assets")); // only one level up because bundled with microbundle
 const docLink = "https://github.com/thomvaill/log4brains";
 
 function forceUnixPath(p: string): string {

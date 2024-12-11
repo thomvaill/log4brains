@@ -1,5 +1,5 @@
 {
   "watch": ["src", "dev-tests"],
   "ext": "ts",
-  "exec": "clear && node -r esm -r ts-node/register ./dev-tests/run.ts"
+  "exec": "clear && microbundle --no-compress --format cjs --target node --output dist-dev --entry ./dev-tests/run.ts && node dist-dev/cli-common.js"
 }

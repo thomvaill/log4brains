@@ -25,10 +25,11 @@
   ],
   "source": "./src/index.ts",
   "main": "./dist/index.js",
+  "module": "./dist/index.module.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "nodemon",
-    "build": "tsc --build tsconfig.build.json",
+    "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node watch",
+    "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node",
     "clean": "rimraf ./dist",
     "typescript": "tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
