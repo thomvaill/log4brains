@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import chalk from "chalk";
 import { ConsoleCapturer } from "@log4brains/cli-common";
 
@@ -15,6 +13,7 @@ export async function execNext(fn: () => Promise<void>): Promise<void> {
   const capturer = new ConsoleCapturer();
   capturer.onLog = (method, args, stream) => {
     if (stream === "stderr" || debug) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       capturer.doPrintln(...["[Next] ", ...args].map((a) => chalk.dim(a)));
     }
   };

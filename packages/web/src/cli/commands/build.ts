@@ -12,7 +12,7 @@ import { getLog4brainsInstance } from "../../lib/core-api";
 import { getNextJsDir } from "../../lib/next";
 import { Search } from "../../lib/search";
 import { toAdrLight } from "../../types";
-import { execNext } from "../../lib/console";
+import { execNext } from "../utils";
 
 type Deps = {
   appConsole: AppConsole;
