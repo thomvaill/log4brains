@@ -1,13 +1,7 @@
-import fs from "fs";
-import path from "path";
 import commander from "commander";
 import terminalLink from "terminal-link";
 import { Log4brains, Log4brainsError } from "@log4brains/core";
-import {
-  AppConsole,
-  FailureExit,
-  Log4brainsConfigNotFound
-} from "@log4brains/cli-common";
+import { AppConsole, FailureExit } from "@log4brains/cli-common";
 
 import {
   ListCommand,
@@ -19,22 +13,10 @@ import {
 const templateExampleUrl =
   "https://raw.githubusercontent.com/thomvaill/log4brains/stable/packages/init/assets/template.md";
 
-function findRootFolder(cwd: string): string {
-  if (fs.existsSync(path.join(cwd, ".log4brains.yml"))) {
-    return cwd;
-  }
-  if (path.resolve(cwd) === "/") {
-    throw new Log4brainsConfigNotFound();
-  }
-  return findRootFolder(path.join(cwd, ".."));
-}
-
 let l4bInstance: Log4brains;
 function getL4bInstance(): Log4brains {
   if (!l4bInstance) {
-    l4bInstance = Log4brains.create(
-      findRootFolder(process.env.LOG4BRAINS_CWD || ".")
-    );
+    l4bInstance = Log4brains.createFromCwd(process.env.LOG4BRAINS_CWD || ".");
   }
   return l4bInstance;
 }

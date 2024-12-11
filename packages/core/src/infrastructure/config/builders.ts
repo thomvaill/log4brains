@@ -5,6 +5,7 @@ import { deepFreeze } from "@src/utils";
 import { Log4brainsError } from "@src/domain";
 import { Log4brainsConfig, schema } from "./schema";
 import { guessGitRepositoryConfig } from "./guessGitRepositoryConfig";
+import { Log4brainsConfigNotFoundError } from "./Log4brainsConfigNotFoundError";
 
 const configFilename = ".log4brains.yml";
 
@@ -56,10 +57,7 @@ export function buildConfigFromWorkdir(workdir = "."): Log4brainsConfig {
   const workdirAbsolute = path.resolve(workdir);
   const configPath = path.join(workdirAbsolute, configFilename);
   if (!fs.existsSync(configPath)) {
-    throw new Log4brainsError(
-      `Impossible to find the ${configFilename} config file`,
-      `workdir: ${workdirAbsolute}`
-    );
+    throw new Log4brainsConfigNotFoundError();
   }
 
   try {
@@ -82,4 +80,20 @@ export function buildConfigFromWorkdir(workdir = "."): Log4brainsConfig {
       e
     );
   }
+}
+
+export function findWorkdirRecursive(cwd = "."): string {
+  const cwdAbsolute = path.resolve(cwd);
+
+  if (fs.existsSync(path.join(cwdAbsolute, configFilename))) {
+    return cwdAbsolute;
+  }
+
+  const parsedPath = path.parse(cwdAbsolute);
+  if (parsedPath.dir === parsedPath.root) {
+    // we are at the filesystem root -> stop recursion
+    throw new Log4brainsConfigNotFoundError();
+  }
+
+  return findWorkdirRecursive(path.join(cwd, ".."));
 }

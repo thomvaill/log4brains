@@ -15,7 +15,11 @@ import {
   GetAdrBySlugQuery
 } from "@src/adr/application";
 import { Log4brainsError } from "@src/domain";
-import { buildConfigFromWorkdir, Log4brainsConfig } from "../config";
+import {
+  buildConfigFromWorkdir,
+  Log4brainsConfig,
+  findWorkdirRecursive
+} from "../config";
 import { AdrDto, AdrDtoStatus } from "./types";
 import { adrToDto } from "./transformers";
 import { CommandBus, QueryBus } from "../buses";
@@ -205,10 +209,30 @@ export class Log4brains {
    *
    * @param workdir Path to working directory (ie. where ".log4brains.yml" is located)
    *
+   * @throws {@link Log4brainsConfigNotFoundError}
+   * In case of missing config file.
+   *
    * @throws {@link Log4brainsError}
-   * In case of missing or invalid config file.
+   * In case of invalid config file or other domain error.
    */
   static create(workdir = "."): Log4brains {
     return new Log4brains(buildConfigFromWorkdir(workdir), workdir);
+  }
+
+  /**
+   * Creates an instance of the Log4brains API from a working directory.
+   * The real working directory (ie. where ".log4brains.yml" is located) will be guessed looking in the parent directories.
+   *
+   * @param cwd Current working directory
+   *
+   * @throws {@link Log4brainsConfigNotFoundError}
+   * In case of missing config file.
+   *
+   * @throws {@link Log4brainsError}
+   * In case of invalid config file or other domain error.
+   */
+  static createFromCwd(cwd = "."): Log4brains {
+    const workdir = findWorkdirRecursive(cwd);
+    return Log4brains.create(workdir);
   }
 }

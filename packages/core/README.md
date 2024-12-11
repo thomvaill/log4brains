@@ -31,7 +31,7 @@ yarn add @log4brains/core
 ```typescript
 import { Log4brains } from "@log4brains/core";
 
-const l4b = Log4brains.create(process.cwd());
+const l4b = Log4brains.createFromCwd(process.cwd());
 
 // See the TypeDoc documentation (TODO: to deploy on GitHub pages) to see available API methods
 ```
