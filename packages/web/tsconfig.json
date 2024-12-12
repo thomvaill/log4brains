@@ -1,18 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "isolatedModules": true,
-    "rootDir": "src",
-    "outDir": "dist"
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@cli/*": ["cli/*"],
+      "@lib-shared/*": ["nextjs/src/lib-shared/*"]
+    }
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.stories.tsx"
-  ]
+  "include": ["index.ts", "cli/**/*.ts", "nextjs/src/lib-shared/**/*.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": { "files": true }
 }

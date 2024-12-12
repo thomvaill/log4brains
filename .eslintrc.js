@@ -9,7 +9,13 @@ module.exports = {
     sourceType: "module",
     project: "./tsconfig.json"
   },
-  ignorePatterns: ["**/*.js", "**/*.d.ts", "dist", "node_modules"],
+  ignorePatterns: [
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.stories.tsx", // temporary disabled
+    "dist",
+    "node_modules"
+  ],
   plugins: ["jest", "sonarjs", "promise", "@typescript-eslint", "react"],
   extends: [
     "eslint:recommended",
@@ -57,14 +63,15 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": "off" // @adr web/20200927-avoid-react-fc-type
       }
     },
-    {
-      files: ["src/**/*.stories.tsx"], // Storybook
-      rules: {
-        "import/no-extraneous-dependencies": "off",
-        "import/no-default-export": "off",
-        "react/function-component-definition": "off"
-      }
-    },
+    // Temporary disabled
+    // {
+    //   files: ["src/**/*.stories.tsx"], // Storybook
+    //   rules: {
+    //     "import/no-extraneous-dependencies": "off",
+    //     "import/no-default-export": "off",
+    //     "react/function-component-definition": "off"
+    //   }
+    // },
     {
       files: "*", // All non-React files
       excludedFiles: "*.tsx",
