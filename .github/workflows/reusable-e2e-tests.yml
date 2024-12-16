@@ -38,13 +38,8 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
 
-      # We install project dependencies to be able to run e2e-launcher.js
-      - run: yarn install --frozen-lockfile
-
       # But we do install log4brains from the registry
       - run: npm install -g ${{ inputs.npm-package-fullname }}
 
-      # We don't use "yarn e2e" directly so we are sure that we are using the global version of log4brains
       - name: E2E Tests on the registry version
-        run: node e2e-launcher.js
-        working-directory: e2e-tests
+        run: yarn e2e

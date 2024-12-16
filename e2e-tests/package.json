@@ -1,0 +1,11 @@
+{
+  "name": "e2e-tests",
+  "description": "Log4brains E2E tests sub-package",
+  "private": true,
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chalk": "^4.1.0",
+    "execa": "^4.1.0",
+    "rimraf": "^6.0.1"
+  }
+}

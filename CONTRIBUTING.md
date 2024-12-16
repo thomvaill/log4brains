@@ -78,6 +78,13 @@ Log4brains follows a **simplified Git Flow** model. Here’s how the process wor
    yarn format:fix   # enforced automatically before every commit with husky+lint-staged
    yarn typescript   # enforced automatically before every commit with husky
    yarn test:changed # (or `yarn test` to run all the tests)
+
+   # Simulate the execution on a fresh install:
+   yarn link-cli
+   yarn build
+   rm -rf node_modules
+   yarn install --production --no-lockfile
+   yarn e2e
    ```
 
    If applicable, a pull request without tests will be rejected.
