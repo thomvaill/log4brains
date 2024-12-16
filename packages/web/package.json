@@ -53,7 +53,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@next/bundle-analyzer": "^10.0.1",
     "@types/node": "^15.0.1",
-    "@types/react": "^17.0.0",
+    "@types/react": "17.0.4",
     "babel-plugin-import": "^1.13.1",
     "badge-maker": "^3.3.0",
     "chalk": "^4.1.0",
