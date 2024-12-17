@@ -3,6 +3,7 @@ import { Query } from "@src/application";
 
 export type SearchAdrsFilters = {
   statuses?: AdrStatus[];
+  tags?: string[];
 };
 
 export class SearchAdrsQuery extends Query {

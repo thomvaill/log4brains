@@ -8,6 +8,7 @@ type Deps = {
 
 export type ListCommandOpts = {
   statuses: string;
+  tags: string;
   raw: boolean;
 };
 
@@ -25,6 +26,9 @@ export class ListCommand {
     const filters: SearchAdrsFilters = {};
     if (opts.statuses) {
       filters.statuses = opts.statuses.split(",") as AdrDtoStatus[];
+    }
+    if (opts.tags) {
+      filters.tags = opts.tags.split(",");
     }
     const adrs = await this.l4bInstance.searchAdrs(filters);
     const table = this.console.createTable({
