@@ -17,9 +17,9 @@ npm config set registry https://registry.npmjs.org/
 
 cd "${ROOT_PATH}"
 
-if [[ "$(git rev-parse --abbrev-ref HEAD)" != "stable" ]]
+if [[ "$(git rev-parse --abbrev-ref HEAD)" != "develop" ]]
 then
-  echo "Please run this command from the stable branch"
+  echo "Please run this command from the develop branch"
   exit 1
 fi
 

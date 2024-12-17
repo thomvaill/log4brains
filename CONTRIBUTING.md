@@ -103,19 +103,9 @@ Log4brains follows a **simplified Git Flow** model. Here’s how the process wor
    npm install log4brains@beta
    ```
 
-   This helps us get feedback from early adopters before merging changes into `stable`, and thus triggering a stable release.
+   This helps us get feedback from early adopters before triggering a stable release.
 
-7. **Releasing to Stable**: Once the `develop` branch is stable and tested, the maintainers will merge it into `stable`, and run manually `scripts/release.sh` + `make -C docker release version-tag branch-tag latest-tag` to publish a new stable release to npm (TODO: should be automated in the future).
-
-### Urgent hotfix specific case
-
-In the rare case that an urgent hotfix is needed on the current stable version while not wanting to release the `develop` branch yet, you can follow this process:
-
-1. Create a new branch from `stable` (instead of `develop`)
-2. Develop and test
-3. Submit a Pull Request to `stable` (instead of `develop`)
-4. A maintainer will review, merge and release the patch
-5. Then the maintainer will merge `stable` into `develop` to ensure the hotfix is ported to the beta version
+7. **Stable Release**: Once the `develop` branch is stable and tested, the maintainers will manually run `scripts/release.sh` + `make -C docker release version-tag branch-tag latest-tag` to publish a new stable release to npm (TODO: should be automated in the future).
 
 ## License
 
@@ -128,7 +118,7 @@ As discussed in [discussion #108](https://github.com/thomvaill/log4brains/discus
 To make it easier I introduce two co-maintainer roles:
 
 - **Canary Maintainers**: in charge of triaging issues, reviewing PRs, and can merge them into `develop` (and thus trigger a beta release)
-- **Core Maintainers**: in charge of the project's overall direction and vision, of releasing stable versions, and can merge `develop` into `stable` (and thus trigger a stable release)
+- **Core Maintainers**: in charge of the project's overall direction and vision, and of releasing stable versions
 
 If you're interested in becoming a co-maintainer, you can start your "Mentorship Phase" by participating in code reviews and helping triage issues. This will help us assess your familiarity with the project and the workflow.
 

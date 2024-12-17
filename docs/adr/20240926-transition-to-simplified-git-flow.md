@@ -1,6 +1,6 @@
 # Transition to Simplified Git Flow
 
-- Status: draft
+- Status: superseded by [20241217-switch-back-to-github-flow](20241217-switch-back-to-github-flow.md)
 - Date: 2024-09-26
 
 ## Context and Problem Statement
