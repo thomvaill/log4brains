@@ -52,9 +52,11 @@ export class InitCommand {
     const usualPaths = [
       "./docs/adr",
       "./docs/adrs",
+      "./docs/decisions",
       "./docs/architecture-decisions",
       "./doc/adr",
       "./doc/adrs",
+      "./doc/decisions",
       "./doc/architecture-decisions",
       "./adr",
       "./adrs",
@@ -163,13 +165,13 @@ export class InitCommand {
     }
     if (!adrFolder) {
       adrFolder = noInteraction
-        ? "./docs/adr"
+        ? "./docs/decisions"
         : await this.console.askInputQuestionAndValidate(
             `In which directory do you plan to store your ${
               type === "multi" ? "global " : ""
             }ADRs? (will be automatically created)`,
             (answer) => !!answer.trim(),
-            "./docs/adr"
+            "./docs/decisions"
           );
     }
     await mkdirp(path.join(cwd, adrFolder));
@@ -200,7 +202,7 @@ export class InitCommand {
         const pkgAdrFolder = await this.console.askInputQuestionAndValidate(
           `In which directory do you plan to store the ADRs of this package? (will be automatically created)`,
           (answer) => !!answer.trim(),
-          `${pkgCodeFolder}/docs/adr`
+          `${pkgCodeFolder}/docs/decisions`
         );
         await mkdirp(path.join(cwd, pkgAdrFolder));
         packages.push({
@@ -282,7 +284,7 @@ export class InitCommand {
     this.console.success("Log4brains is configured! 🎉🎉🎉");
     this.console.println();
     this.console.println("You can now use the CLI to create a new ADR:");
-    this.console.println(`  ${chalk.cyan(`log4brains adr new`)}`);
+    this.console.println(`  ${chalk.cyan(`log4brains decision new`)}`);
     this.console.println("");
     this.console.println(
       "And start the web UI to preview your architecture knowledge base:"
