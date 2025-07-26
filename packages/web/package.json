@@ -36,7 +36,7 @@
     "build:cli": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node",
     "clean:cli": "rimraf ./dist",
     "dev:nextjs": "cd nextjs && cross-env LOG4BRAINS_CWD=../.. NODE_OPTIONS=--openssl-legacy-provider next",
-    "build:nextjs": "yarn clean:nextjs && cd nextjs && cross-env LOG4BRAINS_PHASE=initial-build NODE_OPTIONS=--openssl-legacy-provider next build",
+    "build:nextjs": "yarn clean:nextjs && cd nextjs && cross-env LOG4BRAINS_CWD=../.. LOG4BRAINS_PHASE=initial-build NODE_OPTIONS=--openssl-legacy-provider next build",
     "clean:nextjs": "rimraf ./nextjs/.next ./nextjs/.next-export",
     "serve": "serve .log4brains/out",
     "typescript": "tsc --noEmit && cd nextjs && tsc",

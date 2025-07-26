@@ -16,7 +16,7 @@ const templateExampleUrl =
 let l4bInstance: Log4brains;
 function getL4bInstance(): Log4brains {
   if (!l4bInstance) {
-    l4bInstance = Log4brains.createFromCwd(process.env.LOG4BRAINS_CWD || ".");
+    l4bInstance = Log4brains.create(process.env.LOG4BRAINS_CWD);
   }
   return l4bInstance;
 }

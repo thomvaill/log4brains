@@ -9,19 +9,20 @@ Thank you so much! :clap:
 ## Development
 
 ```bash
+# First, uninstall any global version and install dependencies
 npm uninstall -g log4brains
 yarn install
-yarn link-cli
+
+# Build all packages
 yarn build
 
+# Link the CLI for local development (only the global-cli package supports linking)
+cd packages/global-cli && yarn link && cd ../..
+
+# Start development mode (watches and rebuilds packages on changes)
 yarn dev
-# ... if it does not work, you may have to add this line to your ~/.bashrc (or similar):
-# export PATH="$PATH:$(yarn global bin)"
 
-# You can now develop
-# `yarn dev` re-builds the changed packages live
-
-# You can test the different packages directly on the Log4brains project
+# You can now develop and test the CLI directly on the Log4brains project
 log4brains adr new
 log4brains preview
 log4brains build
@@ -40,7 +41,7 @@ cd $(mktemp -d -t l4b-test-XXXX)
 log4brains init
 ```
 
-When you are done, run `yarn unlink-cli && npm install -g log4brains` to use the official version again.
+When you are done, run `cd packages/global-cli && yarn unlink && cd ../.. && npm install -g log4brains` to use the official version again.
 
 ## Coding standards
 
@@ -75,13 +76,13 @@ Log4brains follows a **simplified Git Flow** model. Here’s how the process wor
 
    ```bash
    yarn lint         # enforced automatically before every commit with husky+lint-staged
-   yarn format:fix   # enforced automatically before every commit with husky+lint-staged
+   yarn format --write  # format code (format:fix script may not work correctly)
    yarn typescript   # enforced automatically before every commit with husky
-   yarn test:changed # (or `yarn test` to run all the tests)
+   yarn test        # run all tests (test:changed may have issues)
 
    # Simulate the execution on a fresh install:
-   yarn link-cli
    yarn build
+   cd packages/global-cli && yarn link && cd ../..
    rm -rf node_modules
    yarn install --production --no-lockfile
    yarn e2e
