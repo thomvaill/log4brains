@@ -1,8 +1,8 @@
 import chalk from "chalk";
 import build from "next/dist/build";
 import exportApp from "next/dist/export";
-import loadConfig from "next/dist/next-server/server/config";
-import { PHASE_EXPORT } from "next/dist/next-server/lib/constants";
+import loadConfig from "next/dist/server/config";
+import { PHASE_EXPORT } from "next/dist/shared/lib/constants";
 import path from "path";
 import mkdirp from "mkdirp";
 import { makeBadge } from "badge-maker";

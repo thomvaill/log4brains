@@ -17,7 +17,6 @@
   ],
   "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
   "license": "Apache-2.0",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },
@@ -37,9 +36,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.module.js",
   "types": "./dist/index.d.ts",
-  "bin": {
-    "log4brains": "./dist/log4brains"
-  },
+  "bin": "./dist/log4brains",
   "scripts": {
     "dev": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node watch",
     "build": "microbundle --no-compress --format es,cjs --tsconfig tsconfig.build.json --target node && copyfiles -u 1 src/log4brains dist",

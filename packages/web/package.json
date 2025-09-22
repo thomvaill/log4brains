@@ -7,7 +7,6 @@
   ],
   "author": "Thomas Vaillant <thomvaill@bluebricks.dev>",
   "license": "Apache-2.0",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },
@@ -65,10 +64,10 @@
     "markdown-to-jsx": "^7.0.1",
     "mkdirp": "^1.0.4",
     "moment": "^2.29.1",
-    "next": "10.2.3",
+    "next": "11",
     "open": "^7.3.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "17",
+    "react-dom": "17",
     "react-icons": "^3.11.0",
     "slugify": "^1.4.5",
     "socket.io": "^2.3.0",
