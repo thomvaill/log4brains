@@ -29,13 +29,25 @@ module.exports = withBundleAnalyzer({
     // #NEXTJS-HACK
     // Fix when the app is running inside `node_modules` (https://github.com/vercel/next.js/issues/19739)
     // TODO: remove this fix when this PR is merged: https://github.com/vercel/next.js/pull/19749
-    const originalExcludeMethod = config.module.rules[0].exclude;
-    config.module.rules[0].exclude = (excludePath) => {
-      if (!originalExcludeMethod(excludePath)) {
-        return false;
+    if (config.module.rules[0] && config.module.rules[0].exclude) {
+      const originalExclude = config.module.rules[0].exclude;
+
+      // #NEXTJS-HACK - omar apparently this changed in webpack 5
+      // Check if exclude is already a function
+      if (typeof originalExclude === "function") {
+        config.module.rules[0].exclude = (excludePath) => {
+          if (!originalExclude(excludePath)) {
+            return false;
+          }
+          return /node_modules/.test(excludePath.replace(config.context, ""));
+        };
+      } else {
+        // If it's not a function, create a new exclude function
+        config.module.rules[0].exclude = (excludePath) => {
+          return /node_modules/.test(excludePath.replace(config.context, ""));
+        };
       }
-      return /node_modules/.test(excludePath.replace(config.context, ""));
-    };
+    }
 
     // To avoid issues with fsevents during the build, especially on macOS
     config.externals.push("chokidar");
