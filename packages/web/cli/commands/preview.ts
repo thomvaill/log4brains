@@ -47,8 +47,11 @@ export async function previewCommand(
   // @ts-ignore
   app.server.incrementalCache.incrementalOptions.dev = true; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  const srv = createServer(app.getRequestHandler());
+  const srv = createServer();
+  const handler = app.getRequestHandler();
+  srv.on("request", (req, res) => {
+    void handler(req, res);
+  });
 
   // FileWatcher with Socket.io
   const io = SocketIO(srv);

@@ -77,7 +77,7 @@ export function buildConfigFromWorkdir(workdir = "."): Log4brainsConfig {
     }
     throw new Log4brainsError(
       `Impossible to read the ${configFilename} config file`,
-      e
+      e instanceof Error ? e.message : String(e)
     );
   }
 }
